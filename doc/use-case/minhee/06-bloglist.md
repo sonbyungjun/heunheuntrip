@@ -15,7 +15,7 @@
 
 ## 종료 조건(Postconditions)
 
-- 메인화면 버튼을 누른다.
+- 리스트를 확인한다.
 
 ## 시나리오(Flow of Events)
 

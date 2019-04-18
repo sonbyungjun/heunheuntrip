@@ -15,8 +15,7 @@
 
 ## 종료 조건(Postconditions)
 
-- 메인화면을 누른다.
-- 뒤로가기 버튼을 누른다.
+- Q&A을 확인한다.
 
 ## 시나리오(Flow of Events)
 
