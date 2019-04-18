@@ -16,7 +16,6 @@
 
 ## 종료 조건(Postconditions)
 
-- 메인화면 버튼을 누른다.
 - 메세지 보내기 버튼을 누른다.
 
 ## 시나리오(Flow of Events)
