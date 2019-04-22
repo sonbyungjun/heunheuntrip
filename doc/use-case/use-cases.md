@@ -4,7 +4,7 @@
 # 유스케이스 목록
 
 ## Actors
-![검색창](../use-case/diagram/actors.jpeg)
+![검색창](../use-case/diagram/actors.jpg)
 
 ### 비회원
 - 시스템에 로그인 하지 않은 사용자
