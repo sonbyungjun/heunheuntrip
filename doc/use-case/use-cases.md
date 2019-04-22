@@ -3,6 +3,7 @@
 # 유스케이스 목록
 
 ## Actors
+![검색창](../use-case/diagram/actors.jpeg)
 
 ### 비회원
 - 시스템에 로그인 하지 않은 사용자
@@ -20,6 +21,7 @@
 - 일반회원으로 등록된 로그인 사용자
 
 ## Use-Cases
+![검색창](../use-case/diagram/usecases.jpeg)
 
 ### 회원가입(비회원)
 - 비회원이 로그인을 위해 회원에 가입하는 것.
