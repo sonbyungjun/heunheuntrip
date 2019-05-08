@@ -59,7 +59,28 @@ values(9,'회원은 예약 상태를 어떻게 확인 하나요?','호스트가 
 insert into faq(faq_id,faq,faq_an) 
 values(10,'예약 요청은 어떻게 보내나요?','숙소 페이지에서 예약 요청을 클릭하세요.');
   
-  
+--hst_qna
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(1,1,1,'화장실 수압은 어떤가요?','충분히 강합니다.','2019-05-28');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(2,1,2,'애완견 출입이 가능한가요?','가능합니다.','2019-05-02');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(3,1,2,'숙소는 깨끗한가요?','꺠끗합니다.','2019-05-03');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(4,2,3,'주변에 놀거리가 있나요?','3분거리에 계곡이 있습니다.','2019-05-11');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(5,2,3,'숯불 가격이 어떻게 되나요?','3인기준 3만원입니다.','2019-05-12');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(6,2,3,'방음은 잘되는 편인가요?','방음 처리는 완벽합니다.','2019-05-03');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(7,3,4,'퇴실시간을 넘기면 어떻게 하나요?','추가 비용이 발생합니다.','2019-05-14');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(8,3,4,'편의시설은 잘되있나요?','다 갖추고 있습니다.','2019-05-15');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(9,4,4,'보일러는 잘되나요?','잘됩니다.','2019-05-18');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
+values(10,5,5,'주변에 마트는 있나요?','5분거리에 대형 마트가 있습니다.','2019-05-20');
+
   
   
   
