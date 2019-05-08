@@ -25,16 +25,16 @@ insert into qna(usr_id, parent, ordr, step, content, qna_pawd) values(10,10,2,1,
 
 
 
-insert into bookmark(mamo) values( '위치가 너무 맘에들어요'  );
-insert into bookmark(mamo) values( '가격이 너무 맘에 들어요' );
-insert into bookmark(mamo) values( '가격이쌈' );
-insert into bookmark(mamo) values( '편의시설 굿' );
-insert into bookmark(mamo) values( '주변 맛집굿' );
-insert into bookmark(mamo) values('역에서 가깝네' );
-insert into bookmark(mamo) values('사장님이 좋네' );
-insert into bookmark(mamo) values('화장실이 깔끔' );
-insert into bookmark(mamo) values('침대가 푹신푹신'); 
-insert into bookmark(mamo) values('평수가 넓어서' );
+insert into bookmark(usr_id, rms_id, mamo) values(1,1,'위치가 너무 맘에들어요' );
+insert into bookmark(usr_id, rms_id, mamo) values(2,1,'가격이 너무 맘에 들어요');
+insert into bookmark(usr_id, rms_id, mamo) values(3,2,'가격이쌈');
+insert into bookmark(usr_id, rms_id, mamo) values(2,3,'편의시설 굿');
+insert into bookmark(usr_id, rms_id, mamo) values(3,3,'주변 맛집굿');
+insert into bookmark(usr_id, rms_id, mamo) values(4,5,'역에서 가깝네');
+insert into bookmark(usr_id, rms_id, mamo) values(4,2,'사장님이 좋네');
+insert into bookmark(usr_id, rms_id, mamo) values(4,1,'화장실이 깔끔');
+insert into bookmark(usr_id, rms_id, mamo) values(5,4,'침대가 푹신푹신'); 
+insert into bookmark(usr_id, rms_id, mamo) values(5,5,'평수가 넓어서');
 
 
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
@@ -48,15 +48,15 @@ values(4,2,4,'2019-11-08','2020-05-10', null, '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(5,4,5,'2019-12-28','2020-05-10','대기중', '거절', 3);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(6,4,6,'2019-01-08','2020-05-10', null, '승인', 5);
+values(1,4,1,'2019-01-08','2020-05-10', null, '승인', 5);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(7,3,7,'2019-02-08','2020-05-10','대기중', '승인', 1);
+values(2,3,2,'2019-02-08','2020-05-10','대기중', '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(8,4,8,'2019-04-08','2020-05-10','대기중', '거절', 4);
+values(3,4,3,'2019-04-08','2020-05-10','대기중', '거절', 4);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(9,4,9,'2019-06-18','2020-05-10', null, '거절', 2);
+values(4,4,4,'2019-06-18','2020-05-10', null, '거절', 2);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(10,2,10,'2019-07-11','2020-05-10','대기중', '승인', 3);
+values(5,2,5,'2019-07-11','2020-05-10','대기중', '승인', 3);
 
 
 
