@@ -10,7 +10,7 @@ insert into riw(usr_id, riw_conts, grd) values(9,'항상 데미안만 이용하�
 insert into riw(usr_id, riw_conts, grd) values(10,'공주공주풍 한 느낌도 괜찮구 깨끗하고 조용하고 좋아요! 대실시간 엄청길어서 가성비 개굿 프런트직원분도 친절하셔서 기분좋게 갑니당 뿅', 2 );
 
 
-
+-- qna
 insert into qna(usr_id, parent, ordr, step, content, qna_pawd) values(1,1,1,1,'예약이안되요','다시해보세요' );
 insert into qna(usr_id, parent, ordr, step, content, qna_pawd) values(2,2,1,1,'이용방법이','자세한사항은 전화로문의 해주세요' );
 insert into qna(usr_id, parent, ordr, step, content, qna_pawd) values(3,3,2,1,'날자를 변경해주세요','변경날자 알려주세요' );
@@ -36,32 +36,32 @@ insert into bookmark(mamo) values('화장실이 깔끔' );
 insert into bookmark(mamo) values('침대가 푹신푹신'); 
 insert into bookmark(mamo) values('평수가 넓어서' );
 
-
+-- 예약
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(1,1,1,'2019-05-08','2020-05-10','대기중', '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(2,4,2,'2019-05-02','2020-05-10', null, '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(3,3,3,'2019-06-08','2020-05-10', null, '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(4,2,4,'2019-11-08','2020-05-10', null, '승인', 1);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(2,4,2,'2019-05-02','2020-05-10', '거절', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(3,3,3,'2019-06-08','2020-05-10', '승인', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(4,2,4,'2019-11-08','2020-05-10', '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(5,4,5,'2019-12-28','2020-05-10','대기중', '거절', 3);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(6,4,6,'2019-01-08','2020-05-10', null, '승인', 5);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(6,4,6,'2019-01-08','2020-05-10', '승인', 5);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(7,3,7,'2019-02-08','2020-05-10','대기중', '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(8,4,8,'2019-04-08','2020-05-10','대기중', '거절', 4);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(9,4,9,'2019-06-18','2020-05-10', null, '거절', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(9,4,9,'2019-06-18','2020-05-10', '거절', 2);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(10,2,10,'2019-07-11','2020-05-10','대기중', '승인', 3);
 
 
 
 
-
+-- 이용상태
 insert into stus(stus_id, stus) values(1,'결제완료');
 insert into stus(stus_id, stus) values(2, '체크인' );
 insert into stus(stus_id, stus) values(3, '체크아웃');

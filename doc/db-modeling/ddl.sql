@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS faq RESTRICT;
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
   usr_id    INTEGER      NOT NULL, -- 호스트번호
-  rm_name   VARCHAR(30)  NOT NULL, -- 숙소명
+  rm_name   VARCHAR(100)  NOT NULL, -- 숙소명
   rm_chge   INTEGER      NOT NULL, -- 숙소가격
   max_ple   INTEGER      NOT NULL, -- 최대 수용 인원
   post_code VARCHAR(5)   NOT NULL, -- 우편번호
@@ -49,7 +49,7 @@ ALTER TABLE rms
 CREATE TABLE usr (
   usr_id    INTEGER      NOT NULL, -- 회원번호
   email     VARCHAR(30)  NOT NULL, -- 이메일
-  pwd       VARCHAR(15)  NOT NULL, -- 비밀번호
+  pwd       VARCHAR(255)  NOT NULL, -- 비밀번호
   auth_id   INTEGER      NOT NULL, -- 권한번호
   name      VARCHAR(10)  NOT NULL, -- 이름
   tel       VARCHAR(15)  NULL,     -- 전화번호
@@ -118,7 +118,7 @@ CREATE TABLE qna (
   ordr   INTEGER     NOT NULL, -- 순서
   step    INTEGER     NOT NULL, -- 단계
   content TEXT        NOT NULL, -- 문의내용
-  qna_pwd VARCHAR(10) NOT NULL, -- 문의글비밀번호
+  qna_pwd VARCHAR(255) NOT NULL, -- 문의글비밀번호
   cdt     DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
 );
 
