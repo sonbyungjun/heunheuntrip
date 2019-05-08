@@ -1,3 +1,8 @@
+
+
+
+
+
 -- 숙소
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
