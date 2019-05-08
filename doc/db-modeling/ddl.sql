@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS faq RESTRICT;
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
   usr_id    INTEGER      NOT NULL, -- 호스트번호
-  rm_name   VARCHAR(30)  NOT NULL, -- 숙소명
+  rm_name   VARCHAR(100)  NOT NULL, -- 숙소명
   rm_chge   INTEGER      NOT NULL, -- 숙소가격
   max_ple   INTEGER      NOT NULL, -- 최대 수용 인원> use heunheundb;
 
