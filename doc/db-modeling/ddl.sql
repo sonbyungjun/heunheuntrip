@@ -123,7 +123,7 @@ CREATE TABLE qna (
   step        INTEGER      NOT NULL, -- 단계
   title       VARCHAR(50)  NOT NULL, -- 문의제목
   content     TEXT         NOT NULL, -- 문의내용
-  qna_pwd     VARCHAR(255) NOT NULL, -- 문의글비밀번호
+  qna_pwd     VARCHAR(255) NULL, -- 문의글비밀번호
   cdt         DATETIME     NOT NULL DEFAULT current_timestamp(), -- 작성일
   vw_cnt      INTEGER      NOT NULL DEFAULT 0 -- 조회수
 );
