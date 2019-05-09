@@ -1,43 +1,25 @@
 package com.heun.trip.domain;
-import java.io.Serializable;
-import java.sql.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Member implements Cloneable, Serializable {
-  private static final long serialVersionUID = 1L;
-  
+public class Member {
+
   private int no;
-  private String name;
   private String email;
   private String password;
-  private String photo;
+  private String name;
   private String tel;
-  
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
-  private Date registeredDate;
-  
-  @Override
-  public Member clone() throws CloneNotSupportedException {
-    return (Member) super.clone();
-  }
+  private String photo;
+  private String auth;
   
   @Override
   public String toString() {
-    return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password
-        + ", photo=" + photo + ", tel=" + tel + ", registeredDate=" + registeredDate + "]";
+    return "Member [no=" + no + ", email=" + email + ", password=" + password + ", name=" + name
+        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + "]";
   }
-
   public int getNo() {
     return no;
   }
   public void setNo(int no) {
     this.no = no;
-  }
-  public String getName() {
-    return name;
-  }
-  public void setName(String name) {
-    this.name = name;
   }
   public String getEmail() {
     return email;
@@ -51,11 +33,11 @@ public class Member implements Cloneable, Serializable {
   public void setPassword(String password) {
     this.password = password;
   }
-  public String getPhoto() {
-    return photo;
+  public String getName() {
+    return name;
   }
-  public void setPhoto(String photo) {
-    this.photo = photo;
+  public void setName(String name) {
+    this.name = name;
   }
   public String getTel() {
     return tel;
@@ -63,12 +45,19 @@ public class Member implements Cloneable, Serializable {
   public void setTel(String tel) {
     this.tel = tel;
   }
-  public Date getRegisteredDate() {
-    return registeredDate;
+  public String getPhoto() {
+    return photo;
   }
-  public void setRegisteredDate(Date registeredDate) {
-    this.registeredDate = registeredDate;
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
+  public String getAuth() {
+    return auth;
+  }
+  public void setAuth(String auth) {
+    this.auth = auth;
+  }
+  
   
   
 }

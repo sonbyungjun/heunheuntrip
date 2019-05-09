@@ -4,33 +4,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.heun.trip.dao.MemberDao">
+<mapper namespace="com.eomcs.lms.dao.MemberDao">
   
   <resultMap type="member" id="memberMap">
-    <id column="usr_id"  property="no"/>
-    <result column="email"   property="email"/>
-    <result column="pwd"  property="password"/>
-    <result column="auth"    property="auth"/>
-    <result column="name"    property="name"/>
+    <id column="member_id"  property="no"/>
+    <result column="name"   property="name"/>
+    <result column="email"  property="email"/>
+    <result column="pwd"    property="password"/>
+    <result column="cdt"    property="registeredDate"/>
     <result column="tel"    property="tel"/>
-    <result column="usr_photo"  property="photo"/>
+    <result column="photo"  property="photo"/>
   </resultMap>
   
-
+  <sql id="default-columns">
+      member_id, 
+      name, 
+      email, 
+      tel,
+      cdt
+  </sql>
   
   <select id="findAll" resultMap="memberMap" parameterType="map">
-    select
-      usr_id,
-      email,
-      name,
-      tel,
-      auth
+    select 
+      <include refid="default-columns"/>
     from 
-      usr u
-    left outer join 
-      auth a
-    on
-      u.auth_id=a.auth_id
+      lms_member
     <where>
       <if test="search != null">
         <bind name="pattern1" value="'%' + search + '%'"/>
@@ -40,7 +38,7 @@
       </if>
     </where>   
     order by 
-      usr_id desc
+      name asc
     <if test="#{size != null || rowNo != null}">
       limit #{rowNo}, #{size}
     </if>

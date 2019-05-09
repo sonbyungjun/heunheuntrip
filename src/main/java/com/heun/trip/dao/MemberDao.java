@@ -1,4 +1,3 @@
-// 프록시 패턴 적용 - MemberDao에서 인터페이스를 추출한다.
 package com.heun.trip.dao;
 
 import java.util.List;
@@ -14,10 +13,3 @@ public interface MemberDao {
   int delete(int no);
   int countAll(String search);
 }
-
-
-
-
-
-
-
