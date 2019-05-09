@@ -21,11 +21,9 @@ CREATE TABLE rms (
   usr_id    INTEGER      NOT NULL, -- 호스트번호
   rm_name   VARCHAR(100)  NOT NULL, -- 숙소명
   rm_chge   INTEGER      NOT NULL, -- 숙소가격
-  max_ple   INTEGER      NOT NULL, -- 최대 수용 인원> use heunheundb;
-
+  max_ple   INTEGER      NOT NULL, -- 최대 수용 인원
   post_code VARCHAR(5)   NOT NULL, -- 우편번호
-  addr      VARCHAR(255) NOT NULL, -- 기본주소> use heunheundb;
-
+  addr      VARCHAR(255) NOT NULL, -- 기본주소
   dtil_addr VARCHAR(255) NOT NULL, -- 상세주소
   lati      VARCHAR(50)  NOT NULL, -- 위도
   longi     VARCHAR(50)  NOT NULL, -- 경도
@@ -45,22 +43,21 @@ ALTER TABLE rms
     );
 
 ALTER TABLE rms
-  MODIFY COLUMN rms_id INTEGER NOT NULL AUTO_INCREMENT> use heunheundb;
+  MODIFY COLUMN rms_id INTEGER NOT NULL AUTO_INCREMENT
 ;
 
 -- 회원
 CREATE TABLE usr (
   usr_id    INTEGER      NOT NULL, -- 회원번호
   email     VARCHAR(30)  NOT NULL, -- 이메일
-  pwd       VARCHAR(15)  NOT NULL, -- 비밀번호
-  auth_id   INTEGER      NOT NULL, -- 권한번호> use heunheundb;
-
+  pwd       VARCHAR(255)  NOT NULL, -- 비밀번호
+  auth_id   INTEGER      NOT NULL, -- 권한번호
   name      VARCHAR(10)  NOT NULL, -- 이름
   tel       VARCHAR(15)  NULL,     -- 전화번호
   usr_photo VARCHAR(255) NULL      -- 프로필사진
 );
 
--- 회원> use heunheundb;
+-- 회원
 
 ALTER TABLE usr
   ADD CONSTRAINT PK_usr -- 회원 기본키
@@ -79,7 +76,7 @@ CREATE TABLE board (
   title    VARCHAR(50) NOT NULL, -- 게시글제목
   conts    TEXT        NOT NULL, -- 게시글내용
   cdt      DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
-);> use heunheundb;
+);
 
 
 -- 블로그
@@ -124,7 +121,7 @@ CREATE TABLE qna (
   ordr   INTEGER     NOT NULL, -- 순서
   step    INTEGER     NOT NULL, -- 단계
   content TEXT        NOT NULL, -- 문의내용
-  qna_pwd VARCHAR(10) NOT NULL, -- 문의글비밀번호
+  qna_pwd VARCHAR(255) NOT NULL, -- 문의글비밀번호
   cdt     DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
 );
 
@@ -156,10 +153,7 @@ ALTER TABLE bookmark
 -- 리뷰
 CREATE TABLE riw (
   riw_id    INTEGER  NOT NULL, -- 리뷰번호
-  usr_id    INTEGER  NOT NULL, -- 회원번호 변경 사항을 병합 때문에 덮어 쓰게 됩니다:
-  doc/db-modeling/ddl.sql
-  doc/db-modeling/lyusql.sql
-
+  usr_id    INTEGER  NOT NULL, -- 회원번호
   riw_conts TEXT     NOT NULL, -- 리뷰내용
   grd       INT      NOT NULL, -- 평점
   cdt       DATETIME NOT NULL DEFAULT current_timestamp(), -- 작성일
@@ -228,9 +222,6 @@ ALTER TABLE auth
     PRIMARY KEY (
       auth_id -- 권한번호
     );
- 변경 사항을 병합 때문에 덮어 쓰게 됩니다:
-  doc/db-modeling/ddl.sql
-  doc/db-modeling/lyusql.sql
 
 ALTER TABLE auth
   MODIFY COLUMN auth_id INTEGER NOT NULL AUTO_INCREMENT;
@@ -246,10 +237,7 @@ CREATE TABLE photo (
 ALTER TABLE photo
   ADD CONSTRAINT PK_photo -- 게시글사진 기본키
     PRIMARY KEY (
-      photo_id -- 게시글사진번호 변경 사항을 병합 때문에 덮어 쓰게 됩니다:
-  doc/db-modeling/ddl.sql
-  doc/db-modeling/lyusql.sql
-
+      photo_id -- 게시글사진번호
     );
 
 ALTER TABLE photo
@@ -275,7 +263,7 @@ ALTER TABLE host
 -- 편의시설
 CREATE TABLE amn (
   amn_id INTEGER     NOT NULL, -- 편의 시설번호
-  amn    VARCHAR(10) NOT NULL  -- 옵션 이름
+  amn    VARCHAR(100) NOT NULL  -- 옵션 이름
 );
 
 -- 편의시설
@@ -314,10 +302,7 @@ CREATE TABLE rms_amn (
 ALTER TABLE rms_amn
   ADD CONSTRAINT PK_rms_amn -- 숙소편의시설 기본키
     PRIMARY KEY (
-      amn_id, -- 편의 시설번 변경 사항을 병합 때문에 덮어 쓰게 됩니다:
-  doc/db-modeling/ddl.sql
-  doc/db-modeling/lyusql.sql
-호
+      amn_id, -- 편의 시설
       rms_id  -- 숙소번호
     );
 

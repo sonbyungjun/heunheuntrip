@@ -162,25 +162,25 @@ INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,
  INSERT INTO rm_photo(r_photo_id,rms_id,rm_photo) VALUES(25,5,'e5.gif');
  
 -- 숙소 편의시설
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(1,1);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(1,3);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(1,4);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(1,1);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(1,3);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(1,4);
 
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(2,7);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(2,5);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(2,9);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(2,7);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(2,5);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(2,9);
 
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(3,3);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(3,2);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(3,1);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(3,3);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(3,2);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(3,1);
 
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(4,10);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(4,9);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(4,4);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(4,10);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(4,9);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(4,4);
 
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(5,3);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(5,8);
-INSERT INTO rms_amn(amn_id,rms_id) VALUES(5,7);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(5,3);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(5,8);
+INSERT INTO rms_amn(rms_id,amn_id) VALUES(5,7);
  
 --hst_qna
  insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
@@ -218,16 +218,16 @@ insert into riw(usr_id, riw_conts, grd) values(9,'항상 데미안만 이용하�
 insert into riw(usr_id, riw_conts, grd) values(10,'공주공주풍 한 느낌도 괜찮구 깨끗하고 조용하고 좋아요! 대실시간 엄청길어서 가성비 개굿 프런트직원분도 친절하셔서 기분좋게 갑니당 뿅', 2 );
 
 -- bookmark
-insert into bookmark(usr_id, rms_id, mamo) values(1,1,'위치가 너무 맘에들어요' );
-insert into bookmark(usr_id, rms_id, mamo) values(2,1,'가격이 너무 맘에 들어요');
-insert into bookmark(usr_id, rms_id, mamo) values(3,2,'가격이쌈');
-insert into bookmark(usr_id, rms_id, mamo) values(2,3,'편의시설 굿');
-insert into bookmark(usr_id, rms_id, mamo) values(3,3,'주변 맛집굿');
-insert into bookmark(usr_id, rms_id, mamo) values(4,5,'역에서 가깝네');
-insert into bookmark(usr_id, rms_id, mamo) values(4,2,'사장님이 좋네');
-insert into bookmark(usr_id, rms_id, mamo) values(4,1,'화장실이 깔끔');
-insert into bookmark(usr_id, rms_id, mamo) values(5,4,'침대가 푹신푹신'); 
-insert into bookmark(usr_id, rms_id, mamo) values(5,5,'평수가 넓어서');
+insert into bookmark(usr_id, rms_id, memo) values(1,1,'위치가 너무 맘에들어요' );
+insert into bookmark(usr_id, rms_id, memo) values(2,1,'가격이 너무 맘에 들어요');
+insert into bookmark(usr_id, rms_id, memo) values(3,2,'가격이쌈');
+insert into bookmark(usr_id, rms_id, memo) values(2,3,'편의시설 굿');
+insert into bookmark(usr_id, rms_id, memo) values(3,3,'주변 맛집굿');
+insert into bookmark(usr_id, rms_id, memo) values(4,5,'역에서 가깝네');
+insert into bookmark(usr_id, rms_id, memo) values(4,2,'사장님이 좋네');
+insert into bookmark(usr_id, rms_id, memo) values(4,1,'화장실이 깔끔');
+insert into bookmark(usr_id, rms_id, memo) values(5,4,'침대가 푹신푹신'); 
+insert into bookmark(usr_id, rms_id, memo) values(5,5,'평수가 넓어서');
 
 -- 이용상태
 insert into stus(stus_id, stus) values(1,'결제완료');
@@ -238,22 +238,22 @@ insert into stus(stus_id, stus) values(4, '결제취소');
 -- 예약
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(1,1,1,'2019-05-08','2020-05-10','대기중', '승인', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(2,4,2,'2019-05-02','2020-05-10', '거절', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(3,3,3,'2019-06-08','2020-05-10', '승인', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(4,2,4,'2019-11-08','2020-05-10', '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(2,4,2,'2019-05-02','2020-05-10', null, '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(3,3,3,'2019-06-08','2020-05-10', null, '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(4,2,4,'2019-11-08','2020-05-10', null, '승인', 1);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(5,4,5,'2019-12-28','2020-3,3,05-10','대기중', '거절', 3);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(1,4,1,'2019-01-08','2020-05-10', null, '승인', 5);
+values(5,4,5,'2019-12-28','2020-05-10','대기중', '거절', 3);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(1,4,1,'2019-01-08','2020-05-10', '승인', 5);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(2,3,2,'2019-02-08','2020-05-10','대기중', '승인', 1);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(3,4,3,'2019-04-08','2020-05-10','대기중', '거절', 4);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(4,4,4,'2019-06-18','2020-05-10', null, '거절', 2);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
+values(4,4,4,'2019-06-18','2020-05-10', '거절', 2);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
 values(5,2,5,'2019-07-11','2020-05-10','대기중', '승인', 3);
 
