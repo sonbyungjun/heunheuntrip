@@ -79,6 +79,25 @@
     where 
       usr_id = #{value}
   </select>
+   <insert id="insert" parameterType="member">
+    insert into usr(
+      email,
+      name,
+      pwd,
+      tel,
+      usr_photo,
+      auth_id)
+      
+    values(
+      #{email},
+      #{name},
+      password(#{password}),
+      #{tel},
+      #{photo},
+      #{auth})
+  </insert>
+  
+  
   
   
 </mapper>
