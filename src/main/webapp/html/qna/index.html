@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+	<title>게시물 목록</title>
+  <link rel="stylesheet" href="/HeunheunTrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="index.css"> 
+</head>
+
+<body>
+  
+  <div class="container">
+    <h1>QnA</h1>
+    <p>
+      <a href='view.html' class="btn btn-primary btn-sm">새 글</a> 
+      <a href='../../' class="btn btn-primary btn-sm">메인화면</a>
+    </p>
+    <div class="bit-list">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">번호</th>
+          <th scope="col">제목</th>
+          <th scope="col">등록일</th>
+          <th scope="col">조회수</th>
+          <th scope="col">분류</th>
+          <th scope="col">회원번호</th>                    
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
+  </div> <!-- .container -->
+  
+<script id="tr-template" type="text/x-handlebars-template">
+{{#each list}}
+<tr>
+  <th scope='row'>{{no}}</th>
+  <td><a class='bit-view-link' href='#' data-no='{{no}}'>{{title}}</td>
+  <td>{{createdDate}}</td>
+  <td>{{viewCount}}</td>
+  <td>{{categoryNo}}</td>
+  <td>{{userNo}}</td>
+</tr>
+{{/each}}
+</script>
+  
+<script src="/HeunheunTrip/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/HeunheunTrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/HeunheunTrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/HeunheunTrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

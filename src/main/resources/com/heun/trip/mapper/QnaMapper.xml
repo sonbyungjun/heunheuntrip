@@ -16,12 +16,15 @@
     <result column="usr_id" property="userNo"/>
     <result column="qna_cate_id" property="categoryNo"/>
     
+    
+    
+  <!--   
   <association property="user" javaType="user">
     <id column="usr_id"        property="no"/>
     <result column="email"  property="email"/>
     <result column="name"          property="name"/>
     <result column="tel"          property="tel"/>
-  </association>
+  </association> -->
   
   </resultMap>
   
@@ -32,6 +35,7 @@
     select
       qna_id,
       title,
+      content,
       cdt,
       vw_cnt,
       usr_id,
