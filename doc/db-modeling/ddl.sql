@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS qna RESTRICT;
 DROP TABLE IF EXISTS hst_qna RESTRICT;
 DROP TABLE IF EXISTS amn RESTRICT;
 DROP TABLE IF EXISTS faq RESTRICT;
+DROP TABLE IF EXISTS qna_cate RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
@@ -112,17 +113,20 @@ ALTER TABLE rev
 
 ALTER TABLE rev
   MODIFY COLUMN rev_id INTEGER NOT NULL AUTO_INCREMENT;
-
+  
 -- 문의사항
 CREATE TABLE qna (
-  qna_id  INTEGER     NOT NULL, -- 문의사항번호
-  usr_id  INTEGER     NOT NULL, -- 회원번호
-  parent  INTEGER     NOT NULL, -- 부모게시물번호
-  ordr   INTEGER     NOT NULL, -- 순서
-  step    INTEGER     NOT NULL, -- 단계
-  content TEXT        NOT NULL, -- 문의내용
-  qna_pwd VARCHAR(255) NOT NULL, -- 문의글비밀번호
-  cdt     DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
+  qna_id      INTEGER      NOT NULL, -- 문의사항번호
+  usr_id      INTEGER      NOT NULL, -- 회원번호
+  qna_cate_id INTEGER      NOT NULL, -- 문의구분번호
+  parent      INTEGER      NOT NULL, -- 부모게시물번호
+  ordr        INTEGER      NOT NULL, -- 순서
+  step        INTEGER      NOT NULL, -- 단계
+  title       VARCHAR(50)  NOT NULL, -- 문의제목
+  content     TEXT         NOT NULL, -- 문의내용
+  qna_pwd     VARCHAR(255) NOT NULL, -- 문의글비밀번호
+  cdt         DATETIME     NOT NULL DEFAULT current_timestamp(), -- 작성일
+  vw_cnt      INTEGER      NOT NULL DEFAULT 0 -- 조회수
 );
 
 -- 문의사항
@@ -134,6 +138,28 @@ ALTER TABLE qna
 
 ALTER TABLE qna
   MODIFY COLUMN qna_id INTEGER NOT NULL AUTO_INCREMENT;
+
+
+
+  
+  
+-- 문의첨부파일
+CREATE TABLE qna_photo (
+  qna_photo_id INTEGER      NOT NULL, -- 문의첨부파일번호
+  qna_id       INTEGER      NOT NULL, -- 문의사항번호
+  qna_photo    VARCHAR(255) NOT NULL  -- 사진
+);
+
+-- 문의첨부파일
+ALTER TABLE qna_photo
+  ADD CONSTRAINT PK_qna_photo -- 문의첨부파일 기본키
+    PRIMARY KEY (
+      qna_photo_id -- 문의첨부파일번호
+    );
+
+ALTER TABLE qna_photo
+  MODIFY COLUMN qna_photo_id INTEGER NOT NULL AUTO_INCREMENT;
+
 
 -- 즐겨찾기
 CREATE TABLE bookmark (
@@ -323,6 +349,21 @@ ALTER TABLE rm_photo
 ALTER TABLE rm_photo
   MODIFY COLUMN r_photo_id INTEGER NOT NULL AUTO_INCREMENT;
 
+  
+-- 문의구분
+CREATE TABLE qna_cate (
+  qna_cate_id INTEGER     NOT NULL, -- 문의구분번호
+  cate        VARCHAR(20) NOT NULL  -- 문의구분
+);
+
+-- 문의구분
+ALTER TABLE qna_cate
+  ADD CONSTRAINT PK_qna_cate -- 문의구분 기본키
+    PRIMARY KEY (
+      qna_cate_id -- 문의구분번호
+    );
+  
+  
 -- 숙소
 ALTER TABLE rms
   ADD CONSTRAINT FK_host_TO_rms -- 호스트 -> 숙소
