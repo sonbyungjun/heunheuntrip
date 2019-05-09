@@ -1,6 +1,7 @@
 package com.heun.trip.domain;
 import java.io.Serializable;
 import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Qna implements Cloneable, Serializable {
   private static final long serialVersionUID = 1L;
@@ -9,10 +10,14 @@ public class Qna implements Cloneable, Serializable {
   private String title;
   private String content;
   private String password;
+  
+  @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
   private Date createdDate;
   private int viewCount;
   private int userNo;
   private int categoryNo;
+  
+
   public int getNo() {
     return no;
   }
