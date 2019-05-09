@@ -16,8 +16,6 @@
     <result column="usr_photo"  property="photo"/>
   </resultMap>
   
-
-  
   <select id="findAll" resultMap="memberMap" parameterType="map">
     select
       usr_id,
@@ -46,63 +44,11 @@
     </if>
   </select>
   
-  <select id="findByNo" resultMap="memberMap" parameterType="int">
-    select 
-      <include refid="default-columns"/>, 
-      photo
-    from 
-      lms_member
-    where 
-      member_id = #{value}
-  </select>
-  
-  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
-    select 
-      <include refid="default-columns"/>, 
-      photo
-    from 
-      lms_member
-    where 
-      email = #{email}
-      and pwd = password(#{password})
-  </select>
-  
-  <insert id="insert" parameterType="member">
-    insert into lms_member(
-      name,
-      email,
-      pwd,
-      tel,
-      photo)
-    values(
-      #{name},
-      #{email},
-      password(#{password}),
-      #{tel},
-      #{photo})
-  </insert>
-  
-  <update id="update" parameterType="member">
-    update lms_member
-    <set>
-      <if test="name != null">name = #{name},</if>
-      <if test="email != null">email = #{email},</if>
-      <if test="password != null">pwd = password(#{password}),</if>
-      <if test="tel != null">tel = #{tel},</if>
-      <if test="photo != null">photo = #{photo}</if>
-    </set>  
-    where 
-      member_id = #{no}
-  </update>
-  
-  <delete id="delete" parameterType="int">
-    delete from lms_member 
-    where member_id = #{value}
-  </delete>
-  
   <select id="countAll" resultType="int" parameterType="string">
-    select count(*) 
-    from lms_member
+    select
+     count(*) 
+    from
+     usr
     <where>
       <if test="_parameter != null">
         <bind name="pattern1" value="'%' + _parameter + '%'"/>
