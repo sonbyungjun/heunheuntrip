@@ -565,3 +565,4 @@ ALTER TABLE qna_photo
     REFERENCES qna ( -- 문의사항
       qna_id -- 문의사항번호
     );
+    
