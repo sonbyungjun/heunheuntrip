@@ -58,6 +58,18 @@
       </if>
     </where> 
   </select>
+  
+  <select id="findByNo" resultMap="memberMap" parameterType="int">
+    select 
+      conts, 
+      day_hr
+    from 
+      lms_lesson
+    where 
+      lesson_id = #{value}
+  </select>
+  
+  
 </mapper>
 
 

@@ -48,4 +48,10 @@ public class MemberController {
     
     return content;
   }
+  
+  @GetMapping("detail")
+  public Object detail(int no) {
+    Member member = memberService.get(no);
+    return member;
+  }
 }
