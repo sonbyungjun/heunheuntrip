@@ -14,6 +14,7 @@
     <result column="name"    property="name"/>
     <result column="tel"    property="tel"/>
     <result column="usr_photo"  property="photo"/>
+    <result column="cdt"  property="createdDate"/>
   </resultMap>
   
   <select id="findAll" resultMap="memberMap" parameterType="map">
@@ -22,7 +23,8 @@
       email,
       name,
       tel,
-      auth
+      auth,
+      cdt
     from 
       usr u
     left outer join 
@@ -60,13 +62,22 @@
   </select>
   
   <select id="findByNo" resultMap="memberMap" parameterType="int">
-    select 
-      conts, 
-      day_hr
+    select
+      usr_id,
+      email,
+      name,
+      tel,
+      auth,
+      cdt,
+      usr_photo
     from 
-      lms_lesson
+      usr u
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
     where 
-      lesson_id = #{value}
+      usr_id = #{value}
   </select>
   
   

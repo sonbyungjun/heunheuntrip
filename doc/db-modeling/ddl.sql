@@ -15,12 +15,13 @@ DROP TABLE IF EXISTS hst_qna RESTRICT;
 DROP TABLE IF EXISTS amn RESTRICT;
 DROP TABLE IF EXISTS faq RESTRICT;
 DROP TABLE IF EXISTS qna_cate RESTRICT;
+DROP TABLE IF EXISTS qna_photo RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
   usr_id    INTEGER      NOT NULL, -- 호스트번호
-  rm_name   VARCHAR(100)  NOT NULL, -- 숙소명
+  rm_name   VARCHAR(100) NOT NULL, -- 숙소명
   rm_chge   INTEGER      NOT NULL, -- 숙소가격
   max_ple   INTEGER      NOT NULL, -- 최대 수용 인원
   post_code VARCHAR(5)   NOT NULL, -- 우편번호
@@ -44,22 +45,21 @@ ALTER TABLE rms
     );
 
 ALTER TABLE rms
-  MODIFY COLUMN rms_id INTEGER NOT NULL AUTO_INCREMENT
-;
+  MODIFY COLUMN rms_id INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 회원
 CREATE TABLE usr (
   usr_id    INTEGER      NOT NULL, -- 회원번호
   email     VARCHAR(30)  NOT NULL, -- 이메일
-  pwd       VARCHAR(255)  NOT NULL, -- 비밀번호
+  pwd       VARCHAR(255) NOT NULL, -- 비밀번호
   auth_id   INTEGER      NOT NULL, -- 권한번호
   name      VARCHAR(10)  NOT NULL, -- 이름
+  cdt       DATETIME     NOT NULL DEFAULT current_timestamp(), -- 가입일
   tel       VARCHAR(15)  NULL,     -- 전화번호
   usr_photo VARCHAR(255) NULL      -- 프로필사진
 );
 
 -- 회원
-
 ALTER TABLE usr
   ADD CONSTRAINT PK_usr -- 회원 기본키
     PRIMARY KEY (
@@ -78,7 +78,6 @@ CREATE TABLE board (
   conts    TEXT        NOT NULL, -- 게시글내용
   cdt      DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
 );
-
 
 -- 블로그
 ALTER TABLE board
@@ -113,7 +112,7 @@ ALTER TABLE rev
 
 ALTER TABLE rev
   MODIFY COLUMN rev_id INTEGER NOT NULL AUTO_INCREMENT;
-  
+
 -- 문의사항
 CREATE TABLE qna (
   qna_id      INTEGER      NOT NULL, -- 문의사항번호
@@ -126,7 +125,7 @@ CREATE TABLE qna (
   content     TEXT         NOT NULL, -- 문의내용
   qna_pwd     VARCHAR(255) NOT NULL, -- 문의글비밀번호
   cdt         DATETIME     NOT NULL DEFAULT current_timestamp(), -- 작성일
-  vw_cnt      INTEGER      NOT NULL DEFAULT 0 -- 조회수
+  vw_cnt      INTEGER      NOT NULL  -- 조회수
 );
 
 -- 문의사항
@@ -138,28 +137,6 @@ ALTER TABLE qna
 
 ALTER TABLE qna
   MODIFY COLUMN qna_id INTEGER NOT NULL AUTO_INCREMENT;
-
-
-
-  
-  
--- 문의첨부파일
-CREATE TABLE qna_photo (
-  qna_photo_id INTEGER      NOT NULL, -- 문의첨부파일번호
-  qna_id       INTEGER      NOT NULL, -- 문의사항번호
-  qna_photo    VARCHAR(255) NOT NULL  -- 사진
-);
-
--- 문의첨부파일
-ALTER TABLE qna_photo
-  ADD CONSTRAINT PK_qna_photo -- 문의첨부파일 기본키
-    PRIMARY KEY (
-      qna_photo_id -- 문의첨부파일번호
-    );
-
-ALTER TABLE qna_photo
-  MODIFY COLUMN qna_photo_id INTEGER NOT NULL AUTO_INCREMENT;
-
 
 -- 즐겨찾기
 CREATE TABLE bookmark (
@@ -288,7 +265,7 @@ ALTER TABLE host
 
 -- 편의시설
 CREATE TABLE amn (
-  amn_id INTEGER     NOT NULL, -- 편의 시설번호
+  amn_id INTEGER      NOT NULL, -- 편의 시설번호
   amn    VARCHAR(100) NOT NULL  -- 옵션 이름
 );
 
@@ -328,7 +305,7 @@ CREATE TABLE rms_amn (
 ALTER TABLE rms_amn
   ADD CONSTRAINT PK_rms_amn -- 숙소편의시설 기본키
     PRIMARY KEY (
-      amn_id, -- 편의 시설
+      amn_id, -- 편의 시설번호
       rms_id  -- 숙소번호
     );
 
@@ -349,7 +326,6 @@ ALTER TABLE rm_photo
 ALTER TABLE rm_photo
   MODIFY COLUMN r_photo_id INTEGER NOT NULL AUTO_INCREMENT;
 
-  
 -- 문의구분
 CREATE TABLE qna_cate (
   qna_cate_id INTEGER     NOT NULL, -- 문의구분번호
@@ -362,8 +338,24 @@ ALTER TABLE qna_cate
     PRIMARY KEY (
       qna_cate_id -- 문의구분번호
     );
-  
-  
+
+-- 문의첨부파일
+CREATE TABLE qna_photo (
+  qna_photo_id INTEGER      NOT NULL, -- 문의첨부파일번호
+  qna_id       INTEGER      NOT NULL, -- 문의사항번호
+  qna_photo    VARCHAR(255) NOT NULL  -- 사진
+);
+
+-- 문의첨부파일
+ALTER TABLE qna_photo
+  ADD CONSTRAINT PK_qna_photo -- 문의첨부파일 기본키
+    PRIMARY KEY (
+      qna_photo_id -- 문의첨부파일번호
+    );
+
+ALTER TABLE qna_photo
+  MODIFY COLUMN qna_photo_id INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 숙소
 ALTER TABLE rms
   ADD CONSTRAINT FK_host_TO_rms -- 호스트 -> 숙소
@@ -442,6 +434,16 @@ ALTER TABLE qna
     )
     REFERENCES usr ( -- 회원
       usr_id -- 회원번호
+    );
+
+-- 문의사항
+ALTER TABLE qna
+  ADD CONSTRAINT FK_qna_cate_TO_qna -- 문의구분 -> 문의사항
+    FOREIGN KEY (
+      qna_cate_id -- 문의구분번호
+    )
+    REFERENCES qna_cate ( -- 문의구분
+      qna_cate_id -- 문의구분번호
     );
 
 -- 즐겨찾기
@@ -552,4 +554,14 @@ ALTER TABLE rm_photo
     )
     REFERENCES rms ( -- 숙소
       rms_id -- 숙소번호
+    );
+
+-- 문의첨부파일
+ALTER TABLE qna_photo
+  ADD CONSTRAINT FK_qna_TO_qna_photo -- 문의사항 -> 문의첨부파일
+    FOREIGN KEY (
+      qna_id -- 문의사항번호
+    )
+    REFERENCES qna ( -- 문의사항
+      qna_id -- 문의사항번호
     );

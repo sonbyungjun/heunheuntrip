@@ -1,5 +1,8 @@
 package com.heun.trip.domain;
 
+import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Member {
 
   private int no;
@@ -10,10 +13,20 @@ public class Member {
   private String photo;
   private String auth;
   
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  private Date createdDate;
+  
   @Override
   public String toString() {
     return "Member [no=" + no + ", email=" + email + ", password=" + password + ", name=" + name
-        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + "]";
+        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + ", createdDate=" + createdDate
+        + "]";
+  }
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
   public int getNo() {
     return no;
