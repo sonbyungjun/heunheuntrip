@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.heun.trip.domain.Board;
-import com.heun.trip.service.BoardService;
+import com.heun.trip.domain.Qna;
+import com.heun.trip.service.QnaService;
 
 
 // AJAX 기반 JSON 데이터를 다루는 컨트롤러
@@ -17,10 +17,10 @@ import com.heun.trip.service.BoardService;
 @RequestMapping("/json/board")
 public class BoardController {
   
-  @Autowired BoardService boardService;
+  @Autowired QnaService boardService;
   
   @PostMapping("add")
-  public Object add(Board board) {
+  public Object add(Qna board) {
     HashMap<String,Object> content = new HashMap<>();
     try {
       boardService.add(board);
@@ -50,7 +50,7 @@ public class BoardController {
   
   @GetMapping("detail")
   public Object detail(int no) {
-    Board board = boardService.get(no);
+    Qna board = boardService.get(no);
     return board;
   }
   
@@ -72,7 +72,7 @@ public class BoardController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
     
-    List<Board> boards = boardService.list(pageNo, pageSize);
+    List<Qna> boards = boardService.list(pageNo, pageSize);
     
     HashMap<String,Object> content = new HashMap<>();
     content.put("list", boards);
@@ -84,7 +84,7 @@ public class BoardController {
   }
   
   @PostMapping("update")
-  public Object update(Board board) {
+  public Object update(Qna board) {
     HashMap<String,Object> content = new HashMap<>();
     try {
       if (boardService.update(board) == 0) 

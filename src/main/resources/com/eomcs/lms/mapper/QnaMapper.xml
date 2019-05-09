@@ -4,33 +4,54 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.eomcs.lms.dao.BoardDao">
+<mapper namespace="com.heun.trip.dao.QnaDao">
   
-  <resultMap type="board" id="boardMap">
-    <id column="board_id" property="no"/>
-    <result column="conts" property="contents"/>
+  <resultMap type="qna" id="qnaMap">
+    <id column="qna_id" property="no"/>
+    <result column="content" property="content"/>
     <result column="cdt" property="createdDate"/>
+    <result column="title" property="title"/>
     <result column="vw_cnt" property="viewCount"/>
+    <result column="pwd" property="password"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="qna_cate_id" property="categoryNo"/>
+    
+  <association property="user" javaType="user">
+    <id column="usr_id"        property="no"/>
+    <result column="email"  property="email"/>
+    <result column="name"          property="name"/>
+    <result column="tel"          property="tel"/>
+  </association>
+  
   </resultMap>
   
   <sql id="select1">
-    select 
-      board_id, 
-      conts, 
-      cdt, 
-      vw_cnt 
-    from 
-      lms_board
   </sql>
   
-  <select id="findAll" resultMap="boardMap" parameterType="map">
-    <include refid="select1"/>
+  <select id="findAll" resultMap="qnaMap" parameterType="map">
+    select
+      qna_id,
+      title,
+      cdt,
+      vw_cnt,
+      usr_id,
+      qna_cate_id
+      from qna
     order by 
-      board_id desc
+      qna_id desc
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   <select id="findByNo" resultMap="boardMap" parameterType="int">
     <include refid="select1"/>
