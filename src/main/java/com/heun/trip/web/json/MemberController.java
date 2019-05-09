@@ -3,6 +3,7 @@ package com.heun.trip.web.json;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,4 +55,18 @@ public class MemberController {
     Member member = memberService.get(no);
     return member;
   }
+  
+  @PostMapping("add")
+  public Object add(Member member) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      memberService.add(member);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
 }
