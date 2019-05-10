@@ -119,7 +119,16 @@
     where usr_id = #{value}
   </delete>
   
-  
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+    select 
+      email,
+      pwd
+    from 
+      usr
+    where 
+      email = #{email}
+      and pwd = password(#{password})
+  </select>
   
 </mapper>
 
