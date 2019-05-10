@@ -24,7 +24,7 @@ public class MemberController {
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="5") int pageSize,
-      String search) { // localhost:8080/heunheuntrip/app/json/memeber/list
+      String search) { 
     
     if (pageSize < 5 || pageSize > 8) 
       pageSize = 5;

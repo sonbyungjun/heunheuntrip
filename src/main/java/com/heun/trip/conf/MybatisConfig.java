@@ -11,7 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration // 이 클래스가 스프링 IoC 컨테이너를 설정하는 Java config 클래스임을 표시한다.
+@Configuration
 @MapperScan("com.heun.trip.dao") 
 public class MybatisConfig {
 
@@ -32,7 +32,6 @@ public class MybatisConfig {
     factoryBean.setMapperLocations(
         appCtx.getResources("classpath:/com/heun/trip/mapper/*.xml"));
     
-    // Mybatis에서 로그를 다룰 때 사용할 로그 라이브러리를 지정한다.
     LogFactory.useLog4J2Logging();
     
     return factoryBean.getObject();
