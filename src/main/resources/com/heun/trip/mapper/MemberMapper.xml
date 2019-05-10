@@ -98,6 +98,27 @@
   </insert>
   
   
+  <update id="update" parameterType="member">
+    update usr
+    <set>
+      <if test="name != null">name = #{name},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="password != null">pwd = password(#{password}),</if>
+      <if test="tel != null">tel = #{tel},</if>
+       <if test="auth != null">auth_id = #{auth},</if>
+       <if test="photo != null">usr_photo = #{photo}</if>
+       
+      
+    </set>  
+    where 
+      usr_id = #{no}
+  </update>
+  
+   <delete id="delete" parameterType="int">
+    delete from usr 
+    where usr_id = #{value}
+  </delete>
+  
   
   
 </mapper>
