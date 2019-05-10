@@ -13,8 +13,6 @@ public class QnaPhoto implements Serializable {
   public String toString() {
     return "QnaPhoto [no=" + no + ", qnaFile=" + qnaFile + ", qnaNo=" + qnaNo + "]";
   }
-  
-  
   public int getNo() {
     return no;
   }

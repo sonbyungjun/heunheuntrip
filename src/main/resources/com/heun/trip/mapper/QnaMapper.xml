@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.QnaDao">
+  
+  <resultMap type="qna" id="qnaMap">
+    <id column="qna_id" property="qnaNo"/>
+    <result column="name" property="name"/>
+    <result column="auth" property="auth"/>
+    <result column="cate" property="category"/>
+    <result column="parent" property="parent"/>
+    <result column="ordr" property="order"/>
+    <result column="step" property="step"/>
+    <result column="content" property="content"/>
+    <result column="title" property="title"/>
+    <result column="qna_pwd" property="password"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+  </resultMap>
+    
+<!--   <resultMap type="qna" id="qnaPhotoMap">
+    <id column="qna_id" property="qnaNo"/>
+    <result column="name" property="name"/>
+    <result column="auth" property="auth"/>
+    <result column="cate" property="category"/>
+    <result column="parent" property="parent"/>
+    <result column="ordr" property="order"/>
+    <result column="step" property="step"/>
+    <result column="content" property="content"/>
+    <result column="title" property="title"/>
+    <result column="qna_pwd" property="password"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="vw_cnt" property="viewCount"/>
+    
+  <collection property="qnaPhotos" ofType="qnaPhoto"> 
+    <id column="qna_photo_id" property="no"/>
+    <result column="qna_id"  property="qnaNo"/>
+    <result column="qna_photo" property="qnaFile"/>
+  </collection>
+  
+  </resultMap> -->
+  
+  
+  <select id="findAll" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    order by 
+      parent asc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  
+  
+  
+  
+  <!-- <select id="findAll" resultMap="qnaPhotoMap" parameterType="map">
+    select
+      qna_id,
+      name,
+      auth,
+      parent,
+      ordr,
+      step,
+      cate,
+      title,
+      content,
+      q.cdt,
+      vw_cnt
+    from
+      qna q
+    left outer join
+      usr u
+    on
+      q.usr_id=u.usr_id
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
+    left outer join
+      qna_cate c
+    on
+      q.qna_cate_id=c.qna_cate_id
+    where
+      qna_id=#{value}
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select> -->
+  
+<!--    <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select * 
+    from qna
+    where 
+      rms_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update qna 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where qna_id = #{value}
+  </update>
+  
+  
+  <delete id="delete" parameterType="int">
+    delete from qna 
+    where qna_id = #{no}
+  </delete>
+  
+  <insert id="insert" parameterType="qnaMap">
+    insert into qna(
+      title,
+      content,
+      qna_cate_id) 
+    values(
+      #{title}, 
+      #{content}, 
+      #{categoryNo})
+  </insert>
+  
+  <update id="update" parameterType="qnaMap">
+    update qna 
+    set 
+      title = #{title}
+      content = #{content} 
+      qna_cate_id = #{categoryNo}
+    where board_id = #{no}
+  </update> -->
+  
+ 
+  <select id="countAll" resultType="int">
+    select count(*) from qna
+  </select>
+   
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+

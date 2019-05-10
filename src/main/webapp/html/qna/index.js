@@ -10,6 +10,13 @@ function loadList(pn) {
       
       tbody.html(''); 
       
+      for (l of obj.list) {
+        var re = '';
+        for (var i = 1; i < l.step; i++) {
+          re += 're: ';
+        }
+        l.re = re;
+      }
       $(trGenerator(obj)).appendTo(tbody);
       
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.

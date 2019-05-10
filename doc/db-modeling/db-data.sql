@@ -56,14 +56,18 @@ insert into usr(usr_id,email,pwd,auth_id,name,tel)
   -- qna
 insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(1,1,1,1,1,'예약이1..','예약이안되요','1111',1);
 insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(2,4,2,1,1,'예약이2..','이용방법이','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,3,2,1,'예약이3..','날자를 변경해주세요','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(4,1,4,2,1,'예약이4..','이용인원 변경이요','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(5,1,5,2,1,'예약이5..','예약정보가 안뜨네요','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(6,4,6,1,1,'예약이6..','이용규칙이 왜안뜨죠 ??','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(7,2,7,1,1,'예약이7..','가격 정보가 결제금액이오....랑 다른경우는 어덯게 하죠..','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(8,1,8,2,1,'예약이8..','취소해주세요','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(9,1,9,1,1,'예약이9..','예약 대기가 안되네요 ....','1111',1);
-insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(10,1,10,2,1,'예약이10..','예약이안되요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,3,1,1,'예약이3..','날자를 변경해주세요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(4,1,4,1,1,'예약이4..','이용인원 변경이요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(5,1,5,1,1,'예약이5..','예약정보가 안뜨네요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(6,4,1,2,2,'예약이6..','이용규칙이 왜안뜨죠 ??','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(7,2,4,2,2,'예약이7..','가격 정보가 결제금액이오....랑 다른경우는 어덯게 하죠..','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(8,1,5,2,2,'예약이8..','취소해주세요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(9,1,3,2,2,'예약이9..','예약 대기가 안되네요 ....','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(10,1,1,3,3,'예약이10..','예약이안되요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(2,1,1,4,3,'예약이11..','예약이안되요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,2,2,2,'예약이12..','예약이안되요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(5,1,5,3,2,'예약이13..','예약이안되요','1111',1);
+insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,1,5,4,'예약이14..','예약이안되요','1111',1);
 
 
 

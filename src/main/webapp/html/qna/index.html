@@ -20,7 +20,8 @@
       <thead>
         <tr>
           <th scope="col">번호</th>
-          <th scope="col">회원번호</th>                    
+          <th scope="col">이름</th>                    
+          <th scope="col">카테고리</th>
           <th scope="col">제목</th>
           <th scope="col">등록일</th>
           <th scope="col">조회수</th>
@@ -34,9 +35,10 @@
 <script id="tr-template" type="text/x-handlebars-template">
 {{#each list}}
 <tr>
-  <th scope='row'>{{no}}</th>
-  <td>{{userNo}}</td>
-  <td><a class='bit-view-link' href='#' data-no='{{no}}'>{{title}}</td>
+  <th scope='row'>{{qnaNo}}</th>
+  <td>{{name}}</td>
+  <td>{{category}}</td>
+  <td><a class='bit-view-link' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
   <td>{{createdDate}}</td>
   <td>{{viewCount}}</td>
 </tr>
