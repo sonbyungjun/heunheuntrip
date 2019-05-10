@@ -65,7 +65,7 @@ document.querySelector('#add-btn').onclick = () => {
   xhr.send(qs);
 };
 
-/*
+
 
 document.querySelector('#update-btn').onclick = () => {
   var xhr = new XMLHttpRequest();
@@ -82,18 +82,19 @@ document.querySelector('#update-btn').onclick = () => {
     }
     
   };
-  xhr.open('POST', '../../app/json/board/update', true);
+  xhr.open('POST', '../../app/json/qna/update', true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
   
   var no = document.querySelector('#no').value;
-  var contents = document.querySelector('#contents').value;
+  var content = document.querySelector('#content').value;
   
   var qs = 'contents=' + encodeURIComponent(contents) +
     '&no=' + no;
   
   xhr.send(qs);
 };
-*/
+
+
 function loadData(no) {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {

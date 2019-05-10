@@ -7,24 +7,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.heun.trip.domain.Qna;
-import com.heun.trip.service.QnaService;
+import com.heun.trip.domain.Hostqna;
+import com.heun.trip.service.HostqnaService;
+
 
 @RestController("json/QnaController")
-@RequestMapping("/json/qna")
-public class QnaController {
+@RequestMapping("/json/hostqna")
+public class HostqnaController {
   
- QnaService qnaService;
+ HostqnaService hostQnaService;
   
-  public QnaController(QnaService qnaService) {
-    this.qnaService = qnaService;
+  public HostqnaController(HostqnaService hostQnaService) {
+    this.hostQnaService = hostQnaService;
   }
   
   @PostMapping("add")
-  public Object add(Qna qna) {
+  public Object add(Hostqna hostqna) {
     HashMap<String,Object> content = new HashMap<>();
     try {
-      qnaService.add(qna);
+      hostQnaService.add(hostqna);
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
@@ -52,10 +53,10 @@ public class QnaController {
 //    else if (pageNo > totalPage)
 //      pageNo = totalPage;
     
-    List<Qna> qnas = qnaService.list(pageNo, pageSize);
+    List<Hostqna> hostqnas = hostQnaService.list(pageNo, pageSize);
     
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", qnas);
+    content.put("list", hostqnas);
 //    content.put("pageNo", pageNo);
 //    content.put("pageSize", pageSize);
 //    content.put("totalPage", totalPage);
@@ -65,8 +66,8 @@ public class QnaController {
   
   @GetMapping("detail")
   public Object detail(int no) {
-    Qna qna = qnaService.get(no);
-    return qna;
+    Hostqna hostqna = hostQnaService.get(no);
+    return hostqna;
   }
   
   @GetMapping("delete")
@@ -74,7 +75,7 @@ public class QnaController {
   
     HashMap<String,Object> content = new HashMap<>();
     try {
-      if (qnaService.delete(no) == 0) 
+      if (hostQnaService.delete(no) == 0) 
         throw new RuntimeException("해당 번호의 게시물이 없습니다.");
       content.put("status", "success");
       
@@ -85,7 +86,20 @@ public class QnaController {
     return content;
   }
   
-  
+  @PostMapping("update")
+  public Object update(Hostqna hostqna) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (hostQnaService.update(hostqna) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
   
   
   
