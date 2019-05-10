@@ -23,7 +23,7 @@ function loadList(pn) {
 //페이지를 출력한 후 1페이지 목록을 로딩한다.
 loadList(1);
 
-/*
+
 // 테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다. 
 $(document.body).bind('loaded-list', () => {
   // 제목을 클릭했을 때 view.html로 전환시키기
@@ -35,8 +35,6 @@ $(document.body).bind('loaded-list', () => {
 });
 
 
-
-*/
 
 
 

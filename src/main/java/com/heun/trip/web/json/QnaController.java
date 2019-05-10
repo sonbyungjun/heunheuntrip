@@ -3,6 +3,7 @@ package com.heun.trip.web.json;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,19 @@ public class QnaController {
   
   public QnaController(QnaService qnaService) {
     this.qnaService = qnaService;
+  }
+  
+  @PostMapping("add")
+  public Object add(Qna qna) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      qnaService.add(qna);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
   
   @GetMapping("list")
@@ -48,5 +62,31 @@ public class QnaController {
 //    
     return content;
   }
+  
+  @GetMapping("detail")
+  public Object detail(int no) {
+    Qna qna = qnaService.get(no);
+    return qna;
+  }
+  
+  @GetMapping("delete")
+  public Object delete(int no) {
+  
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (qnaService.delete(no) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  
+  
+  
   
 }

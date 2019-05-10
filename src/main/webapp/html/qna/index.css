@@ -1,17 +1,24 @@
 th:nth-child(1) {
-	width: 60px;
+	text-align: center;
+	width: 100px;
+}
+
+th:nth-child(2) {
+  text-align: center;
+  width: 100px;
 }
 
 th:nth-child(3) {
 	text-align: center;
-	width: 120px;
+	width: 400px;
 }
 
 th:nth-child(4) {
 	text-align: center;
-	width: 70px;
+	width: 200px;
 }
 
-td:nth-child(4) {
+th:nth-child(5) {
 	text-align: center;
+	width: 200px;
 }

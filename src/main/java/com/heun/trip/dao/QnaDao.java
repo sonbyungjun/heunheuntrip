@@ -9,9 +9,9 @@ public interface QnaDao {
   List<Qna> findAll(Map<String,Object> params);
   Qna findByNo(int no);
   int increaseCount(int no);
-  int update(Qna qna);
+//  int update(Qna qna);
   int delete(int no);
-  int countAll();
+//  int countAll();
 }
 
 
