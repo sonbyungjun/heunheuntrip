@@ -198,9 +198,8 @@ CREATE TABLE hst_qna (
   usr_id     INTEGER  NOT NULL, -- 회원번호
   rms_id     INTEGER  NOT NULL, -- 숙소번호
   conts      TEXT     NOT NULL, -- 내용
-  cdt        DATETIME NOT NULL DEFAULT current_timestamp(), -- 작성일
-  reply      TEXT     NULL,     -- 답변
-  reply_dt   DATETIME NULL      -- 답변일
+  cdt        DATETIME NOT NULL DEFAULT current_timestamp() -- 작성일
+ 
 );
 
 -- 숙소문의-회원

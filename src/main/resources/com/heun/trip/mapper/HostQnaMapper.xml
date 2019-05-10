@@ -4,19 +4,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.heun.trip.dao.QnaDao">
+<mapper namespace="com.heun.trip.dao.HostqnaDao">
   
-  <resultMap type="qna" id="qnaMap">
-    <id column="qna_id" property="no"/>
-    <result column="content" property="content"/>
-    <result column="cdt" property="createdDate"/>
-    <result column="title" property="title"/>
-    <result column="vw_cnt" property="viewCount"/>
-    <result column="pwd" property="password"/>
+  <resultMap type="hostqna" id="hostqnaMap">
+    <id column="hst_qna_id" property="no"/>
     <result column="usr_id" property="userNo"/>
-    <result column="qna_cate_id" property="categoryNo"/>
-    
-    
+    <result column="rms_id" property="roomNo"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="conts" property="content"/>
     
   <!--   
   <association property="user" javaType="user"> 
@@ -28,30 +23,24 @@
   
   </resultMap>
   
-  <sql id="select1">
-  </sql>
-  
-  <select id="findAll" resultMap="qnaMap" parameterType="map">
+  <select id="findAll" resultMap="hostqnaMap" parameterType="map">
     select
-      qna_id,
-      title,
-      content,
-      vw_cnt,
-      usr_id,
+      rms_id,
+      conts,
       cdt
-      from qna
+      from hst_qna
     order by 
-      qna_id desc
+      hst_qna_id desc
     <!-- <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if> -->
   </select>
   
-   <select id="findByNo" resultMap="qnaMap" parameterType="int">
+   <select id="findByNo" resultMap="hostqnaMap" parameterType="int">
     select * 
     from qna
     where 
-      qna_id = #{value}
+      rms_id = #{value}
   </select>
   
   <update id="increaseCount" parameterType="int">
@@ -67,7 +56,7 @@
     where qna_id = #{no}
   </delete>
   
-  <insert id="insert" parameterType="qna">
+  <insert id="insert" parameterType="hostqna">
     insert into qna(
       title,
       content,
@@ -78,20 +67,22 @@
       #{categoryNo})
   </insert>
   
-  <!-- 
   
-  <update id="update" parameterType="board">
-    update lms_board 
+  
+  <update id="update" parameterType="hostqna">
+    update qna 
     set 
-      conts = #{contents} 
+      title = #{title}
+      content = #{content} 
+      qna_cate_id = #{categoryNo}
     where board_id = #{no}
   </update>
   
-  
+  <!-- 
   <select id="countAll" resultType="int">
     select count(*) from lms_board
-  </select>
-   -->
+  </select> -->
+   
   
 </mapper>
 

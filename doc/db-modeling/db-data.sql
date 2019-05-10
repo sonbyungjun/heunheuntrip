@@ -214,26 +214,26 @@ INSERT INTO rms_amn(rms_id,amn_id) VALUES(5,8);
 INSERT INTO rms_amn(rms_id,amn_id) VALUES(5,7);
  
 --hst_qna
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(1,1,1,'화장실 수압은 어떤가요?','충분히 강합니다.','2019-05-28');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(2,1,2,'애완견 출입이 가능한가요?','가능합니다.','2019-05-02');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(3,1,2,'숙소는 깨끗한가요?','꺠끗합니다.','2019-05-03');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(4,2,3,'주변에 놀거리가 있나요?','3분거리에 계곡이 있습니다.','2019-05-11');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(5,2,3,'숯불 가격이 어떻게 되나요?','3인기준 3만원입니다.','2019-05-12');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(6,2,3,'방음은 잘되는 편인가요?','방음 처리는 완벽합니다.','2019-05-03');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(7,3,4,'퇴실시간을 넘기면 어떻게 하나요?','추가 비용이 발생합니다.','2019-05-14');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(8,3,4,'편의시설은 잘되있나요?','다 갖추고 있습니다.','2019-05-15');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(9,4,4,'보일러는 잘되나요?','잘됩니다.','2019-05-18');
- insert into hst_qna(hst_qna_id,usr_id,rms_id,conts,reply,reply_dt) 
-values(10,5,5,'주변에 마트는 있나요?','5분거리에 대형 마트가 있습니다.','2019-05-20');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(1,1,1,'화장실 수압은 어떤가요?');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(2,5,1,'충분히 강합니다.');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(3,1,1,'숙소는 깨끗한가요?');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(4,5,1,'꺠끗합니다.');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(5,1,1,'숯불 가격이 어떻게 되나요?');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(6,5,1,'3인기준 3만원입니다.');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(7,1,1,'퇴실시간을 넘기면 어떻게 하나요?');
+ insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(8,5,1,'추가 비용이 발생합니다.');
+  insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(9,1,1,'보일러는 잘되나요?');
+  insert into hst_qna(hst_qna_id,usr_id,rms_id,conts) 
+values(10,5,1,'잘됩니다.');
 
 
 -- riw
@@ -325,9 +325,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
   '내가 가본 남해',
   '남해를 알차게 구경하는 루트 !!!! (숙박과 쉬어감은 해지면 쉬고 가시고,
 남해는 해안도로가 잘되어 있기때문에 드문드문 쉬어 갈수 있는 벤취나 정자가 잘 되어 있습니다. ^^;)
-
 자가용 이용시
-
 남해고속도로- 사천 ic - 연륙교 - 창선 왕후박나무 - 지족 죽방렴, 멸치쌈밥 - 동천방향 -
 가다보면 계곡비슷한곳이 있는데 놀기괜찮음 -내산 편백자연휴양림, 나비생태공원, 바람흔적미술관 -
 물건 독일마을, 방조어부림 - 은점 해오름예술촌 - 해안도로 - 초전 마을 - 미조항
@@ -343,7 +341,6 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 푸짐하고 양도 많아서 국물 맛이 대박이거든요~
 그리고 탕수육도 거제도에서 유명한 몽돌의 이름을 따 몽돌탕수육이라고 정해졌는데용
 몽돌탕수육도 깨끗한 기름에 튀겨져서 그런지 바삭하고 담백한 맛이 아주 최고예요
-
 제가 추천해드리는 거제 대명리조트 맛집 팔선루에서
 맛있는 짬뽕과 탕수육도 드시고 힐링여행 하고 오시길 바래요^^
 참고하셔서 도움이 되셨으면 좋겠습니다~');
@@ -405,5 +402,3 @@ insert into photo (photo_id,photo,board_id)
   values(9,'a9.gif',9);
 insert into photo (photo_id,photo,board_id)
   values(10,'a10.gif',10);
-
-
