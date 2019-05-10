@@ -35,7 +35,6 @@
     select
       qna_id,
       title,
-      content,
       cdt,
       vw_cnt,
       usr_id,
@@ -47,6 +46,42 @@
       limit #{rowNo}, #{size}
     </if>
   </select>
+  
+   <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select * 
+    from 
+    where 
+      board_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update lms_board 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where board_id = #{value}
+  </update>
+  
+  <insert id="insert" parameterType="board">
+    insert into lms_board(conts) 
+    values(#{contents})
+  </insert>
+  
+  <update id="update" parameterType="board">
+    update lms_board 
+    set 
+      conts = #{contents} 
+    where board_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from lms_board 
+    where board_id = #{no}
+  </delete>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from lms_board
+  </select>
+  
   
 </mapper>
 
