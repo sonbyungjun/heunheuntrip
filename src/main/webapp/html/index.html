@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <title>흔흔여행</title>
   <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+   #dropdown {
+    width: 430px;
+   }
+  </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse row" id="navbarText">
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link font-weight-bolder nav-link active" href="#">즐겨찾기</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link font-weight-bolder" href="#">로그인</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link font-weight-bolder" href="#">회원가입</a>
-        </li>
-      </ul>
-    </div>
-    <div class="col"></div>
-  </div>
-</nav>
 
-
-<div class='container' style='border: 1px solid red;'>
-<div style='border: 1px solid red;'>
-<h1 class="mx-auto" style='border: 1px solid red;'>heunheuntrip</h1>
+<div class="container">
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">즐겨찾기</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">로그인</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">회원가입</a>
+    </li>
+  </ul>
 </div>
 
-
-
+<div class='container'>
+<br>
+<br>
+<br>
+  <div class="d-flex justify-content-center">
+    <h1>HeunheunTrip</h1>
+  </div>
+  
+  <div class='w-50 p-3 mx-auto'>
+    <div class="input-group input-group-lg">
+      <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"  placeholder="어디로 떠날까요?">
+    </div>
+    
+    <div class="input-group">
+      <input type="date" aria-label="First name" class="form-control">
+      <input type="date" aria-label="Last name" class="form-control">
+    </div>
+    
+    <br>
+    <input type="button" aria-label="Last name" class="form-control dropdown-toggle form-control dropdown-toggle-split"
+     id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="성인 1명">
+    <div id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">성인 1명</a>
+      <a class="dropdown-item" href="#">성인 2명</a>
+      <a class="dropdown-item" href="#">성인 3명</a>
+      <a class="dropdown-item" href="#">성인 4명</a>
+     </div>
+     <br>
+  <button type="button" class="btn btn-secondary btn-lg btn-block">검색하기</button>
+  </div>
+  
 
 
 
@@ -67,6 +86,12 @@
 <script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-<script src="index.js"></script>
+
+<script>
+$('#dropdown > a').on('click', function() {
+  // 버튼에 선택된 항목 텍스트 넣기
+  $('#dropdownMenuButton').val($(this).text());
+});
+</script>
 </body>
 </html>
