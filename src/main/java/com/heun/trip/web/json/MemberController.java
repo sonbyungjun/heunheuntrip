@@ -14,6 +14,8 @@ import com.heun.trip.service.MemberService;
 @RequestMapping("/json/member")
 public class MemberController {
 
+  
+ 
   MemberService memberService;
 
   public MemberController(MemberService memberService) {
