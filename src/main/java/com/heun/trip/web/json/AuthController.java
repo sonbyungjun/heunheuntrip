@@ -41,6 +41,7 @@ public class AuthController {
       content.put("status", "fail");
       content.put("message", "이메일 없거나 암호가 맞지 않습니다.");
     } else {
+      System.out.println(member);
       session.setAttribute("loginUser", member);
       content.put("status", "success");
     }
