@@ -19,7 +19,7 @@
     
     
   <!--   
-  <association property="user" javaType="user">
+  <association property="user" javaType="user"> 
     <id column="usr_id"        property="no"/>
     <result column="email"  property="email"/>
     <result column="name"          property="name"/>
