@@ -30,12 +30,14 @@ $(document.body).on('loaded-cate', function() {
   });
 })
 
+
 function loadCategory() {
   $.getJSON('../../app/json/qna/categorylist', function(obj) {
     $(cateGenerator(obj)).appendTo('.heun-category');
     $(document.body).trigger('loaded-cate');
   }); 
 };
+
 
 
 function loadList(parent, step) {
@@ -52,6 +54,7 @@ function loadList(parent, step) {
     $(document.body).trigger('loaded-list');
   }); // Bitcamp.getJSON()
 };
+
 
 function loadData(no) {
   $.getJSON("../../app/json/qna/detail?no=" + no, function(data) {
@@ -74,6 +77,7 @@ function loadData(no) {
   });
 };
 
+     
 $('#add-btn').on('click', function() {
   $.ajax({
     url: '../../app/json/qna/add',
@@ -97,11 +101,15 @@ $('#add-btn').on('click', function() {
   });
 })
 
+
+
 $('#re-btn').on('click', function() {
   $(reGenerator()).appendTo('#reply-form');
   $('#re-btn').hide();
   $('#re-add-btn').show();
 })
+
+
 
 
 $('#re-add-btn').on('click', function() {
@@ -131,7 +139,43 @@ $.ajax({
 
 
 
+$('#update-btn').on('click', function() {
+ 
+  var el = document.querySelectorAll('.update');
+  for(e of el){
+    $('.heun-form').attr('readonly', false);
+  }
 
+  if($('#delete-btn').css("display") != "none") {
+    $('#delete-btn').css("display", "none");
+  } else{
+    updateDate($('#no').val());
+  }
+  
+  
+  
+});
+
+
+
+function updateDate(no) {
+  $.ajax({
+    url: '../../app/json/qna/update?no=' + no,
+    type: 'POST',
+    data: {
+      qnaNo: $('#no').val(),      
+      title: $('#title').val(),
+      content: $('#content').val()
+        },
+    dataType: 'json',
+    success: function(response) {
+      location.href = 'index.html';
+    },
+    fail: function(error) {
+      alert('변경 실패!!');
+    }
+  });
+}
 
 
 

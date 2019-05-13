@@ -76,6 +76,13 @@ public class QnaServiceImpl implements QnaService {
     params.put("order", order);
     return qnaDao.sorting(params);
   }
+  
+  
+  @Override
+  public int update(Qna qna) {
+    return qnaDao.update(qna);
+  }
+      
 }
 
 
