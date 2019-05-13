@@ -42,10 +42,15 @@
            <div class="form-group row">
             <label for="categoryNo" class="col-sm-2 col-form-label">분류</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id='categoryNo' readonly>
+            
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                분류명
+              </button>
+              <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
+            </div>
             </div>
           </div>
-          
           
            <div class="form-group row bit-view-item">
             <label for="userNo" class="col-sm-2 col-form-label">작성자</label>
@@ -55,24 +60,24 @@
           </div>
           
           
-             <div class="form-group row">
+          <div class="form-group row">
             <label for="title" class="col-sm-2 col-form-label">제목</label>
             <div class="col-sm-8">
-              <input type="text" class="form-control" id="title" name='tilte' readonly>
+              <input type="text" class="form-control heun-form" id="title" name='tilte' readonly>
             </div>
           </div>
 
           <div class="form-group row">
             <label for="content" class="col-sm-2 col-form-label">내용</label>
             <div class="col-sm-8">
-              <textarea class="form-control" id='content' name='content' rows='5' readonly></textarea>
+              <textarea class="form-control heun-form" id='content' name='content' rows='5' readonly></textarea>
             </div>
           </div>
 
           <div class="form-group row bit-view-item">
             <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
             <div class="col-sm-8">
-              <input type="date" readonly class="form-control" id="createdDate" readonly>
+              <input type="date" class="form-control" id="createdDate" readonly>
             </div>
           </div>
 
@@ -84,15 +89,27 @@
           </div>
           
           <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">게시글 비밀번호</label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control heun-form" id="password" name='password'>
+            </div>
+          </div>
+          
+          <div id="reply-form"></div>
+          
+          <div class="form-group row">
             <div class="col-sm-8">
               <a href='.' class="btn btn-primary">목록</a> 
               <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
               <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
+              <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
               <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
+              <button type="button" id="re-add-btn" class="btn btn-primary bit-view-item">답글 등록</button>
             </div>
           </div>
         </form>
       </div>
+      
 <script id="tr-template" type="text/x-handlebars-template">
 {{#each list}}
 <tr>
@@ -105,6 +122,31 @@
 </tr>
 {{/each}}
 </script>
+
+<script id="categorylist" type="text/x-handlebars-template">
+{{#each category}}
+  <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
+{{/each}}
+</script>
+
+<script id="reply" type="text/x-handlebars-template">
+          <br>
+          <h3>아래에 답글을 입력해주세요.</h3>
+          <div class="form-group row">
+            <label for="re-title" class="col-sm-2 col-form-label">제목</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control heun-form" id="re-title" name='tilte'>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="re-content" class="col-sm-2 col-form-label">내용</label>
+            <div class="col-sm-8">
+              <textarea class="form-control heun-form" id='re-content' name='content' rows='5'></textarea>
+            </div>
+          </div>
+</script>
+
 	<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
 	<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>

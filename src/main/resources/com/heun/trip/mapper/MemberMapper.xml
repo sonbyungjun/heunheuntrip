@@ -79,6 +79,7 @@
     where 
       usr_id = #{value}
   </select>
+  
    <insert id="insert" parameterType="member">
     insert into usr(
       email,
@@ -107,8 +108,6 @@
       <if test="tel != null">tel = #{tel},</if>
        <if test="auth != null">auth_id = #{auth},</if>
        <if test="photo != null">usr_photo = #{photo}</if>
-       
-      
     </set>  
     where 
       usr_id = #{no}

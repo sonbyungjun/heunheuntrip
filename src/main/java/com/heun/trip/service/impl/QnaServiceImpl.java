@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.QnaDao;
 import com.heun.trip.dao.QnaPhotoDao;
+import com.heun.trip.domain.Category;
 import com.heun.trip.domain.Qna;
 import com.heun.trip.service.QnaService;
 
@@ -45,6 +46,35 @@ public class QnaServiceImpl implements QnaService {
     params.put("parent", parent);
     params.put("step", step);
     return qnaDao.findByReList(params);
+  }
+  
+  @Override
+  public List<Category> getCategory() {
+    return qnaDao.getCategory();
+  }
+  
+  @Override
+  public int add(Qna qna) {
+    int count = qnaDao.insert(qna);
+    return count;
+  }
+  
+  @Override
+  public int maxParent() {
+    return qnaDao.maxParent();
+  }
+  
+  @Override
+  public int maxOrder(int parent) {
+    return qnaDao.maxOrder(parent);
+  }
+  
+  @Override
+  public int sorting(int parent, int order) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("parent", parent);
+    params.put("order", order);
+    return qnaDao.sorting(params);
   }
 }
 

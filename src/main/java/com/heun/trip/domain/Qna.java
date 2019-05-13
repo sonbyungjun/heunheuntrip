@@ -6,10 +6,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Qna { // 일반회원이나 호스트가 관리자에게 문의하는 게시판 도메인
   private int qnaNo;
-  
   private String auth;
+  
+  private int userNo;
   private String name;
   
+  private int categoryNo;
   private String category;
   private int parent;
   private int order;
@@ -103,11 +105,25 @@ public class Qna { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setQnaPhotos(List<QnaPhoto> qnaPhotos) {
     this.qnaPhotos = qnaPhotos;
   }
+  public int getUserNo() {
+    return userNo;
+  }
+  public void setUserNo(int userNo) {
+    this.userNo = userNo;
+  }
+  public int getCategoryNo() {
+    return categoryNo;
+  }
+  public void setCategoryNo(int categoryNo) {
+    this.categoryNo = categoryNo;
+  }
+  
   @Override
   public String toString() {
-    return "Qna [qnaNo=" + qnaNo + ", auth=" + auth + ", name=" + name + ", category=" + category
-        + ", parent=" + parent + ", order=" + order + ", step=" + step + ", title=" + title
-        + ", content=" + content + ", password=" + password + ", createdDate=" + createdDate
-        + ", viewCount=" + viewCount + ", qnaPhotos=" + qnaPhotos + "]";
+    return "Qna [qnaNo=" + qnaNo + ", auth=" + auth + ", userNo=" + userNo + ", name=" + name
+        + ", categoryNo=" + categoryNo + ", category=" + category + ", parent=" + parent
+        + ", order=" + order + ", step=" + step + ", title=" + title + ", content=" + content
+        + ", password=" + password + ", createdDate=" + createdDate + ", viewCount=" + viewCount
+        + ", qnaPhotos=" + qnaPhotos + "]";
   }
 }
