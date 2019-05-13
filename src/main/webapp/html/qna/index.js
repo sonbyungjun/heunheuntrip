@@ -17,6 +17,7 @@ function loadList(pn) {
         }
         l.re = re;
       }
+      
       $(trGenerator(obj)).appendTo(tbody);
       
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.

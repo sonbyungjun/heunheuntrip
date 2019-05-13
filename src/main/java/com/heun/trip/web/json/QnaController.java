@@ -67,27 +67,23 @@ public class QnaController {
     return content;
   }
   
-//  @GetMapping("detail")
-//  public Object detail(int no) {
-//    Hostqna hostqna = hostQnaService.get(no);
-//    return hostqna;
-//  }
-//  
-//  @GetMapping("delete")
-//  public Object delete(int no) {
-//  
-//    HashMap<String,Object> content = new HashMap<>();
-//    try {
-//      if (hostQnaService.delete(no) == 0) 
-//        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-//      content.put("status", "success");
-//      
-//    } catch (Exception e) {
-//      content.put("status", "fail");
-//      content.put("message", e.getMessage());
-//    }
-//    return content;
-//  }
+  @GetMapping("detail")
+  public Object detail(int no) {
+   Qna qna = qnaService.get(no);
+    return qna;
+  }
+  
+  @GetMapping("relist")
+  public Object reList(int parent, int step) {
+    List<Qna> qna = qnaService.reList(parent, step);
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", qna);
+    return content;
+  }
+  
+  
+  
+  
 //  
 //  @PostMapping("update")
 //  public Object update(Hostqna hostqna) {

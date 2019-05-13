@@ -21,7 +21,7 @@
     <result column="vw_cnt" property="viewCount"/>
   </resultMap>
     
-<!--   <resultMap type="qna" id="qnaPhotoMap">
+  <resultMap type="qna" id="qnaPhotoMap">
     <id column="qna_id" property="qnaNo"/>
     <result column="name" property="name"/>
     <result column="auth" property="auth"/>
@@ -41,7 +41,7 @@
     <result column="qna_photo" property="qnaFile"/>
   </collection>
   
-  </resultMap> -->
+  </resultMap>
   
   
   <select id="findAll" resultMap="qnaMap" parameterType="map">
@@ -69,23 +69,21 @@
     </if>
   </select>
   
-  
-  
-  
-  
-  <!-- <select id="findAll" resultMap="qnaPhotoMap" parameterType="map">
+  <select id="findByNo" resultMap="qnaPhotoMap" parameterType="int">
     select
-      qna_id,
-      name,
-      auth,
-      parent,
-      ordr,
-      step,
-      cate,
-      title,
-      content,
+      q.qna_id,
+      u.name,
+      a.auth,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
       q.cdt,
-      vw_cnt
+      q.vw_cnt,
+      p.qna_photo,
+      p.qna_photo_id
     from
       qna q
     left outer join
@@ -100,12 +98,38 @@
       qna_cate c
     on
       q.qna_cate_id=c.qna_cate_id
+    left outer join
+      qna_photo p
+    on
+      p.qna_id=q.qna_id
     where
-      qna_id=#{value}
-    <if test="size != null and rowNo != null">
-      limit #{rowNo}, #{size}
-    </if>
-  </select> -->
+      q.qna_id=#{value}
+  </select>
+  
+  <select id="findByReList" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+      q.parent=#{parent} and q.step<![CDATA[<]]>#{step}
+    order by 
+      parent asc
+  </select>
+  
   
 <!--    <select id="findByNo" resultMap="qnaMap" parameterType="int">
     select * 

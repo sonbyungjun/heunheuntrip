@@ -33,6 +33,19 @@ public class QnaServiceImpl implements QnaService {
   public int size() {
     return qnaDao.countAll();
   }
+  
+  @Override
+  public Qna get(int no) {
+    return qnaDao.findByNo(no);
+  }
+  
+  @Override
+  public List<Qna> reList(int parent,  int step) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("parent", parent);
+    params.put("step", step);
+    return qnaDao.findByReList(params);
+  }
 }
 
 
