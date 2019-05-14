@@ -41,25 +41,24 @@ public class AuthController {
       content.put("status", "fail");
       content.put("message", "이메일 없거나 암호가 맞지 않습니다.");
     } else {
-      System.out.println(member);
       session.setAttribute("loginUser", member);
       content.put("status", "success");
     }
     return content;
   }
   
-  @GetMapping("logout")
-  public Object logout(HttpSession session) throws Exception {
-    
-    logger.debug("세션 무효화시킴!");
-    logger.debug("loginUser: " + session.getAttribute("loginUser"));
-    session.invalidate();
-    
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("status", "success");
-    
-    return content;
-  }
+//  @GetMapping("logout")
+//  public Object logout(HttpSession session) throws Exception {
+//    
+//    logger.debug("세션 무효화시킴!");
+//    logger.debug("loginUser: " + session.getAttribute("loginUser"));
+//    session.invalidate();
+//    
+//    HashMap<String,Object> content = new HashMap<>();
+//    content.put("status", "success");
+//    
+//    return content;
+//  }
   
   @GetMapping("user")
   public Object user(HttpSession session) throws Exception {

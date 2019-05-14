@@ -13,7 +13,7 @@ function loadList(pn) {
       for (l of obj.list) {
         var re = '';
         for (var i = 1; i < l.step; i++) {
-          re += 're: ';
+          re += 'ㄴ ';
         }
         l.re = re;
       }

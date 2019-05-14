@@ -2,10 +2,15 @@ package com.heun.trip.web.json;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.heun.trip.domain.Category;
+import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Qna;
 import com.heun.trip.service.QnaService;
 
@@ -20,18 +25,41 @@ public class QnaController {
     this.qnaService = qnaService;
   }
   
-//  @PostMapping("add")
-//  public Object add(Hostqna hostqna) {
-//    HashMap<String,Object> content = new HashMap<>();
-//    try {
-//      hostQnaService.add(hostqna);
-//      content.put("status", "success");
-//    } catch (Exception e) {
-//      content.put("status", "fail");
-//      content.put("message", e.getMessage());
-//    }
-//    return content;
-//  }
+  @PostMapping("add")
+  public Object add(Qna qna, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    System.out.println(loginUser);
+    
+    // 테스트코드 입니다.
+    int userNo = 1;
+    
+    if (loginUser != null) {
+      userNo = loginUser.getNo();
+    }
+    qna.setUserNo(userNo);
+    
+    if (qna.getParent() == 0) {
+      qna.setParent(qnaService.maxParent() + 1);
+      qna.setOrder(1);
+      qna.setStep(1);
+    } else {
+      qnaService.sorting(qna.getParent(), qna.getOrder());
+
+      qna.setOrder(qna.getOrder() + 1);
+      qna.setStep(qna.getStep() + 1);
+    }
+    
+    System.out.println("---> " + qna);
+    try {
+      qnaService.add(qna);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
   
   @GetMapping("list")
   public Object list(
@@ -81,25 +109,50 @@ public class QnaController {
     return content;
   }
   
+  @GetMapping("categorylist")
+  public Object categoryList() {
+    List<Category> categories = qnaService.getCategory();
+    Map<String,Object> content = new HashMap<>();
+    content.put("category", categories);
+    return content;
+  }
+ 
   
+
+ @PostMapping("update")
+  public Object update(Qna qna) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (qnaService.update(qna) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+ 
+ 
+ @GetMapping("delete")
+ public Object delete(int no, int parent, int order) {
+ 
+   HashMap<String,Object> content = new HashMap<>();
+   
+   try {
+     if (qnaService.delete(no, parent, order)  == 0) 
+       throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+     content.put("status", "success");
+     
+   } catch (Exception e) {
+     content.put("status", "fail");
+     content.put("message", e.getMessage());
+   }
+   return content;
+ }
+ 
   
-  
-//  
-//  @PostMapping("update")
-//  public Object update(Hostqna hostqna) {
-//    HashMap<String,Object> content = new HashMap<>();
-//    try {
-//      if (hostQnaService.update(hostqna) == 0) 
-//        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-//      content.put("status", "success");
-//      
-//    } catch (Exception e) {
-//      content.put("status", "fail");
-//      content.put("message", e.getMessage());
-//    }
-//    return content;
-//  }
-//  
   
   
 }

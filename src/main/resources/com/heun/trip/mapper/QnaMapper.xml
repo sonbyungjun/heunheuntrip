@@ -9,7 +9,9 @@
   <resultMap type="qna" id="qnaMap">
     <id column="qna_id" property="qnaNo"/>
     <result column="name" property="name"/>
+    <result column="usr_id" property="userNo"/>
     <result column="auth" property="auth"/>
+    <result column="qna_cate_id" property="categoryNo"/>
     <result column="cate" property="category"/>
     <result column="parent" property="parent"/>
     <result column="ordr" property="order"/>
@@ -20,12 +22,18 @@
     <result column="cdt" property="createdDate"/>
     <result column="vw_cnt" property="viewCount"/>
   </resultMap>
+  
+  <resultMap type="category" id="cateMap">
+    <id column="qna_cate_id" property="no"/>
+    <result column="cate" property="category"/>
+  </resultMap>
     
   <resultMap type="qna" id="qnaPhotoMap">
     <id column="qna_id" property="qnaNo"/>
     <result column="name" property="name"/>
     <result column="auth" property="auth"/>
     <result column="cate" property="category"/>
+    <result column="qna_cate_id" property="categoryNo"/>
     <result column="parent" property="parent"/>
     <result column="ordr" property="order"/>
     <result column="step" property="step"/>
@@ -43,6 +51,45 @@
   
   </resultMap>
   
+  <select id="deleteList" resultMap="qnaPhotoMap" parameterType="map">
+   <![CDATA[
+   select
+     q.qna_id,
+     parent,
+     ordr, 
+     step, 
+     qna_photo_id 
+   from 
+     qna q
+   left outer join
+     qna_photo p on q.qna_id=p.qna_id
+   where 
+     parent=#{parent} and ordr>#{order} 
+   order by 
+     ordr asc;
+   ]]>
+  </select>
+  
+  <insert id="insert" parameterType="qna">
+    insert into qna(
+      usr_id,
+      qna_cate_id,
+      parent,
+      ordr,
+      step,
+      title,
+      content,
+      qna_pwd)
+    values(
+      #{userNo},
+      #{categoryNo},
+      #{parent},
+      #{order},
+      #{step},
+      #{title},
+      #{content},
+      password(#{password}))
+  </insert>
   
   <select id="findAll" resultMap="qnaMap" parameterType="map">
     select
@@ -63,7 +110,7 @@
     left outer join
       qna_cate c on q.qna_cate_id=c.qna_cate_id
     order by 
-      parent asc
+      parent desc, ordr asc
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
@@ -78,6 +125,7 @@
       q.ordr,
       q.step,
       c.cate,
+      c.qna_cate_id,
       q.title,
       q.content,
       q.cdt,
@@ -129,6 +177,67 @@
     order by 
       parent asc
   </select>
+  
+  <select id="getCategory" resultMap="cateMap">
+    select
+      qna_cate_id,
+      cate
+    from
+      qna_cate
+  </select>
+  
+  <select id="maxParent" resultType="int">
+    select
+      max(parent)
+    from
+      qna
+  </select>
+  
+  <select id="maxOrder" resultType="int" parameterType="int">
+    select
+      max(ordr)
+    from
+      qna
+    where
+      parent = #{value}
+  </select>
+  
+  <update id="sorting" parameterType="map">
+    update
+      qna
+    set
+      ordr = ordr + 1
+    where 
+      parent = #{parent}
+    and
+      ordr <![CDATA[>]]> #{order}
+  </update>
+  
+ 
+  
+   <update id="update" parameterType="qna">
+    update
+      qna
+    set
+      title = #{title},
+      content = #{content} 
+    where 
+      qna_id = #{qnaNo}
+  </update>
+  
+    <delete id="delete" parameterType="int">
+
+    delete 
+      from qna 
+    where 
+      qna_id = #{qnaNo} 
+  </delete>
+  
+      
+     
+  
+  
+  
   
   
 <!--    <select id="findByNo" resultMap="qnaMap" parameterType="int">
