@@ -194,6 +194,27 @@
       ordr <![CDATA[>]]> #{order}
   </update>
   
+  
+  
+   <update id="update" parameterType="qna">
+    update
+      qna
+    set
+      title = #{title},
+      content = #{content} 
+    where 
+      qna_id = #{qnaNo}
+  </update>
+  
+  
+  
+      
+     
+  
+  
+  
+  
+  
 <!--    <select id="findByNo" resultMap="qnaMap" parameterType="int">
     select * 
     from qna

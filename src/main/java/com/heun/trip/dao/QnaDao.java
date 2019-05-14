@@ -9,12 +9,12 @@ public interface QnaDao {
   int insert(Qna qna);
   List<Qna> findAll(Map<String,Object> params);
   Qna findByNo(int no);
-//  int increaseCount(int no);  
-//  int update(Qna qna); 
+//  int increaseCount(int no);
+   int update(Qna qna); 
 //  int delete(int no);  
   int countAll(); 
   List<Qna> findByReList(Map<String,Object> params);
-  List<Category> getCategory();
+  List<Category> getCategory();     
   int maxParent();
   int maxOrder(int parent);
   int sorting(Map<String,Object> params);

@@ -116,24 +116,24 @@ public class QnaController {
     content.put("category", categories);
     return content;
   }
+ 
   
+
+ @PostMapping("update")
+  public Object update(Qna qna) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (qnaService.update(qna) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
   
-//  
-//  @PostMapping("update")
-//  public Object update(Hostqna hostqna) {
-//    HashMap<String,Object> content = new HashMap<>();
-//    try {
-//      if (hostQnaService.update(hostqna) == 0) 
-//        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-//      content.put("status", "success");
-//      
-//    } catch (Exception e) {
-//      content.put("status", "fail");
-//      content.put("message", e.getMessage());
-//    }
-//    return content;
-//  }
-//  
   
   
 }
