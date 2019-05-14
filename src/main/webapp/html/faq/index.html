@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Faq</title>
+<link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>FAQ</h1>
+    <p>
+      <a href='../../' class="btn btn-primary btn-sm">메인화면</a>
+    </p>
+    <div class="bit-list">
+    <table class="table table-hover">
+      <tbody>      
+      </tbody>
+    </table>
+    </div>
+    </div>
+    
+    <nav aria-label="목록 페이지 이동">
+  <ul class="pagination justify-content-center">
+    <li id="prevPage" class="page-item">
+      <a class="page-link" 
+        href="?pageNo=0&pageSize=3">이전</a></li>
+    <li id="currPage" class="page-item active"><span class="page-link">1</span></li>
+    <li id="nextPage" class="pagview.htmle-item ">
+      <a class="page-link" 
+         href="?pageNo=2&pageSize=3">다음</a></li>
+  </ul>
+</nav>
+
+         <div class="form-group row">
+            <div class="col-sm-8">
+              <button type="button" id="delete-btn" class="btn btn-primary bit-view-item delete">삭제</button>
+              <button type="button" id='update-btn' class="btn btn-primary bit-view-item update">변경</button>
+              <a href='faqadd.html' class="btn btn-primary btn-sm">새 글</a> 
+            </div>
+          </div>
+          
+<script id="tr-template" type="text/x-handlebars-template">
+{{#each list}}
+<tr class="heun-detail">
+  <td>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" name='aa' aria-label="Checkbox for following text input" value='{{no}}'>
+        </div>
+      </div>
+      <input id='bb'type="text" class="form-control" aria-label="Text input with checkbox" value='{{title}}'>
+      <div class="input-group heun-detail-child"></div>
+    </div>
+  </td>
+</tr>
+{{/each}}
+</script>
+
+<script id="detail" type="text/x-handlebars-template">
+<div class="form-group row">
+  <label for="content" class="col-sm-2 col-form-label">내용</label>
+  <div class="col-sm-8">
+    <textarea class="form-control" id='content' name='content' data-no='{{faq.no}}'rows='5'>{{faq.content}}</textarea>
+  </div>
+</div>
+</script>
+
+
+<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
