@@ -14,7 +14,7 @@ public interface QnaDao {
 //  int delete(int no);  
   int countAll(); 
   List<Qna> findByReList(Map<String,Object> params);
-  List<Category> getCategory();     
+  List<Category> getCategory();
   int maxParent();
   int maxOrder(int parent);
   int sorting(Map<String,Object> params);
