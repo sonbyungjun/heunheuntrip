@@ -46,7 +46,7 @@ public class QnaController {
     } else {
       qnaService.sorting(qna.getParent(), qna.getOrder());
 
-      qna.setOrder(qna.getOrder()+1);
+      qna.setOrder(qna.getOrder() + 1);
       qna.setStep(qna.getStep() + 1);
     }
     
