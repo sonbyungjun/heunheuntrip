@@ -133,6 +133,25 @@ public class QnaController {
     }
     return content;
   }
+ 
+ 
+ @GetMapping("delete")
+ public Object delete(int no, int parent, int order) {
+ 
+   HashMap<String,Object> content = new HashMap<>();
+   
+   try {
+     if (qnaService.delete(no, parent, order)  == 0) 
+       throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+     content.put("status", "success");
+     
+   } catch (Exception e) {
+     content.put("status", "fail");
+     content.put("message", e.getMessage());
+   }
+   return content;
+ }
+ 
   
   
   

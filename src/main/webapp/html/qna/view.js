@@ -8,7 +8,7 @@ var param = location.href.split('?')[1],
 
 if (param) {
   document.querySelector('h1').innerHTML = "QnA 조회"
-    loadData(param.split('=')[1])
+  loadData(param.split('=')[1])
     var el = document.querySelectorAll('.bit-new-item');
   for(e of el){
     e.style.display = 'none';
@@ -29,6 +29,7 @@ $(document.body).on('loaded-cate', function() {
     $('#dropdownMenuButton').attr('data-no', $(this).attr('data-no'));
   });
 })
+
 
 
 function loadCategory() {
@@ -55,7 +56,6 @@ function loadList(parent, step) {
   }); // Bitcamp.getJSON()
 };
 
-
 function loadData(no) {
   $.getJSON("../../app/json/qna/detail?no=" + no, function(data) {
       $('#no').val(data.qnaNo);
@@ -77,7 +77,6 @@ function loadData(no) {
   });
 };
 
-     
 $('#add-btn').on('click', function() {
   $.ajax({
     url: '../../app/json/qna/add',
@@ -101,6 +100,47 @@ $('#add-btn').on('click', function() {
   });
 })
 
+
+
+
+$('#delete-btn').on('click', function() {
+  $.ajax({
+    url: '../../app/json/qna/delete?no=' + $('#no').val() + '&parent=' + $('#title').attr('data-parent') +
+         '&order=' + $('#title').attr('data-order'),
+    type: 'get',
+    dataType: 'json',
+    success: function(response) {
+      location.href = 'index.html';
+    },
+    fail: function(error) {
+      alert('삭제 실패!!' + data.message);
+    }
+  });
+})
+
+
+//document.querySelector('#delete-btn').onclick = () => {
+//  var xhr = new XMLHttpRequest();
+//  xhr.onreadystatechange = function() {
+//    if(xhr.readyState != 4 || xhr.status != 200){
+//      return;
+//    } 
+//    var data = JSON.parse(xhr.responseText);
+//    console.log(data);
+//    
+//    if(data.status == 'success'){
+//      location.href = "index.html"
+//    } else {
+//      alert('삭제 실패입니다!\n' + data.message)
+//    }
+//  };
+//
+//  var no = document.querySelector('#no').value;
+//  var parent = document.querySelector('#title').getAttribute('data-parent');
+//  var step = document.querySelector('#title').getAttribute('data-step');
+//  xhr.open('GET', '../../app/json/qna/delete?no=' + no + '&parent=' + parent + '&step=' + step, true);
+//  xhr.send();
+//};
 
 
 $('#re-btn').on('click', function() {
