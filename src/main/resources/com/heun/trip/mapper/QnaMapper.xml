@@ -51,6 +51,25 @@
   
   </resultMap>
   
+  <select id="deleteList" resultMap="qnaPhotoMap" parameterType="map">
+   <![CDATA[
+   select
+     q.qna_id,
+     parent,
+     ordr, 
+     step, 
+     qna_photo_id 
+   from 
+     qna q
+   left outer join
+     qna_photo p on q.qna_id=p.qna_id
+   where 
+     parent=#{parent} and ordr>#{order} 
+   order by 
+     ordr asc;
+   ]]>
+  </select>
+  
   <insert id="insert" parameterType="qna">
     insert into qna(
       usr_id,
@@ -206,7 +225,13 @@
       qna_id = #{qnaNo}
   </update>
   
-  
+    <delete id="delete" parameterType="int">
+
+    delete 
+      from qna 
+    where 
+      qna_id = #{qnaNo} 
+  </delete>
   
       
      
