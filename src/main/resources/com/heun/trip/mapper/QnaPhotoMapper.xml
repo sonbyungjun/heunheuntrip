@@ -12,7 +12,7 @@
     <result column="qna_photo"  property="qnaFile"/>
   </resultMap>
   
-  <delete id="deleteByPQnaPhotoNo" parameterType="int">
+  <delete id="deleteByQnaPhotoNo" parameterType="int">
     delete from qna_photo
     where qna_photo_id = #{value}
   </delete>
