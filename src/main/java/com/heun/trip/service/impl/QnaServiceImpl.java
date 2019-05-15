@@ -38,6 +38,7 @@ public class QnaServiceImpl implements QnaService {
   
   @Override
   public Qna get(int no) {
+    qnaDao.increaseCount(no);
     return qnaDao.findByNo(no);
   }
   
@@ -95,7 +96,7 @@ public class QnaServiceImpl implements QnaService {
     
     // 원글을 먼저 지운다.
     for (QnaPhoto p : qna.getQnaPhotos()) {
-      qnaPhotoDao.deleteByPQnaPhotoNo(p.getNo());
+      qnaPhotoDao.deleteByQnaPhotoNo(p.getNo());
     }
     qnaDao.delete(qna.getQnaNo());
     
@@ -107,7 +108,7 @@ public class QnaServiceImpl implements QnaService {
         break;
       }
       for (QnaPhoto p : q.getQnaPhotos()) {
-        qnaPhotoDao.deleteByPQnaPhotoNo(p.getNo());
+        qnaPhotoDao.deleteByQnaPhotoNo(p.getNo());
       }
       qnaDao.delete(q.getQnaNo());
       count++;
