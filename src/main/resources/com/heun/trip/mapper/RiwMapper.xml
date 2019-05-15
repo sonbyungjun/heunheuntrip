@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.RiwDao">
+  
+  <resultMap type="riw" id="riwMap">
+    <id column="riw_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="riw_conts" property="contents"/>
+    <result column="grd" property="grd"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="riw_reply" property="reply"/>
+    <result column="reply_dt" property="replyDate"/>
+    <result column="name" property="name"/>
+    <result column="usr_photo" property="photo"/>
+    <result column="rms_id" property="rommNo"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="riwMap" parameterType="map">
+    select
+      riw_id,
+     r.usr_id,
+      riw_conts,
+      grd,
+     r.cdt,
+      riw_reply,
+      reply_dt,
+     rms_id,
+      
+      u.name,
+      u.usr_photo
+  
+    from
+      riw r
+    left outer join
+      usr u on r.usr_id=u.usr_id
+   
+    order by 
+      cdt desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <!--  
+  <insert id="insert" parameterType="qna">
+    insert into qna(
+      usr_id,
+      qna_cate_id,
+      parent,
+      ordr,
+      step,
+      title,
+      content,
+      qna_pwd)
+    values(
+      #{userNo},
+      #{categoryNo},
+      #{parent},
+      #{order},
+      #{step},
+      #{title},
+      #{content},
+      password(#{password}))
+  </insert>
+ 
+  
+  <select id="findByNo" resultMap="qnaPhotoMap" parameterType="int">
+    select
+      q.qna_id,
+      u.name,
+      a.auth,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      c.qna_cate_id,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt,
+      p.qna_photo,
+      p.qna_photo_id
+    from
+      qna q
+    left outer join
+      usr u
+    on
+      q.usr_id=u.usr_id
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
+    left outer join
+      qna_cate c
+    on
+      q.qna_cate_id=c.qna_cate_id
+    left outer join
+      qna_photo p
+    on
+      p.qna_id=q.qna_id
+    where
+      q.qna_id=#{value}
+  </select>
+  
+  <select id="findByReList" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+      q.parent=#{parent} and q.step<![CDATA[<]]>#{step}
+    order by 
+      parent asc
+  </select>
+  
+  <select id="getCategory" resultMap="cateMap">
+    select
+      qna_cate_id,
+      cate
+    from
+      qna_cate
+  </select>
+  
+  <select id="maxParent" resultType="int">
+    select
+      max(parent)
+    from
+      qna
+  </select>
+  
+  <select id="maxOrder" resultType="int" parameterType="int">
+    select
+      max(ordr)
+    from
+      qna
+    where
+      parent = #{value}
+  </select>
+  
+  <update id="sorting" parameterType="map">
+    update
+      qna
+    set
+      ordr = ordr + 1
+    where 
+      parent = #{parent}
+    and
+      ordr <![CDATA[>]]> #{order}
+  </update>
+  
+ 
+  
+   <update id="update" parameterType="qna">
+    update
+      qna
+    set
+      title = #{title},
+      content = #{content} 
+    where 
+      qna_id = #{qnaNo}
+  </update>
+  
+    <delete id="delete" parameterType="int">
+
+    delete 
+      from qna 
+    where 
+      qna_id = #{qnaNo} 
+  </delete>
+  
+      
+     
+  
+  
+  
+  
+  
+   <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select * 
+    from qna
+    where 
+      rms_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update qna 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where qna_id = #{value}
+  </update>
+  
+  
+  <delete id="delete" parameterType="int">
+    delete from qna 
+    where qna_id = #{no}
+  </delete>
+  
+  <insert id="insert" parameterType="qnaMap">
+    insert into qna(
+      title,
+      content,
+      qna_cate_id) 
+    values(
+      #{title}, 
+      #{content}, 
+      #{categoryNo})
+  </insert>
+  
+  <update id="update" parameterType="qnaMap">
+    update qna 
+    set 
+      title = #{title}
+      content = #{content} 
+      qna_cate_id = #{categoryNo}
+    where board_id = #{no}
+  </update> 
+  
+  -->
+  <select id="countAll" resultType="int">
+    select count(*) from riw
+  </select>
+   
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
