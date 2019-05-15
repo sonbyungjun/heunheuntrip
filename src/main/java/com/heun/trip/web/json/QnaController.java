@@ -67,8 +67,8 @@ public class QnaController {
       @RequestParam(defaultValue="10") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
     
-    if (pageSize < 7 || pageSize > 8) 
-      pageSize = 7;
+    if (pageSize < 5 || pageSize > 6) 
+      pageSize = 10;
     
     int rowCount = qnaService.size();
     int totalPage = rowCount / pageSize;
@@ -79,10 +79,6 @@ public class QnaController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
-    // 테스트 코드입니다 아래
-    pageNo = 1;
-    pageSize = 100;
     
     List<Qna> hostqnas = qnaService.list(pageNo, pageSize);
     

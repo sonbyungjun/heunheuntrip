@@ -30,6 +30,9 @@
       <tbody></tbody>
     </table>
     </div>
+   <nav>
+      <ul class="pagination justify-content-center"></ul>
+    </nav>
   </div> <!-- .container -->
   
 <script id="tr-template" type="text/x-handlebars-template">
@@ -43,6 +46,25 @@
   <td>{{viewCount}}</td>
 </tr>
 {{/each}}
+</script>
+
+<script id="page-template" type="text/x-handlebars-template">
+<li id="prevPage" class="page-item">
+  <a class="page-link" href="?pageNo={{pageNo}}&pageSize={{pageSize}}">이전</a>
+</li>
+
+{{#each pageNoList}}
+
+<li id="currPage" class="page-item {{active}}">
+ <a href='#' class="page-link" data-no='{{page}}' data-no2=10>{{page}}</a>
+</li>
+
+{{/each}}
+
+
+<li id="nextPage" class="page-item">
+  <a class="page-link" href="?pageNo={{pageNo}}&pageSize={{pageSize}}">다음</a>
+</li>
 </script>
   
 <script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>

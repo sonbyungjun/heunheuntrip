@@ -66,7 +66,7 @@
    where 
      parent=#{parent} and ordr>#{order} 
    order by 
-     ordr asc;
+     ordr asc
    ]]>
   </select>
   
@@ -232,61 +232,20 @@
     where 
       qna_id = #{qnaNo} 
   </delete>
-  
-      
-     
-  
-  
-  
-  
-  
-<!--    <select id="findByNo" resultMap="qnaMap" parameterType="int">
-    select * 
-    from qna
-    where 
-      rms_id = #{value}
-  </select>
-  
+ 
   <update id="increaseCount" parameterType="int">
     update qna 
     set 
       vw_cnt = vw_cnt + 1 
     where qna_id = #{value}
   </update>
-  
-  
-  <delete id="delete" parameterType="int">
-    delete from qna 
-    where qna_id = #{no}
-  </delete>
-  
-  <insert id="insert" parameterType="qnaMap">
-    insert into qna(
-      title,
-      content,
-      qna_cate_id) 
-    values(
-      #{title}, 
-      #{content}, 
-      #{categoryNo})
-  </insert>
-  
-  <update id="update" parameterType="qnaMap">
-    update qna 
-    set 
-      title = #{title}
-      content = #{content} 
-      qna_cate_id = #{categoryNo}
-    where board_id = #{no}
-  </update> -->
-  
  
   <select id="countAll" resultType="int">
     select count(*) from qna
   </select>
    
   
-</mapper>
+</mapper>     
 
 
 
