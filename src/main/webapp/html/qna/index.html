@@ -4,7 +4,15 @@
   <meta charset="UTF-8">
 	<title>게시물 목록</title>
   <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="index.css"> 
+  <link rel="stylesheet" href="index.css">
+  <style>
+    .pagination {
+      justify-content: center;
+    }
+    .bit-list {
+      min-height: 300px;
+    }
+  </style>
 </head>
 
 <body>
@@ -30,9 +38,7 @@
       <tbody></tbody>
     </table>
     </div>
-   <nav>
-      <ul class="pagination justify-content-center"></ul>
-    </nav>
+   <div class="pagination-menu"></div>
   </div> <!-- .container -->
   
 <script id="tr-template" type="text/x-handlebars-template">
@@ -49,28 +55,36 @@
 </script>
 
 <script id="page-template" type="text/x-handlebars-template">
-<li id="prevPage" class="page-item">
-  <a class="page-link" href="?pageNo={{pageNo}}&pageSize={{pageSize}}">이전</a>
-</li>
+<nav>
+  <ul class="pagination pagination-centered">
+    {{#paginate pagination type="first"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+    {{/paginate}}
 
-{{#each pageNoList}}
+    {{#paginate pagination type="previous"}}
+      <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+    {{/paginate}}
 
-<li id="currPage" class="page-item {{active}}">
- <a href='#' class="page-link" data-no='{{page}}' data-no2=10>{{page}}</a>
-</li>
+    {{#paginate pagination type="middle" limit="5"}}
+      <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+    {{/paginate}}
 
-{{/each}}
+    {{#paginate pagination type="next"}}
+      <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+    {{/paginate}}
 
-
-<li id="nextPage" class="page-item">
-  <a class="page-link" href="?pageNo={{pageNo}}&pageSize={{pageSize}}">다음</a>
-</li>
+    {{#paginate pagination type="last"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+    {{/paginate}}
+</ul>
+</nav>
 </script>
   
 <script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
 <script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="/heunheuntrip/html/js/handlebars-paginate.js"></script>
 <script src="index.js"></script>
 
 </body>

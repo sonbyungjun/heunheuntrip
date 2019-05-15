@@ -67,6 +67,19 @@ public class QnaController {
       @RequestParam(defaultValue="5") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
     
+    // 한 블록에 보여질 페이지 갯수를 정한다.
+    int blockPage = 3;
+    
+    int nowBlock = (int) Math.ceil((double) pageNo/(double) blockPage);
+    
+    int firstPage = (nowBlock * blockPage) - (blockPage - 1);
+    
+    if (firstPage <= 1) {
+      firstPage = 1;
+    }
+    
+    int lastPage = nowBlock * blockPage;
+    
     if (pageSize < 1 || pageSize > 6) 
       pageSize = 5;
     
@@ -81,6 +94,15 @@ public class QnaController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
     
+    if (totalPage <= lastPage) {
+      lastPage = totalPage;
+    }
+    
+    if (pageNo > lastPage) {
+      pageNo = lastPage;
+    }
+    
+    
     List<Qna> hostqnas = qnaService.list(pageNo, pageSize);
     
     HashMap<String,Object> content = new HashMap<>();
@@ -88,6 +110,8 @@ public class QnaController {
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
     content.put("totalPage", totalPage);
+    content.put("firstPage", firstPage);
+    content.put("lastPage", lastPage);
 
     return content;
   }
