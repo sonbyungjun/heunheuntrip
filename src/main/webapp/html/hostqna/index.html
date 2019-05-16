@@ -5,6 +5,14 @@
 <title>HOST QNA</title>
 <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
+<style>
+.left {
+float: left;
+}
+.right {
+float: right;
+}
+</style>
 
 <body>
 
@@ -44,22 +52,22 @@
   <script id="tr-template" type="text/x-handlebars-template">
 {{#each list}}
 <tr>
-<td>
- <div class="form-group shadow-textarea">
-        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" style="background-color:white" readonly>{{content}}</textarea>
-    
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">{{photo}}</a></li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">{{name}}</a></li>
-      <li class="nav-item active">
-        <a class="nav-link" href="#">{{createdDate}}</a></li>
-    </ul>
-</div>
-</div>
-</td>
+  <td>
+  <div class="form-group shadow-textarea hostqna {{arr}}" style="width: 500px">
+    <textarea class="form-control z-depth-1 " data-no='{{no}}'id="hostqnalist-{{no}}" rows="3" style="background-color:white" readonly>{{content}}</textarea>
+    <button type="button" name="delete-btn" data-no='{{no}}'class="btn btn-primary bit-view-item delete">삭제</button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{{photo}}</a></li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{{name}}</a></li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">{{createdDate}}</a></li>
+      </ul>
+    </div>
+  </div>
+  </td>
 </tr>
 {{/each}}
 </script>

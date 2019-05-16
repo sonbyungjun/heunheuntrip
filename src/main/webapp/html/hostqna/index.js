@@ -8,9 +8,18 @@ function loadList(pn) {
   $.getJSON('../../app/json/hostqna/list', 
       function(obj) {
     pageNo = obj.pageNo;
-    thead.html('');
+    for(var i = 0; i < obj.list.length; i++) {
+      if(obj.list[i].authNo == 1){
+        obj.list[i].arr = 'left';
+      } else {
+        obj.list[i].arr = 'right';
+      }
+    }
+    console.log(obj);
     $('.add').hide();
+    thead.html('');
     $(trGenerator(obj)).appendTo(thead);
+    $('.delete').hide();
     // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
     $(document.body).trigger('loaded-list');
   }); // Bitcamp.getJSON()
@@ -33,7 +42,6 @@ $(document.body).bind('loaded-list', () => {
 $('body').on('loaded-list', function() {
 	$('.hostqna').on('click', function(e) {
 		$(this).off();
-		
 		$('.add').show();
 		$(document.body).trigger('loaded-add');
 	})
@@ -55,27 +63,35 @@ $('body').on('loaded-add', function() {
 		fail: function(error) {
 			alert('변경 실패!!');
 		}
-	
-		
 	    }); // Bitcamp.getJSON()
 	})
 })
-//$('body').on('loaded-delete', function() {
-//	var no = $('.delete').attr('data-no');
-//  $('.delete').on('click', function() {
-//	console.log('dd');
-//		$.getJSON({
-//			url: '../../app/json/riw/delete?no=' + no,
-//			success: function(response) {
-//				location.href = 'index.html';
-//			},
-//			fail: function(error) {
-//				alert('변경 실패!!');
-//			}
-//
-//		});
-//});
-//})
+
+
+$('body').on('loaded-list', function() {
+  $('.hostqna').on('click', function(e) {
+    $(this).off();
+    $(this).children('.delete').show();
+    $(document.body).trigger('loaded-delete');
+});
+})
+
+$('body').on('loaded-delete', function(){
+  $('.delete').on('click', function(e){
+    var no = $(e.target).attr('data-no');
+    $.getJSON({
+      url: '../../app/json/hostqna/delete?no=' + no,
+      success: function(response) {
+        location.href = 'index.html';
+      },
+      fail: function(error) {
+        alert('변경 실패!!');
+      }
+      
+    });
+  })
+})
+
 //
 //$('body').on('loaded-update', function() {
 //  $('.update').on('click', function(e) {

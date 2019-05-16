@@ -14,6 +14,8 @@
     <result column="cdt" property="createdDate"/>
     <result column="usr_photo" property="photo"/>
     <result column="name" property="name"/>
+    <result column="auth_id" property="authNo"/>
+    <result column="auth" property="auth"/>
   </resultMap>
     
     
@@ -25,11 +27,15 @@
      h.conts,
      h.cdt,
      u.usr_photo,
-     u.name
+     u.name,
+     u.auth_id,
+     a.auth
     from
       hst_qna h
     left outer join
       usr u on h.usr_id=u.usr_id
+    left outer join
+      auth a on u.auth_id=a.auth_id
     order by 
       hst_qna_id asc
     <if test="size != null and rowNo != null">
