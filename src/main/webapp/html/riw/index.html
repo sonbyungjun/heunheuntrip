@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>숙소 리뷰</title>
+<link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+<style>
+body {
+	text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+  <form class="form-inline">
+    <div class="container">
+      <h1>RIW</h1>
+      <p>
+        <a href='addriw.html' class="btn btn-primary btn-sm">새 글</a> <a href='../../'
+          class="btn btn-primary btn-sm">메인화면</a>
+      </p>
+      <div class="bit-list">
+        <table class="table table-hover">
+          <div id='6'>
+            <a class="bit-view-link" href="#" data-no="5">평점</a>
+          </div>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="pagination-menu"></div>
+    </div>
+    <!-- container -->
+  </form>
+
+  <script id="tr-template" type="text/x-handlebars-template">
+{{#each list}}
+<tr class="heun-detail">
+  <td>
+<div name='user'> 
+<br>
+     <input type="text" class="form-control"  value='{{no}}'readonly >
+     <input type="text" class="form-control"  value='{{name}}'readonly >
+     <input type="text" class="form-control"  value='{{createdDate}}'readonly >
+
+    </div>
+     <div name='riw' > 
+       <input type="text" class="form-control updatedate" id="update-{{no}}" value='{{contents}}' >
+     </div> 
+<div class="input-group heun-detail-child"></div>
+    </div>
+</td>
+</tr>
+{{/each}}
+</script>
+
+  <script id="detail" type="text/x-handlebars-template">
+<div class="form-group row">
+            <div class="col-sm-8">
+              <button type="button" name="delete-btn" class="btn btn-primary bit-view-item delete" data-no='{{riw.no}}'>삭제</button>
+              <button type="button" name='update-btn' class="btn btn-primary bit-view-item update" data-no='{{riw.no}}' data-contents='{{riw.contents}}'>변경</button>
+            </div>
+          </div>
+</script>
+
+  <!--  
+<script id="page-template" type="text/x-handlebars-template">
+<nav>
+  <ul class="pagination pagination-centered">
+    {{#paginate pagination type="first"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+    {{/paginate}}
+
+    {{#paginate pagination type="previous"}}
+      <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+    {{/paginate}}
+
+    {{#paginate pagination type="middle" limit="5"}}
+      <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+    {{/paginate}}
+
+    {{#paginate pagination type="next"}}
+      <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+    {{/paginate}}
+
+    {{#paginate pagination type="last"}}
+      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+    {{/paginate}}
+</ul>
+</nav>
+
+</script>
+-->
+  <script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="/heunheuntrip/html/js/handlebars-paginate.js"></script>
+  <script src="index.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

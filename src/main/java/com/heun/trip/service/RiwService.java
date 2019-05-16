@@ -5,11 +5,11 @@ import com.heun.trip.domain.Riw;
 
 public interface RiwService {
   List<Riw> list(int pageNo, int pageSize);
-// int add(Qna qna);
- // Qna get(int no);
+ int add(Riw riw);
+ Riw get(int no);
 //  List<Qna> reList(int parent, int step);
-//  int update(Qna qna);   
-//  int delete(int no, int parent, int order);
+  int update(Riw riw);   
+  int delete(int no);
  int size();
 //  List<Category> getCategory();
 //  int maxParent();

@@ -31,10 +31,28 @@ public class RiwServiceImpl implements RiwService {
     return riwDao.countAll();
   }
   
-//  @Override
-//  public Qna get(int no) {
-//    return qnaDao.findByNo(no);
-//  }
+  @Override
+  public int add(Riw riw) {
+    int count = riwDao.insert(riw);
+    return count;
+  }
+  @Override
+  public Riw get(int no) {
+    return riwDao.findByNo(no);
+  }
+  
+  @Override
+  public int delete(int no) {
+    return riwDao.delete(no);
+  }
+  
+  @Override
+public int update(Riw riw) {
+ return riwDao.update(riw);
+}
+  
+  
+  
 //  
 //  @Override
 //  public List<Qna> reList(int parent,  int step) {
@@ -49,11 +67,6 @@ public class RiwServiceImpl implements RiwService {
 //    return qnaDao.getCategory();
 //  }
 //  
-//  @Override
-//  public int add(Qna qna) {
-//    int count = qnaDao.insert(qna);
-//    return count;
-//  }
 //  
 //  @Override
 //  public int maxParent() {

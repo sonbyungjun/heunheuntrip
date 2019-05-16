@@ -22,22 +22,19 @@
   <select id="findAll" resultMap="riwMap" parameterType="map">
     select
       riw_id,
-     r.usr_id,
+      r.usr_id,
       riw_conts,
       grd,
-     r.cdt,
+      r.cdt,
       riw_reply,
       reply_dt,
-     rms_id,
-      
+      rms_id,
       u.name,
       u.usr_photo
-  
     from
       riw r
     left outer join
       usr u on r.usr_id=u.usr_id
-   
     order by 
       cdt desc
     <if test="size != null and rowNo != null">
@@ -45,67 +42,64 @@
     </if>
   </select>
   
-  <!--  
-  <insert id="insert" parameterType="qna">
-    insert into qna(
+  <insert id="insert" parameterType="riw">
+    insert into riw(
       usr_id,
-      qna_cate_id,
-      parent,
-      ordr,
-      step,
-      title,
-      content,
-      qna_pwd)
+      riw_conts,
+      grd,
+      riw_reply,
+      reply_dt)
     values(
       #{userNo},
-      #{categoryNo},
-      #{parent},
-      #{order},
-      #{step},
-      #{title},
-      #{content},
-      password(#{password}))
+      #{contents},
+      #{grd},
+      #{reply},
+      #{replyDate})
   </insert>
  
   
-  <select id="findByNo" resultMap="qnaPhotoMap" parameterType="int">
+ 
+  <select id="findByNo" resultMap="riwMap" parameterType="int">
     select
-      q.qna_id,
+      riw_id,
+      r.usr_id,
+      riw_conts,
+      grd,
+      r.cdt,
+      riw_reply,
+      reply_dt,
+      rms_id,
       u.name,
-      a.auth,
-      q.parent,
-      q.ordr,
-      q.step,
-      c.cate,
-      c.qna_cate_id,
-      q.title,
-      q.content,
-      q.cdt,
-      q.vw_cnt,
-      p.qna_photo,
-      p.qna_photo_id
+      u.usr_photo
     from
-      qna q
+      riw r
     left outer join
-      usr u
-    on
-      q.usr_id=u.usr_id
-    left outer join
-      auth a
-    on
-      u.auth_id=a.auth_id
-    left outer join
-      qna_cate c
-    on
-      q.qna_cate_id=c.qna_cate_id
-    left outer join
-      qna_photo p
-    on
-      p.qna_id=q.qna_id
+      usr u on r.usr_id=u.usr_id
     where
-      q.qna_id=#{value}
+      r.riw_id=#{value}
   </select>
   
+      <delete id="delete" parameterType="int">
+
+    delete 
+      from riw 
+    where 
+      riw_id = #{no} 
+  </delete>
+  
+     <update id="update" parameterType="riw">
+    update
+      riw
+    set
+      riw_conts = #{contents} 
+    where 
+      riw_id = #{no}
+  </update>
+  
+  
+  
+  
+    <!-- 
   <select id="findByReList" resultMap="qnaMap" parameterType="map">
     select
       q.qna_id,
@@ -167,23 +161,9 @@
   
  
   
-   <update id="update" parameterType="qna">
-    update
-      qna
-    set
-      title = #{title},
-      content = #{content} 
-    where 
-      qna_id = #{qnaNo}
-  </update>
-  
-    <delete id="delete" parameterType="int">
 
-    delete 
-      from qna 
-    where 
-      qna_id = #{qnaNo} 
-  </delete>
+  
+
   
       
      

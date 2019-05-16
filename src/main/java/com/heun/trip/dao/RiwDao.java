@@ -5,12 +5,12 @@ import java.util.Map;
 import com.heun.trip.domain.Riw;
 
 public interface RiwDao {
-//  int insert(Qna qna);
+  int insert(Riw riw);
   List<Riw> findAll(Map<String,Object> params);
-//  Qna findByNo(int no);
+  Riw findByNo(int no);
 //// int increaseCount(int no);  
-//  int delete(int no);   
-//  int update(Qna qna);   
+  int delete(int no);   
+ int update(Riw riw);   
  int countAll(); 
 //  List<Qna> findByReList(Map<String,Object> params);
 //  List<Category> getCategory();
