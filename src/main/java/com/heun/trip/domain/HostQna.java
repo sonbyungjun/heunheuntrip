@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Hostqna implements Cloneable, Serializable {
+public class HostQna implements Cloneable, Serializable {
   private static final long serialVersionUID = 1L;
 
   private int no;
@@ -12,11 +12,30 @@ public class Hostqna implements Cloneable, Serializable {
   private String content;
   @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
   private Date createdDate;
+  private String photo;
+  private String name;
   
+
   @Override
   public String toString() {
-    return "HostQna [no=" + no + ", userNo=" + userNo + ", roomNo=" + roomNo + ", content="
-        + content + ", createdDate=" + createdDate + "]";
+    return "Hostqna [no=" + no + ", userNo=" + userNo + ", roomNo=" + roomNo + ", content="
+        + content + ", createdDate=" + createdDate + ", photo=" + photo + ", name=" + name + "]";
+  }
+
+  public String getPhoto() {
+    return photo;
+  }
+
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getNo() {

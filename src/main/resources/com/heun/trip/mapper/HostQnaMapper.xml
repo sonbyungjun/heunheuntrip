@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.HostQnaDao">
+  
+  <resultMap type="hostQna" id="hostQnaMap">
+    <id column="hst_qna_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="rms_id" property="roomNo"/>
+    <result column="conts" property="content"/>
+    <result column="cdt" property="createdDate"/>
+    <result column="usr_photo" property="photo"/>
+    <result column="name" property="name"/>
+  </resultMap>
+    
+    
+  <select id="findAll" resultMap="hostQnaMap" parameterType="map">
+    select
+     h.hst_qna_id,
+     h.usr_id,
+     h.rms_id,
+     h.conts,
+     h.cdt,
+     u.usr_photo,
+     u.name
+    from
+      hst_qna h
+    left outer join
+      usr u on h.usr_id=u.usr_id
+    order by 
+      hst_qna_id asc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    delete from hst_qna 
+    where hst_qna_id = #{no}
+  </delete>
+  
+    <insert id="insert" parameterType="map">
+    insert into hst_qna(
+     usr_id,
+     rms_id,
+      conts) 
+    values(
+      #{userNo},
+      #{roomNo},
+      #{content})
+  </insert>
+  
+  
+  
+  
+  
+  <!-- 
+  <update id="update" parameterType="map">
+    update 
+    faq 
+    set 
+     faq_an = #{content} 
+    where 
+    faq_id = #{no}
+  </update>
+  
+  <select id="findByNo" resultMap="faqMap" parameterType="int">
+    select
+      faq_id,
+      faq,
+      faq_an
+    from 
+      faq
+    where 
+      faq_id=#{value}
+  </select>
+  
+  <select id="findByReList" resultMap="qnaMap" parameterType="map">
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+      q.parent=#{parent} and q.step<![CDATA[<]]>#{step}
+    order by 
+      parent asc
+  </select>
+  
+  
+   <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select * 
+    from qna
+    where 
+      rms_id = #{value}
+  </select>
+  
+  <update id="increaseCount" parameterType="int">
+    update qna 
+    set 
+      vw_cnt = vw_cnt + 1 
+    where qna_id = #{value}
+  </update>
+  
+  
+  
+
+  
+  -->
+  
+ 
+  <select id="countAll" resultType="int">
+    select count(*) from hst_qna
+  </select>
+   
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+

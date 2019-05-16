@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HOST QNA</title>
+<link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>회원목록</h1>
+    <p>
+      <a href='view.html' class="btn btn-primary btn-sm">새 글</a> <a href='../../'
+        class="btn btn-primary btn-sm">메인화면</a>
+    </p>
+    <div class="bit-list">
+      <table class="table table-hover">
+        <thead></thead>
+        
+        <tbody>
+          <tr>
+            <td>
+              <div class="form-group shadow-textarea hostqna">
+                <textarea class="form-control z-depth-1" id="content" name='content' rows="3"
+                  placeholder="무엇이 궁금한가요?" style="background-color: White"></textarea>
+                   <button type="button" name="add-btn" class="btn btn-primary bit-view-item add">등록</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="목록 페이지 이동">
+      <ul class="pagination justify-content-center">
+        <li id="prevPage" class="page-item"><a class="page-link" href="?pageNo=0&pageSize=3">이전</a></li>
+        <li id="currPage" class="page-item active"><span class="page-link">1</span></li>
+        <li id="nextPage" class="page-item "><a class="page-link" href="?pageNo=2&pageSize=3">다음</a></li>
+      </ul>
+    </nav>
+  </div>
+  <!-- .container -->
+
+  <script id="tr-template" type="text/x-handlebars-template">
+{{#each list}}
+<tr>
+<td>
+ <div class="form-group shadow-textarea">
+        <textarea class="form-control z-depth-1" id="exampleFormControlTextarea6" rows="3" style="background-color:white" readonly>{{content}}</textarea>
+    
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">{{photo}}</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">{{name}}</a></li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">{{createdDate}}</a></li>
+    </ul>
+</div>
+</div>
+</td>
+</tr>
+{{/each}}
+</script>
+
+  <script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="index.js"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
