@@ -1,27 +1,34 @@
-var tbody = $('.room-list'),
+var tbody = $('.item-listing'),
     templateSrc = $('#list-template').html(),
     trGenerator = Handlebars.compile(templateSrc);
 
-//JSON 형식의 데이터 목록 가져오기
-function loadList(pn) {
-  $.getJSON('../../app/json/room/list?pageNo=' + pn, function(obj) {
-    tbody.html('');
-    $(trGenerator(obj)).appendTo(tbody);
-    // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
-    $(document.body).trigger('loaded-list');
-  }); // Bitcamp.getJSON()
+$(document).ready( function() {
+  $('#toggle-filters').sidr({
+    side: 'left',
+    displace: false,
+    renaming: false,
+    name: 'sidebar',
+    source: function () {
+      AOS.refresh();
+    },
 
-} // loadList()
+  });
+  $("#heun-header").load("/heunheuntrip/html/header.html", function() {
+    $(".heun-header-nav").removeClass("navbar-over absolute-top");
+  });
+  $("#heun-footer").load("/heunheuntrip/html/footer.html");
+});
 
-//페이지를 출력한 후 1페이지 목록을 로딩한다.
 loadList(1);
 
-//테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다. 
-$(document.body).bind('loaded-list', () => {
-  // 제목을 클릭했을 때 view.html로 전환시키기
-//  $('.bit-view-link').click((e) => {
-//    e.preventDefault();
-//    window.location.href = 'view.html?no=' + 
-//    $(e.target).attr('data-no');
-//  });
-});
+function loadList(pn) {
+
+  $.getJSON('../../app/json/room/list', function(obj) {
+    console.log(obj);
+    pageNo = obj.pageNo;
+    tbody.html('');
+    $(trGenerator(obj)).appendTo(tbody);
+    
+  });
+
+} 
