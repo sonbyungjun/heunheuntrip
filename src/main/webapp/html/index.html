@@ -1,105 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>흔흔여행</title>
-  <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
-  <style>
-    .heun-input {
-      height: 60px;
-    }
-    .heun-search {
-      margin: 3px 0px 0px 10px;
-      font-size: 9px;
-    }
-    .heun-holder::placeholder {
-      color: lightgray;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Real Estate</title>
+
+  <!-- Bootstrap -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate.css" rel="stylesheet">
+  <link href="lib/selectric/selectric.css" rel="stylesheet">
+  <link href="lib/swiper/css/swiper.min.css" rel="stylesheet">
+  <link href="lib/aos/aos.css" rel="stylesheet">
+  <link href="lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="lib/jquery-3.2.1.min.js"></script>
+  <script src="lib/popper.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/selectric/jquery.selectric.js"></script>
+  <script src="lib/swiper/js/swiper.min.js"></script>
+  <script src="lib/aos/aos.js"></script>
+  <script src="lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="lib/lib.js"></script>
+
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
-<!-- 헤더 시작-->
-<div class="container">
-
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link font-weight-bolder text-dark" href="#">즐겨찾기</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link font-weight-bolder text-dark" href="#">로그인</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link font-weight-bolder text-dark" href="#">회원가입</a>
-    </li>
-  </ul>
-
-</div>
-<!-- 헤더 끝-->
-
-<div class='container pt-5'>
-  <div class="d-flex justify-content-center">
-    <h1>HeunheunTrip</h1>
-  </div>
-  
-  <div class='w-50 p-3 mx-auto'>
-
-    <div class="heun-input input-group input-group-lg border border-info mb-3">
-      <div class="position-absolute heun-search"><span class="text-muted align-top">어디로 떠날까요?</span></div>
-      <div class="w-100 pt-3">
-        <input type="text" class="heun-holder form-control border-0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"  placeholder="도시, 공항, 지역, 랜드마크, 호텔 이름으로 검색">
-      </div>
-    </div>
-
-    <div class="input-group mb-3">
-
-      <div class="border border-info heun-input form-control">
-        <div class="position-absolute heun-search"><span class="text-muted align-top">체크인</span></div>
-        <div class="w-100 pt-3">
-          <input type="date" aria-label="First name" class="border-0" value="5월10일(금)">
-        </div>
-      </div>
-
-      <div class="border border-info heun-input form-control">
-        <div class="position-absolute heun-search"><span class="text-muted align-top">체크아웃</span></div>
-        <div class="w-100 pt-3">
-          <input type="date" aria-label="second name" class="border-0" value="5월11일(토)">
-        </div>
-      </div>
-
-      <div class="border border-info form-control">
-        <div class="position-absolute heun-search"><span class="text-muted align-top">객실당 인원 수</span></div>
-        <div class="w-100 pt-3">
-          <input type="dropdown" aria-label="Last name" class="border-0 dropdown-toggle dropdown-toggle-split"
-          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="성인 1명, 어린이 0명">
-          <div id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">성인 1명, 어린이 0명</a>
-            <a class="dropdown-item" href="#">성인 2명, 어린이 0명</a>
-            <a class="dropdown-item" href="#">성인 3명, 어린이 0명</a>
-            <a class="dropdown-item" href="#">성인 4명, 어린이 0명</a>
-            <a class="dropdown-item" href="#">성인 1명, 어린이 1명</a>
-            <a class="dropdown-item" href="#">성인 2명, 어린이 1명</a>
-            <a class="dropdown-item" href="#">성인 2명, 어린이 2명</a>
+  <div id="heun-header"></div>
+  <div id="main">
+    <!-- header 추가 -->
+    <div class="home-search">
+      <div class="main search-form v7">
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col-md-12 col-lg-10">
+              <div class="heading">
+                <h2>HeunheunTrip</h2>
+                <h3>지역명으로 검색하세요!</h3>
+              </div>
+              <form action="property_listing.html">
+                <div class="row justify-content-md-center">
+                  <div class="col-md-9 col-lg-8">
+                    <div class="input-group input-group-lg">
+                      <input type="text" class="form-control"
+                        placeholder="Enter locality, developer, landmark or project">
+                      <span class="input-group-prepend">
+                        <button class="btn btn-white btn-lg" type="button"><i class="fa fa-map-marker"
+                            aria-hidden="true"></i></button>
+                        <button class="btn btn-primary btn-lg" type="button">검색하기</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
+        <video class="search-video" autoplay loop width="0" height="0"
+          src="http://uilove.in/realestate/listo/preview/img/demo/video.mp4"></video>
       </div>
-
     </div>
-    
-  <button type="button" class="btn btn-secondary btn-lg btn-block">검색하기</button>
+    <div id="content" class="pt0 pb0">
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
   </div>
-</div>
-  
-
-<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-
-<script>
-$('#dropdown > a').on('click', function() {
-  // 버튼에 선택된 항목 텍스트 넣기
-  $('#dropdownMenuButton').val($(this).text());
-});
-</script>
+  <script src="index.js"></script>
 </body>
+
 </html>
