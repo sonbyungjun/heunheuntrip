@@ -116,6 +116,27 @@ public class QnaServiceImpl implements QnaService {
     
     return count;
   }
+
+  @Override
+  public List<Qna> search(String name, String title) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("name", name);
+    params.put("title", title);
+    return qnaDao.findByKeyword(params);
+  }
+
+  @Override
+  public int password(int qnaNo, String pwd) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("qnaNo", qnaNo);
+    params.put("pwd", pwd);
+    return qnaDao.password(params);
+  }
+
+  @Override
+  public int pwdCheck(int qnaNo) {
+    return qnaDao.passwordCheck(qnaNo);
+  }
       
 }
 

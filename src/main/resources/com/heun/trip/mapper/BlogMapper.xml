@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.BlogDao">
+  
+  <resultMap type="blog" id="blogMap">
+    <id column="board_id" property="no"/>
+    <result column="title" property="title"/>
+    <result column="conts" property="content"/>
+    <result column="cdt" property="createdDate"/>
+    
+    <result column="usr_id" property="userNo"/>
+    <result column="name" property="name"/>
+    
+    <result column="rms_id" property="rmsNo"/>
+    <result column="grd" property="grade"/>
+    <result column="rm_name" property="rmsName"/>
+    <result column="addr" property="rmsAddr"/>
+    <result column="dtil_addr" property="rmsDetailAddr"/>
+  </resultMap>
+  
+  <resultMap type="roomcheckout" id="roomcheckoutMap">
+    <id column="rms_id" property="rmsNo"/>
+    <result column="rm_name" property="rmsName"/>
+  </resultMap>
+
+  <select id="findAll" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      board_id desc
+  </select>
+  
+  <insert id="insert" parameterType="blog">
+    insert into board
+     (usr_id,
+      title,
+      conts,
+      rms_id)
+    values(
+      #{userNo},
+      #{title},
+      #{content},
+      #{rmsNo})
+  </insert>
+  
+   <select id="findByNo" resultMap="blogMap" parameterType="int">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr,
+      r.dtil_addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    where
+      board_id = #{no}
+    order by
+      board_id desc
+  </select>
+  
+  <select id="checkRev" resultType="int" parameterType="int">
+    select 
+      count(*)
+    from 
+      rev r
+    left outer join 
+      usr u 
+        on r.usr_id=u.usr_id
+    where
+      r.usr_id =#{no} and r.stus_id=3;
+  </select>
+  
+
+  <select id="roomCheckOut" resultMap="roomcheckoutMap" parameterType="int">
+    select
+      r.rms_id,
+      r.rm_name
+    from
+      rev v
+    left outer join
+      usr u on v.usr_id = u.usr_id
+    left outer join
+      rms r on v.rms_id = r.rms_id
+    where
+      v.usr_id = #{no} and v.stus_id = 3;
+  </select>
+
+   <update id="update" parameterType="blog">
+    update
+      board
+    set
+      title = #{title},
+      conts = #{content}
+    where 
+      board_id = #{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete 
+      from board 
+    where 
+      board_id = #{no} 
+  </delete>
+  
+</mapper>  
+

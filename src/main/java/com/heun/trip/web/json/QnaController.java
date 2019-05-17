@@ -30,8 +30,9 @@ public class QnaController {
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
     System.out.println(loginUser);
+    System.out.println(qna);
     
-    // 테스트코드 입니다.
+    // 서버 재시작되면 로그인된 사용자가 계속 널됨 그래서 디폴트 홍길동입니다.
     int userNo = 1;
     
     if (loginUser != null) {
@@ -130,6 +131,52 @@ public class QnaController {
     }
     return content;
   }
+ 
+ @GetMapping("search")
+ public Object search(String name, String title) {
+   HashMap<String,Object> content = new HashMap<>(); 
+   
+   try {
+     List<Qna> list = qnaService.search(name, title);
+     for(Qna s : list) {
+       System.out.println(s);
+     }
+     content.put("list", list);
+     content.put("status", "success");
+     
+   } catch (Exception e) {
+     content.put("status", "fail");
+     content.put("message", e.getMessage());
+   }
+   return content;
+ }
+ 
+ @PostMapping("password")
+ public Object password(int qnaNo, String pwd) {
+   HashMap<String,Object> content = new HashMap<>();
+   try {
+     if(qnaService.password(qnaNo, pwd) == 1)
+       content.put("status", "success");
+   } catch (Exception e) {
+     content.put("status", "fail");
+     content.put("message", e.getMessage());
+   }
+   return content;
+ }
+ 
+ @PostMapping("pwdCheck")
+ public Object password(int qnaNo) {
+   HashMap<String,Object> content = new HashMap<>();
+   System.out.println(qnaNo);
+   try {
+     if(qnaService.pwdCheck(qnaNo) == 1)
+       content.put("status", "success");
+   } catch (Exception e) {
+     content.put("status", "fail");
+     content.put("message", e.getMessage());
+   }
+   return content;
+ }
  
  
  @GetMapping("delete")

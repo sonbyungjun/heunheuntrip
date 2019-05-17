@@ -51,6 +51,39 @@
   
   </resultMap>
   
+  <select id="findByKeyword" resultMap="qnaMap" parameterType="map">
+    <if test="name != null">
+      <bind name="pattern1" value="'%' + name + '%'"/>
+    </if>
+    <if test="title != null">
+      <bind name="pattern2" value="'%' + title + '%'"/>
+    </if>
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    <where>
+      <if test="pattern1 != null">or name like #{pattern1}</if>
+      <if test="pattern2 != null">or title like #{pattern2}</if>
+    </where>
+    order by 
+      qna_id desc
+  </select>
+  
+  
   <select id="deleteList" resultMap="qnaPhotoMap" parameterType="map">
    <![CDATA[
    select
@@ -220,7 +253,8 @@
       qna
     set
       title = #{title},
-      content = #{content} 
+      content = #{content},
+      qna_pwd = password(#{password}) 
     where 
       qna_id = #{qnaNo}
   </update>
@@ -244,6 +278,24 @@
     select count(*) from qna
   </select>
    
+   
+  <select id="password" parameterType="map" resultType="int">
+   select 
+     count(*) 
+   from qna 
+   where 
+   qna_pwd=password(#{pwd}) and qna_id=#{qnaNo}
+  </select>
+  
+  <select id="passwordCheck" parameterType="int" resultType="int">
+   select 
+    count(*) 
+   from qna 
+   where 
+    qna_id = #{qnaNo} and qna_pwd = ''
+  </select>
+  
+  
   
 </mapper>     
 

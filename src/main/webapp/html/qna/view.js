@@ -74,6 +74,7 @@ function loadData(no) {
         loadList(data.parent, data.step);
       }
       $('#re-add-btn').hide();
+      $('.bit-view-password').hide();
   });
 };
 
@@ -161,6 +162,7 @@ $.ajax({
     categoryNo: $('#dropdownMenuButton').attr('data-no'),
     title: $('#re-title').val(),
     content: $('#re-content').val(),
+    password: $('#re-password').val(),
     parent: $('#title').attr('data-parent'),
     order: $('#title').attr('data-order'),
     step: $('#title').attr('data-step'),
@@ -188,6 +190,7 @@ $('#update-btn').on('click', function() {
 
   if($('#delete-btn').css("display") != "none") {
     $('#delete-btn').css("display", "none");
+    $('.bit-view-password').show();
   } else{
     updateDate($('#no').val());
   }
@@ -205,7 +208,8 @@ function updateDate(no) {
     data: {
       qnaNo: $('#no').val(),      
       title: $('#title').val(),
-      content: $('#content').val()
+      content: $('#content').val(),
+      password: $('#password').val()
         },
     dataType: 'json',
     success: function(response) {

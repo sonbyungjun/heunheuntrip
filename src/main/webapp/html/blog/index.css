@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Song+Myung');
+
+h1 {
+    text-align: center;
+    font-family: 'Song Myung', serif;
+    color: #ffb216;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+}
+p > a {
+	  font-family: 'Song Myung', serif;
+}
+
 th:nth-child(1) {
 	text-align: center;
 	width: 100px;
@@ -10,22 +22,16 @@ th:nth-child(2) {
 
 th:nth-child(3) {
 	text-align: center;
-	width: 100px;
+	width: 400px;
 }
 
 th:nth-child(4) {
 	text-align: center;
-	width: 500px;
-}
-
-th:nth-child(5) {
-	text-align: center;
 	width: 200px;
 }
 
-th:nth-child(5) {
-  text-align: center;
-  width: 200px;
+td:nth-child(1) {
+	text-align: center;
 }
 
 td:nth-child(2) {
@@ -40,10 +46,3 @@ td:nth-child(4) {
   text-align: center;
 }
 
-td:nth-child(5) {
-  text-align: center;
-}
-
-td:nth-child(6) {
-  text-align: center;
-}

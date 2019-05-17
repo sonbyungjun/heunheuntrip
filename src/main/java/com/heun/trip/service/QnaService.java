@@ -16,4 +16,7 @@ public interface QnaService {
   int maxParent();
   int maxOrder(int parent);
   int sorting(int parent, int order);
+  List<Qna> search(String name, String title);
+  int password(int qnaNo, String pwd);
+  int pwdCheck(int qnaNo);
 }

@@ -19,6 +19,9 @@ public interface QnaDao {
   int maxOrder(int parent);
   int sorting(Map<String,Object> params);
   List<Qna> deleteList(Map<String,Object> params); 
+  List<Qna> findByKeyword(Map<String, Object> params);
+  int password(Map<String, Object> params);
+  int passwordCheck(int qnaNo);
 }
 
 
