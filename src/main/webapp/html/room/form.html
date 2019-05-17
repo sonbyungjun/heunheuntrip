@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Real Estate</title>
+
+  <!-- Bootstrap -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+
+  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../lib/animate.css" rel="stylesheet">
+  <link href="../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../lib/aos/aos.css" rel="stylesheet">
+  <link href="../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../lib/jquery-3.2.1.min.js"></script>
+  <script src="../lib/popper.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../lib/selectric/jquery.selectric.js"></script>
+  <script src="../lib/aos/aos.js"></script>
+  <script src="../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../lib/lib.js"></script>
+  <script type="text/javascript" src="../../node_modules/fullpage.js/dist/fullpage.extensions.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../node_modules/fullpage.js/dist/fullpage.min.css" />
+
+</head>
+
+<body>
+  <div id="main">
+    <div id="heun-header"></div>
+    <div id="fullpage">
+      <div class="section">
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="button" class="btn btn-lg btn-primary heun-form-next">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>등록하실 숙소 종류는 무엇인가요?</h1>
+                    <small>2단계</small>
+                  </div>
+                  <h5 class="text-muted">우선 범위를 좁혀볼까요?</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide">
+          <div id="content" class="property-single">
+            <div class="container">
+              <div class="row justify-content-md-center">
+                <div class="col col-lg-12 col-xl-8">
+                  <div class="page-header v2 bordered">
+                    <h1>숙소 등록을 시작해볼까요? </h1>
+                    <small>1단계</small>
+                  </div>
+                  <h5>등록하시려는 숙소의 유형을 선택하세요.</h5>
+                  <form action="index.php">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">집전체</option>
+                            <option value="feb">개인실</option>
+                            <option value="mar">다인실</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <select class="form-control form-control-lg ui-select">
+                            <option value="jan">최대 1명 숙박 가능</option>
+                            <option value="feb">최대 2명 숙박 가능</option>
+                            <option value="mar">최대 3명 숙박 가능</option>
+                            <option value="mar">최대 4명 숙박 가능</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    </div>
+                    <div class="form-group action">
+                      <button type="submit" class="btn btn-lg btn-primary">다음</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
+  </div>
+  <script src="form.js"></script>
+</body>
+
+</html>
