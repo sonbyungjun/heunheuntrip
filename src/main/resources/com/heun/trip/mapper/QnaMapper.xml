@@ -32,6 +32,7 @@
     <id column="qna_id" property="qnaNo"/>
     <result column="name" property="name"/>
     <result column="auth" property="auth"/>
+    <result column="usr_id" property="userNo"/>
     <result column="cate" property="category"/>
     <result column="qna_cate_id" property="categoryNo"/>
     <result column="parent" property="parent"/>
@@ -152,6 +153,7 @@
   <select id="findByNo" resultMap="qnaPhotoMap" parameterType="int">
     select
       q.qna_id,
+      q.usr_id,
       u.name,
       a.auth,
       q.parent,
