@@ -15,7 +15,8 @@
   <select id="findAll" resultMap="faqMap" parameterType="map">
     select
       faq_id,
-      faq
+      faq,
+      faq_an
     from
       faq
     order by 
