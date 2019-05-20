@@ -1,125 +1,284 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-  <meta charset="UTF-8">
-	<title>게시물 목록</title>
-  <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real Estate</title>
+
+  <!-- Bootstrap -->
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
-  <style>
-    .pagination {
-      justify-content: center;
-    }
-    .bit-list {
-      min-height: 300px;
-    }
-    
-    .searchselect {
-      margin: 0px 0px 10px 0px;
-      
-    }
-  </style>
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
+  
+
 </head>
 
 <body>
-  
-  <div class="container">
-    <h1>QnA</h1>
-    <p>
-      <a href='view.html' class="btn btn-primary btn-sm">새 글</a> 
-      <a href='../../' class="btn btn-primary btn-sm">메인화면</a>
-    </p>
-    <div class="bit-list">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">번호</th>
-          <th scope="col">이름</th>                    
-          <th scope="col">카테고리</th>
-          <th scope="col">제목</th>
-          <th scope="col">등록일</th>
-          <th scope="col">조회수</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <div id="main">
+
+    <div id='heun-header'></div>
+
+    <div class="container">
+
+      <div class="collapse navbar-collapse" id="menu-content">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Home <span class="sr-only">(current)</span>
+            </a>
+            <div class="dropdown-menu">
+              <a href="index.html" class="dropdown-item">Homepage 1</a>
+              <a href="index2.html" class="dropdown-item">Homepage 2</a>
+              <a href="index3.html" class="dropdown-item">Homepage 3</a>
+              <a href="index4.html" class="dropdown-item">Homepage 4</a>
+              <a href="index5.html" class="dropdown-item">Homepage 5</a>
+              <a href="index6.html" class="dropdown-item">Homepage 6</a>
+              <a href="index7.html" class="dropdown-item">Homepage 7</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Listings
+            </a>
+            <div class="dropdown-menu">
+              <a href="property_listing.html" class="dropdown-item">List View</a>
+              <a href="property_grid.html" class="dropdown-item">Grid View</a>
+              <a href="property_listing_map.html" class="dropdown-item">Map View</a>
+              <a href="property_single.html" class="dropdown-item">Single View 1</a>
+              <a href="property_single2.html" class="dropdown-item">Single View 2</a>
+              <a href="property_single3.html" class="dropdown-item">Single View 3</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Agents
+            </a>
+            <div class="dropdown-menu">
+              <a href="agent_list.html" class="dropdown-item">Agent List</a>
+              <a href="agent.html" class="dropdown-item">Agent Profile</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown megamenu">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              Pages
+            </a>
+            <div class="dropdown-menu">
+              <div class="container">
+                <div class="row justify-content-md-center">
+                  <div class="col col-md-8">
+                    <div class="row">
+                      <div class="col-md-6 col-lg-3">
+                        <ul class="list-unstyled">
+                          <li class="title">Homepage</li>
+                          <li><a href="index.html">Homepage 1</a></li>
+                          <li><a href="index2.html">Homepage 2</a></li>
+                          <li><a href="index3.html">Homepage 3</a></li>
+                          <li><a href="index4.html">Homepage 4</a></li>
+                          <li><a href="index5.html">Homepage 5</a></li>
+                          <li><a href="index6.html">Homepage 6</a></li>
+                          <li><a href="index7.html">Homepage 7</a></li>
+                          <li class="title">Login Pages</li>
+                          <li><a href="signin.html">Signin</a></li>
+                          <li><a href="register.html">Register</a></li>
+                          <li><a href="forgot-password.html">Forgot Password</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <ul class="list-unstyled">
+                          <li class="title">Property Listing</li>
+                          <li><a href="property_listing.html">List View</a></li>
+                          <li><a href="property_grid.html">Grid View</a></li>
+                          <li><a href="property_listing_map.html">Map View</a></li>
+                          <li class="title">Single Property</li>
+                          <li><a href="property_single.html">Single View 1</a></li>
+                          <li><a href="property_single2.html">Single View 2</a></li>
+                          <li><a href="property_single3.html">Single View 3</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <ul class="list-unstyled">
+                          <li class="title">Other Pages</li>
+                          <li><a href="plans.html">Plans</a></li>
+                          <li><a href="information_page.html">Information Page</a></li>
+                          <li><a href="coming_soon.html">Coming Soon</a></li>
+                          <li><a href="404_error.html">Error Page</a></li>
+                          <li><a href="success.html">Success Page</a></li>
+                          <li><a href="contact.html">Contact Page</a></li>
+                          <li><a href="compare.html">Compare Properties</a></li>
+                          <li class="title">Agent Pages</li>
+                          <li><a href="agent_list.html">Agent List</a></li>
+                          <li><a href="agent.html">Agent Profile</a></li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6 col-lg-3">
+                        <ul class="list-unstyled">
+                          <li class="title">Account Pages</li>
+                          <li><a href="my_listing_add.html">Add Listing</a></li>
+                          <li><a href="my_bookmarked_listings.html">Bookmarked Listing</a></li>
+                          <li><a href="my_listings.html">My Listings</a></li>
+                          <li><a href="my_profile.html">My Profile</a></li>
+                          <li><a href="my_password.html">Change Password</a></li>
+                          <li><a href="my_notifications.html">Notifications</a></li>
+                          <li><a href="my_membership.html">Membership</a></li>
+                          <li><a href="my_payments.html">Payments</a></li>
+                          <li><a href="my_account.html">Account</a></li>
+                          <li class="title">Blog Pages</li>
+                          <li><a href="blog.html">Blog Archive</a></li>
+                          <li><a href="blog_single.html">Blog Single</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+
+
+          <li class="nav-item dropdown user-account">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              <span class="user-image" style="background-image:url(' ../img/demo/profile3.jpg');"></span> Hi, John
+            </a>
+            <div class="dropdown-menu">
+              <a href="my_profile.html" class="dropdown-item">My Profile</a>
+              <a href="my_password.html" class="dropdown-item">Change Password</a>
+              <a href="my_notifications.html" class="dropdown-item">Notifications</a>
+              <a href="my_membership.html" class="dropdown-item">Membership</a>
+              <a href="my_payments.html" class="dropdown-item">Payments</a>
+              <a href="my_account.html" class="dropdown-item">Account</a>
+            </div>
+          </li>
+          <li class="nav-item"><a class="nav-link nav-btn" href="my_listing_add.html"><span><i class="fa fa-plus"
+                  aria-hidden="true"></i> Add listing</span></a></li>
+        </ul>
+
+      </div>
     </div>
-   
-	
-<form class="form-inline">
-	<div class="btn-group">
-  <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-   검색조건
-  </button>
-  <div class="dropdown-menu heun-search">
-    <a class="dropdown-item droptitle" data-no="title">제목</a>
-    <a class="dropdown-item dropname" data-no="name">작성자</a>
+    </nav>
+    <div id="content">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <h1 class="main-title centered"><span>Q&A</span></h1>
+          </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-12 col-xl-10">
+              <table class="table table-striped product_comparison">
+                  <thead>
+                      <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">이름</th>                    
+                        <th scope="col">카테고리</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">등록일</th>
+                        <th scope="col">조회수</th>
+                      </tr>
+                    </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <form class="form-inline search-form">
+              <div class="btn-group search-choose">
+              <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               검색조건
+              </button>
+              <div class="dropdown-menu heun-search">
+                <a class="dropdown-item droptitle" data-no="title">제목</a>
+                <a class="dropdown-item dropname" data-no="name">작성자</a>
+              </div>
+            </div>
+              <div class="form-group mx-sm-3 mb-2">
+                <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
+              </div>
+              <button type="submit" class="btn btn-primary mb-2 search-btn" value="">검색</button>
+            </form>
+         
+          </div>
+
+       <div class="pagination-menu"></div>
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
   </div>
-</div>
-  <div class="form-group mx-sm-3 mb-2">
-    <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
-  </div>
-  <button type="submit" class="btn btn-primary mb-2 search-btn" value="">검색</button>
-</form>
-	
-   <div class="pagination-menu"></div>
-  </div> <!-- .container -->
+
+
+
+  <script id="tr-template" type="text/x-handlebars-template">
+    {{#each list}}
+    <tr>
+      <th scope='row'>{{qnaNo}}</th>
+      <td>{{name}}</td>
+      <td>{{category}}</td>
+      <td><a class='bit-view-link' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
+      <td>{{createdDate}}</td>
+      <td>{{viewCount}}</td>
+    </tr>
+    {{/each}}
+    </script>
+    
+    <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="5"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+    </script>
+      
   
-
-<script id="tr-template" type="text/x-handlebars-template">
-{{#each list}}
-<tr>
-  <th scope='row'>{{qnaNo}}</th>
-  <td>{{name}}</td>
-  <td>{{category}}</td>
-  <td><a class='bit-view-link' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
-  <td>{{createdDate}}</td>
-  <td>{{viewCount}}</td>
-</tr>
-{{/each}}
-</script>
-
-<script id="page-template" type="text/x-handlebars-template">
-<nav>
-  <ul class="pagination pagination-centered">
-    {{#paginate pagination type="first"}}
-      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
-    {{/paginate}}
-
-    {{#paginate pagination type="previous"}}
-      <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
-    {{/paginate}}
-
-    {{#paginate pagination type="middle" limit="5"}}
-      <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
-    {{/paginate}}
-
-    {{#paginate pagination type="next"}}
-      <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
-    {{/paginate}}
-
-    {{#paginate pagination type="last"}}
-      <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
-    {{/paginate}}
-</ul>
-</nav>
-</script>
-  
-<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-<script src="/heunheuntrip/html/js/handlebars-paginate.js"></script>
-<script src="index.js"></script>
-
+    <script src="index.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
