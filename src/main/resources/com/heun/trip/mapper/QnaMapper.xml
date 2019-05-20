@@ -295,16 +295,4 @@
     qna_id = #{qnaNo} and qna_pwd = ''
   </select>
   
-  
-  
 </mapper>     
-
-
-
-
-
-
-
-
-
-

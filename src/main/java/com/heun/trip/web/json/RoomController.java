@@ -2,6 +2,7 @@ package com.heun.trip.web.json;
 
 import java.util.HashMap;
 import java.util.List;
+import javax.servlet.annotation.MultipartConfig;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Room;
 import com.heun.trip.service.RoomService;
 
+@MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @RestController("json/RoomController")
 @RequestMapping("/json/room")
 public class RoomController {
