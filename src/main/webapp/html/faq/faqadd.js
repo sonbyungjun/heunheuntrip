@@ -8,7 +8,7 @@ $('#add-btn').on('click', function() {
     },
     dataType: 'json',
     success: function(response) {
-      location.href = 'index.html';
+      location.href = 'index0.html';
     },
     fail: function(error) {
       alert('등록 실패!!');

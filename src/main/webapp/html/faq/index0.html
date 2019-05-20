@@ -42,7 +42,7 @@
 
 <body>
     <div id="main">
-        
+
         <div id="heun-header"></div>
 
         <div id="content" class="property-single">
@@ -58,21 +58,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="form-group row">
-                <div class="col-sm-8">
-                  <button type="button" id="delete-btn" class="btn btn-primary bit-view-item delete">삭제</button>
-                  <button type="button" id='update-btn' class="btn btn-primary bit-view-item update">변경</button>
-                  <button type="button" id='add_btn' class="btn btn-primary bit-view-item update" onclick="location.href='faqadd.html'">새글</button>
-                </div>
-              </div>
+                <button type="button" id='add_btn' class="btn btn-primary bit-view-item update"
+                    onclick="location.href='faqadd.html'">새글</button>
+            </div> <!-- container div 마지막-->
+        </div> <!-- content div 마지막-->
+
 
 
 
         <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-        
+
 
 
 
@@ -80,7 +75,7 @@
 
     </div>
 
-     
+
     <script id="tr-template" type="text/x-handlebars-template">
         {{#each list}}
             <div class="faq-list">
@@ -88,10 +83,15 @@
                 <div class="form-group row faq-view">
                     <label for="content" class="col-sm-2 col-form-label">내용</label>
                     <div class="col-sm-8">
-                    <textarea class="form-control" id='content' name='content' data-no='{{no}}'rows='5'>{{content}}</textarea>
+                    <textarea class="form-control" id='content-{{no}}' name='content' data-no='{{no}}'rows='5' >{{content}}</textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <button type="button" class="delete-btn" id='delete-btn-{{no}}' data-no='{{no}}'class="btn btn-primary bit-view-item delete">삭제</button>
+                            <button type="button" class='update-btn' id='update-btn-{{no}}' data-no='{{no}}'class="btn btn-primary bit-view-item update">변경</button>
+                        </div>
                     </div>
                 </div>
-                
             </div>
         {{/each}}
     </script>
