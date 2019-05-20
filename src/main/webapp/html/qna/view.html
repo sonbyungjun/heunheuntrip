@@ -1,99 +1,97 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
 
-<link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="../../lib/animate.css" rel="stylesheet">
-<link href="../../lib/selectric/selectric.css" rel="stylesheet">
-<link href="../../lib/aos/aos.css" rel="stylesheet">
-<link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
-<link href="../../css/style.css" rel="stylesheet">
-<link href="view.css" rel="stylesheet">
+  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="view.css" rel="stylesheet">
 
-<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-<script src="../../lib/jquery-3.2.1.min.js"></script>
-<script src="../../lib/popper.min.js"></script>
-<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../lib/selectric/jquery.selectric.js"></script>
-<script src="../../lib/aos/aos.js"></script>
-<script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
-<script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
-<script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
-<script src="../../lib/lib.js"></script>
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
 
 
 
 </head>
+
 <body>
-<div id="main">
+  <div id="main">
 
-  <div id='heun-header'></div>
+    <div id='heun-header'></div>
 
 
-<div id="content">
-  <div class="container">
-    <h1></h1>
+    <div id="content">
+      <div class="container">
+        <h1></h1>
 
-    <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
-        <div class="row has-sidebar">
-          <div class="col-md-12 col-lg-12 col-xl-12">
-            <div class="page-header v2 bordered col-lg-12">
-                <div class="form-group row">
-                    <label for="categoryNo" class="col-sm-2 col-form-label"></label>
+            <div class="row has-sidebar">
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="page-header v2 bordered col-lg-12">
+                  <div class="form-group-sm row">
                     <div class="col-sm-8">
-                    
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        분류명
-                      </button>
-                      <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
-                    </div>
-                    </div>
-                  </div>
-              <div class="form-group row">
-                  
-                <div class="col-sm-8">
-                      <h2 type="text" class="heun-form update" id="title" name='tilte'></h2>
-                    </div>
 
-           
-            </div>
-              <div class="item-meta-info"><span class="createdDate" id="createdDate" >생성일</span><span class="userNo" id='userNo'>작성자</span></div>
-            </div>
-            <div class="clearfix"></div>
-            <div class="item-detail">
-                <div class="col-sm-8">
-                    <p class="heun-form update" id='cont' name='content' rows='5' >내용</textarea>
+                      <div class="dropdown form-inline">
+                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          분류명
+                        </button>
+                        <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
+                        <h4 type="text" class="heun-form" id="title" name='tilte'></h4>
+                      </div>
+                    </div>
                   </div>
+                  
+
+       
+
+                <div class="item-meta-info"><span class="createdDate" id="createdDate">생성일</span><span class="userNo"
+                      id='userNo'>작성자</span></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="item-detail">
+                  <div class="col-sm-12">
+                    <pre class="heun-form heun-content" id='cont' name='content' rows='5'>내용</pre>
+                  </div>
+
+                  <div class="buttons">
+                    <a href='index.html' class="btn btn-primary">목록</a>
+                    <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
+                    <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
+                    <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        
+        <div id="reply-form"></div>
       </div>
+      <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+      <div id="heun-footer"></div>
     </div>
-  </div>
-  <div id="reply-form"></div>
-
-  <div class="form-group row">
-      <div class="col-sm-8">
-        <a href='.' class="btn btn-primary">목록</a> 
-        <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
-        <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
-        <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
-        <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
-        <button type="button" id="re-add-btn" class="btn btn-primary bit-view-item">답글 등록</button>
-      </div>
-</div>
-<button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-<div id="heun-footer"></div>
-</div>
 
 
 
@@ -102,7 +100,7 @@
 
 
 
-<script id="tr-template" type="text/x-handlebars-template">
+    <script id="tr-template" type="text/x-handlebars-template">
   {{#each list}}
   <tr>
     <th scope='row'>{{qnaNo}}</th>
@@ -114,14 +112,14 @@
   </tr>
   {{/each}}
   </script>
-  
-  <script id="categorylist" type="text/x-handlebars-template">
+
+    <script id="categorylist" type="text/x-handlebars-template">
   {{#each category}}
     <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
   {{/each}}
   </script>
 
-  <script id="reply" type="text/x-handlebars-template">
+    <script id="reply" type="text/x-handlebars-template">
     <br>
     <h3>아래에 답글을 입력해주세요.</h3>
     <div class="form-group row">
@@ -146,6 +144,7 @@
     </div>
 </script>
 
-<script src="view.js"></script>
+    <script src="view.js"></script>
 </body>
+
 </html>

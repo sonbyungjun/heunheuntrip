@@ -29,6 +29,7 @@
   <script src="../../lib/lib.js"></script>
   <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
   <script src="../js/handlebars-paginate.js"></script>
+
   
 
 </head>
@@ -236,15 +237,13 @@
     <div id="heun-footer"></div>
   </div>
 
-
-
   <script id="tr-template" type="text/x-handlebars-template">
     {{#each list}}
     <tr>
       <th scope='row'>{{qnaNo}}</th>
       <td>{{name}}</td>
       <td>{{category}}</td>
-      <td><a class='bit-view-link' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
+      <td><a class='heun-detail' href='#' data-no='{{qnaNo}}'>{{re}}{{title}}</td>
       <td>{{createdDate}}</td>
       <td>{{viewCount}}</td>
     </tr>
@@ -277,8 +276,8 @@
     </nav>
     </script>
       
-  
     <script src="index.js"></script>
+    
 </body>
 
 </html>
