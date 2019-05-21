@@ -120,6 +120,10 @@ $('#add-btn').on('click', function() {
 	}
   });
 })
+
+$('.btn-qna').on('click', function(){
+	location.href= '../qna/index.html';
+})
 //페이지를 출력한 후 1페이지 목록을 로딩한다.
 loadList(1);
 // })
