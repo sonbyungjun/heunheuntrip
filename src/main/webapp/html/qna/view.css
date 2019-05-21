@@ -1,5 +1,23 @@
 
 .item-meta-info {
     text-align: right;
-    margin-bottom: 10px; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+}
+
+.dropdown-toggle {
+    margin-right: 25px;
+}
+
+.buttons {
+    text-align: right;
+    margin: 10px;
+    padding: 10px;
+}
+
+.heun-content {
+    height: 300px;
+    font-size: medium;
+    white-space: pre-wrap;
 }

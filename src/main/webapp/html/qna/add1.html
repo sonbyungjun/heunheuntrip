@@ -17,17 +17,20 @@
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link href="view.css" rel="stylesheet">
-
-  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
   <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
   <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="../../lib/selectric/jquery.selectric.js"></script>
   <script src="../../lib/aos/aos.js"></script>
   <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <!-- include libraries(jQuery, bootstrap) -->
+  <!-- include summernote css/js -->
   <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
-  <script src="../../lib/lib.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 
 
 
@@ -63,23 +66,17 @@
                   </div>
                   
 
-       
-
-                <div class="item-meta-info"><span class="createdDate" id="createdDate">생성일</span><span class="userNo"
-                      id='userNo'>작성자</span></div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="item-detail">
-                  <div class="col-sm-12">
-                    <pre class="heun-form heun-content" id='cont' name='content' rows='5'>내용</pre>
-                  </div>
-
-                  <div class="buttons">
-                    <a href='index.html' class="btn btn-primary">목록</a>
-                    <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
-                    <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
-                    <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
-                  </div>
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                          <div class="col-sm-12">
+                              <div id="summernote"><p>Hello Summernote</p></div>  
+                              <button id="save" class="btn btn-primary" onclick="save()" type="button">Save 2</button>               
+                          </div>
+                        </div>
+                    </form>
 
                 </div>
               </div>
@@ -92,13 +89,6 @@
       <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
       <div id="heun-footer"></div>
     </div>
-
-
-
-
-
-
-
 
     <script id="tr-template" type="text/x-handlebars-template">
   {{#each list}}
@@ -142,9 +132,21 @@
         <input type="password" class="form-control heun-form" id="re-password" name='password'>
       </div>
     </div>
-</script>
+    </script>
 
-    <script src="view.js"></script>
+  <script>
+    $('#heun-header').load('../header.html', function(){
+        $('.heun-header-nav').removeClass('navbar-over absolute-top');
+    });
+    
+    $('#heun-footer').load('../footer.html', function(){
+    });
+
+    $('#summernote').summernote({
+      height: 400,
+      lang: 'ko-KR' // default: 'en-US'
+    });
+  </script>
 </body>
 
 </html>

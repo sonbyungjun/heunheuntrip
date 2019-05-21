@@ -68,3 +68,11 @@ td:nth-child(6) {
 .search-choose{
   margin-bottom: 8px;
 }
+
+.main-btn {
+  margin: 10px;
+}
+
+.main-title {
+  margin-bottom: 0px;
+}

@@ -7,6 +7,14 @@ var tbody = $('tbody'),
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 
+$(document).ready(function(){
+    $('#heun-header').load('../header.html', function(){
+        $('.heun-header-nav').removeClass('navbar-over absolute-top');
+    });
+    
+    $('#heun-footer').load('../footer.html', function(){
+    });
+  })
 
 
 //JSON 형식의 데이터 목록 가져오기
@@ -50,55 +58,10 @@ function loadList(pn) {
   loadList(1);
   
 
-$(document).ready(function(){
-    $('#heun-header').load('../header.html', function(){
-        $('.heun-header-nav').removeClass('navbar-over absolute-top');
-    });
-    
-    $('#heun-footer').load('../footer.html', function(){
-    });
 
-$('.heun-search > a').on('click', function() {
-  
-  $('.searchselect').html($(this).text());
-  var selector = $(this).data('no');
-  
-  $('.search-btn').on('click', function(e){
-    
-  e.preventDefault();
-  
-  var title = $('.search-box').val()
-  
-  $.getJSON("../../app/json/qna/search?" + selector + "=" + title, function(obj) {
-
-    tbody.html('');
-
-    for (l of obj.list) {
-      var re = '';
-      for (var i = 1; i < l.step; i++) {
-        re += 'ㄴ ';
-      }
-      l.re = re;
-    } 
-
-    $(trGenerator(obj)).appendTo(tbody);
-
-   
-    // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
-    $(document.body).trigger('loaded-list');
-  });
-});
-})
-
-
-
-//테이블 목록 가져오기를 완료했으면 제목 a 태그에 클릭 리스너를 등록한다. 
-
-
-$(document.body).bind('loaded-list', () => {
+$(document.body).bind('loaded-list', (e) => {
   // 제목을 클릭했을 때 view.html로 전환시키기
-    $('.bit-view-link').on('click', function(e) {
-      e.preventDefault();
+    $('.heun-detail').on('click', function(e) {
       
       $.ajax({
         url: '../../app/json/qna/pwdCheck',
@@ -141,7 +104,38 @@ $(document.body).bind('loaded-list', () => {
       });
       
     })
-    
 });
 
+
+$('.heun-search > a').on('click', function() {
+  
+  $('.searchselect').html($(this).text());
+  var selector = $(this).data('no');
+  
+  $('.search-btn').on('click', function(e){
+    
+  e.preventDefault();
+  
+  var title = $('.search-box').val()
+  
+  $.getJSON("../../app/json/qna/search?" + selector + "=" + title, function(obj) {
+
+    tbody.html('');
+
+    for (l of obj.list) {
+      var re = '';
+      for (var i = 1; i < l.step; i++) {
+        re += 'ㄴ ';
+      }
+      l.re = re;
+    } 
+
+    $(trGenerator(obj)).appendTo(tbody);
+
+   
+    // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
+    $(document.body).trigger('loaded-list');
+  });
+});
 })
+
