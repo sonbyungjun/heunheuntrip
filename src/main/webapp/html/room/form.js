@@ -5,18 +5,27 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 
   $('#fullpage').fullpage({
-    //options here
+    //options here 
     licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
     autoScrolling: false,
     navigationPosition: 'right',
     scrollHorizontally: false,
-    loopHorizontal: false
+    loopHorizontal: false,
+    controlArrows: false
   });
 
 });
 
 $('.heun-form-next').click(function () {
   fullpage_api.moveSlideRight();
+})
+
+$('.heun-form-prev').click(function () {
+  fullpage_api.moveSlideLeft();
+})
+
+$('.heun-push').click(function() {
+  console.log($('heun-submit').val());
 })
 
 // 우편번호 찾기 화면을 넣을 element

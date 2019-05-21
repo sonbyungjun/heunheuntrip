@@ -31,7 +31,7 @@ public class QnaController {
     Member loginUser = (Member) session.getAttribute("loginUser");
     System.out.println(loginUser);
     System.out.println(qna);
-    
+     
     // 서버 재시작되면 로그인된 사용자가 계속 널됨 그래서 디폴트 홍길동입니다.
     int userNo = 1;
     
@@ -65,11 +65,11 @@ public class QnaController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize
+      @RequestParam(defaultValue="10") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
     
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
+    if (pageSize < 1 || pageSize > 11) 
+      pageSize = 10;
     
     int rowCount = qnaService.size();
     

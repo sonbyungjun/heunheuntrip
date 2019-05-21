@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,12 @@ public class RoomController {
   public RoomController(RoomService roomSerive) {
     this.roomSerive = roomSerive;
   }
+  
+  @GetMapping("add")
+  public Object add(@RequestBody String content) {
+    System.out.println(content);
+    return null;
+  } 
   
   @GetMapping("list")
   public Object list(
