@@ -21,3 +21,16 @@
     font-size: medium;
     white-space: pre-wrap;
 }
+
+#title {
+	height: 40px;
+	width: 350px;
+}
+#cont {
+  height: 300px;
+  width: 800px;
+}
+
+.update-password {
+	width: 175px;
+}
