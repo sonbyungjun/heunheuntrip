@@ -23,7 +23,9 @@ function loadList(pn) {
 			$(document.body).trigger('loaded-list');
 			$(document.body).trigger('loaded-delete');
 			$(document.body).trigger('loaded-update');
+			$(document.body).trigger('loaded-add');
 			$('.faq-list').find('div').css('display', 'none');
+			$('.faq-add').find('div').css('display', 'none')
 
 		}); // Bitcamp.getJSON()
 
@@ -45,24 +47,24 @@ $('body').on('loaded-delete', function () {
 })
 
 $('body').on('loaded-update', function () {
-$('.update-btn').on('click', function (e) {
-	var no = $(this).attr('data-no')
-	console.log(no);
-	$.post({
-		url: '../../app/json/faq/update',
-		data: {
-			no: no,
-			content:$('#content-' + no).val()
+	$('.update-btn').on('click', function (e) {
+		var no = $(this).attr('data-no')
+		console.log(no);
+		$.post({
+			url: '../../app/json/faq/update',
+			data: {
+				no: no,
+				content: $('#content-' + no).val()
 
-		},
-		success: function (response) {
-			location.href = 'index0.html';
-		},
-		fail: function (error) {
-			alert('변경 실패!!');
-		}
-	});
-})
+			},
+			success: function (response) {
+				location.href = 'index0.html';
+			},
+			fail: function (error) {
+				alert('변경 실패!!');
+			}
+		});
+	})
 })
 
 $('body').on('loaded-list', function () {
@@ -73,6 +75,7 @@ $('body').on('loaded-list', function () {
 
 		//3) 현재 이벤트가 발생한 객체의 div 만 보인다.
 		$('.faq-list').find('div').css('display', 'none');
+		$('.faq-add').find('div').css('display', 'none')
 		$(this).find('div').css('display', '');
 		//$('.faq-detail > div').remove();
 		//$(this).off(); 
@@ -91,6 +94,34 @@ $('body').on('loaded-list', function () {
 
 })
 
+$('body').on('loaded-add', function () {
+	$('#addview-btn').on('click', function () {
+		console.log('aa');
+		$('.faq-add').find('div').css('display', '');
+		$('.faq-list').find('div').css('display', 'none');
+	})
+})
+$('#add-btn').on('click', function() {
+	var text = $('textarea#content').val();
+	console.log(text);
+  $.ajax({
+	url: '../../app/json/faq/add',
+	type: 'POST',
+	data: {
+	  title: $('#title').val(),
+	  content: text
+	},
+	dataType: 'json',
+	success: function(response) {
+	  location.href = 'index0.html';
+	},
+	fail: function(error) {
+	  alert('등록 실패!!');
+	}
+  });
+})
+//페이지를 출력한 후 1페이지 목록을 로딩한다.
+loadList(1);
 // })
 //$('#update-btn').on('click',function(){
 //	console.log($('#no').val());
@@ -117,8 +148,6 @@ $('body').on('loaded-list', function () {
 
 
 
-//페이지를 출력한 후 1페이지 목록을 로딩한다.
-loadList(1);
 
 
 
