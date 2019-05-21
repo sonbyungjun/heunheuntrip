@@ -65,11 +65,11 @@ public class QnaController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize
+      @RequestParam(defaultValue="10") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
     
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
+    if (pageSize < 1 || pageSize > 11) 
+      pageSize = 10;
     
     int rowCount = qnaService.size();
     
