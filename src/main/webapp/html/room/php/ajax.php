@@ -1,8 +1,8 @@
 <?php
-    include('../../../lib/fileuploader-2.2/src/php/class.fileuploader.php');
+    include('/heunheuntrip/lib/fileuploader-2.2/src/php/class.fileuploader.php');
     
 	// mysqli connection
-	$DB = mysqli_connect('localhost', 'heun', '1111', 'heunhuendb');
+	$DB = mysqli_connect('localhost', 'heun', '1111', 'heunheundb');
 	
 	$uploadDir = 'uploads/';
 	$realUploadDir = '../uploads/';
