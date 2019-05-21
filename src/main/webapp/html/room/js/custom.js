@@ -1,11 +1,12 @@
 $(document).ready(function() {
 	
-	// enable fileuploader plugin
-	$.post('php/ajax.php?type=preload', null, function(result) {
+	// enable fileuploader plugin 'php/ajax.php?type=preload'
+	$.post('../../app/json/roomPhoto/preload', null, function(result) {
 		var preloaded = [];
 		
 		try {
 			// preload the files
+			console.log(result)
 			preloaded = JSON.parse(result);
 		} catch(e) {}
 		
@@ -106,18 +107,17 @@ $(document).ready(function() {
 				container: '.fileuploader-theme-gallery .fileuploader-input'
 			},
 			upload: {
-				url: '/heunheuntrip/app/json/roomPhoto/add',
+				url: '../../app/json/roomPhoto/add',
 				data: null,
 				type: 'POST',
 				enctype: 'multipart/form-data',
-				start: true,
+				start: false,
 				synchron: true,
 				beforeSend: function(item) {
 					
 					// check the image size first (onImageLoaded)
 					if (item.format == 'image' && !item.reader.done)
 						return false;
-						console.log(item)
 					// add editor to upload data after editing
 					if (item.editor && (typeof item.editor.rotation != "undefined" || item.editor.crop)) {
 						item.imU = true;
@@ -127,6 +127,7 @@ $(document).ready(function() {
 					}
 					
 					item.html.find('.fileuploader-action-success').removeClass('fileuploader-action-success');
+					console.log(item.upload)
 				},
 				onSuccess: function(result, item) {
 					var data = {};
@@ -153,6 +154,7 @@ $(document).ready(function() {
 						item.html.find('.gallery-item-dropdown [download]').attr('href', item.data.url);
 					}
 
+					data.hasWarnings = false;
 					// if warnings
 					if (data.hasWarnings) {
 						for (var warning in data.warnings) {
@@ -175,6 +177,9 @@ $(document).ready(function() {
 					}, 400);
 				},
 				onError: function(item) {
+					console.log(item.upload.status)
+					console.log(item.imU)
+					console.log(item.html.find('.fileuploader-action-retry').length)
 					item.html.find('.progress-holder, .fileuploader-action-popup, .fileuploader-item-image').hide();
 					
 					// add retry button
