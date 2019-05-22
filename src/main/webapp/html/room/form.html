@@ -79,7 +79,7 @@
                     <div class="col-md-6">
                       <div class="form-group">
 
-                        <select class="form-control form-control-lg ui-select">
+                        <select id="type" class="form-control form-control-lg ui-select">
                           <option value="jan">집전체</option>
                           <option value="feb">개인실</option>
                           <option value="mar">다인실</option>
@@ -89,7 +89,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <select class="form-control form-control-lg ui-select">
+                        <select id="maxp" class="form-control form-control-lg ui-select">
                           <option value="jan">최대 1명 숙박 가능</option>
                           <option value="feb">최대 2명 숙박 가능</option>
                           <option value="mar">최대 3명 숙박 가능</option>
@@ -99,7 +99,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
+                    <input id="area" type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
                   </div>
                   <div class="row justify-content-between">
                     <div class="form-group action col-4">
@@ -126,20 +126,20 @@
                     <div class="col-md-6">
                       <div class="form-group">
 
-                        <select class="form-control form-control-lg ui-select">
-                          <option value="jan">침대</option>
-                          <option value="feb">1개</option>
-                          <option value="mar">2개</option>
+                        <select id="bed" class="form-control form-control-lg ui-select">
+                          <option value="0">침대</option>
+                          <option value="1">1개</option>
+                          <option value="2">2개</option>
                         </select>
 
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <select class="form-control form-control-lg ui-select">
-                          <option value="jan">욕실</option>
-                          <option value="feb">1개</option>
-                          <option value="mar">2개</option>
+                        <select id="bath" class="form-control form-control-lg ui-select">
+                          <option value="0">욕실</option>
+                          <option value="1">1개</option>
+                          <option value="2">2개</option>
                         </select>
                       </div>
                     </div>
@@ -169,7 +169,7 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" id="sample6_postcode"
+                        <input class="form-control form-control-lg" type="text" id="postcode"
                           placeholder="우편번호">
                       </div>
                     </div>
@@ -181,20 +181,20 @@
                   </div>
 
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="sample6_address" placeholder="주소">
+                    <input type="text" class="form-control form-control-lg" id="address" placeholder="주소">
                   </div>
 
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" id="sample6_detailAddress"
+                        <input class="form-control form-control-lg" type="text" id="detailAddress"
                           placeholder="상세주소">
                       </div>
 
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input class="form-control form-control-lg" type="text" id="sample6_extraAddress"
+                        <input class="form-control form-control-lg" type="text" id="extraAddress"
                           placeholder="참고항목">
                       </div>
                     </div>
@@ -224,40 +224,40 @@
                   <h5>일반적으로 게스트가 기대하는 편의시설 목록입니다. </h5>
                   <h5>숙소를 등록한 후 언제든 편의시설을 추가할 수 있어요.</h5>
                   <br>
-                  <div class="row">
+                  <div class="row heun-convenience">
                     <div class="col-md-6">
                       <div class="form-group">
 
                         <div class="checkbox">
-                          <input type="checkbox" id="private_message">
-                          <label for="private_message">필수 품목</label>
+                          <input type="checkbox" id="1" name="convenience" value="1">
+                          <label for="1">필수 품목</label>
                           <small>수건, 침대 시트, 비누, 화장지, 배게</small>
                         </div>
 
                         <div class="checkbox">
-                          <input type="checkbox" id="one">
-                          <label for="one">무선인터넷</label>
+                          <input type="checkbox" id="2" name="convenience" value="2">
+                          <label for="2">무선인터넷</label>
                         </div>
 
                         <div class="checkbox">
-                          <input type="checkbox" id="a">
-                          <label for="a">샴푸</label>
+                          <input type="checkbox" id="3" name="convenience" value="3">
+                          <label for="3">샴푸</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="b">
-                          <label for="b">옷장/서랍장</label>
+                          <input type="checkbox" id="4" name="convenience" value="4">
+                          <label for="4">옷장/서랍장</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="c">
-                          <label for="c">TV</label>
+                          <input type="checkbox" id="5" name="convenience" value="5">
+                          <label for="5">TV</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="d">
-                          <label for="d">난방</label>
+                          <input type="checkbox" id="6" name="convenience" value="6">
+                          <label for="6">난방</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="e">
-                          <label for="e">에어컨</label>
+                          <input type="checkbox" id="7" name="convenience" value="7">
+                          <label for="7">에어컨</label>
                         </div>
 
                       </div>
@@ -266,28 +266,28 @@
                       <div class="form-group">
 
                         <div class="checkbox">
-                          <input type="checkbox" id="f">
-                          <label for="f">조식,커피,차</label>
+                          <input type="checkbox" id="8" name="convenience" value="8">
+                          <label for="8">조식,커피,차</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="g">
-                          <label for="g">업무 가능 공간/책상</label>
+                          <input type="checkbox" id="9" name="convenience" value="9">
+                          <label for="9">업무 가능 공간/책상</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="h">
-                          <label for="h">벽난로</label>
+                          <input type="checkbox" id="10" name="convenience" value="10">
+                          <label for="10">벽난로</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="i">
-                          <label for="i">다리미</label>
+                          <input type="checkbox" id="11" name="convenience" value="11">
+                          <label for="11">다리미</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="j">
-                          <label for="j">헤어드라이어</label>
+                          <input type="checkbox" id="12" name="convenience" value="12">
+                          <label for="12">헤어드라이어</label>
                         </div>
                         <div class="checkbox">
-                          <input type="checkbox" id="k">
-                          <label for="k">게스트 전용 출입문</label>
+                          <input type="checkbox" id="13" name="convenience" value="13">
+                          <label for="13">게스트 전용 출입문</label>
                         </div>
 
                       </div>
