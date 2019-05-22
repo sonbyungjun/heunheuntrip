@@ -12,31 +12,6 @@ $(document).ready(function(){
   });
 });
 
-if (param) {
-  document.querySelector('h1').innerHTML = "BLOG DETAIL"
-  loadData(param.split('=')[1])
-    var el = document.querySelectorAll('.bit-new-item');
-  for(e of el){
-    e.style.display = 'none';
-  }
-} else {
-  document.querySelector('h1').innerHTML = "새 글"
-    var el = document.querySelectorAll('.bit-view-item');
-  for(e of el){
-    e.style.display = 'none';
-  }
-  loadCheckOut();
-  $('.heun-form').attr('readonly', false);
-}
-
-$(document.body).on('loaded-checkout', function() {
-  $('.heun-checkout > a').on('click', function() {
-    console.log(this);
-    $('#dropdownMenuButton').html($(this).html());
-    $('#dropdownMenuButton').attr('data-no', $('#title').attr('data-no'));
-  });
-})
-
 
 
 function loadCheckOut() {
