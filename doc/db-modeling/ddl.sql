@@ -17,12 +17,14 @@ DROP TABLE IF EXISTS faq RESTRICT;
 DROP TABLE IF EXISTS qna_cate RESTRICT;
 DROP TABLE IF EXISTS qna_photo RESTRICT;
 DROP TABLE IF EXISTS safety RESTRICT;
+DROP TABLE IF EXISTS rms_safety RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
   usr_id    INTEGER      NOT NULL, -- 호스트번호
   area      VARCHAR(255) NOT NULL, -- 지역명
+  type      VARCHAR(100) NOT NULL, -- 숙소유형
   bed       INTEGER      NOT NULL, -- 침대갯수
   bath      INTEGER      NOT NULL, -- 욕실갯수
   cont      TEXT         NOT NULL, -- 숙소설명
@@ -379,15 +381,15 @@ ALTER TABLE safety
 CREATE TABLE TABLE (
 );
 
--- 새 테이블2
+-- 숙소안전시설
 CREATE TABLE rms_safety (
   safety_id INTEGER NOT NULL, -- 안전시설번호
   rms_id    INTEGER NOT NULL  -- 숙소번호
 );
 
--- 새 테이블2
+-- 숙소안전시설
 ALTER TABLE rms_safety
-  ADD CONSTRAINT PK_rms_safety -- 새 테이블2 기본키
+  ADD CONSTRAINT PK_rms_safety -- 숙소안전시설 기본키
     PRIMARY KEY (
       safety_id, -- 안전시설번호
       rms_id     -- 숙소번호
@@ -603,9 +605,9 @@ ALTER TABLE qna_photo
       qna_id -- 문의사항번호
     );
 
--- 새 테이블2
+-- 숙소안전시설
 ALTER TABLE rms_safety
-  ADD CONSTRAINT FK_safety_TO_rms_safety -- 안전시설 -> 새 테이블2
+  ADD CONSTRAINT FK_safety_TO_rms_safety -- 안전시설 -> 숙소안전시설
     FOREIGN KEY (
       safety_id -- 안전시설번호
     )
@@ -613,9 +615,9 @@ ALTER TABLE rms_safety
       safety_id -- 안전시설번호
     );
 
--- 새 테이블2
+-- 숙소안전시설
 ALTER TABLE rms_safety
-  ADD CONSTRAINT FK_rms_TO_rms_safety -- 숙소 -> 새 테이블2
+  ADD CONSTRAINT FK_rms_TO_rms_safety -- 숙소 -> 숙소안전시설
     FOREIGN KEY (
       rms_id -- 숙소번호
     )
