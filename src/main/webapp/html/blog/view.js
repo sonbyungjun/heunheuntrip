@@ -41,6 +41,7 @@ function loadData(no) {
 $('#update-btn').on('click', function() {
 
   $('#add-btn').hide();
+  
   $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
   
   $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );

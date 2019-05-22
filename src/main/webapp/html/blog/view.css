@@ -18,8 +18,8 @@ h1 {
 
 #update-title{
   height: 40px;
-  width: 350px;
-  margin-top: 150px;
-  
+  width: 900px;
+  margin-top: 50px;
+  margin-left: 20px; 
   font-family: 'Nanum Myeongjo', serif;
 }
