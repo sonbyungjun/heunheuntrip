@@ -132,7 +132,7 @@ CREATE TABLE qna (
   content     MEDIUMTEXT   NOT NULL, -- 문의내용
   qna_pwd     VARCHAR(255) NULL,     -- 문의글비밀번호
   cdt         DATETIME     NOT NULL DEFAULT current_timestamp(), -- 작성일
-  vw_cnt      INTEGER      NOT NULL  -- 조회수
+  vw_cnt      INTEGER      NOT NULL DEFAULT 0 -- 조회수
 );
 
 -- 문의사항
