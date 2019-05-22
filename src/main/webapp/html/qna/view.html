@@ -85,11 +85,11 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
         </div>
+        <div id="reply-form"></div>
         </div>
         
-        <div id="reply-form"></div>
       </div>
       <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
       <div id="heun-footer"></div>
@@ -121,7 +121,7 @@
   {{/each}}
   </script>
 
-    <script id="reply" type="text/x-handlebars-template">
+  <script id="reply" type="text/x-handlebars-template">
     <br>
     <h3>아래에 답글을 입력해주세요.</h3>
     <div class="form-group row">
@@ -144,6 +144,7 @@
         <input type="password" class="form-control heun-form" id="re-password" name='password'>
       </div>
     </div>
+    <button type="button" id="re-add-btn" class="btn btn-primary bit-view-item">답글 등록</button>
 </script>
 
     <script src="view.js"></script>

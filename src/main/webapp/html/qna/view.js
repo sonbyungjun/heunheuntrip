@@ -38,34 +38,35 @@ $(document).ready(function(){
         for(e of el){
           e.style.display = 'none';
         }
-      } else {
-        document.querySelector('h1').innerHTML = "새 글"
-          var el = document.querySelectorAll('.bit-view-item');
-        for(e of el){
-          e.style.display = 'none';
-        }
-        $('.heun-form').attr('readonly', false);
-        loadCategory();
       }
+
+
 })
 
 
   function loadData(no) {
     $.getJSON("../../app/json/qna/detail?no=" + no, function(data) {
-        $('#no').val(data.qnaNo);
-        $('#userNo').html(data.name + '(' + data.auth + ')');
+        $('#no').val(data.qna.qnaNo);
+        $('#userNo').html(data.qna.name + '(' + data.qna.auth + ')');
         $('#dropdownMenuButton').html(data.category);
-        $('#dropdownMenuButton').attr('data-no', data.categoryNo);
-        $('#title').html(data.title);
-        $('#cont').html(data.content);
-        $('#createdDate').html(data.createdDate);
-        $('#title').attr('data-parent', data.parent);
-        $('#title').attr('data-order', data.order);
-        $('#title').attr('data-step', data.step);
+        $('#dropdownMenuButton').attr('data-no', data.qna.categoryNo);
+        $('#title').html(data.qna.title);
+        $('#cont').html(data.qna.content);
+        $('#createdDate').html(data.qna.createdDate);
+        $('#title').attr('data-parent', data.qna.parent);
+        $('#title').attr('data-order', data.qna.order);
+        $('#title').attr('data-step', data.qna.step);
+        $('#title').attr('data-uno', data.qna.userNo);
+        
+        if($('#title').attr('data-uno') != data.userNo) {
+          $('#delete-btn').hide();
+          $('#update-btn').hide();
+        }
     });
   };
   
   $('#delete-btn').on('click', function() {
+    
     $.ajax({
       url: '../../app/json/qna/delete?no=' + $('#no').val() + '&parent=' + $('#title').attr('data-parent') +
            '&order=' + $('#title').attr('data-order'),
@@ -80,49 +81,30 @@ $(document).ready(function(){
     });
   })
 
-
   $('#re-btn').on('click', function() {
     $(reGenerator()).appendTo('#reply-form');
     $('#re-btn').hide();
-    $('#re-add-btn').show();
+
+  $('#re-add-btn').on('click', function() {
+      $.ajax({
+        url: '../../app/json/qna/add',
+        type: 'POST',
+        data: {
+          categoryNo: $('#dropdownMenuButton').attr('data-no'),
+          title: $('#re-title').val(),
+          content: $('#re-content').val(),
+          password: $('#re-password').val(),
+          parent: $('#title').attr('data-parent'),
+          order: $('#title').attr('data-order'),
+          step: $('#title').attr('data-step')
+        },
+        dataType: 'json',
+        success: function(response) {
+          location.href = 'index.html';
+        },
+        fail: function(error) {
+          alert('등록 실패!!');
+        }
+      });
+    })
   })
-  
-  
-  
-  $('#update-btn').on('click', function() {
-   
-    var el = document.querySelectorAll('.update');
-    for(e of el){
-      $('.heun-form').attr('readonly', false);
-    }
-  
-    if($('#delete-btn').css("display") != "none") {
-      $('#delete-btn').css("display", "none");
-      $('.bit-view-password').show();
-    } else{
-      updateDate($('#no').val());
-    }
- 
-  });
-  
-  
-  
-  function updateDate(no) {
-    $.ajax({
-      url: '../../app/json/qna/update?no=' + no,
-      type: 'POST',
-      data: {
-        qnaNo: $('#no').val(),      
-        title: $('#title').val(),
-        content: $('#content').val(),
-        password: $('#password').val()
-          },
-      dataType: 'json',
-      success: function(response) {
-        location.href = 'index.html';
-      },
-      fail: function(error) {
-        alert('변경 실패!!');
-      }
-    });
-  }

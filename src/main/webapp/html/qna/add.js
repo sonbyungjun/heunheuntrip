@@ -8,6 +8,13 @@ $(document).ready(function(){
   
   $('#heun-footer').load('../footer.html', function(){
   });
+
+  $('#summernote').summernote({
+    placeholder: 'Hello bootstrap 4',
+    tabsize: 2,
+    height: 400
+  });
+
   
   function loadCategory() {
     $.getJSON('../../app/json/qna/categorylist', function(obj) {
@@ -28,13 +35,17 @@ $(document).ready(function(){
       })
 
     $('#add-btn').on('click', function() {
+
+      var markupStr = $('#summernote').summernote('code');
+      console.log(markupStr);
+
       $.ajax({
         url: '../../app/json/qna/add',
         type: 'POST',
         data: {
           categoryNo: $('#dropdownMenuButton').attr('data-no'),
           title: $('#title').val(),
-          content: $('#conts').val(),
+          content: markupStr,
           password: $('#password').val(),
           parent: $('#title').attr('data-parent'),
           order: $('#title').attr('data-order'),

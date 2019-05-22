@@ -21,3 +21,8 @@
     font-size: medium;
     white-space: pre-wrap;
 }
+
+#reply-form {
+    padding: 40px;
+    margin: auto;
+}

@@ -18,8 +18,10 @@ $(document).ready(function(){
 
 
 //JSON 형식의 데이터 목록 가져오기
-function loadList(pn) {
+ function loadList(pn) {
 
+  
+  
     $.getJSON('../../app/json/qna/list?pageNo=' + pn, 
         function(obj) {
   
@@ -29,8 +31,9 @@ function loadList(pn) {
   
       for (l of obj.list) {
         var re = '';
+        var sp = '\u00A0\u00A0\u00A0';
         for (var i = 1; i < l.step; i++) {
-          re += '답변 : ';
+          re += sp + "ㄴ답변: ";
         }
         l.re = re;
       } 
@@ -58,7 +61,6 @@ function loadList(pn) {
   loadList(1);
   
 
-
 $(document.body).bind('loaded-list', (e) => {
   // 제목을 클릭했을 때 view.html로 전환시키기
     $('.heun-detail').on('click', function(e) {
@@ -73,33 +75,60 @@ $(document.body).bind('loaded-list', (e) => {
         success: function(response) {
           
           if(response.status == 'success'){
-            location.href = 'view.html?no=' + $(e.target).attr('data-no');            
+            
+            location.href = 'view.html?no=' + $(e.target).attr('data-no');        
+            
           } else {
-            var pw = prompt('비밀번호를 입력하세요','');
+            
+            async function check(){
+              
+            const {value: password} = await Swal.fire({
+              title: '게시글 비밀번호를 입력해주세요.',
+              input: 'password',
+              inputPlaceholder: 'Enter your password',
+              inputAttributes: {
+                maxlength: 10,
+                autocapitalize: 'off',
+                autocorrect: 'off'
+              }
+            });
+
             $.ajax({
               url: '../../app/json/qna/password',
               type: 'POST',
               data: {
                 qnaNo: $(e.target).attr('data-no'),
-                pwd: pw
+                pwd: password
               },
               dataType: 'json',
               success: function(response) {
                 console.log(response)
                 if(response.status == 'success'){
+                  
                   location.href = 'view.html?no=' + $(e.target).attr('data-no');            
+                  
                 } else {
-                  alert('비밀번호가 틀렸습니다');
+                  Swal.fire({
+                    type: 'error',
+                    title: '볼 수 없어요!',
+                    text: '비밀번호가 틀리거나 아무것도 입력하지 않았네요.'});
                 }
               },
               fail: function(error) {
                 alert('시스템 오류가 발생했습니다.');
               }
             });
+            
+            }
+             
+            check();
+            
+            // var pw = prompt('비밀번호는?');
+            
           }
         },
         fail: function(error) {
-          alert('시스템 오류가 발생했습니다.');
+          eModal.alert('시스템 오류가 발생했습니다.');
         }
       });
       
@@ -125,10 +154,19 @@ $('.heun-search > a').on('click', function() {
     for (l of obj.list) {
       var re = '';
       for (var i = 1; i < l.step; i++) {
-        re += 'ㄴ ';
+        re += '&nbsp;&nbsp;답변: ';
       }
       l.re = re;
     } 
+
+    obj.pagination = {
+      page: obj.pageNo,
+      pageCount: obj.totalPage
+    };
+
+
+    $('.pagination-menu').html('');
+    $(pageGenerator(obj)).appendTo('.pagination-menu');
 
     $(trGenerator(obj)).appendTo(tbody);
 
