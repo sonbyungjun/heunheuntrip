@@ -1,6 +1,21 @@
 var category = $('#categorylist').html(),
     cateGenerator = Handlebars.compile(category);
 
+  
+  function loadCategory() {
+    $.getJSON('../../app/json/qna/categorylist', function(obj) {
+      $(cateGenerator(obj)).appendTo('.heun-category');
+      $(document.body).trigger('loaded-cate');
+    }); 
+  };
+
+  $(document.body).on('loaded-cate', function() {
+    $('.heun-category > a').on('click', function() {
+      $('#dropdownMenuButton').html($(this).html());
+      $('#dropdownMenuButton').attr('data-no', $(this).attr('data-no'));
+    });
+  })
+
 $(document).ready(function(){
   $('#heun-header').load('../header.html', function(){
     $('.heun-header-nav').removeClass('navbar-over absolute-top');
@@ -15,29 +30,13 @@ $(document).ready(function(){
     height: 400
   });
 
-  
-  function loadCategory() {
-    $.getJSON('../../app/json/qna/categorylist', function(obj) {
-      $(cateGenerator(obj)).appendTo('.heun-category');
-      $(document.body).trigger('loaded-cate');
-    }); 
-  };
-  
   loadCategory();
 })
 
-    
-    $(document.body).on('loaded-cate', function() {
-        $('.heun-category > a').on('click', function() {
-          $('#dropdownMenuButton').html($(this).html());
-          $('#dropdownMenuButton').attr('data-no', $(this).attr('data-no'));
-        });
-      })
 
     $('#add-btn').on('click', function() {
 
       var markupStr = $('#summernote').summernote('code');
-      console.log(markupStr);
 
       $.ajax({
         url: '../../app/json/qna/add',
