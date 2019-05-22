@@ -70,31 +70,6 @@ insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd
 insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,1,5,4,'예약이14..','예약이안되요','1111',1);
 
 
-
--- qna_photo
-
-insert into qna_photo (qna_photo, qna_id)
-  values('a1.gif',1);
-insert into qna_photo (qna_photo, qna_id)
-  values('a2.gif',2);
-insert into qna_photo (qna_photo, qna_id)
-  values('a3.gif',3);
-insert into qna_photo (qna_photo, qna_id)
-  values('a4.gif',4);
-insert into qna_photo (qna_photo, qna_id)
-  values('a5.gif',5);
-insert into qna_photo (qna_photo, qna_id)
-  values('a6.gif',6);
-insert into qna_photo (qna_photo, qna_id)
-  values('a7.gif',7);
-insert into qna_photo (qna_photo, qna_id)
-  values('a8.gif',8);
-insert into qna_photo (qna_photo, qna_id)
-  values('a9.gif',9);
-insert into qna_photo (qna_photo, qna_id)
-  values('a10.gif',10);
-
-
   --호스트
 insert into host(usr_id,bank,bank_id) 
 values(5,'신한','110-3334-6587');
@@ -358,24 +333,3 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 우리나라와 북한은 적대국이므로 임의방북은 심각한 법률위반으로 간주, 처벌의 대상이 됩니다.
 즉 자신의 혐의를 잘 설명하지 못하면 그대로 징역형을 갈 수도 있고 이렇게 국가보안법 위반으로 징역을 가게 되면 속칭 빨간줄이 그어지게 되어서 평생 공직, 대기업에는 취업 못합니다.');
   
--- 게시글 사진
-insert into photo (photo_id,photo,board_id)
-  values(1,'a1.gif',1);
-insert into photo (photo_id,photo,board_id)
-  values(2,'a2.gif',2);
-insert into photo (photo_id,photo,board_id)
-  values(3,'a3.gif',3);
-insert into photo (photo_id,photo,board_id)
-  values(4,'a4.gif',4);
-insert into photo (photo_id,photo,board_id)
-  values(5,'a5.gif',5);
-insert into photo (photo_id,photo,board_id)
-  values(6,'a6.gif',6);
-insert into photo (photo_id,photo,board_id)
-  values(7,'a7.gif',7);
-insert into photo (photo_id,photo,board_id)
-  values(8,'a8.gif',8);
-insert into photo (photo_id,photo,board_id)
-  values(9,'a9.gif',9);
-insert into photo (photo_id,photo,board_id)
-  values(10,'a10.gif',10);
