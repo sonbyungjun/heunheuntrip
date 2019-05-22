@@ -1,6 +1,4 @@
-var param = location.href.split('?')[1],
-  checkout = $('#checkoutlist').html(),
-  checkoutGenerator = Handlebars.compile(checkout);
+var param = location.href.split('?')[1];
 
 
 $(document).ready(function () {
@@ -19,32 +17,27 @@ $(document).ready(function () {
 
 
 
-function loadCheckOut() {
-  $.getJSON('../../app/json/blog/roomCheckOut', function (obj) {
-
-    $('#title').attr("data-no", obj.userNo);
-    $('#title').attr("data-rno", obj.list[0].rmsNo);
-
-    $(checkoutGenerator(obj)).appendTo('.heun-checkout');
-    $(document.body).trigger('loaded-checkout');
-  });
-};
-
-
-
 function loadData(no) {
   $.getJSON("../../app/json/blog/detail?no=" + no, function (data) {
-    $('#no').attr('data-no', data.no);
-    $('#name').html(data.name);
-    $('h1').html(data.title);
-    $('#cont').html(data.content);
-    $('.tooltip').attr('title', data.rmsAddr + " " + data.rmsDetailAddr);
-    $('#createdDate').html(data.createdDate);
-    $('#rmsName').html(data.rmsName);
-    $('#grade').html(data.grade);
+    $('#no').attr('data-no', data.blog.no);
+    $('#name').html(data.blog.name);
+    $('h1').html(data.blog.title);
+    $('#cont').html(data.blog.content);
+    $('.tooltip').attr('title', data.blog.rmsAddr + " " + data.blog.rmsDetailAddr);
+    $('#createdDate').html(data.blog.createdDate);
+    $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
+    $('#grade').html("평점 : " + data.blog.grade);
+    
+    
+    if(data.blog.userNo != data.userNo){
+      $('#delete-btn').hide();
+      $('#update-btn').hide();
+    }
   });
 
   $('.drowroom').hide();
+  $('#add-btn').hide();
+  
 };
 
 

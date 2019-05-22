@@ -11,7 +11,17 @@ h1 {
 	 float:right;
 }
 
+.item-meta-info2{
+    float: left;
+}
+
 .heun-contents {
     border: 1px dashed #d3d3d3;
     padding: 10px;
+    font-size: 1.1em;
+    height: 500px;
+}
+
+.buttons {
+    float: right;
 }

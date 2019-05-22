@@ -55,9 +55,9 @@
                     <span class="createdDate" id="createdDate">생성일</span>
                     <span class="name" id='name'>작성자</span> 
                   </div>
-                  <div>
+                  <div class="item-meta-info2">
+                    <span class="heun-form heun-content update-content" id='rmsName'>숙소</span><br>
                     <span class="grade" id='grade'>평점</span>
-                    <span class="heun-form heun-content update-content" id='rmsName'>숙소</span>
                   </div>
                       <input type="hidden" class="form-control" id="no" name='no'>
                     </div>
@@ -71,15 +71,15 @@
                  
                   <div class="col-sm-12">
                     <pre class="heun-form heun-contents update-content" id='cont'></pre>
+                    <div class="buttons">
+                      <a href='index.html' class="btn btn-primary">목록</a>
+                      <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
+                      <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
+                      <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
+                    </div>
                   </div>
 
 
-                  <div class="buttons">
-                    <a href='index.html' class="btn btn-primary">목록</a>
-                    <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
-                    <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
-                    <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
-                  </div>
 
                 </div>
             
@@ -95,13 +95,6 @@
     <div id="heun-footer"></div>
   </div>
 
-
-
-  <script id="checkoutlist" type="text/x-handlebars-template">
-{{#each list}}
-  <a class="dropdown-item" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>
-{{/each}}
-</script>
 
 
   <script src="view.js"></script>
