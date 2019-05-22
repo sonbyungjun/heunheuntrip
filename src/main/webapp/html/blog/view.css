@@ -10,3 +10,8 @@ h1 {
 .item-meta-info {
 	 float:right;
 }
+
+.heun-contents {
+    border: 1px dashed #d3d3d3;
+    padding: 10px;
+}
