@@ -362,8 +362,7 @@ ALTER TABLE qna_photo
 -- 안전시설
 CREATE TABLE safety (
   safety_id INTEGER      NOT NULL, -- 안전시설번호
-  safety    VARCHAR(255) NOT NULL, -- 안전시설
-  rms_id    INTEGER      NOT NULL  -- 숙소번호
+  safety    VARCHAR(255) NOT NULL  -- 안전시설
 );
 
 -- 안전시설
@@ -371,6 +370,27 @@ ALTER TABLE safety
   ADD CONSTRAINT PK_safety -- 안전시설 기본키
     PRIMARY KEY (
       safety_id -- 안전시설번호
+    );
+
+ALTER TABLE safety
+  MODIFY COLUMN safety_id INTEGER NOT NULL AUTO_INCREMENT;
+
+-- 새 테이블
+CREATE TABLE TABLE (
+);
+
+-- 새 테이블2
+CREATE TABLE rms_safety (
+  safety_id INTEGER NOT NULL, -- 안전시설번호
+  rms_id    INTEGER NOT NULL  -- 숙소번호
+);
+
+-- 새 테이블2
+ALTER TABLE rms_safety
+  ADD CONSTRAINT PK_rms_safety -- 새 테이블2 기본키
+    PRIMARY KEY (
+      safety_id, -- 안전시설번호
+      rms_id     -- 숙소번호
     );
 
 -- 숙소
@@ -583,9 +603,19 @@ ALTER TABLE qna_photo
       qna_id -- 문의사항번호
     );
 
--- 안전시설
-ALTER TABLE safety
-  ADD CONSTRAINT FK_rms_TO_safety -- 숙소 -> 안전시설
+-- 새 테이블2
+ALTER TABLE rms_safety
+  ADD CONSTRAINT FK_safety_TO_rms_safety -- 안전시설 -> 새 테이블2
+    FOREIGN KEY (
+      safety_id -- 안전시설번호
+    )
+    REFERENCES safety ( -- 안전시설
+      safety_id -- 안전시설번호
+    );
+
+-- 새 테이블2
+ALTER TABLE rms_safety
+  ADD CONSTRAINT FK_rms_TO_rms_safety -- 숙소 -> 새 테이블2
     FOREIGN KEY (
       rms_id -- 숙소번호
     )
