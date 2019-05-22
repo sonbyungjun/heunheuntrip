@@ -28,13 +28,6 @@ $('.heun-push').click(function() {
   console.log($('heun-submit').val());
 })
 
-// 우편번호 찾기 화면을 넣을 element
-var element_layer = $('#layer');
-
-function closeDaumPostcode() {
-  // iframe을 넣은 element를 안보이게 한다.
-  element_layer.css('display', 'none');
-}
 
 $('#post-search').click(function () {
   new daum.Postcode({

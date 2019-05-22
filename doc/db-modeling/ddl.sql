@@ -16,11 +16,20 @@ DROP TABLE IF EXISTS amn RESTRICT;
 DROP TABLE IF EXISTS faq RESTRICT;
 DROP TABLE IF EXISTS qna_cate RESTRICT;
 DROP TABLE IF EXISTS qna_photo RESTRICT;
+DROP TABLE IF EXISTS safety RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
   rms_id    INTEGER      NOT NULL, -- 숙소번호
   usr_id    INTEGER      NOT NULL, -- 호스트번호
+  area      VARCHAR(255) NOT NULL, -- 지역명
+  bed       INTEGER      NOT NULL, -- 침대갯수
+  bath      INTEGER      NOT NULL, -- 욕실갯수
+  cont      TEXT         NOT NULL, -- 숙소설명
+  dets      TEXT         NULL,     -- 숙소세부정보
+  reva      TEXT         NULL,     -- 예약가능여부
+  come      TEXT         NULL,     -- 숙소가위치한지역
+  traf      TEXT         NULL,     -- 교통편
   rm_name   VARCHAR(100) NOT NULL, -- 숙소명
   rm_chge   INTEGER      NOT NULL, -- 숙소가격
   max_ple   INTEGER      NOT NULL, -- 최대 수용 인원
@@ -29,11 +38,7 @@ CREATE TABLE rms (
   dtil_addr VARCHAR(255) NOT NULL, -- 상세주소
   lati      VARCHAR(50)  NOT NULL, -- 위도
   longi     VARCHAR(50)  NOT NULL, -- 경도
-  rule      TEXT         NOT NULL, -- 숙소 이용 규칙
-  map       TEXT         NOT NULL, -- 오시는 길
-  cacl_gde  TEXT         NOT NULL, -- 예약 취소 안내
   cdt       DATETIME     NOT NULL DEFAULT current_timestamp(), -- 등록일
-  plty_gde  TEXT         NOT NULL, -- 위약금 안내
   grd       INTEGER      NULL      -- 평균평점
 );
 
@@ -75,7 +80,7 @@ CREATE TABLE board (
   usr_id   INTEGER     NOT NULL, -- 회원번호
   rms_id   INTEGER     NULL,     -- 숙소번호
   title    VARCHAR(50) NOT NULL, -- 게시글제목
-  conts    TEXT        NOT NULL, -- 게시글내용
+  conts    MEDIUMTEXT  NOT NULL, -- 게시글내용
   cdt      DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
 );
 
@@ -122,10 +127,10 @@ CREATE TABLE qna (
   ordr        INTEGER      NOT NULL, -- 순서
   step        INTEGER      NOT NULL, -- 단계
   title       VARCHAR(50)  NOT NULL, -- 문의제목
-  content     TEXT         NOT NULL, -- 문의내용
-  qna_pwd     VARCHAR(255) NULL, -- 문의글비밀번호
+  content     MEDIUMTEXT   NOT NULL, -- 문의내용
+  qna_pwd     VARCHAR(255) NULL,     -- 문의글비밀번호
   cdt         DATETIME     NOT NULL DEFAULT current_timestamp(), -- 작성일
-  vw_cnt      INTEGER      NOT NULL DEFAULT 0 -- 조회수
+  vw_cnt      INTEGER      NOT NULL  -- 조회수
 );
 
 -- 문의사항
@@ -199,7 +204,6 @@ CREATE TABLE hst_qna (
   rms_id     INTEGER  NOT NULL, -- 숙소번호
   conts      TEXT     NOT NULL, -- 내용
   cdt        DATETIME NOT NULL DEFAULT current_timestamp() -- 작성일
- 
 );
 
 -- 숙소문의-회원
@@ -354,6 +358,20 @@ ALTER TABLE qna_photo
 
 ALTER TABLE qna_photo
   MODIFY COLUMN qna_photo_id INTEGER NOT NULL AUTO_INCREMENT;
+
+-- 안전시설
+CREATE TABLE safety (
+  safety_id INTEGER      NOT NULL, -- 안전시설번호
+  safety    VARCHAR(255) NOT NULL, -- 안전시설
+  rms_id    INTEGER      NOT NULL  -- 숙소번호
+);
+
+-- 안전시설
+ALTER TABLE safety
+  ADD CONSTRAINT PK_safety -- 안전시설 기본키
+    PRIMARY KEY (
+      safety_id -- 안전시설번호
+    );
 
 -- 숙소
 ALTER TABLE rms
@@ -564,4 +582,13 @@ ALTER TABLE qna_photo
     REFERENCES qna ( -- 문의사항
       qna_id -- 문의사항번호
     );
-    
+
+-- 안전시설
+ALTER TABLE safety
+  ADD CONSTRAINT FK_rms_TO_safety -- 숙소 -> 안전시설
+    FOREIGN KEY (
+      rms_id -- 숙소번호
+    )
+    REFERENCES rms ( -- 숙소
+      rms_id -- 숙소번호
+    );
