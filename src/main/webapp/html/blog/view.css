@@ -6,7 +6,7 @@ h1 {
     margin: 30px;
     font-family: 'Nanum Myeongjo', serif;
 }
-
+ 
 .item-meta-info {
 	 float:right;
 }
@@ -24,4 +24,13 @@ h1 {
 
 .buttons {
     float: right;
+}
+
+
+#update-title{
+  height: 40px;
+  width: 900px;
+  margin-top: 50px;
+  margin-left: 20px; 
+  font-family: 'Nanum Myeongjo', serif;
 }
