@@ -16,6 +16,7 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../summernote/summernote-lite.css" rel="stylesheet">
   <link href="add.css" rel="stylesheet">
 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -27,6 +28,7 @@
   <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
   <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../summernote/summernote-lite.js"></script>
   <script src="../../lib/lib.js"></script>
 
 
@@ -51,15 +53,19 @@
                   <div class="form-group-lg row">
                     <div class="col-sm-12">
 
-                      <div class="dropdown form-inline">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          분류명
-                        </button>
-                        
-                        <input type="text" class="heun-title" id="title" data-parent="0" data-step="0" data-order="0"  name='title' placeholder="  제목">
-                        <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
-                       </div>
+                      <div class="form-group row drowroom">
+                        <label for="checkOutNo" class="col-sm-2 col-form-label">숙소 선택</label>
+                        <div class="col-sm-8">
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle form-control"
+                              type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">방문 숙소</button>
+                            <div class="dropdown-menu heun-checkout"
+                              aria-labelledby="dropdownMenuButton"></div>
+                          </div>
+                        </div>
+                        <input class="form-control" id="title" type="text">
+                      </div>
                     </div>
                   </div>
                   
@@ -69,14 +75,13 @@
                 <div class="clearfix"></div>
                 <div class="item-detail">
                   <div class="col-lg-12">
-                    <textarea class="heun-content" id='conts' name='content'></textarea>
+                    <div id="summernote">내용을 입력하세요.</div>
                   </div>
 
                   <div class="buttons">             
                     <a href='index.html' class="btn btn-primary">목록</a>
-                    <a href='add.html' class="btn btn-warning btn-sm add-btn">새 글</a> 
+                    <button type="button" id="add-btn" class="btn btn-primary">등록</button>ㄴ
                   </div>
-                   <input type="password" class="form-control heun-form update-password" id="password" name='password' placeholder="  비밀번호">
 
                 </div>
               </div>
@@ -94,10 +99,10 @@
 
 
 
-    <script id="categorylist" type="text/x-handlebars-template">
-  {{#each category}}
-    <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
-  {{/each}}
+  <script id="checkoutlist" type="text/x-handlebars-template">
+    {{#each list}}
+      <a class="dropdown-item" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>
+    {{/each}}
   </script>
 
    

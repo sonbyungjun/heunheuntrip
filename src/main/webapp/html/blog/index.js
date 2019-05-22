@@ -50,8 +50,7 @@ $(document.body).bind('loaded-list', () => {
       dataType: 'json',
       success: function(response) {
         if(response.status == 'success'){
-       //          $('.title').attr("userNo", response.userNo);
-      //          $('.title').attr("userName", response.userName);
+
           location.href = 'add.html';            
         } else {
           alert('체크아웃 목록이 없어 블로그를 작성할 수 없습니다.');

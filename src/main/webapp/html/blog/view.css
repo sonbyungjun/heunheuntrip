@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans|Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap');
 
 
 h1 {
     text-align: center;
     margin: 30px;
-    font-family: 'Indie Flower', cursive;
-    font-family: 'Black Han Sans', sans-serif;
+    font-family: 'Nanum Myeongjo', serif;
 }
 
 .item-meta-info {

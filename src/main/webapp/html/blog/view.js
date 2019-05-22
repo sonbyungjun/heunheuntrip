@@ -67,25 +67,7 @@ function loadData(no) {
   $('.drowroom').hide();
 };
 
-$('#add-btn').on('click', function() {
-  $.ajax({
-    url: '../../app/json/blog/add',
-    type: 'POST',
-    data: {
-      userNo: $('#title').attr('data-no'),
-      title: $('#title').val(),
-      content: $('#content').val(),
-      rmsNo: $('#title').attr('data-rno')
-    },
-    dataType: 'json',
-    success: function(response) {
-      location.href = 'index.html';
-    },
-    fail: function(error) {
-      alert('등록 실패!!');
-    }
-  });
-});
+
 
 
 /*
