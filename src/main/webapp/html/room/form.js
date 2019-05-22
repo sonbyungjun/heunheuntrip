@@ -5,7 +5,7 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 
   $('#fullpage').fullpage({
-    //options here
+    //options here 
     licenseKey: 'OPEN-SOURCE-GPLV3-LICENSE',
     autoScrolling: false,
     navigationPosition: 'right',

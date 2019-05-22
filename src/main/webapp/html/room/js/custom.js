@@ -62,7 +62,7 @@ $(document).ready(function() {
 							   '<div class="thumbnail-holder">' +
 								   '${image}' +
 								   '<span class="fileuploader-action-popup"></span>' +
-							   '</div>' +
+							   '</div>' + 
 							   '<div class="content-holder"><h5 title="${name}">${name}</h5><span>${size2}</span></div>' +
 							   '<div class="type-holder">${icon}</div>' +
 						   '</div>' +

@@ -1,7 +1,7 @@
 package com.heun.trip.web.json;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map; 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.PostMapping;

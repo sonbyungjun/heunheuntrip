@@ -117,7 +117,7 @@
 		echo json_encode($preloadedFiles);
 		exit;
 	}
-	
+	 
 	// resize
 	if ($_action == 'resize') {
 		if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['_editor'])) {
