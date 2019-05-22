@@ -26,7 +26,7 @@ public class RoomController {
   public Object add(@RequestBody String content) {
     System.out.println(content);
     return null;
-  }
+  } 
   
   @GetMapping("list")
   public Object list(

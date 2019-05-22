@@ -1,30 +1,28 @@
 var param = location.href.split('?')[1],
-    templateSrc = $('#tr-template').html(),
-    category = $('#categorylist').html(),
-    cateGenerator = Handlebars.compile(category),
-    re = $('#reply').html(),
-    reGenerator = Handlebars.compile(re),
-    trGenerator = Handlebars.compile(templateSrc);
+templateSrc = $('#tr-template').html(),
+category = $('#categorylist').html(),
+cateGenerator = Handlebars.compile(category),
+re = $('#reply').html(),
+reGenerator = Handlebars.compile(re),
+trGenerator = Handlebars.compile(templateSrc);
 
+     
+function loadCategory() {
+  $.getJSON('../../app/json/qna/categorylist', function(obj) {
+    $(cateGenerator(obj)).appendTo('.heun-category');
+    $(document.body).trigger('loaded-cate');
+  }); 
+};
 
-    $(document.body).on('loaded-cate', function() {
-        $('.heun-category > a').on('click', function() {
-          $('#dropdownMenuButton').html($(this).html());
-          $('#dropdownMenuButton').attr('data-no', $(this).attr('data-no'));
-        });
-      })
-      
-      
-      
-      function loadCategory() {
-        $.getJSON('../../app/json/qna/categorylist', function(obj) {
-          $(cateGenerator(obj)).appendTo('.heun-category');
-          $(document.body).trigger('loaded-cate');
-        }); 
-      };
+$(document.body).on('loaded-cate', function() {
+  $('.heun-category > a').on('click', function() {
+    $('#dropdownMenuButton').html($(this).html());
+    $('#dropdownMenuButton').attr('data-no', $(this).attr('data-no'));
+  });
+})
     
-
 $(document).ready(function(){
+  
     $('#heun-header').load('../header.html', function(){
         $('.heun-header-nav').removeClass('navbar-over absolute-top');
     });
@@ -39,10 +37,12 @@ $(document).ready(function(){
           e.style.display = 'none';
         }
       }
+    
+   loadCategory();
 
+  });
 
-})
-
+  
 
   function loadData(no) {
     $.getJSON("../../app/json/qna/detail?no=" + no, function(data) {
@@ -81,6 +81,8 @@ $(document).ready(function(){
     });
   })
 
+
+
   $('#re-btn').on('click', function() {
     $(reGenerator()).appendTo('#reply-form');
     $('#re-btn').hide();
@@ -108,3 +110,43 @@ $(document).ready(function(){
       });
     })
   })
+
+
+$('#update-btn').on('click', function() {
+
+  $('.update-title').contents().unwrap().wrap( '<textarea id="title"></textarea>' );
+  $('.update-content').contents().unwrap().wrap( '<textarea id="cont"></textarea>' );
+  $('.update-password').attr('type', 'password');
+  if($('#delete-btn').css("display") != "none") {
+    $('#delete-btn').css("display", "none");
+    $('#re-btn').css("display", "none");
+    $('.bit-view-password').show();
+  } else{
+    updateDate();
+  }
+
+});
+
+
+
+function updateDate() {
+  $.ajax({
+    url: '../../app/json/qna/update',
+    type: 'POST',
+    data: {
+      qnaNo: $('#no').val(),      
+      title: $('#title').val(),
+      content: $('#cont').val(),
+      password: $('#password').val()
+    },
+    dataType: 'json',
+    success: function(response) {
+      location.href = 'index.html';
+    },
+    fail: function(error) {
+      alert('변경 실패!!');
+    }
+  });
+}
+
+

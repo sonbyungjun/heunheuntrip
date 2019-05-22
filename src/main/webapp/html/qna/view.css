@@ -22,7 +22,22 @@
     white-space: pre-wrap;
 }
 
+
 #reply-form {
     padding: 40px;
     margin: auto;
 }
+
+#title {
+	height: 40px;
+	width: 350px;
+}
+#cont {
+  height: 300px;
+  width: 800px;
+}
+
+.update-password {
+	width: 175px;
+}
+

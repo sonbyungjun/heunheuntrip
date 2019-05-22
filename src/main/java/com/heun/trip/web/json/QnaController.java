@@ -31,7 +31,7 @@ public class QnaController {
     Member loginUser = (Member) session.getAttribute("loginUser");
     System.out.println(loginUser);
     System.out.println(qna);
-    
+     
     // 서버 재시작되면 로그인된 사용자가 계속 널됨 그래서 디폴트 홍길동입니다.
     int userNo = 1;
     
@@ -60,7 +60,7 @@ public class QnaController {
       content.put("message", e.getMessage());
     }
     return content;
-  }
+  } 
   
   @GetMapping("list")
   public Object list(
