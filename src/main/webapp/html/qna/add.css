@@ -8,3 +8,21 @@
 	width: 900px;
 	height: 400px;
 }
+
+#dropdownMenuButton {
+	width: auto;
+}
+
+.heun-title{
+	width: 500px;
+}
+
+.update-password{
+	 margin-left: 15px;
+	 width: auto;
+}
+
+.buttons{
+	
+	 float: right;
+}

@@ -31,22 +31,16 @@ $(document).ready(function(){
 
   $('#heun-footer').load('../footer.html', function(){
   });
-
+  
   if (param) {
     loadData(param.split('=')[1])
     var el = document.querySelectorAll('.bit-new-item');
     for(e of el){
       e.style.display = 'none';
     }
-  } else {
-    document.querySelector('h1').innerHTML = "새 글"
-      var el = document.querySelectorAll('.bit-view-item');
-    for(e of el){
-      e.style.display = 'none';
-    }
-    $('.heun-form').attr('readonly', false);
+  } 
     loadCategory();
-  }
+  
 })
 
 
@@ -62,8 +56,16 @@ function loadData(no) {
     $('#title').attr('data-parent', data.parent);
     $('#title').attr('data-order', data.order);
     $('#title').attr('data-step', data.step);
+    $('#title').attr('data-uno', data.userNo);
+    
+    
+    var croodx =  (String)session.getAttribute("userNo");
+    if(uno==)
+    
+    
   });
 };
+
 
 $('#delete-btn').on('click', function() {
   $.ajax({
@@ -79,6 +81,7 @@ $('#delete-btn').on('click', function() {
     }
   });
 })
+
 
 
 $('#re-btn').on('click', function() {
