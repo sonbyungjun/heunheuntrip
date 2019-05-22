@@ -315,31 +315,31 @@
                     <small>5단계</small>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group heun-safety">
 
                     <div class="checkbox">
-                      <input type="checkbox" id="l">
-                      <label for="l">화재 감지기</label>
+                      <input type="checkbox" id="s1" name="safety" value="1">
+                      <label for="s1">화재 감지기</label>
                       <p><small>잘 작동하는 화재 감지기를 모든 방에 구비해 놓아야 하는지 현지 법규를 확인해보세요.</small></p>
                     </div>
                     <div class="checkbox">
-                      <input type="checkbox" id="n">
+                      <input type="checkbox" id="n" name="safety" value="2">
                       <label for="n">일산화탄소 감지기</label>
                       <p><small>일산화탄소 감지기 구비 요건에 대해 현지 법규를 확인해보세요. 지역에 따라, 정상적으로 작동하는 일산화탄소 감지기를 모든 방에 설치해야 할 수
                           있습니다.</small></p>
                     </div>
                     <div class="checkbox">
-                      <input type="checkbox" id="m">
+                      <input type="checkbox" id="m" name="safety" value="3">
                       <label for="m">구급상자</label>
                     </div>
 
                     <div class="checkbox">
-                      <input type="checkbox" id="o">
+                      <input type="checkbox" id="o" name="safety" value="4">
                       <label for="o">소화기</label>
                     </div>
 
                     <div class="checkbox">
-                      <input type="checkbox" id="p">
+                      <input type="checkbox" id="p" name="safety" value="5">
                       <label for="p">침실문 잠금장치</label>
                       <p><small>안전과 사생활 보호를 위해 방문을 잠글 수 있음</small></p>
                     </div>
@@ -402,7 +402,7 @@
                   <div class="mb-3">
                     <label for="validationTextarea"></label>
                     <textarea class="form-control is-invalid" id="validationTextarea"
-                      placeholder="인테리어, 채광, 주변 정보 등을 설명하세요." rows="8" required></textarea>
+                      placeholder="인테리어, 채광, 주변 정보 등을 설명하세요." rows="8" id="contents" required></textarea>
                     <div class="invalid-feedback">
                       숙소 설명을 작성해야 합니다. 게스트가 숙소의 모습을 머릿속으로 그려볼 수 있도록 상세 설명을 추가해 주세요.
                     </div>
@@ -434,14 +434,14 @@
                   <div class="form-group">
                     <h6>숙소</h6>
                     <label for="exampleFormControlTextarea1">게스트가 숙소에 대한 기대치를 설정할 수 있도록 기타 세부정보를 추가해주세요.</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" id="details"></textarea>
                   </div>
 
                   <div class="form-group">
                     <h6>예약 가능 여부</h6>
                     <label for="exampleFormControlTextarea2">숙박 중 어느 정도나 게스트의 질문에 답하거나 게스트와 시간을 보낼 수 있는지 알려주세요. 호스팅
                       방식은 전적으로 호스트가 결정합니다!</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="2"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea2" rows="2" id="reservation"></textarea>
                   </div>
 
                   <div class="row justify-content-between">
@@ -471,14 +471,14 @@
                     <h6>숙소가 위치한 지역</h6>
                     <label for="exampleFormControlTextarea3">주변 환경이 어떤지 게스트에게 알려주세요. 자주 가는 커피숍, 공원, 독특한 명소 등 동네를 특별하게
                       만드는 장소를 알려주세요.</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea3" rows="2"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea3" rows="2" id="welcome"></textarea>
                   </div>
 
                   <div class="form-group">
                     <h6>교통편</h6>
                     <label for="exampleFormControlTextarea4">근처의 대중교통 수단, 운전 정보, 편리한 도보 경로 등 도시와 동네를 돌아다니는 방법을
                       알려주세요.</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea4" rows="2"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea4" rows="2" id="traffic"></textarea>
                   </div>
 
                   <div class="row justify-content-between">
@@ -506,12 +506,12 @@
 
                   <div class="form-group input-group-lg">
                     <input type="text" class="form-control" aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 제목">
+                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 제목" id="heun-name">
                   </div>
 
                   <div class="form-group input-group-lg">
                     <input type="number" class="form-control" aria-label="Sizing example input"
-                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 가격">
+                      aria-describedby="inputGroup-sizing-lg" placeholder="숙소 가격" id="heun-price">
                   </div>
 
                   <div class="row justify-content-between">
