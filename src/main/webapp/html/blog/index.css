@@ -8,6 +8,11 @@ p > a {
     font-family: 'Nanum Myeongjo', serif;
 }
 
+.check-btn {
+  float: right;
+  margin: 10px;
+}
+
 th:nth-child(1) {
 	text-align: center;
 	width: 100px;

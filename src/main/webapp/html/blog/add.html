@@ -43,28 +43,26 @@
 
     <div id="content">
       <div class="container">
-        <h1></h1>
+        <h1>새 포스트 작성하기</h1>
 
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
-            <div class="row has-sidebar">
-              <div class="col-md-12 col-lg-12 col-xl-12">
+  
                 <div class="page-header v2 bordered col-lg-12">
                   <div class="form-group-lg row">
                     <div class="col-sm-12">
 
                       <div class="form-group row drowroom">
-                        <label for="checkOutNo" class="col-sm-2 col-form-label">숙소 선택</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                           <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle form-control"
+                            <button class="btn btn-primary dropdown-toggle heun-cc form-control"
                               type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">방문 숙소</button>
+                              aria-haspopup="true" aria-expanded="false">어느 숙소에 방문하셨나요?</button>
                             <div class="dropdown-menu heun-checkout"
                               aria-labelledby="dropdownMenuButton"></div>
                           </div>
+                          <input class="form-control" id="title" type="text" placeholder="제목을 입력해주세요.">
                         </div>
-                        <input class="form-control" id="title" type="text">
                       </div>
                     </div>
                   </div>
@@ -76,16 +74,16 @@
                 <div class="item-detail">
                   <div class="col-lg-12">
                     <div id="summernote">내용을 입력하세요.</div>
+                    <div class="buttons">             
+                      <a href='index.html' class="btn btn-primary">목록</a>
+                      <button type="button" id="add-btn" class="btn btn-primary">등록</button>
+                    </div>
                   </div>
 
-                  <div class="buttons">             
-                    <a href='index.html' class="btn btn-primary">목록</a>
-                    <button type="button" id="add-btn" class="btn btn-primary">등록</button>ㄴ
-                  </div>
 
                 </div>
-              </div>
-            </div>
+
+
           </div>
         </div>
         
