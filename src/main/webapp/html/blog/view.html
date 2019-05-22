@@ -17,6 +17,7 @@
 <link href="../../lib/aos/aos.css" rel="stylesheet">
 <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
+<link href="../../summernote/summernote-lite.css" rel="stylesheet">
 <link href="view.css" rel="stylesheet">
 
 <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -28,6 +29,7 @@
 <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
 <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
 <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+<script src="../../summernote/summernote-lite.js"></script>
 <script src="../../lib/lib.js"></script>
 
 
@@ -57,7 +59,7 @@
                   </div>
                   <div>
                     <span class="grade" id='grade'>평점</span>
-                    <span class="heun-form heun-content update-content" id='rmsName'>숙소</span>
+                    <span class="heun-form heun-content" id='rmsName'>숙소</span>
                   </div>
                       <input type="hidden" class="form-control" id="no" name='no'>
                     </div>
@@ -97,11 +99,6 @@
 
 
 
-  <script id="checkoutlist" type="text/x-handlebars-template">
-{{#each list}}
-  <a class="dropdown-item" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>
-{{/each}}
-</script>
 
 
   <script src="view.js"></script>

@@ -15,3 +15,11 @@ h1 {
     border: 1px dashed #d3d3d3;
     padding: 10px;
 }
+
+#update-title{
+  height: 40px;
+  width: 350px;
+  margin-top: 150px;
+  
+  font-family: 'Nanum Myeongjo', serif;
+}
