@@ -7,3 +7,7 @@ h1 {
     font-family: 'Indie Flower', cursive;
     font-family: 'Black Han Sans', sans-serif;
 }
+
+.item-meta-info {
+	 float:right;
+}

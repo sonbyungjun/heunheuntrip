@@ -1,91 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-	<title>게시물</title>
-	<link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="view.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700"
+  rel="stylesheet">
+
+<link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../lib/animate.css" rel="stylesheet">
+<link href="../../lib/selectric/selectric.css" rel="stylesheet">
+<link href="../../lib/aos/aos.css" rel="stylesheet">
+<link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+<link href="view.css" rel="stylesheet">
+
+<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="../../lib/jquery-3.2.1.min.js"></script>
+<script src="../../lib/popper.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../lib/selectric/jquery.selectric.js"></script>
+<script src="../../lib/aos/aos.js"></script>
+<script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+<script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+<script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+<script src="../../lib/lib.js"></script>
+
+
+
 </head>
+
 <body>
- 
-  <div class="container">
-    <h1></h1>
-    <form>
-    
-         <div class="form-group row drowroom">
-           <label for="checkOutNo" class="col-sm-2 col-form-label">숙소 선택</label>
-         <div class="col-sm-8">
-            
-           <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle form-control" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                방문 숙소
-             </button>
-            <div class="dropdown-menu heun-checkout" aria-labelledby="dropdownMenuButton"></div>
-            </div>
-            </div>
-          </div> 
-          
-          <div class="form-group row bit-view-item">
-            <label for="no" class="col-sm-2 col-form-label">번호</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id="no" name='no' readonly>
-            </div>
-          </div>
-          
-           <div class="form-group row bit-view-item">
-            <label for="name" class="col-sm-2 col-form-label">작성자</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" id='name' readonly>
-            </div>
-          </div>
-          
-          
-          <div class="form-group row">
-            <label for="title" class="col-sm-2 col-form-label">제목</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control heun-form update" id="title" name='tilte' readonly>
-            </div>
-          </div>
+  <div id="main">
 
-          <div class="form-group row">
-            <label for="content" class="col-sm-2 col-form-label">내용</label>
-            <div class="col-sm-8">
-              <textarea class="form-control heun-form update" id='content' name='content' rows='5' readonly></textarea>
-            </div>
-          </div>
-          
-          <div class="form-group row bit-view-item">
-            <label for="rmsName" class="col-sm-2 col-form-label">숙소 명</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control tooltip" title="숙소명입니다." id="rmsName" readonly>
-            </div>
-          </div>
+    <div id='heun-header'></div>
 
-       
-          <div class="form-group row bit-view-item">
-            <label for="grade" class="col-sm-2 col-form-label">평점</label>
-            <div class="col-sm-8">
-              <input type="number" readonly class="form-control" id="grade" readonly>
+
+    <div id="content">
+      <div class="container">
+        <h1></h1>
+
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-12 col-lg-12 col-xl-12">
+                <div class="page-header v2 bordered col-lg-12">
+                  <div class="form-group-sm row">
+                    <div class="col-sm-8">
+
+                      <div class="form-group row drowroom">
+                        <label for="checkOutNo" class="col-sm-2 col-form-label">숙소 선택</label>
+                        <div class="col-sm-8">
+                          <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle form-control"
+                              type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">방문 숙소</button>
+                            <div class="dropdown-menu heun-checkout"
+                              aria-labelledby="dropdownMenuButton"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <input type="hidden" class="form-control" id="fbwogus" name='no'>
+
+                    </div>
+                  </div>
+
+                  <div class="item-meta-info">
+                    <span class="createdDate" id="createdDate">생성일</span> <span class="name"
+                      id='name'>작성자</span> <span class="grade" id='grade'>평점</span>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="item-detail">
+                 
+                  <div class="col-sm-12">
+                    <pre class="heun-form heun-content update-content" id='rmsName'>숙소</pre>
+                  </div>
+                  <div class="col-sm-12">
+                    <pre class="heun-form heun-content update-content" id='cont'>내용</pre>
+                  </div>
+
+
+                  <div class="buttons">
+                    <a href='.' class="btn btn-primary">목록</a>
+                    <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
+                    <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
+                    <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
+                  </div>
+
+                </div>
+              </div>
             </div>
           </div>
-          
-          <div class="form-group row bit-view-item">
-            <label for="createdDate" class="col-sm-2 col-form-label">작성일</label>
-            <div class="col-sm-8">
-              <input type="date" class="form-control" id="createdDate" readonly>
-            </div>
-          </div>      
-          
-          <div class="form-group row">
-            <div class="col-sm-8">
-              <a href='.' class="btn btn-primary">목록</a> 
-              <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
-              <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
-              <button type="button" id="add-btn" class="btn btn-primary bit-new-item">등록</button>
-            </div>
-          </div>
-        </form>
+        </div>
       </div>
+
+
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+    <div id="heun-footer"></div>
+  </div>
+
+
 
   <script id="checkoutlist" type="text/x-handlebars-template">
 {{#each list}}
@@ -93,10 +117,8 @@
 {{/each}}
 </script>
 
-	<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
-	<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
-	<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-	<script src="view.js"></script>
+
+  <script src="view.js"></script>
 </body>
+
 </html>
