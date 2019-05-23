@@ -111,7 +111,7 @@ function chkValue() {
                 type: 'error',
                 title: $(this).attr('data-name') + "은 필수 입력사항입니다."});
                
-           setTimeout(function(){focus.focus();},2000);
+           setTimeout(function(){focus.focus();},5000);
            return false;
         }
     });
