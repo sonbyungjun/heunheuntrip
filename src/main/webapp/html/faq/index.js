@@ -19,15 +19,13 @@ function loadList(pn) {
       $(trGenerator(obj)).appendTo(tbody);
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
       $(document.body).trigger('loaded-list');
-      $(document.body).trigger('loaded-delete');
-      $(document.body).trigger('loaded-update');
       $(document.body).trigger('loaded-add');
       $('.faq-list').find('div').css('display', 'none');
       $('.faq-view').find('div').css('display', 'none');
       $('.faq-add').find('div').css('display', 'none')
     }); // Bitcamp.getJSON()
 } // loadList()
-$('body').on('loaded-delete', function () {
+$('body').on('loaded-list', function () {
   $('.delete-btn').on('click', function (e) {
     var no = $(e.target).attr('data-no')
     console.log(no);
@@ -43,7 +41,7 @@ $('body').on('loaded-delete', function () {
   })
 })
 
-$('body').on('loaded-update', function () {
+$('body').on('loaded-list', function () {
   $('.update-btn').on('click', function (e) {
     var no = $(this).attr('data-no')
     console.log(no);
