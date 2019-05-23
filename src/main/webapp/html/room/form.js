@@ -1,3 +1,6 @@
+var latitude = '';
+var longitude = '';
+
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
@@ -22,10 +25,6 @@ $('.heun-form-next').click(function () {
 
 $('.heun-form-prev').click(function () {
   fullpage_api.moveSlideLeft();
-})
-
-$('.heun-push').click(function() {
-  console.log($('heun-submit').val());
 })
 
 
@@ -77,10 +76,111 @@ $('#post-search').click(function () {
   }).open();
 })
 
-// $("input[name=current_proudct]:checked").each(function() {
-//    var test = $(this).val();
-// })
 
-$('input[name=convenience]').click(function() {
-  console.log($(this).val());
+
+$('.heun-push').click(function () {
+
+  var address = $('#address').val();
+
+  // 주소-좌표 변환 객체를 생성합니다
+  var geocoder = new daum.maps.services.Geocoder();
+
+  // 주소로 좌표를 검색합니다
+  geocoder.addressSearch(address , function (result, status) {
+    // 정상적으로 검색이 완료됐으면 
+    if (status === daum.maps.services.Status.OK) {
+      window.latitude = result[0].y;
+      window.longitude = result[0].x;
+      $('body').trigger('xy');
+    }
+  });
+
+  var convenience = [];
+  $("input[name=convenience]:checked").each(function () {
+    convenience.push($(this).val());
+  })
+
+  var safety = [];
+  $("input[name=safety]:checked").each(function () {
+    safety.push($(this).val());
+  })
+
+  $('body').on('xy', function() {
+    var allData = {
+      type: $('#type').val(),
+      maxPerson: $('#maxp').val(),
+      area: $('#area').val(),
+      bed: $('#bed').val(),
+      bath: $('#bath').val(),
+      postcode: $('#postcode').val(),
+      address: address,
+      detailAddress: $('#detailAddress').val(),
+      content: $('#contents').val(),
+      details: $('#details').val(),
+      reservation: $('#reservation').val(),
+      welcome: $('#welcome').val(),
+      traffic: $('#traffic').val(),
+      name: $('#heun-name').val(),
+      price: $('#heun-price').val(),
+      latitude : window.latitude,
+      longitude : window.longitude,
+      convenience: convenience,
+      safety: safety
+    }
+  
+    $.ajax({
+      url: '../../app/json/room/add',
+      type: 'POST',
+      data: allData,
+      dataType: 'json',
+      success: function (response) {
+        if (response.status == 'success') {
+          location.href = 'form.html';
+        } else {
+        }
+      },
+      fail: function (error) {
+        alert('시스템 오류가 발생했습니다.');
+      }
+    });
+  
+    // 'curl -v -X GET "https://dapi.kakao.com/v2/local/search/address.json" \
+    // --data-urlencode "query=위례동로 61" \
+    // -H "Authorization: KakaoAK a1cc855a6e6b544dbcdff510261d5c17"'
+  
+    console.log('타입 : ' + $('#type').val())
+    console.log('최대숙박인원 : ' + $('#maxp').val())
+    console.log('지역명 : ' + $('#area').val())
+    console.log('침대갯수 : ' + $('#bed').val())
+    console.log('욕실갯수 : ' + $('#bath').val())
+    console.log('우편번호 : ' + $('#postcode').val())
+    console.log('기본주소 : ' + $('#address').val() + ' ' + $('#extraAddress').val())
+    console.log('상세주소 : ' + $('#detailAddress').val())
+  
+    var result = '';
+    $("input[name=convenience]:checked").each(function () {
+      result += $(this).val() + ' ';
+    })
+    console.log('편의시설목록 : ' + result);
+  
+    result = '';
+    $("input[name=safety]:checked").each(function () {
+      result += $(this).val() + ' ';
+    })
+    console.log('편의시설목록 : ' + result);
+  
+    console.log('숙소설명 : ' + $('#contents').val())
+    console.log('숙소세부정보 : ' + $('#details').val())
+    console.log('예약가능여부 : ' + $('#reservation').val())
+    console.log('숙소가위치한지역 : ' + $('#welcome').val())
+    console.log('교통편 : ' + $('#traffic').val())
+    console.log('숙소이름 : ' + $('#heun-name').val())
+    console.log('숙소가격 : ' + $('#heun-price').val())
+  
+    console.log('위도 : ' + window.latitude);
+    console.log('경도 : ' + window.longitude);
+  
+    var api = $.fileuploader.getInstance($('.gallery_media'));
+    api.uploadStart();
+  })
 })

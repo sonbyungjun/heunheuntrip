@@ -9,26 +9,32 @@ public class Room {
   private int no;
   private String name;
   private int price;
+  private int bed;
+  private int bath;
   private int maxPerson;
-  private String postNo;
+  private String postcode;
+  private String area;
   private String address;
   private String detailAddress;
   private String latitude;
   private String longitude;
-  private String rule;
-  private String map;
-  private String cancelGuide;
-  private String penaltyGuide;
-  private int grade;
+  private String content;
+  private String type;
+  private String details;
+  private String reservation;
+  private String welcome;
+  private String traffic;
+  
   private String thumbnail;
   
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   
   private Member host;
-  private List<Facilities> Facilities;
-  private List<RoomFile> photos;
   
+  private List<Convenience> conveniences;
+  private List<Safety> safetys;
+  private List<RoomFile> photos;
   public int getNo() {
     return no;
   }
@@ -47,17 +53,35 @@ public class Room {
   public void setPrice(int price) {
     this.price = price;
   }
+  public int getBed() {
+    return bed;
+  }
+  public void setBed(int bed) {
+    this.bed = bed;
+  }
+  public int getBath() {
+    return bath;
+  }
+  public void setBath(int bath) {
+    this.bath = bath;
+  }
   public int getMaxPerson() {
     return maxPerson;
   }
   public void setMaxPerson(int maxPerson) {
     this.maxPerson = maxPerson;
   }
-  public String getPostNo() {
-    return postNo;
+  public String getPostcode() {
+    return postcode;
   }
-  public void setPostNo(String postNo) {
-    this.postNo = postNo;
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
+  }
+  public String getArea() {
+    return area;
+  }
+  public void setArea(String area) {
+    this.area = area;
   }
   public String getAddress() {
     return address;
@@ -83,35 +107,47 @@ public class Room {
   public void setLongitude(String longitude) {
     this.longitude = longitude;
   }
-  public String getRule() {
-    return rule;
+  public String getContent() {
+    return content;
   }
-  public void setRule(String rule) {
-    this.rule = rule;
+  public void setContent(String content) {
+    this.content = content;
   }
-  public String getMap() {
-    return map;
+  public String getType() {
+    return type;
   }
-  public void setMap(String map) {
-    this.map = map;
+  public void setType(String type) {
+    this.type = type;
   }
-  public String getCancelGuide() {
-    return cancelGuide;
+  public String getDetails() {
+    return details;
   }
-  public void setCancelGuide(String cancelGuide) {
-    this.cancelGuide = cancelGuide;
+  public void setDetails(String details) {
+    this.details = details;
   }
-  public String getPenaltyGuide() {
-    return penaltyGuide;
+  public String getReservation() {
+    return reservation;
   }
-  public void setPenaltyGuide(String penaltyGuide) {
-    this.penaltyGuide = penaltyGuide;
+  public void setReservation(String reservation) {
+    this.reservation = reservation;
   }
-  public int getGrade() {
-    return grade;
+  public String getWelcome() {
+    return welcome;
   }
-  public void setGrade(int grade) {
-    this.grade = grade;
+  public void setWelcome(String welcome) {
+    this.welcome = welcome;
+  }
+  public String getTraffic() {
+    return traffic;
+  }
+  public void setTraffic(String traffic) {
+    this.traffic = traffic;
+  }
+  public String getThumbnail() {
+    return thumbnail;
+  }
+  public void setThumbnail(String thumbnail) {
+    this.thumbnail = thumbnail;
   }
   public Date getCreatedDate() {
     return createdDate;
@@ -125,11 +161,11 @@ public class Room {
   public void setHost(Member host) {
     this.host = host;
   }
-  public List<Facilities> getFacilities() {
-    return Facilities;
+  public List<Safety> getSafetys() {
+    return safetys;
   }
-  public void setFacilities(List<Facilities> facilities) {
-    Facilities = facilities;
+  public void setSafetys(List<Safety> safetys) {
+    this.safetys = safetys;
   }
   public List<RoomFile> getPhotos() {
     return photos;
@@ -137,19 +173,20 @@ public class Room {
   public void setPhotos(List<RoomFile> photos) {
     this.photos = photos;
   }
-  public String getThumbnail() {
-    return thumbnail;
+  public List<Convenience> getConveniences() {
+    return conveniences;
   }
-  public void setThumbnail(String thumbnail) {
-    this.thumbnail = thumbnail;
+  public void setConveniences(List<Convenience> conveniences) {
+    this.conveniences = conveniences;
   }
   @Override
   public String toString() {
-    return "Room [no=" + no + ", name=" + name + ", price=" + price + ", maxPerson=" + maxPerson
-        + ", postNo=" + postNo + ", address=" + address + ", detailAddress=" + detailAddress
-        + ", latitude=" + latitude + ", longitude=" + longitude + ", rule=" + rule + ", map=" + map
-        + ", cancelGuide=" + cancelGuide + ", penaltyGuide=" + penaltyGuide + ", grade=" + grade
+    return "Room [no=" + no + ", name=" + name + ", price=" + price + ", bed=" + bed + ", bath="
+        + bath + ", maxPerson=" + maxPerson + ", postcode=" + postcode + ", area=" + area
+        + ", address=" + address + ", detailAddress=" + detailAddress + ", latitude=" + latitude
+        + ", longitude=" + longitude + ", content=" + content + ", type=" + type + ", details="
+        + details + ", reservation=" + reservation + ", welcome=" + welcome + ", traffic=" + traffic
         + ", thumbnail=" + thumbnail + ", createdDate=" + createdDate + ", host=" + host
-        + ", Facilities=" + Facilities + ", photos=" + photos + "]";
+        + ", conveniences=" + conveniences + ", safetys=" + safetys + ", photos=" + photos + "]";
   }
 }

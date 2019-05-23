@@ -6,7 +6,7 @@
   
 <mapper namespace="com.heun.trip.dao.RoomDao">
   
-  <resultMap type="room" id="roomMap">
+  <!-- <resultMap type="room" id="roomMap">
     <id column="rms_id" property="no"/>
     <result column="rm_name" property="name"/>
     <result column="rm_chge" property="price"/>
@@ -60,7 +60,7 @@
     <result column="amn"  property="name"/>
   </collection>
   
-  </resultMap>
+  </resultMap> -->
   
   
   <select id="findAll" resultMap="roomMap" parameterType="map">
