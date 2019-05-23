@@ -70,31 +70,6 @@ insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd
 insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,1,5,4,'예약이14..','예약이안되요','1111',1);
 
 
-
--- qna_photo
-
-insert into qna_photo (qna_photo, qna_id)
-  values('a1.gif',1);
-insert into qna_photo (qna_photo, qna_id)
-  values('a2.gif',2);
-insert into qna_photo (qna_photo, qna_id)
-  values('a3.gif',3);
-insert into qna_photo (qna_photo, qna_id)
-  values('a4.gif',4);
-insert into qna_photo (qna_photo, qna_id)
-  values('a5.gif',5);
-insert into qna_photo (qna_photo, qna_id)
-  values('a6.gif',6);
-insert into qna_photo (qna_photo, qna_id)
-  values('a7.gif',7);
-insert into qna_photo (qna_photo, qna_id)
-  values('a8.gif',8);
-insert into qna_photo (qna_photo, qna_id)
-  values('a9.gif',9);
-insert into qna_photo (qna_photo, qna_id)
-  values('a10.gif',10);
-
-
   --호스트
 insert into host(usr_id,bank,bank_id) 
 values(5,'신한','110-3334-6587');
@@ -266,20 +241,20 @@ insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, r
 values(5,2,5,'2019-07-11','2020-05-10','대기중', '승인', 3);
 
 -- 블로그
-insert into board (board_id,usr_id,rms_id,title,conts)
-  values(1,1,2,
+insert into board (usr_id,rms_id,title,conts)
+  values(1,10,
   '여수여행 정말 좋다!', 
   '해 가족들과 함께 여수 여행을 두번 다녀왔습니다. 이번 여행은 놀랍게도 볼거리도 많아서 그런지 정말 알찬 여행이 되었는데요..
 사촌 오빠가 여수에서 직장을 다니고 계시는데 그 분이 저희 가족의 여행 가이드가 되어 주셨습니다.');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(2,1,3,
+  values(2,1,1,
   '또 가고 싶은 부산!', 
   '국제시장, 자갈치시장, 태종대, 흰여울마을, 영도대교, 감천문화마을, 송도해수욕장, 보수동책방골목,피란수도 코스, 산복도로 등
 특히, 보수동책방골목은 2018 책의 해와 가을은 독서의 계절이라는 콘셉에 맞추어 방문하기 좋은 장소가 아닐까요^^ 국제시장과 인접하니 꼭 들러보세요!');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(3,2,4,
+  values(3,2,1,
   '대구 어딜 가야 좋을까', 
   '열차타신다면 KTX면 동대구역, 새마을 또는 무궁화면 대구역에 하차하면 됩니다.
 점심무렵 도착하는 것으로 예정합니다.
@@ -289,7 +264,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 수목원 돌아보신 후 택시로 앞산으로 이동합니다.');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(4,2,5,
+  values(4,2,1,
   '광화문에 놀거리가 궁금하다면?', 
   '1) 세종대왕 이야기. 충무공이순신장군이야기 ( 세종대왕동상뒤 지하로 내려 가가시 면됩니다.
 2) 경복궁, 청와대. 정문. 사랑채.경복궁 구경다하시고 경복궁 후문으로 나가시면 청와대 정문( 청와대정문
@@ -298,7 +273,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
     덕수궁정문 우측 길로 돌아가시면 덕수궁 돌담길입니다 올라 올라오시면 정동길입니다.  ');
     
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(5,3,2,
+  values(5,3,1,
   '내가 가본 남해',
   '남해를 알차게 구경하는 루트 !!!! (숙박과 쉬어감은 해지면 쉬고 가시고,
 남해는 해안도로가 잘되어 있기때문에 드문드문 쉬어 갈수 있는 벤취나 정자가 잘 되어 있습니다. ^^;)
@@ -311,7 +286,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 - 남해 금산 (등산시 1:30분 혹은 2시간 소요), 입구 식당가 먹을거리 있음 -');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(6,3,4,
+  values(6,3,1,
   '거제 맛집',
   '먼저 제가 소개해드리는 거제 대명리조트 맛집 팔선루는 차돌짬뽕과
 탕수육이 정말 맛있는 집이예요~ 특히 차돌짬뽕은 안에 들어있는 해산물도
@@ -335,12 +310,12 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 숙소-제주시(용두암)-제주공항');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(8,4,5,
+  values(8,4,1,
   '별로 좋지 않았던 제주도 후기', 
   '제주도 갔다왔는데 너무 별로였음. 물가도 너무 비싸고 사람도 너무 많고 별로였습니다.');
   
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(9,5,2,
+  values(9,5,1,
   '서울 여행 다녀왔어용 ^^;',
   '종로3가역  5번출구 낙원상가 통과하면 
 인사동한복판 인사동길따라 걸으면 큰길나옴 
@@ -358,24 +333,3 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 우리나라와 북한은 적대국이므로 임의방북은 심각한 법률위반으로 간주, 처벌의 대상이 됩니다.
 즉 자신의 혐의를 잘 설명하지 못하면 그대로 징역형을 갈 수도 있고 이렇게 국가보안법 위반으로 징역을 가게 되면 속칭 빨간줄이 그어지게 되어서 평생 공직, 대기업에는 취업 못합니다.');
   
--- 게시글 사진
-insert into photo (photo_id,photo,board_id)
-  values(1,'a1.gif',1);
-insert into photo (photo_id,photo,board_id)
-  values(2,'a2.gif',2);
-insert into photo (photo_id,photo,board_id)
-  values(3,'a3.gif',3);
-insert into photo (photo_id,photo,board_id)
-  values(4,'a4.gif',4);
-insert into photo (photo_id,photo,board_id)
-  values(5,'a5.gif',5);
-insert into photo (photo_id,photo,board_id)
-  values(6,'a6.gif',6);
-insert into photo (photo_id,photo,board_id)
-  values(7,'a7.gif',7);
-insert into photo (photo_id,photo,board_id)
-  values(8,'a8.gif',8);
-insert into photo (photo_id,photo,board_id)
-  values(9,'a9.gif',9);
-insert into photo (photo_id,photo,board_id)
-  values(10,'a10.gif',10);

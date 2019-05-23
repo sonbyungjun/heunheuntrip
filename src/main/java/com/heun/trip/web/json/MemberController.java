@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
+import com.heun.trip.web.Gmail;
+import com.heun.trip.web.RanNo;
 
 @RestController("json/MemberController")
 @RequestMapping("/json/member")
@@ -25,11 +27,11 @@ public class MemberController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize,
+      @RequestParam(defaultValue="15") int pageSize,
       String search) { 
 
     if (pageSize < 5 || pageSize > 8) 
-      pageSize = 5;
+      pageSize = 15;
 
     int rowCount = memberService.size(search);
     int totalPage = rowCount / pageSize;
@@ -95,4 +97,22 @@ public class MemberController {
     }
     return content;
   }
+  
+  @GetMapping("email")
+  public Object email(String email) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      int ranNo = RanNo.randomNo();
+      Gmail.gmailSend(email, ranNo);
+      
+      content.put("status", "success");
+      content.put("ranNo", ranNo);
+
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
 }
