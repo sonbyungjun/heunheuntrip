@@ -69,9 +69,16 @@ public class BlogController {
   }
 
   @GetMapping("detail")
-  public Object detail(int no) { // localhost:8080/heunheuntrip/app/json/blog/detail?no=1
+  public Object detail(int no, HttpSession session) {
     Blog blog = blogService.get(no);
-    return blog;
+    HashMap<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    if(loginUser != null) {
+      content.put("userNo", loginUser.getNo());
+    }
+    content.put("blog", blog);
+    
+     return content;
   }
 
   @GetMapping("checkUser")

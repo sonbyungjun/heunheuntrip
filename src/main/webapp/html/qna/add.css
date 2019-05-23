@@ -1,28 +1,23 @@
 .heun-title {
-	width: 800px;
-	height: 35px;
-	margin-left: 10px;
-}
-
-.heun-content { 
-	width: 900px;
-	height: 400px;
+  width: 800px;
+  height: 35px;
+  margin-left: 10px;
 }
 
 #dropdownMenuButton {
-	width: auto;
+  width: auto;
 }
 
 .heun-title{
-	width: 500px;
+  width: 500px;
 }
 
 .update-password{
-	 margin-left: 15px;
-	 width: auto;
+   margin-left: 15px;
+   width: auto;
 }
 
 .buttons{
-	
-	 float: right;
+  
+   float: right;
 }

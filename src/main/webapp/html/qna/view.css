@@ -17,9 +17,15 @@
 }
 
 .heun-content {
-    height: 300px;
+    height: auto;
     font-size: medium;
     white-space: pre-wrap;
+}
+
+
+#reply-form {
+    padding: 40px;
+    margin: auto;
 }
 
 #title {
@@ -34,3 +40,4 @@
 .update-password {
 	width: 175px;
 }
+

@@ -28,13 +28,6 @@ $('.heun-push').click(function() {
   console.log($('heun-submit').val());
 })
 
-// 우편번호 찾기 화면을 넣을 element
-var element_layer = $('#layer');
-
-function closeDaumPostcode() {
-  // iframe을 넣은 element를 안보이게 한다.
-  element_layer.css('display', 'none');
-}
 
 $('#post-search').click(function () {
   new daum.Postcode({
@@ -69,17 +62,25 @@ $('#post-search').click(function () {
           extraAddr = ' (' + extraAddr + ')';
         }
         // 조합된 참고항목을 해당 필드에 넣는다.
-        document.getElementById("sample6_extraAddress").value = extraAddr;
+        document.getElementById("extraAddress").value = extraAddr;
 
       } else {
-        document.getElementById("sample6_extraAddress").value = '';
+        document.getElementById("extraAddress").value = '';
       }
 
       // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById('sample6_postcode').value = data.zonecode;
-      document.getElementById("sample6_address").value = addr;
+      document.getElementById('postcode').value = data.zonecode;
+      document.getElementById("address").value = addr;
       // 커서를 상세주소 필드로 이동한다.
-      document.getElementById("sample6_detailAddress").focus();
+      document.getElementById("detailAddress").focus();
     }
   }).open();
+})
+
+// $("input[name=current_proudct]:checked").each(function() {
+//    var test = $(this).val();
+// })
+
+$('input[name=convenience]').click(function() {
+  console.log($(this).val());
 })

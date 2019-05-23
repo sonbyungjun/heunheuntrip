@@ -2,6 +2,17 @@ var tbody = $('tbody'),
 templateSrc = $('#tr-template').html(),
 trGenerator = Handlebars.compile(templateSrc);
 
+
+$(document).ready(function(){
+  $('#heun-header').load('../header.html', function(){
+      $('.heun-header-nav').removeClass('navbar-over absolute-top');
+  });
+  
+  $('#heun-footer').load('../footer.html', function(){
+  });
+})
+
+
 //JSON 형식의 데이터 목록 가져오기
 function loadList() {
 
@@ -39,9 +50,8 @@ $(document.body).bind('loaded-list', () => {
       dataType: 'json',
       success: function(response) {
         if(response.status == 'success'){
-          $('.title').attr("userNo", response.userNo);
-          $('.title').attr("userName", response.userName);
-          location.href = 'view.html';            
+
+          location.href = 'add.html';            
         } else {
           alert('체크아웃 목록이 없어 블로그를 작성할 수 없습니다.');
         }
@@ -52,17 +62,4 @@ $(document.body).bind('loaded-list', () => {
     });
   });
 }); 
-
-
-
-
-
-
-
-
-
-
-
-
-
 

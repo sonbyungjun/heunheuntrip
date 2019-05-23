@@ -1,7 +1,6 @@
 package com.heun.trip.domain;
 
 import java.sql.Date;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Qna { // 일반회원이나 호스트가 관리자에게 문의하는 게시판 도메인
@@ -25,7 +24,6 @@ public class Qna { // 일반회원이나 호스트가 관리자에게 문의하�
   
   private int viewCount;
   
-  private List<QnaPhoto> qnaPhotos;
   
   public int getQnaNo() {
     return qnaNo;
@@ -99,12 +97,7 @@ public class Qna { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setTitle(String title) {
     this.title = title;
   }
-  public List<QnaPhoto> getQnaPhotos() {
-    return qnaPhotos;
-  }
-  public void setQnaPhotos(List<QnaPhoto> qnaPhotos) {
-    this.qnaPhotos = qnaPhotos;
-  }
+
   public int getUserNo() {
     return userNo;
   }
@@ -117,13 +110,14 @@ public class Qna { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setCategoryNo(int categoryNo) {
     this.categoryNo = categoryNo;
   }
-  
   @Override
   public String toString() {
     return "Qna [qnaNo=" + qnaNo + ", auth=" + auth + ", userNo=" + userNo + ", name=" + name
         + ", categoryNo=" + categoryNo + ", category=" + category + ", parent=" + parent
         + ", order=" + order + ", step=" + step + ", title=" + title + ", content=" + content
         + ", password=" + password + ", createdDate=" + createdDate + ", viewCount=" + viewCount
-        + ", qnaPhotos=" + qnaPhotos + "]";
+        + "]";
   }
+  
+
 }

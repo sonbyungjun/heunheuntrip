@@ -11,8 +11,7 @@
 		global $uploadDir, $realUploadDir;
 		
 		return str_replace($uploadDir, $realUploadDir, $file);
-	}
-
+	} 
 	// upload
 	if ($_action == 'upload') {
 		$id = false;

@@ -4,21 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.QnaDao;
-import com.heun.trip.dao.QnaPhotoDao;
 import com.heun.trip.domain.Category;
 import com.heun.trip.domain.Qna;
-import com.heun.trip.domain.QnaPhoto;
 import com.heun.trip.service.QnaService;
 
 @Service
 public class QnaServiceImpl implements QnaService {
 
   QnaDao qnaDao;
-  QnaPhotoDao qnaPhotoDao;
 
-  public QnaServiceImpl(QnaDao qnaDao, QnaPhotoDao qnaPhotoDao) {
+
+  public QnaServiceImpl(QnaDao qnaDao) {
     this.qnaDao = qnaDao;
-    this.qnaPhotoDao = qnaPhotoDao;
   }
 
   @Override
@@ -94,10 +91,7 @@ public class QnaServiceImpl implements QnaService {
     int step = qna.getStep();
     List<Qna> deleteList = qnaDao.deleteList(params);
     
-    // 원글을 먼저 지운다.
-    for (QnaPhoto p : qna.getQnaPhotos()) {
-      qnaPhotoDao.deleteByQnaPhotoNo(p.getNo());
-    }
+
     qnaDao.delete(qna.getQnaNo());
     
     int count = 0;
@@ -107,9 +101,7 @@ public class QnaServiceImpl implements QnaService {
       if (q.getStep() == step) {
         break;
       }
-      for (QnaPhoto p : q.getQnaPhotos()) {
-        qnaPhotoDao.deleteByQnaPhotoNo(p.getNo());
-      }
+
       qnaDao.delete(q.getQnaNo());
       count++;
     }

@@ -1,106 +1,82 @@
-var param = location.href.split('?')[1],
-    checkout = $('#checkoutlist').html(),
-    checkoutGenerator = Handlebars.compile(checkout);
+var param = location.href.split('?')[1];
 
-if (param) {
-  document.querySelector('h1').innerHTML = "BLOG DETAIL"
-  loadData(param.split('=')[1])
-    var el = document.querySelectorAll('.bit-new-item');
-  for(e of el){
-    e.style.display = 'none';
-  }
-} else {
-  document.querySelector('h1').innerHTML = "새 글"
-    var el = document.querySelectorAll('.bit-view-item');
-  for(e of el){
-    e.style.display = 'none';
-  }
-  loadCheckOut();
-  $('.heun-form').attr('readonly', false);
-}
-
-$(document.body).on('loaded-checkout', function() {
-  $('.heun-checkout > a').on('click', function() {
-    console.log(this);
-    $('#dropdownMenuButton').html($(this).html());
-    $('#dropdownMenuButton').attr('data-no', $('#title').attr('data-no'));
+ 
+$(document).ready(function () {
+  $('#heun-header').load('../header.html', function () {
+    $('.heun-header-nav').removeClass('navbar-over absolute-top');
   });
-})
 
+  $('#heun-footer').load('../footer.html', function () {
+  });
 
+  if (param) {
+    loadData(param.split('=')[1])
+  }
 
-function loadCheckOut() {
-  $.getJSON('../../app/json/blog/roomCheckOut', function(obj) {
-    
-    $('#title').attr("data-no", obj.userNo);
-    $('#title').attr("data-rno", obj.list[0].rmsNo);
-    
-    $(checkoutGenerator(obj)).appendTo('.heun-checkout');
-    $(document.body).trigger('loaded-checkout');
-  }); 
-};
-
+});
 
 
 function loadData(no) {
-  $.getJSON("../../app/json/blog/detail?no=" + no, function(data) {
-      $('#no').val(data.no);
-      $('#name').val(data.name);
-      $('#title').val(data.title);
-      $('#content').val(data.content);
-      $('.tooltip').attr('title', data.rmsAddr + " " + data.rmsDetailAddr);
-      $('#createdDate').val(data.createdDate);
-      $('#rmsName').val(data.rmsName);
-      $('#grade').val(data.grade);
-  });
-  
-  $('.drowroom').hide();
-};
-
-$('#add-btn').on('click', function() {
-  $.ajax({
-    url: '../../app/json/blog/add',
-    type: 'POST',
-    data: {
-      userNo: $('#title').attr('data-no'),
-      title: $('#title').val(),
-      content: $('#content').val(),
-      rmsNo: $('#title').attr('data-rno')
-    },
-    dataType: 'json',
-    success: function(response) {
-      location.href = 'index.html';
-    },
-    fail: function(error) {
-      alert('등록 실패!!');
+  $.getJSON("../../app/json/blog/detail?no=" + no, function (data) {
+    $('#no').attr('data-no', data.blog.no);
+    $('#no').attr('data-title', data.blog.title);
+    $('#name').html(data.blog.name);
+    $('h1').html(data.blog.title);
+    $('#cont').html(data.blog.content);
+    $('.tooltip').attr('title', data.blog.rmsAddr + " " + data.blog.rmsDetailAddr);
+    $('#createdDate').html(data.blog.createdDate);
+    $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
+    $('#grade').html("평점 : " + data.blog.grade);
+    
+    
+    if(data.blog.userNo != data.userNo){
+      $('#delete-btn').hide();
+      $('#update-btn').hide();
     }
-  });
+    
+  $('.drowroom').hide();
+  $('#add-btn').hide();
+  
 });
+}
+
+
 
 $('#update-btn').on('click', function() {
+
+  $('#add-btn').hide();
   
-  var el = document.querySelectorAll('.update');
-  for(e of el){
-    $('.heun-form').attr('readonly', false);
+  $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
+  
+  $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );
+ 
+  $('#summernote').summernote({  //썸머노트 활성화 시작
+    placeholder: 'Hello bootstrap 4',
+    tabsize: 2,
+    height: 400
+  });
+ 
+  if($('#delete-btn').css("display") != "none") {
+      $('#delete-btn').css("display", "none");
+      
+  } else{
+    updateDate();
   }
 
-  if($('#delete-btn').css("display") != "none") {
-    $('#delete-btn').css("display", "none");
-  } else{
-    updateDate($('#no').val());
-  }
 });
 
 
 
 function updateDate() {
+  var markupStr = $('#summernote').summernote('code');
+  
   $.ajax({
     url: '../../app/json/blog/update',
     type: 'POST',
     data: {
-      no: $('#no').val(),      
-      title: $('#title').val(),
-      content: $('#content').val()
+      no: $('#no').attr('data-no'),      
+      title: $('#update-title').val(),
+      content: markupStr
         },
     dataType: 'json',
     success: function(response) {
@@ -112,26 +88,21 @@ function updateDate() {
   });
 }
 
-$('#delete-btn').on('click', function() {
+
+
+$('#delete-btn').on('click', function () {
+
   $.ajax({
-    url: '../../app/json/blog/delete?no=' + $('#no').val(),
+    url: '../../app/json/blog/delete?no=' + $('#no').attr('data-no'),
     type: 'GET',
     dataType: 'json',
-    success: function(response) {
+    success: function (response) {
       location.href = 'index.html';
+
     },
-    fail: function(error) {
+    fail: function (error) {
       alert('삭제 실패!!');
     }
   });
 });
-
-
-
-
-
-
-
-
-
 

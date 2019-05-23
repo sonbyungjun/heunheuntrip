@@ -70,31 +70,6 @@ insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd
 insert into qna(usr_id, qna_cate_id, parent, ordr, step, title, content, qna_pwd, vw_cnt) values(3,1,1,5,4,'예약이14..','예약이안되요','1111',1);
 
 
-
--- qna_photo
-
-insert into qna_photo (qna_photo, qna_id)
-  values('a1.gif',1);
-insert into qna_photo (qna_photo, qna_id)
-  values('a2.gif',2);
-insert into qna_photo (qna_photo, qna_id)
-  values('a3.gif',3);
-insert into qna_photo (qna_photo, qna_id)
-  values('a4.gif',4);
-insert into qna_photo (qna_photo, qna_id)
-  values('a5.gif',5);
-insert into qna_photo (qna_photo, qna_id)
-  values('a6.gif',6);
-insert into qna_photo (qna_photo, qna_id)
-  values('a7.gif',7);
-insert into qna_photo (qna_photo, qna_id)
-  values('a8.gif',8);
-insert into qna_photo (qna_photo, qna_id)
-  values('a9.gif',9);
-insert into qna_photo (qna_photo, qna_id)
-  values('a10.gif',10);
-
-
   --호스트
 insert into host(usr_id,bank,bank_id) 
 values(5,'신한','110-3334-6587');
@@ -108,62 +83,35 @@ insert into host(usr_id,bank,bank_id)
 values(10,'기업','7894-78945-61245');
 
 -- 편의시설
-INSERT INTO amn(amn_id,amn) VALUES(1,'무선 인터넷');
-INSERT INTO amn(amn_id,amn) VALUES(2,'건조기');
-INSERT INTO amn(amn_id,amn) VALUES(3,'다리미');
-INSERT INTO amn(amn_id,amn) VALUES(4,'케이블 TV');
-INSERT INTO amn(amn_id,amn) VALUES(5,'수건, 침대시트, 비누, 화장지');
+INSERT INTO amn(amn_id,amn) VALUES(1,'필수품목(수건,침대시트,비누,화장지,배게)');
+INSERT INTO amn(amn_id,amn) VALUES(2,'무선인터넷');
+INSERT INTO amn(amn_id,amn) VALUES(3,'샴푸');
+INSERT INTO amn(amn_id,amn) VALUES(4,'옷장/서랍장');
+INSERT INTO amn(amn_id,amn) VALUES(5,'TV');
 INSERT INTO amn(amn_id,amn) VALUES(6,'난방');
-INSERT INTO amn(amn_id,amn) VALUES(7,'세탁기');
-INSERT INTO amn(amn_id,amn) VALUES(8,'에어컨');
-INSERT INTO amn(amn_id,amn) VALUES(9,'온수');
-INSERT INTO amn(amn_id,amn) VALUES(10,'헤어드라이어');
+INSERT INTO amn(amn_id,amn) VALUES(7,'에어컨');
+INSERT INTO amn(amn_id,amn) VALUES(8,'조식,커피,차');
+INSERT INTO amn(amn_id,amn) VALUES(9,'업무가능공간/책상');
+INSERT INTO amn(amn_id,amn) VALUES(10,'벽난로');
+INSERT INTO amn(amn_id,amn) VALUES(11,'다리미');
+INSERT INTO amn(amn_id,amn) VALUES(12,'헤어드라이어');
+INSERT INTO amn(amn_id,amn) VALUES(13,'게스트 전용 출입문');
+
+-- 안전시설
+INSERT INTO safety(safety_id,safety) VALUES(1,'화재감지기');
+INSERT INTO safety(safety_id,safety) VALUES(2,'일산화탄소 감지기');
+INSERT INTO safety(safety_id,safety) VALUES(3,'구급상자');
+INSERT INTO safety(safety_id,safety) VALUES(4,'소화기');
+INSERT INTO safety(safety_id,safety) VALUES(5,'침실문 잠금장치');
+
 
 -- 숙소 
 -- (호스트번호, '숙소명', 숙소가격, 최대 수용 인원, '우편번호', '기본주소', '상세주소', '위도', '경도', 
 -- '숙소 이용 규칙', '오시는 길', '예약 취소 안내', '위약금 안내', '평균평점')
-INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,lati,longi,rule,map,cacl_gde,plty_gde,grd) 
-  VALUES(1, 5, '[강남역] 러블리한 하우스, 카페같은 J-house', 50000, 2, '06129', '서울특별시 강남구 역삼동', '619-18', '37.5010877', '127.02713140000003', 
- '흡연 금지
-반려동물 동반 불가
-체크인 시간: 15:00~23:00, 체크아웃 시간: 11:00까지
-키패드(으)로 셀프 체크인',
- '2호선 강남역 1번출구 - 1분거리 위치 ', '숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.',
- '체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다. 체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.',
- 9);
- INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,lati,longi,rule,map,cacl_gde,plty_gde,grd) 
-  VALUES(2, 6, '강남역 1번출구 5분거리! 깨끗하고 넓고 이쁜집!', 60000, 5, '06128', '서울특별시 강남구 봉은사로6길', '39', '37.5026477', '127.0279289', 
- '반려동물 동반 불가 흡연, 파티 또는 이벤트 금지 체크인 시간: 15:00~02:00(다음 날), 체크아웃 시간: 11:00까지 스마트록(으)로 셀프 체크인',
- '강남역 도보 5분거리에 위치', '숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.',
- '체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다. 체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.',
- 8);
-  INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,lati,longi,rule,map,cacl_gde,plty_gde,grd) 
-  VALUES(3, 7, 'Bongs House 롯데타워 석촌호수 롯데월드뷰를 품은 환상의 공간', 55000, 4, '05554', '서울특별시 송파구 올림픽로', '240', '37.5112348', '127.09802739999998', 
- '유아(만 2세 미만) 및 반려동물에게 안전하거나 적합하지 않음
-흡연, 파티 또는 이벤트 금지
-체크인 시간: 16:00 이후 언제나, 체크아웃 시간: 12:00까지
-스마트록(으)로 셀프 체크인',
- '종합운동장역(야구장, 올림픽 경기장) 지하철', '숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.',
- '체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다. 체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.',
- 9);
-   INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,lati,longi,rule,map,cacl_gde,plty_gde,grd) 
-  VALUES(4, 8, 'Bongs House 롯데타워 석촌호수 롯데월드뷰를 품은 환상의 공간', 55000, 4, '05554', '서울특별시 송파구 올림픽로', '240', '37.5112348', '127.09802739999998', 
- '유아(만 2세 미만) 및 반려동물에게 안전하거나 적합하지 않음
-흡연, 파티 또는 이벤트 금지
-체크인 시간: 16:00 이후 언제나, 체크아웃 시간: 12:00까지
-스마트록(으)로 셀프 체크인',
- '종합운동장역(야구장, 올림픽 경기장) 지하철', '숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.',
- '체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다. 체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.',
- 9);
-   INSERT INTO rms(rms_id, usr_id,rm_name,rm_chge,max_ple,post_code,addr,dtil_addr,lati,longi,rule,map,cacl_gde,plty_gde,grd) 
-  VALUES(5, 10, 'Bongs House 롯데타워 석촌호수 롯데월드뷰를 품은 환상의 공간', 55000, 4, '05554', '서울특별시 송파구 올림픽로', '240', '37.5112348', '127.09802739999998', 
- '유아(만 2세 미만) 및 반려동물에게 안전하거나 적합하지 않음
-흡연, 파티 또는 이벤트 금지
-체크인 시간: 16:00 이후 언제나, 체크아웃 시간: 12:00까지
-스마트록(으)로 셀프 체크인',
- '종합운동장역(야구장, 올림픽 경기장) 지하철', '숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.',
- '체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다. 체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.',
- 9);
+INSERT INTO `rms` (`rms_id`, `usr_id`, `area`, `type`, `bed`, `bath`, `cont`, `dets`, `reva`, `come`, `traf`, `rm_name`, `rm_chge`, `max_ple`, `post_code`, `addr`, `dtil_addr`, `lati`, `longi`, `cdt`, `grd`)
+VALUES
+  (10, 5, '강남역', '개인실', 1, 1, 'aa\n', NULL, NULL, NULL, NULL, '11', 11, 1, '111', '111', '111', '111', '111', '2019-05-22 00:00:00', 11);
+
  
  -- 숙소사진
  INSERT INTO rm_photo(r_photo_id,rms_id,rm_photo) VALUES(1,1,'a1.gif');
@@ -293,20 +241,20 @@ insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, r
 values(5,2,5,'2019-07-11','2020-05-10','대기중', '승인', 3);
 
 -- 블로그
-insert into board (board_id,usr_id,rms_id,title,conts)
-  values(1,1,2,
+insert into board (usr_id,rms_id,title,conts)
+  values(1,10,
   '여수여행 정말 좋다!', 
   '해 가족들과 함께 여수 여행을 두번 다녀왔습니다. 이번 여행은 놀랍게도 볼거리도 많아서 그런지 정말 알찬 여행이 되었는데요..
 사촌 오빠가 여수에서 직장을 다니고 계시는데 그 분이 저희 가족의 여행 가이드가 되어 주셨습니다.');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(2,1,3,
+  values(2,1,1,
   '또 가고 싶은 부산!', 
   '국제시장, 자갈치시장, 태종대, 흰여울마을, 영도대교, 감천문화마을, 송도해수욕장, 보수동책방골목,피란수도 코스, 산복도로 등
 특히, 보수동책방골목은 2018 책의 해와 가을은 독서의 계절이라는 콘셉에 맞추어 방문하기 좋은 장소가 아닐까요^^ 국제시장과 인접하니 꼭 들러보세요!');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(3,2,4,
+  values(3,2,1,
   '대구 어딜 가야 좋을까', 
   '열차타신다면 KTX면 동대구역, 새마을 또는 무궁화면 대구역에 하차하면 됩니다.
 점심무렵 도착하는 것으로 예정합니다.
@@ -316,7 +264,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 수목원 돌아보신 후 택시로 앞산으로 이동합니다.');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(4,2,5,
+  values(4,2,1,
   '광화문에 놀거리가 궁금하다면?', 
   '1) 세종대왕 이야기. 충무공이순신장군이야기 ( 세종대왕동상뒤 지하로 내려 가가시 면됩니다.
 2) 경복궁, 청와대. 정문. 사랑채.경복궁 구경다하시고 경복궁 후문으로 나가시면 청와대 정문( 청와대정문
@@ -325,7 +273,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
     덕수궁정문 우측 길로 돌아가시면 덕수궁 돌담길입니다 올라 올라오시면 정동길입니다.  ');
     
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(5,3,2,
+  values(5,3,1,
   '내가 가본 남해',
   '남해를 알차게 구경하는 루트 !!!! (숙박과 쉬어감은 해지면 쉬고 가시고,
 남해는 해안도로가 잘되어 있기때문에 드문드문 쉬어 갈수 있는 벤취나 정자가 잘 되어 있습니다. ^^;)
@@ -338,7 +286,7 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 - 남해 금산 (등산시 1:30분 혹은 2시간 소요), 입구 식당가 먹을거리 있음 -');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(6,3,4,
+  values(6,3,1,
   '거제 맛집',
   '먼저 제가 소개해드리는 거제 대명리조트 맛집 팔선루는 차돌짬뽕과
 탕수육이 정말 맛있는 집이예요~ 특히 차돌짬뽕은 안에 들어있는 해산물도
@@ -362,12 +310,12 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 숙소-제주시(용두암)-제주공항');
 
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(8,4,5,
+  values(8,4,1,
   '별로 좋지 않았던 제주도 후기', 
   '제주도 갔다왔는데 너무 별로였음. 물가도 너무 비싸고 사람도 너무 많고 별로였습니다.');
   
 insert into board (board_id,usr_id,rms_id,title,conts)
-  values(9,5,2,
+  values(9,5,1,
   '서울 여행 다녀왔어용 ^^;',
   '종로3가역  5번출구 낙원상가 통과하면 
 인사동한복판 인사동길따라 걸으면 큰길나옴 
@@ -385,24 +333,3 @@ insert into board (board_id,usr_id,rms_id,title,conts)
 우리나라와 북한은 적대국이므로 임의방북은 심각한 법률위반으로 간주, 처벌의 대상이 됩니다.
 즉 자신의 혐의를 잘 설명하지 못하면 그대로 징역형을 갈 수도 있고 이렇게 국가보안법 위반으로 징역을 가게 되면 속칭 빨간줄이 그어지게 되어서 평생 공직, 대기업에는 취업 못합니다.');
   
--- 게시글 사진
-insert into photo (photo_id,photo,board_id)
-  values(1,'a1.gif',1);
-insert into photo (photo_id,photo,board_id)
-  values(2,'a2.gif',2);
-insert into photo (photo_id,photo,board_id)
-  values(3,'a3.gif',3);
-insert into photo (photo_id,photo,board_id)
-  values(4,'a4.gif',4);
-insert into photo (photo_id,photo,board_id)
-  values(5,'a5.gif',5);
-insert into photo (photo_id,photo,board_id)
-  values(6,'a6.gif',6);
-insert into photo (photo_id,photo,board_id)
-  values(7,'a7.gif',7);
-insert into photo (photo_id,photo,board_id)
-  values(8,'a8.gif',8);
-insert into photo (photo_id,photo,board_id)
-  values(9,'a9.gif',9);
-insert into photo (photo_id,photo,board_id)
-  values(10,'a10.gif',10);

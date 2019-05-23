@@ -60,7 +60,7 @@ public class QnaController {
       content.put("message", e.getMessage());
     }
     return content;
-  }
+  } 
   
   @GetMapping("list")
   public Object list(
@@ -94,9 +94,16 @@ public class QnaController {
   }
   
   @GetMapping("detail")
-  public Object detail(int no) {
+  public Object detail(int no, HttpSession session) {
    Qna qna = qnaService.get(no);
-    return qna;
+   HashMap<String,Object> content = new HashMap<>();
+   Member loginUser = (Member) session.getAttribute("loginUser");
+   if(loginUser != null) {
+     content.put("userNo", loginUser.getNo());
+   }
+   content.put("qna", qna);
+   
+    return content;
   }
   
   @GetMapping("relist")
@@ -155,8 +162,11 @@ public class QnaController {
  public Object password(int qnaNo, String pwd) {
    HashMap<String,Object> content = new HashMap<>();
    try {
-     if(qnaService.password(qnaNo, pwd) == 1)
+     if(qnaService.password(qnaNo, pwd) == 1) {
        content.put("status", "success");
+     } else {
+       content.put("status", "fail");
+     }
    } catch (Exception e) {
      content.put("status", "fail");
      content.put("message", e.getMessage());
@@ -169,8 +179,11 @@ public class QnaController {
    HashMap<String,Object> content = new HashMap<>();
    System.out.println(qnaNo);
    try {
-     if(qnaService.pwdCheck(qnaNo) == 1)
+     if(qnaService.pwdCheck(qnaNo) == 1) {
        content.put("status", "success");
+     } else {
+       content.put("status", "fail");
+     }
    } catch (Exception e) {
      content.put("status", "fail");
      content.put("message", e.getMessage());
