@@ -44,6 +44,7 @@
 <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
 <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
 
@@ -61,7 +62,14 @@
 
 <style>
 .a {
-  padding:40px;
+	padding: 40px;
+}
+</style>
+
+<style>
+.check {
+  padding-bottom: 20px;
+  
 }
 </style>
 
@@ -95,24 +103,50 @@
 
               <form action='' id='signupForm' enctype='multipart/form-data'>
 
-                <div class="form-group has-feedback form-row">
-                  <label class="control-label" for="name">이름</label> <input class="form-control"
-                    type="text" name="name" id="name" autocomplete=off /> <span id="nameErr"
-                    class="help-block">잘못된 형식입니다.</span> <span
+                <div class="custom-control custom-radio custom-control-inline check" >
+                  <input type="radio" id="customRadioInline1" name="customRadioInline1"
+                    class="custom-control-input" value='1'> <label class="custom-control-label"
+                    for="customRadioInline1">일반회원</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline2" name="customRadioInline1"
+                    class="custom-control-input" value='2'> <label class="custom-control-label"
+                    for="customRadioInline2">호스트</label>
+                </div>
+
+
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="name">이름</label> <input
+                    class="form-control required" type="text" data-name='이름' name="name" id="name"
+                    autocomplete=off /> <span id="nameErr" class="help-block">잘못된 형식입니다.</span> <span
                     class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
                 <div class="form-group has-feedback">
-                  <label class="control-label" for="email">이메일</label> <input class="form-control"
-                    type="text" name="email" id="email"/> <span id="emailErr"
-                    class="help-block">올바른 이메일 형식이 아닙니다. 다시 입력해 주세요.</span> <span
-                    class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  <label class="control-label" for="email">이메일</label> 
+                  <input class="form-control required" type="text" data-name='이메일' name="email" id="email"/> 
+                   
+                   <button type='button' class='btn btn-primary btn-lg button'>인증번호 받기</button>
+                   
+                  
+                     <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시
+                    입력해 주세요.</span> <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
+                
+                 <div class="form-group has-feedback">
+                       <input class="form-control required" type="text" placeholder='인증번호를 입력해주세요' data-name='이메일확인' readonly/> 
+                    <span id="emailErr" class="help-block">인증번호가 올바르지 않습니다.
+                    </span> <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+                
+                
 
                 <div class="form-group has-feedback">
-                  <label class="control-label" for="pwd">비밀번호</label> <input class="form-control"
-                    type="password" name="pwd" id="pwd" autocomplete=off /> <span id="pwdRegErr"
-                    class="help-block">8~16자 영문 소문자,숫자,특수문자를 사용하세요 </span> <span
+                  <label class="control-label" for="pwd">비밀번호</label> <input
+                    class="form-control required" type="password" data-name='비밀번호' name="pwd"
+                    id="pwd" autocomplete=off /> <span id="pwdRegErr" class="help-block">8~16자
+                    영문 소문자,숫자,특수문자를 사용하세요 </span> <span
                     class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
@@ -136,7 +170,7 @@
                   <input type='checkbox' id='terms'> <label for='terms'>개인정보 정책에 동의
                     하시겠습니까? </label>
                 </div>
-                <button type='submit' class='btn btn-primary btn-lg'>가입</button>
+                <button type='button' class='btn btn-primary btn-lg button'>가입</button>
               </form>
             </div>
           </div>

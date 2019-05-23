@@ -82,7 +82,9 @@ $("#email").keyup(function(){
 					successState("#email");
 				}else{
 					errorState("#email");
-					alert('중복된 이메일입니다')
+					Swal.fire({
+						type: 'error',
+						title: '이메일 중복입니다. 다시 입력해주세요'});
 					break;
 				}
 			}
@@ -92,6 +94,45 @@ $("#email").keyup(function(){
 		errorState("#email");
 	}
 });
+
+function chkValue() {
+    // 공통입력폼내의 모든 입력오브젝트
+    var inputObjs = $("#signupForm .required");
+    // 미입력여부(경우에 따라 사용)
+    var bEmpty = true;
+    var focus;
+ 
+    // 각 오브젝트에 대해 입력체크
+    inputObjs.each(function(index) {
+        if ($(this).val() == '') {
+            focus = $(this);
+            bEmpty = false;
+            Swal.fire({
+                type: 'error',
+                title: $(this).attr('data-name') + "은 필수 입력사항입니다."});
+               
+           setTimeout(function(){focus.focus();},2000);
+           return false;
+        }
+    });
+ 
+    // 필수입력사항에 누락이 있으면 진행금지
+
+}
+
+$('.button').on('click',function(){
+		return chkValue()
+})
+
+
+
+
+
+
+
+
+
+
 //성공 상태로 바꾸는 함수
 function successState(sel){
 	$(sel)

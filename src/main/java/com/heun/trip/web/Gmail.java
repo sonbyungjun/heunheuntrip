@@ -14,7 +14,7 @@ public class Gmail {
   
   public static void main(String[] args) {
    int rn=  RanNo.randomNo();
-   gmailSend("sambosoft@naver.com" ,rn);
+   gmailSend("dj185wl@naver.com" ,rn);
     
   }
   
