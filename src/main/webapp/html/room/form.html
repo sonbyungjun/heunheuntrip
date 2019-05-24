@@ -11,7 +11,12 @@
   <!-- Bootstrap -->
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
  
-  <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous">
   <link href="../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="../lib/animate.css" rel="stylesheet">
   <link href="../lib/selectric/selectric.css" rel="stylesheet">
@@ -44,6 +49,7 @@
   <!-- js -->
   <script src="../../lib/fileuploader-2.2/dist/jquery.fileuploader.min.js" type="text/javascript"></script>
   <script src="./js/custom.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
   <style>
     .fp-tableCell {
@@ -52,6 +58,16 @@
 
     .fileuploader {
       max-width: 100%;
+    }
+
+    .input-min {
+      min-height: 250px;
+    }
+
+    .counter {
+      top: 370px;
+      right: 50px;
+      font-size: 150%;
     }
   </style>
 </head>
@@ -65,7 +81,7 @@
 
         <form id="heun-submit">
 
-          <div class="slide">
+          <div class="slide" id="s1">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -102,6 +118,7 @@
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="area">지역을 간단하게 입력해주세요.</label>
                     <input id="area" type="text" class="form-control form-control-lg" placeholder="지역을 입력하세요.">
                   </div>
                   <div class="row justify-content-between">
@@ -116,7 +133,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s2">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -128,9 +145,8 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-
+                        <label for="bed">침대</label>
                         <select id="bed" class="form-control form-control-lg ui-select">
-                          <option value="0">침대</option>
                           <option value="1">1개</option>
                           <option value="2">2개</option>
                           <option value="3">3개</option>
@@ -141,8 +157,8 @@
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
+                        <label for="bath">욕실</label>
                         <select id="bath" class="form-control form-control-lg ui-select">
-                          <option value="0">욕실</option>
                           <option value="1">1개</option>
                           <option value="2">2개</option>
                           <option value="3">2개</option>
@@ -164,7 +180,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s3">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -172,12 +188,11 @@
                     <h1>숙소 주소를 입력해주세요.</h1>
                     <small>3단계</small>
                   </div>
-
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <input class="form-control form-control-lg" type="text" id="postcode"
-                          placeholder="우편번호">
+                          placeholder="우편번호" readonly>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -186,27 +201,23 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="address" placeholder="주소">
+                    <input type="text" class="form-control form-control-lg" id="address" placeholder="주소" readonly>
                   </div>
-
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <input class="form-control form-control-lg" type="text" id="detailAddress"
                           placeholder="상세주소">
                       </div>
-
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <input class="form-control form-control-lg" type="text" id="extraAddress"
-                          placeholder="참고항목">
+                          placeholder="참고항목" readonly>
                       </div>
                     </div>
                   </div>
-
                   <div class="row justify-content-between">
                     <div class="form-group action col-4">
                       <button type="button" class="btn btn-lg btn-primary heun-form-prev">이전</button>
@@ -220,7 +231,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s4">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -236,7 +247,7 @@
                       <div class="form-group">
 
                         <div class="checkbox">
-                          <input type="checkbox" id="1" name="convenience" value="1">
+                          <input type="checkbox" id="1" name="convenience" value="1" onclick="return false;" checked>
                           <label for="1">필수 품목</label>
                           <small>수건, 침대 시트, 비누, 화장지, 배게</small>
                         </div>
@@ -313,7 +324,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s5">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -325,7 +336,7 @@
                   <div class="form-group heun-safety">
 
                     <div class="checkbox">
-                      <input type="checkbox" id="s1" name="safety" value="1">
+                      <input type="checkbox" id="s1" name="safety" value="1" onclick="return false;" checked>
                       <label for="s1">화재 감지기</label>
                       <p><small>잘 작동하는 화재 감지기를 모든 방에 구비해 놓아야 하는지 현지 법규를 확인해보세요.</small></p>
                     </div>
@@ -366,7 +377,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s6">
             <div class="container-fulid">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -396,7 +407,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s7">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -406,10 +417,11 @@
                   </div>
                   <h5>숙소에 대해 간략히 설명해주세요. 숙소와 주변 지역에 대한 정보에서 시작해 게스트와 어떻게 소통하고 싶은지 등의 내용을 적어주세요.</h5>
 
-                  <div class="mb-3">
+                  <div class="mb-3 input-min">
                     <label for="contents"></label>
-                    <textarea class="form-control is-invalid" id="contents"
+                    <textarea class="form-control position-relative" id="contents"
                       placeholder="인테리어, 채광, 주변 정보 등을 설명하세요." rows="8" required></textarea>
+                    <span class="counter position-absolute">500 자</span>
                     <div class="invalid-feedback">
                       숙소 설명을 작성해야 합니다. 게스트가 숙소의 모습을 머릿속으로 그려볼 수 있도록 상세 설명을 추가해 주세요.
                     </div>
@@ -428,7 +440,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s8">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -464,7 +476,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s9">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -501,7 +513,7 @@
             </div>
           </div>
 
-          <div class="slide">
+          <div class="slide" id="s10">
             <div class="container">
               <div class="row justify-content-md-center">
                 <div class="col col-lg-12 col-xl-8">
@@ -517,7 +529,7 @@
                   </div>
 
                   <div class="form-group input-group-lg">
-                    <input type="number" class="form-control" aria-label="Sizing example input"
+                    <input type="text" class="form-control" aria-label="Sizing example input"
                       aria-describedby="inputGroup-sizing-lg" placeholder="숙소 가격" id="heun-price">
                   </div>
 

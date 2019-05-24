@@ -1,6 +1,269 @@
 var latitude = '';
 var longitude = '';
 
+var slideRule = [
+  {
+    id : 's1',
+    ele : $('#s1'),
+    rule : [
+      {
+        name : 'area',
+        InputEle : $('#area'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '지역을 입력해주세요. \n(1자 이상 20자 이하)'
+      }
+    ]
+  },
+  {
+    id : 's2',
+    ele : $('#s2'),
+    rule : [
+      {
+        name : 'bed',
+        InputEle : $('#bed'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '침대 갯수를 선택해주세요.'
+      },
+      {
+        name : 'bath',
+        InputEle : $('#bath'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '욕실 갯수를 선택해주세요.'
+      }
+    ]
+  },
+  {
+    id : 's3',
+    ele : $('#s3'),
+    rule : [
+      {
+        name: 'address',
+        InputEle: $('#address'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
+        message: '주소를 입력해주세요.'
+      },
+      {
+        name: 'detailAddress',
+        InputEle: $('#detailAddress'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '상세주소를 입력해주세요'
+      }
+    ]
+  },
+  {
+    id : 's4',
+    ele : $('#s4'),
+    rule : [
+      {
+        name : 'convenience',
+        InputEle : $('input[name=convenience]:checked'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '편의시설을 1개 이상 선택해주세요.'
+      }
+    ]
+  },
+  {
+    id : 's5',
+    ele : $('#s5'),
+    rule : [
+      {
+        name : 'safety',
+        InputEle : $('input[name=safety]:checked'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,}$/,
+        message: '안전시설을 1개 이상 선택해주세요.'
+      }
+    ]
+  },
+  {
+    id : 's7',
+    ele : $('#s7'),
+    rule : [
+      {
+        name : 'contents',
+        InputEle : $('#contents'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+        message: '10자 이상 500자 이하로 작성해주세요!'
+      }
+    ]
+  },
+  {
+    id : 's10',
+    ele : $('#s10'),
+    rule : [
+      {
+        name : 'heun-name',
+        InputEle : $('#heun-name'),
+        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        message: '1자 이상 20자 이하로 입력해주세요.'
+      },{
+        name : 'heun-price',
+        InputEle : $('#heun-price'),
+        Pattern : /^([0-9,]){1,20}$/,
+        message: '숫자만 입력해주세요.'
+      }
+    ]
+  }
+]
+
+$('#contents').keyup(function(e) {
+  var content = $(this).val();
+  $('.counter').html((500 - content.length) + ' 자');
+
+  // textarea의 유효성 검사를 시행한다.
+  var idAttr = $(this).attr('id');
+  validKeyup($(this), idAttr);
+});
+
+
+
+// 다음 버튼을 눌렀을때 실행
+$('.heun-form-next').click(function () {
+
+  // 다음버튼을 누를때마다 해당 페이지에 대해 유효성 검사를 실시한다.
+  var idAttr = $(this).closest('.slide').attr('id');
+  if (!validNext(idAttr)) {
+    return;
+  }
+  // 숙소사진 등록 페이지면 
+  if ($(this).closest('.slide').attr('id') == 's6') {
+    // 사진을 한개이상 등록했는지 체크한다.
+    if (fileCountCheck) {
+      Swal.fire({
+        type: 'error',
+        title: '숙소 사진은 반드시 \n한장 이상 등록해야 합니다',
+      })
+      return;
+    }
+  }
+
+  // 숙소설명 입력 후 선택사항 페이지면
+  if ($(this).closest('.slide').attr('id') == 's7') {
+    // 선택사항을 입력할건지 창을 띄운다
+    Swal.fire({
+      title: '정보를 추가로 입력하시겠습니까?',
+      text: "자세한 내용을 공유하려면 추가 필드를 작성해주세요.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      
+    })
+    
+  }
+
+  // 검사를 모두 통과하면 다음 페이지로 간다.
+  fullpage_api.moveSlideRight();
+})
+
+function validNext(idAttr) {
+  var nowSlide = {}
+  for (var ele of slideRule) {
+    if (ele.id === idAttr) {
+      nowSlide = ele
+      break
+    }
+  }
+
+  var inputs = nowSlide.rule;
+  var isEmpty = true;
+  $(inputs).each(function(i, e) {
+    console.log('체크할 값 : ' + e.InputEle.val())
+    console.log('체크 참거짓 : ' + e.Pattern.test(e.InputEle.val()))
+    if (!e.InputEle.val() || !e.Pattern.test(e.InputEle.val())) {
+
+      Swal.fire({
+        type: 'error',
+        title: e.message,
+      }).then((value) => {
+          setTimeout(function() {
+            e.InputEle.focus();
+          }, 500)
+        });
+
+      e.InputEle.removeClass('is-valid');
+      e.InputEle.addClass('is-invalid');
+
+      isEmpty = false;
+      return isEmpty;
+    }
+  })
+
+  if (!isEmpty) {
+    return false;
+  }
+  return true;
+}
+
+
+var rule = [
+  {
+    id: 'area',
+    ele: $('#area'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '1자 이상 20자 이하로 입력해주세요.'
+  },
+  {
+    id: 'address',
+    ele: $('#address'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
+    message: '주소를 입력해주세요.'
+  },
+  {
+    id: 'detailAddress',
+    ele: $('#detailAddress'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '상세주소를 입력해주세요'
+  },
+  {
+    id : 'contents',
+    ele : $('#contents'),
+    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+    message: '10자 이상 500자 이하로 작성해주세요!'
+  },
+  {
+    id : 'heun-name',
+    ele : $('#heun-name'),
+    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '1자 이상 20자 이하로 입력해주세요.'
+  },
+  {
+    id : 'heun-price',
+    ele : $('#heun-price'),
+    Pattern : /^([0-9,]){1,20}$/,
+    message: '숫자만 입력해주세요.'
+  }
+]
+
+$('#heun-submit input').on('keyup', function () {
+  var idAttr = $(this).attr('id')
+  console.log(idAttr);
+  validKeyup($(this), idAttr)
+})
+
+function validKeyup(self, idAttr) {
+  var nowEle = {}
+  for (var ele of rule) {
+    if (ele.id === idAttr) {
+      nowEle = ele
+      break
+    }
+  }
+
+  if (!nowEle.ele.val() || !nowEle.Pattern.test(nowEle.ele.val())) {
+    self.removeClass('is-valid');
+    self.addClass('is-invalid');
+    return false
+  } else {
+    self.removeClass('is-invalid');
+    self.addClass('is-valid');
+    self.next('.invalid-feedback').html('')
+  }
+  return true
+}
+
+
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
@@ -19,9 +282,7 @@ $(document).ready(function () {
 
 });
 
-$('.heun-form-next').click(function () {
-  fullpage_api.moveSlideRight();
-})
+
 
 $('.heun-form-prev').click(function () {
   fullpage_api.moveSlideLeft();
@@ -61,17 +322,21 @@ $('#post-search').click(function () {
           extraAddr = ' (' + extraAddr + ')';
         }
         // 조합된 참고항목을 해당 필드에 넣는다.
-        document.getElementById("extraAddress").value = extraAddr;
+        $("#extraAddress").val(extraAddr);
 
       } else {
-        document.getElementById("extraAddress").value = '';
+        $("#extraAddress").val('');
       }
 
       // 우편번호와 주소 정보를 해당 필드에 넣는다.
-      document.getElementById('postcode').value = data.zonecode;
-      document.getElementById("address").value = addr;
+      var addressEle = $("#address")
+      $('#postcode').val(data.zonecode);
+      addressEle.val(addr);
+      addressEle.removeClass('is-invalid');
+      addressEle.addClass('is-valid');
+
       // 커서를 상세주소 필드로 이동한다.
-      document.getElementById("detailAddress").focus();
+      $("#detailAddress").focus();
     }
   }).open();
 })
@@ -184,3 +449,32 @@ $('.heun-push').click(function () {
     api.uploadStart();
   })
 })
+
+$("#heun-price").keypress(function (event) {
+  //숫자만 받기
+  if (event.which && (event.which < 48 || event.which > 57)) {
+      event.preventDefault();
+  }
+}).keyup(function () {
+  if ($(this).val() != null && $(this).val() != '') {
+      var text = $(this).val().replace(/[^0-9]/g, '');
+      $(this).val(comma(text));
+  }
+});
+
+//콤마찍기
+function comma(x) {
+var temp = "";
+
+num_len = x.length;
+co = 3;
+while (num_len > 0) {
+  num_len = num_len - co;
+  if (num_len < 0) {
+      co = num_len + co;
+      num_len = 0;
+  }
+  temp = "," + x.substr(num_len, co) + temp;
+}
+return temp.substr(1);
+}
