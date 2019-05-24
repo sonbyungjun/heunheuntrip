@@ -1,3 +1,5 @@
+var fileCountCheck = true;
+
 $(document).ready(function () {
 
 
@@ -106,7 +108,7 @@ $(document).ready(function () {
 
 					// item.upload.send();
 				}
-
+				fileCountCheck = false;
 			},
 			onItemRemove: function (html) {
 				console.log('onItemRemove()');
