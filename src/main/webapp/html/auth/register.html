@@ -133,15 +133,20 @@
                 </div>
 
                 <div class="form-group has-feedback">
-                  <label class="control-label" for="photo">프로필 사진</label> 
-                  <input class="form-control" type="file" src="../../images/default.jpg" name="photo" id="fileupload" autocomplete=off /> 
+                  <label class="control-label" for="photo">프로필 사진</label>
+                  <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileupload" name="photo" autocomplete=off aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">파일을 선택하세요</label>
+                      </div>
+                  </div>
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
                 <div id='images-div'></div>
                 <div class='checkbox'>
-                  <input type='checkbox' id='terms'> <label for='terms'>개인정보 정책에 동의
-                    하시겠습니까? </label>
+                  <input type='checkbox' id='terms'> 
+                  <label for='terms'>개인정보 정책에 동의 하시겠습니까? </label>
                 </div>
                 <button type='button' class='btn btn-primary btn-lg button'>가입</button>
               </form>
