@@ -1659,7 +1659,6 @@ input[type="radio"], input[type="checkbox"] {
 	padding: 10px;
 	margin-bottom: 30px;
 	overflow: hidden;
-	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 	background-color: #fff;
 	display: block;
 	width: 100%;
@@ -1687,8 +1686,6 @@ input[type="radio"], input[type="checkbox"] {
 	background: linear-gradient(to bottom, transparent 65%, #2f2f2f);
 	transition: opacity .3s;
 	position: absolute;
-	height: 100%;
-	width: 100%;
 	display: block;
 	top: 0;
 	left: 0;
@@ -1707,8 +1704,8 @@ input[type="radio"], input[type="checkbox"] {
 	font-size: 14px;
 	font-weight: bold;
 	opacity: 0.6;
-	margin-top: 15px;
-	margin-bottom: 10px;
+	maring: 20px;
+	text-align: right;
 }
 .item-listing .item .item-meta-info span, .item-meta-info span {
 	margin-right: 10px;
@@ -1906,7 +1903,7 @@ input[type="radio"], input[type="checkbox"] {
 	display: block;
 }
 .item.item-lg {
-	padding: 30px;
+	padding: 20px;
 }
 .item-listing.grid .item.item-lg .item-image {
 	margin-left: -30px;
@@ -1915,7 +1912,8 @@ input[type="radio"], input[type="checkbox"] {
 }
 .item-listing .item.item-lg .item-title {
 	font-size: 22px;
-	margin-top: 30px;
+	margin-top: 5px;
+	text-align: center;
 }
 .item-attachments .btn {
 	margin-bottom: 15px;

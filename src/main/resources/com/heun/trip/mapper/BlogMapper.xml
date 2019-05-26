@@ -10,6 +10,7 @@
     <id column="board_id" property="no"/>
     <result column="title" property="title"/>
     <result column="conts" property="content"/>
+    <result column="main_photo" property="mainPhoto" />
     <result column="cdt" property="createdDate"/>
     
     <result column="usr_id" property="userNo"/>
@@ -26,6 +27,7 @@
     <id column="rms_id" property="rmsNo"/>
     <result column="rm_name" property="rmsName"/>
   </resultMap>
+  
 
   <select id="findAll" resultMap="blogMap" parameterType="map">
     select
@@ -33,6 +35,7 @@
       b.title,
       b.conts,
       b.cdt,
+      b.main_photo,
       u.usr_id,
       u.name,
       r.rms_id,
@@ -49,17 +52,20 @@
       board_id desc
   </select>
   
-  <insert id="insert" parameterType="blog">
-    insert into board
-     (usr_id,
+  <insert id="insert" parameterType="blog" >
+    insert into board(
       title,
       conts,
-      rms_id)
+      usr_id,
+      rms_id,
+      main_photo)
+      
     values(
-      #{userNo},
       #{title},
       #{content},
-      #{rmsNo})
+      #{userNo},
+      #{rmsNo},
+      #{mainPhoto})
   </insert>
   
    <select id="findByNo" resultMap="blogMap" parameterType="int">

@@ -73,15 +73,16 @@ ALTER TABLE usr
 
 ALTER TABLE usr
   MODIFY COLUMN usr_id INTEGER NOT NULL AUTO_INCREMENT;
-
+  
 -- 블로그
 CREATE TABLE board (
-  board_id INTEGER     NOT NULL, -- 게시글번호
-  usr_id   INTEGER     NOT NULL, -- 회원번호
-  rms_id   INTEGER     NULL,     -- 숙소번호
-  title    VARCHAR(50) NOT NULL, -- 게시글제목
-  conts    MEDIUMTEXT  NOT NULL, -- 게시글내용
-  cdt      DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
+  board_id      INTEGER     NOT NULL, -- 게시글번호
+  usr_id        INTEGER     NOT NULL, -- 회원번호
+  rms_id        INTEGER     NULL,     -- 숙소번호
+  main_photo    VARCHAR(255)NOT NULL, -- 블로그 사진
+  title         VARCHAR(50) NOT NULL, -- 게시글제목
+  conts         MEDIUMTEXT  NOT NULL, -- 게시글내용
+  cdt           DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
 );
 
 -- 블로그
@@ -93,6 +94,7 @@ ALTER TABLE board
 
 ALTER TABLE board
   MODIFY COLUMN board_id INTEGER NOT NULL AUTO_INCREMENT;
+
 
 -- 예약
 CREATE TABLE rev (
@@ -326,22 +328,6 @@ ALTER TABLE qna_cate
       qna_cate_id -- 문의구분번호
     );
 
--- 문의첨부파일
-CREATE TABLE qna_photo (
-  qna_photo_id INTEGER      NOT NULL, -- 문의첨부파일번호
-  qna_id       INTEGER      NOT NULL, -- 문의사항번호
-  qna_photo    VARCHAR(255) NOT NULL  -- 사진
-);
-
--- 문의첨부파일
-ALTER TABLE qna_photo
-  ADD CONSTRAINT PK_qna_photo -- 문의첨부파일 기본키
-    PRIMARY KEY (
-      qna_photo_id -- 문의첨부파일번호
-    );
-
-ALTER TABLE qna_photo
-  MODIFY COLUMN qna_photo_id INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 안전시설
 CREATE TABLE safety (
@@ -359,9 +345,6 @@ ALTER TABLE safety
 ALTER TABLE safety
   MODIFY COLUMN safety_id INTEGER NOT NULL AUTO_INCREMENT;
 
--- 새 테이블
-CREATE TABLE TABLE (
-);
 
 -- 숙소안전시설
 CREATE TABLE rms_safety (
@@ -396,6 +379,7 @@ ALTER TABLE usr
     REFERENCES auth ( -- 권한
       auth_id -- 권한번호
     );
+
 
 -- 블로그
 ALTER TABLE board
@@ -525,16 +509,6 @@ ALTER TABLE hst_qna
     )
     REFERENCES rms ( -- 숙소
       rms_id -- 숙소번호
-    );
-
--- 게시글사진
-ALTER TABLE photo
-  ADD CONSTRAINT FK_board_TO_photo -- 블로그 -> 게시글사진
-    FOREIGN KEY (
-      board_id -- 게시글번호
-    )
-    REFERENCES board ( -- 블로그
-      board_id -- 게시글번호
     );
 
 -- 호스트

@@ -35,7 +35,6 @@ function loadData(no) {
     }
     
   $('.drowroom').hide();
-  $('#add-btn').hide();
   
 });
 }

@@ -1,24 +1,33 @@
 package com.heun.trip.web.json;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Blog;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 
 @RestController("json/BlogController")
 @RequestMapping("/json/blog")
 public class BlogController {
 
-  BlogService blogService;
+  @Autowired BlogService blogService;
+  @Autowired ServletContext servletContext;
 
   public BlogController(BlogService blogService) {
     this.blogService = blogService;
@@ -26,9 +35,28 @@ public class BlogController {
 
 
   @PostMapping("add")
-  public Object add(Blog blog) {
+  public Object add(Blog blog, MultipartFile[] files) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
+    
+    System.out.println(files);
+    // 파일을 경로에 저장
+    for (MultipartFile part : files) {
+      if (part.getSize() == 0) 
+        continue;
+    String uploadDir = servletContext.getRealPath(
+        "/upload/blogphoto");
 
+    String filename = UUID.randomUUID().toString();
+    part.transferTo(new File(uploadDir + "/" + filename));
+    
+    blog.setMainPhoto(filename);
+    
+    Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
+    
+    }
+    
+    
+    System.out.println("컨트롤러====> " + blog);
     try {
       blogService.add(blog);
       content.put("status", "success");
