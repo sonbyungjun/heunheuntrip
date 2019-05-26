@@ -1,13 +1,13 @@
 package com.heun.trip.web.json;
 
 import java.util.HashMap;
-import java.util.Map; 
+import java.util.Map;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.Part;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.service.RoomService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
@@ -22,29 +22,14 @@ public class RoomPhotoController {
   }
 
   @PostMapping("add")
-  public String add(@RequestBody String content, Part[] photo) throws Exception {
+  public String add(@RequestParam("files[]") MultipartFile[] files) throws Exception {
 
-    //    String uploadDir = servletContext.getRealPath(
-    //       "/upload/photoboard");
+    for (MultipartFile f : files) {
+      if (!f.isEmpty()) {
+        System.out.println(f.getName());
+      }
 
-    System.out.println(content.split("Content-Type")[0]);
-
-    for (Part p : photo) {
-
-      if (p.getSize() == 0) 
-        continue;
-
-      System.out.println(p.getName());
-
-
-      //String filename = UUID.randomUUID().toString();
-      //p.write(uploadDir + "/" + filename);
-
-      //PhotoFile file = new PhotoFile();
-      //file.setFilePath(filename);
-      //files.add(file);
     }
-    //board.setFiles(files);
 
 
     return null;
@@ -59,21 +44,21 @@ public class RoomPhotoController {
     Map<String, Object> listProps = new HashMap<>();
 
     listProps.put("id", "");
-    
+
     data.put("readerForce", "");
     data.put("url", "");
     data.put("date", "");
     data.put("isMain", "");
     data.put("listProps", listProps);
-    
-    
+
+
     content.put("name", "");
     content.put("type", "");
     content.put("size", "");
     content.put("file", "");
     content.put("data", data);
-    
-    
+
+
     return content;
   }
 }

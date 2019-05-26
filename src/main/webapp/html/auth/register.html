@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>회원가입</title>
+  <!-- Bootstrap -->
+  <link href='https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700' rel='stylesheet'>
+  <!-- <link href='../../lib/bootstrap/css/bootstrap.min.css' rel='stylesheet'> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href='../../lib/font-awesome/css/font-awesome.min.css' rel='stylesheet'>
+  <link href='../../lib/animate.css' rel='stylesheet'>
+  <link href='../../lib/selectric/selectric.css' rel='stylesheet'>
+  <link href='../../lib/aos/aos.css' rel='stylesheet'>
+  <link href='../../lib/Magnific-Popup/magnific-popup.css' rel='stylesheet'>
+  <link href='../../css/style.css' rel='stylesheet'>
+
+  <script src='../../lib/jquery-3.2.1.min.js'></script>
+  <script src='../../lib/popper.min.js'></script>
+  <script src='../../lib/bootstrap/js/bootstrap.min.js'></script>
+  <script src='../../lib/selectric/jquery.selectric.js'></script>
+  <script src='../../lib/aos/aos.js'></script>
+  <script src='../../lib/Magnific-Popup/jquery.magnific-popup.min.js'></script>
+  <script src='../../lib/sticky-sidebar/ResizeSensor.min.js'></script>
+  <script src='../../lib/sticky-sidebar/theia-sticky-sidebar.min.js'></script>
+  <script src='../../lib/lib.js'></script>
+
+  <script src="../../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+  <script src="../../node_modules/blueimp-load-image/js/load-image.all.min.js"></script>
+  <script src="../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+</head>
+<style>
+  /* .help-block 을 일단 보이지 않게 설정 */
+  #signupForm .help-block {
+    display: none;
+  }
+
+  /* glyphicon 을 일단 보이지 않게 설정 */
+  #signupForm .glyphicon {
+    display: none;
+  }
+</style>
+<style>
+  .a {
+    padding: 40px;
+  }
+</style>
+<style>
+  .check {
+    padding-bottom: 20px;
+
+  }
+</style>
+
+<body>
+  <div id='main'>
+    <div id='heun-header'></div>
+  </div>
+  <div id='content'>
+    <div class='container'>
+      <div class='row justify-content-md-center align-items-center'>
+        <div class='col col-md-6  col-lg-7 col-xl-5'>
+          <div class='a'>
+            <h1>회원가입</h1>
+          </div>
+          <ul class='nav nav-tabs tab-lg' role='tablist'>
+            <li role='presentation' class='nav-item'><a class='nav-link' href='signin.html'>로그인
+              </a></li>
+            <li role='presentation' class='nav-item'><a class='nav-link active' href='register.html'>회원가입</a></li>
+          </ul>
+          <div class='tab-content'>
+            <div role='tabpanel' class='tab-pane active' id='login'>
+              <form action='' id='signupForm' enctype='multipart/form-data'>
+                <div class="custom-control custom-radio custom-control-inline check">
+                  <input type="radio" id="customRadioInline1" name="customRadioInline1" data-name='회원 선택'class="custom-control-input" value='1' checked="checked"> 
+                  <label class="custom-control-label" for="customRadioInline1">일반회원</label>
+                </div>
+
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input type="radio" id="customRadioInline2" name="customRadioInline1" data-name='회원 선택' class="custom-control-input" value='2'>
+                  <label class="custom-control-label" for="customRadioInline2">호스트</label>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="name">이름</label> <input class="form-control required" type="text" data-name='이름' name="name" id="name" autocomplete=off /> 
+                  <span id="nameErr" style="color:red" class="help-block">잘못된 형식입니다.</span> 
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <label class="control-label" for="email">이메일</label>
+
+                <div class="row form-group has-feedback in-line">
+                  <div class="col col-lg-8">
+                    <input class="form-control required" type="text" data-name='이메일' name="email" id="email" />
+                  </div>
+
+                  <div class="col col-lg-4">
+                    <button type='button' class='btn btn-primary btn-lg' id='add-btn' style='font-size:small' disabled="disabled">인증번호 받기</button>
+                  </div>
+                </div>
+
+                <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시입력해 주세요.</span> 
+                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+
+                <div class="form-group has-feedback">
+                  <input class="form-control required" id='play' type="text" placeholder='인증번호를 입력해주세요' data-name='이메일확인' readonly />
+                  <span id="emailErr" class="help-block">인증번호가 올바르지 않습니다. </span> 
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="pwd">비밀번호</label> 
+                  <input class="form-control required" type="password" data-name='비밀번호' name="pwd" id="pwd" autocomplete=off /> 
+                  <span id="pwdRegErr" style="color:red" class="help-block">8~16자 영문 소문자,숫자,특수문자를 사용하세요 </span>
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="rePwd">비밀번호 재확인</label> 
+                  <input class="form-control required" type="password" data-name='비밀번호 확인' name="rePwd" id="rePwd" autocomplete=off />
+                  <span id="rePwdErr" style="color:red" class="help-block">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</span> 
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="control-label" for="photo">프로필 사진</label>
+                  <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileupload" name="photo" method='post'autocomplete=off aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">파일을 선택하세요</label>
+                      </div>
+                  </div>
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+
+                <div id='images-div'></div>
+                <div class='checkbox'>
+                  <input type='checkbox' id='terms'> 
+                  <label for='terms'>개인정보 정책에 동의 하시겠습니까? </label>
+                </div>
+                <button type='button' class='btn btn-primary btn-lg' id='btn1'>가입</button>
+              </form>
+            </div>
+          </div>
+          <div></div>
+        </div>
+        <div class='col-md-6 col-lg-5 col-xl-4'>
+          <div class='socal-login-buttons'>
+            <a href='#' class='btn btn-social btn-block btn-facebook'><i class='icon fa fa-facebook'></i> Continue with Facebook</a>
+            <a href='#' class='btn btn-social btn-block btn-twitter'><i class='icon fa fa-twitter'></i> Continue with Twitter</a> 
+            <a href='#' class='btn btn-social btn-block btn-google'><i class='icon fa fa-google'></i> Continue with Google</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class='btn btn-primary btn-circle' id='to-top'>
+    <i class='fa fa-angle-up'></i>
+  </button>
+  <div id='heun-footer'></div>
+  <script src='register.js'></script>
+</body>
+
+</html>

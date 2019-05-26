@@ -24,7 +24,7 @@
     <result column="grd" property="grade"/>
     <result column="thumbnail" property="thumbnail"/>
   </resultMap>
-  
+ 
   <resultMap type="room" id="roomPhotoMap">
     <id column="rms_id" property="no"/>
     <result column="rm_name" property="name"/>
@@ -41,7 +41,8 @@
     <result column="cdt" property="createdDate"/>
     <result column="plty_gde" property="penaltyGuide"/>
     <result column="grd" property="grade"/>
-    
+    </resultMap>
+     <!-- 
   <association property="host" javaType="member">
     <id column="usr_id"  property="no"/>
     <result column="name"    property="name"/>
@@ -60,7 +61,7 @@
     <result column="amn"  property="name"/>
   </collection>
   
-  </resultMap>
+  </resultMap> -->
   
   
   <select id="findAll" resultMap="roomMap" parameterType="map">

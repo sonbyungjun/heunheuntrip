@@ -1,14 +1,19 @@
 package com.heun.trip.web.json;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.annotation.MultipartConfig;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import com.heun.trip.domain.Convenience;
 import com.heun.trip.domain.Room;
+import com.heun.trip.domain.Safety;
 import com.heun.trip.service.RoomService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
@@ -22,11 +27,44 @@ public class RoomController {
     this.roomSerive = roomSerive;
   }
   
-  @GetMapping("add")
-  public Object add(@RequestBody String content) {
-    System.out.println(content);
+  @PostMapping("add")
+  public Object add(
+      Room room, BindingResult result,
+      @RequestParam("convenience[]") int[] convenience,
+      @RequestParam("safety[]") int[] safety) {
+    
+    List<Convenience> cons = new ArrayList<>();
+    List<Safety> safes = new ArrayList<>();
+    
+    for (int c : convenience) {
+      Convenience con = new Convenience();
+      con.setNo(c);
+      cons.add(con);
+    }
+    for (int c : safety) {
+      Safety safe = new Safety();
+      safe.setNo(c);
+      safes.add(safe);
+    }
+    room.setConveniences(cons);
+    room.setSafetys(safes);
+    
+    System.out.println(room);
+    
     return null;
-  } 
+  }
+  
+  @PostMapping("fileAdd")
+  public Object fileAdd(@RequestParam(value="files[]", required=false) MultipartFile[] files) {
+    
+    for (MultipartFile f : files) {
+      if (!f.isEmpty()) {
+        System.out.println(f.getOriginalFilename());
+      }
+    }
+    
+    return null;
+  }
   
   @GetMapping("list")
   public Object list(

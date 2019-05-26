@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>/ajax/test04.html</title>
+   
+</head>
+<body>
+
+<input id="in1">
+<button id="btn1">확</button>    
+
+<script src='../../lib/jquery-3.2.1.min.js'></script>
+<script>
+  var a = '한a글';
+  var reg=/^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+  
+  $('#btn1').click(() => {
+	  console.log($('#in1').val());
+    console.log(reg.test($('#in1').val()));
+	  
+  });
+  
+</script>    
+</body>
+</html>

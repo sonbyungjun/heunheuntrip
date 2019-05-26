@@ -56,4 +56,9 @@ dependencies {
     
     implementation 'com.google.guava:guava:26.0-jre'
     testImplementation 'junit:junit:4.12'
+    
+    //mail 전송
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+    
+    
 }
