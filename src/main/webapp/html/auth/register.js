@@ -222,6 +222,14 @@ $('#file-btn1').on('click', function () {
     }
   });
 }
+$('body').on('loaded-file', function () {
+	$('#images-div').on('click', function () {
+		$(this).find('img').remove();
+		$('.custom-file').find('label').html('파일을 선택하세요')
+		$('#btn1').show();
+		$('#file-btn1').hide();
+	})
+})
 
 $('#fileupload').fileupload({
   url: '../../app/json/member/add',        // 서버에 요청할 URL
@@ -238,15 +246,15 @@ $('#fileupload').fileupload({
         try {
           if (data.files[i].preview.toDataURL) {
             $("<img>").attr('src',
-                data.files[i].preview.toDataURL())
+								data.files[i].preview.toDataURL())
             .css('width', '100px')
 						.appendTo(imagesDiv);
-						
 						// 자신이 선택한 파일 이름이 나오게 만듬
             $('.custom-file').find('label').html(data.files[i].name)
           }
         } catch (err) {}
-      }
+			}
+			$(document.body).trigger('loaded-file');
 			$('#file-btn1').unbind("click");
 			
       $('#file-btn1').click(function() {
