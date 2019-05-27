@@ -285,6 +285,26 @@ ALTER TABLE blike
 
 ALTER TABLE blike
   MODIFY COLUMN blike_no INTEGER NOT NULL AUTO_INCREMENT;
+  
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT FK_board_TO_blike -- 블로그 -> 블로그 좋아요
+    FOREIGN KEY (
+      board_id -- 게시글번호
+    )
+    REFERENCES board ( -- 블로그
+      board_id -- 게시글번호
+    );
+
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT FK_usr_TO_blike -- 회원 -> 블로그 좋아요
+    FOREIGN KEY (
+      usr_id -- 회원번호
+    )
+    REFERENCES usr ( -- 회원
+      usr_id -- 회원번호
+    );
 
 
 -- 이용상태
