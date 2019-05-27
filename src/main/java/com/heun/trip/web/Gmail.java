@@ -12,12 +12,6 @@ import javax.mail.internet.MimeMessage;
 
 public class Gmail {
   
-  public static void main(String[] args) {
-   int rn=  RanNo.randomNo();
-   gmailSend("dj185wl@naver.com" ,rn);
-    
-  }
-  
   public static String gmailSend(String email ,int ranNo) {
     String user = "god9426"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
     String password = "ki3322!!"; // 패스워드

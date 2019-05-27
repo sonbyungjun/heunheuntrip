@@ -52,6 +52,17 @@ public class BlogServiceImpl implements BlogService {
   public int update(Blog blog) {
     return blogDao.update(blog);
   }
+
+  @Override
+  public List<Blog> order() {
+    
+    return blogDao.orderbylist();
+  }
+  @Override
+  public List<Blog> gradeorder() {
+    
+    return blogDao.orderbygradelist();
+  }
 }
 
 

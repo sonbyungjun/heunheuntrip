@@ -12,6 +12,9 @@ public interface BlogDao {
   List<Roomcheckout> roomCheckOut(int no);
   int delete(int no);
   int update(Blog blog);
+  List<Blog> orderbylist();
+  List<Blog> orderbygradelist();
+  
 }
 
 

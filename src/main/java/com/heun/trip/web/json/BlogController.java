@@ -21,7 +21,6 @@ import com.heun.trip.service.BlogService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
-
 @RestController("json/BlogController")
 @RequestMapping("/json/blog")
 public class BlogController {
@@ -37,6 +36,8 @@ public class BlogController {
   @PostMapping("add")
   public Object add(Blog blog, MultipartFile[] files) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
+    
+    
     
     System.out.println(files);
     // 파일을 경로에 저장
@@ -163,6 +164,30 @@ public class BlogController {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
+    return content;
+  }
+  
+  @GetMapping("order")
+  public Object order() { // localhost:8080/heunheuntrip/app/json/blog/order
+    
+    
+    List<Blog> blogs = blogService.order();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
+    return content;
+  }
+  
+  @GetMapping("gradeorder")
+  public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
+    
+    
+    List<Blog> blogs = blogService.gradeorder();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
     return content;
   }
 }

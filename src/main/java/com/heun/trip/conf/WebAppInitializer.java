@@ -36,7 +36,7 @@ public class WebAppInitializer
   
   @Override
   protected void customizeRegistration(Dynamic registration) {
-    MultipartConfigElement multipartConfig = new MultipartConfigElement("/tmp", 5000000, 20000000, 1000000);
+    MultipartConfigElement multipartConfig = new MultipartConfigElement("/tmp", 50000000, 50000000, 1000000);
     registration.setMultipartConfig(multipartConfig);
   }
  

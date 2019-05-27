@@ -16,6 +16,7 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
   <link href="add.css" rel="stylesheet">
 
@@ -52,24 +53,33 @@
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
   
-                <div class="page-header v2 bordered col-lg-12">
+                <div class="page-header v2 bordered">
+                  <h4 class="main-message">메인화면에 놓일 대표이미지를 반드시 선택해주세요!</h4>
+                  <div class="input-group mb-3">
+									  <div class="input-group-prepend">
+									    <span class="input-group-text">Upload</span>
+									  </div>
+									  <div class="custom-file">
+									     <input id="fileupload" type="file" name="files" class="custom-file-input" 
+									     accept="image/gif,image/jpeg,image/png">
+									    <label class="custom-file-label" for="fileupload">이미지를 선택하세요.</label>
+									  </div>
+									</div>
+       
                   <div class="form-group-lg row">
                     <div class="col-sm-12">
-
                       <div class="form-group row drowroom">
                         <div class="col-sm-12">
                           <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle heun-cc form-control"
+                            <button class="btn btn-default dropdown-toggle heun-cc form-control"
                               type="button" id="dropdownMenuButton" data-toggle="dropdown"
                               aria-haspopup="true" aria-expanded="false">어느 숙소에 방문하셨나요?</button>
                             <div class="dropdown-menu heun-checkout"
                               aria-labelledby="dropdownMenuButton"></div>
                           </div>
-                          <label class="btn btn-primary btn-file">
-                            메인이미지 업로드<input id="fileupload" type="file" name="files" multiple>
-                          </label>
 
-                          <input class="form-control" id="title" type="text" placeholder="제목을 입력해주세요.">
+
+                          <input class="form-control heun-title" id="title" name="title" type="text" placeholder="제목을 입력해주세요.">
                         </div>
                       </div>
                     </div>
@@ -81,10 +91,11 @@
                 <div class="clearfix"></div>
                 <div class="item-detail">
                   <div class="col-lg-12">
-                    <div id="summernote">내용을 입력하세요.</div>
+                    <div id="summernote"></div>
                     <div class="buttons">             
                       <a href='index.html' class="btn btn-primary">목록</a>
                       <button type="button" id="add-btn" class="btn btn-primary">등록</button>
+                      <button type="button" id="error-btn" class="btn btn-primary">등록</button>
                     </div>
                   </div>
 
@@ -107,7 +118,7 @@
 
   <script id="checkoutlist" type="text/x-handlebars-template">
     {{#each list}}
-      <a class="dropdown-item" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>
+      <a class="dropdown-item heun-dropdown" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>
     {{/each}}
   </script>
 

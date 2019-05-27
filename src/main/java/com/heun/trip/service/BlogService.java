@@ -12,4 +12,6 @@ public interface BlogService {
   List<Roomcheckout> roomCheckOut(int no);
   int delete(int no);
   int update(Blog blog);
+  List<Blog> order();
+  List<Blog> gradeorder();
 }
