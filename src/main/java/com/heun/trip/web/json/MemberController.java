@@ -71,7 +71,7 @@ public class MemberController {
   public Object add(Member member, MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
     
-    if (photo.getSize() > 0) {
+    if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
           "/html/memberupload");
@@ -83,6 +83,9 @@ public class MemberController {
         e.printStackTrace();
       }
       member.setPhoto(filename);
+    } else {
+      String deft = servletContext.getRealPath("/images/default.jpg");
+      member.setPhoto(deft);
     }
     
     try {
