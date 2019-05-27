@@ -10,61 +10,103 @@
     <id column="rms_id" property="no"/>
     <result column="rm_name" property="name"/>
     <result column="rm_chge" property="price"/>
+    <result column="bed" property="bed"/>
+    <result column="bath" property="bath"/>
     <result column="max_ple" property="maxPerson"/>
-    <result column="post_code" property="postNo"/>
+    <result column="post_code" property="postcode"/>
+    <result column="area" property="area"/>
     <result column="addr" property="address"/>
     <result column="dtil_addr" property="detailAddress"/>
     <result column="lati" property="latitude"/>
     <result column="longi" property="longitude"/>
-    <result column="rule" property="rule"/>
-    <result column="map" property="map"/>
-    <result column="cacl_gde" property="cancelGuide"/>
+    <result column="cont" property="content"/>
+    <result column="type" property="type"/>
+    <result column="dets" property="details"/>
+    <result column="reva" property="reservation"/>
+    <result column="come" property="welcome"/>
+    <result column="traf" property="traffic"/>
+    <result column="thum" property="thumbnail"/>
     <result column="cdt" property="createdDate"/>
-    <result column="plty_gde" property="penaltyGuide"/>
+    <result column="usr_id" property="hostNo"/>
     <result column="grd" property="grade"/>
-    <result column="thumbnail" property="thumbnail"/>
   </resultMap>
  
   <resultMap type="room" id="roomPhotoMap">
     <id column="rms_id" property="no"/>
     <result column="rm_name" property="name"/>
     <result column="rm_chge" property="price"/>
+    <result column="bed" property="bed"/>
+    <result column="bath" property="bath"/>
     <result column="max_ple" property="maxPerson"/>
-    <result column="post_code" property="postNo"/>
+    <result column="post_code" property="postcode"/>
+    <result column="area" property="area"/>
     <result column="addr" property="address"/>
     <result column="dtil_addr" property="detailAddress"/>
     <result column="lati" property="latitude"/>
     <result column="longi" property="longitude"/>
-    <result column="rule" property="rule"/>
-    <result column="map" property="map"/>
-    <result column="cacl_gde" property="cancelGuide"/>
+    <result column="cont" property="content"/>
+    <result column="type" property="type"/>
+    <result column="dets" property="details"/>
+    <result column="reva" property="reservation"/>
+    <result column="come" property="welcome"/>
+    <result column="traf" property="traffic"/>
+    <result column="thum" property="thumbnail"/>
     <result column="cdt" property="createdDate"/>
-    <result column="plty_gde" property="penaltyGuide"/>
+    <result column="usr_id" property="hostNo"/>
     <result column="grd" property="grade"/>
-    </resultMap>
-     <!-- 
-  <association property="host" javaType="member">
-    <id column="usr_id"  property="no"/>
-    <result column="name"    property="name"/>
-    <result column="tel"    property="tel"/>
-    <result column="usr_photo"  property="photo"/>
-  </association>
     
-  <collection property="photos" ofType="roomFile"> 
-    <id column="r_photo_id" property="no"/>
-    <result column="rms_id"  property="RoomNo"/>
-    <result column="rm_photo" property="path"/>
-  </collection>
+    <collection property="photos" ofType="roomFile"> 
+      <id column="r_photo_id" property="no"/>
+      <result column="rms_id"  property="RoomNo"/>
+      <result column="rm_photo" property="path"/>
+    </collection>
+    
+    <collection property="conveniences" ofType="convenience"> 
+      <id column="amn_id" property="no"/>
+      <result column="amn"  property="name"/>
+    </collection>
+    
+    <collection property="safeties" ofType="safety"> 
+      <id column="safety_id" property="no"/>
+      <result column="safety"  property="safety"/>
+    </collection>
   
-  <collection property="Facilities" ofType="Facilities"> 
-    <id column="amn_id" property="no"/>
-    <result column="amn"  property="name"/>
-  </collection>
+  </resultMap>
   
-  </resultMap> -->
+  <insert id="insert" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
+    INSERT INTO rms(
+      usr_id, area, type, bed, bath, cont, dets, reva, come, 
+      traf, rm_name, rm_chge, max_ple, post_code, addr, dtil_addr, lati, longi, grd, thum)
+    VALUES(
+      #{hostNo}, #{area}, #{type}, #{bed}, #{bath}, #{content}, #{details}, #{reservation}, 
+      #{welcome}, #{traffic}, #{name}, #{price}, #{maxPerson}, #{postcode}, #{address}, #{detailAddress}, #{latitude}, 
+      #{longitude}, #{grade}, #{thumbnail});
+  </insert>
+  
+  <insert id="insertConvenience" parameterType="list">
+    INSERT INTO rms_amn(
+      amn_id, 
+      rms_id)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ("${item.no}", "${item.roomNo}")
+    </foreach>
+  </insert>
+  
+  <insert id="insertSafety" parameterType="list">
+    INSERT INTO rms_safety(
+      safety_id, 
+      rms_id)
+    VALUES
+    <foreach collection="list" item="item" separator=",">
+      ("${item.no}", "${item.roomNo}")
+    </foreach>
+  </insert>
   
   
-  <select id="findAll" resultMap="roomMap" parameterType="map">
+  
+  
+  <!-- <select id="findAll" resultMap="roomMap" parameterType="map">
     select
       r.rms_id,
       r.rm_name,
@@ -120,7 +162,7 @@
         left outer join amn a on ra.amn_id=a.amn_id
     where
         r.rms_id=#{value}
-  </select>
+  </select> -->
   
 </mapper>     
 

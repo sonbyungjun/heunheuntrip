@@ -1,4 +1,5 @@
 var fileCountCheck = true;
+var fileMainCheck = true;
 
 $(document).ready(function () {
 
@@ -127,8 +128,6 @@ $(document).ready(function () {
 			synchron: true,
 			beforeSend: function (item) {
 				console.log('beforeSend()')
-
-				console.log('item : ' + item)
 				// check the image size first (onImageLoaded)
 				if (item.format == 'image' && !item.reader.done)
 					return false;
@@ -309,11 +308,14 @@ $(document).ready(function () {
 				// set main
 				if ($target.is('.gallery-action-asmain')) {
 					console.log('메인사진 지정 작업 - 섬네일 만들기작업');
-					item.data.isMain = true;
 					api.getFiles().forEach(function (val) {
+						item.upload.data.isMain = false;
 						delete val.data.isMain;
 						val.html.removeClass('file-main-0 file-main-1');
 					});
+					item.upload.data.isMain = true;
+					fileMainCheck = false;
+					// item.data.isMain = true;
 					item.html.addClass('file-main-1');
 					api.updateFileList();
 				}

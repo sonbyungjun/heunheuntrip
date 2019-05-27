@@ -7,4 +7,5 @@ public interface RoomService {
   List<Room> list(int pageNo, int pageSize);
   int size();
   Room get(int no);
+  int add(Room room);
 }

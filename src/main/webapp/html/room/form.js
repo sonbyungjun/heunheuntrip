@@ -1,6 +1,47 @@
 var latitude = '';
 var longitude = '';
+var prevCheck = false;
 
+var rule = [
+  {
+    id: 'area',
+    ele: $('#area'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '1자 이상 20자 이하로 입력해주세요.'
+  },
+  {
+    id: 'address',
+    ele: $('#address'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
+    message: '주소를 입력해주세요.'
+  },
+  {
+    id: 'detailAddress',
+    ele: $('#detailAddress'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '상세주소를 입력해주세요'
+  },
+  {
+    id : 'contents',
+    ele : $('#contents'),
+    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+    message: '10자 이상 500자 이하로 작성해주세요!'
+  },
+  {
+    id : 'heun-name',
+    ele : $('#heun-name'),
+    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    message: '1자 이상 20자 이하로 입력해주세요.'
+  },
+  {
+    id : 'heun-price',
+    ele : $('#heun-price'),
+    Pattern : /^([0-9,]){1,20}$/,
+    message: '숫자만 입력해주세요.'
+  }
+]
+
+// 모든 슬라이드의 유효성 검사 코드를 객체화
 var slideRule = [
   {
     id : 's1',
@@ -105,6 +146,7 @@ var slideRule = [
   }
 ]
 
+// textarea - 숙소설명에 글을 작성할때 글자수를 계산하고 유효성 검사를 한다.
 $('#contents').keyup(function(e) {
   var content = $(this).val();
   $('.counter').html((500 - content.length) + ' 자');
@@ -124,13 +166,15 @@ $('.heun-form-next').click(function () {
   if (!validNext(idAttr)) {
     return;
   }
+
   // 숙소사진 등록 페이지면 
   if ($(this).closest('.slide').attr('id') == 's6') {
-    // 사진을 한개이상 등록했는지 체크한다.
-    if (fileCountCheck) {
+    // 사진을 한개이상 등록하고 메인사진을 체크안했으면
+    if (fileCountCheck || fileMainCheck) {
       Swal.fire({
         type: 'error',
-        title: '숙소 사진은 반드시 \n한장 이상 등록해야 합니다',
+        title: '사진 등록 및 메인사진 지정!',
+        text: '숙소 사진은 반드시 한장 이상 또는 메인사진을 등록해야 합니다!!! 톱니모양을 누른 후 메인사진을 지정해주세요.'
       })
       return;
     }
@@ -148,13 +192,20 @@ $('.heun-form-next').click(function () {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes'
     }).then((result) => {
-      console.log(result.value);
+
+      // Yes를 눌렀을 때
       if (result.value) {
+        // 다음 슬라이드로 넘어간다.
         fullpage_api.moveSlideRight();
+
+      // cancel을 눌렀을 때
       } else {
+        // 마지막 슬라이드로 넘어간다.
         fullpage_api.moveTo('firstPage', 9);
+        prevCheck = true;
       }
     })
+    // 이 함수(경고창)를 모두 실행 한뒤 리턴 한다. (마지막 라인이 실행되지 않게)
     return;
   }
   
@@ -162,6 +213,7 @@ $('.heun-form-next').click(function () {
   fullpage_api.moveSlideRight();
 })
 
+// 다음 버튼을 눌렀을때 실행하는 함수
 function validNext(idAttr) {
   var nowSlide = {}
   for (var ele of slideRule) {
@@ -174,10 +226,8 @@ function validNext(idAttr) {
   var inputs = nowSlide.rule;
   var isEmpty = true;
   $(inputs).each(function(i, e) {
-    console.log('체크할 값 : ' + e.InputEle.val())
-    console.log('체크 참거짓 : ' + e.Pattern.test(e.InputEle.val()))
-    if (!e.InputEle.val() || !e.Pattern.test(e.InputEle.val())) {
 
+    if (!e.InputEle.val() || !e.Pattern.test(e.InputEle.val())) {
       Swal.fire({
         type: 'error',
         title: e.message,
@@ -202,50 +252,15 @@ function validNext(idAttr) {
 }
 
 
-var rule = [
-  {
-    id: 'area',
-    ele: $('#area'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
-    message: '1자 이상 20자 이하로 입력해주세요.'
-  },
-  {
-    id: 'address',
-    ele: $('#address'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
-    message: '주소를 입력해주세요.'
-  },
-  {
-    id: 'detailAddress',
-    ele: $('#detailAddress'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
-    message: '상세주소를 입력해주세요'
-  },
-  {
-    id : 'contents',
-    ele : $('#contents'),
-    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
-    message: '10자 이상 500자 이하로 작성해주세요!'
-  },
-  {
-    id : 'heun-name',
-    ele : $('#heun-name'),
-    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
-    message: '1자 이상 20자 이하로 입력해주세요.'
-  },
-  {
-    id : 'heun-price',
-    ele : $('#heun-price'),
-    Pattern : /^([0-9,]){1,20}$/,
-    message: '숫자만 입력해주세요.'
-  }
-]
 
+
+// 폼 태그 밑에 모든 인풋 태그를 키업 했을때 유효성 검사 한다.
 $('#heun-submit input').on('keyup', function () {
   var idAttr = $(this).attr('id')
   validKeyup($(this), idAttr)
 })
 
+// 키업했을때 실행되는 함수
 function validKeyup(self, idAttr) {
   var nowEle = {}
   for (var ele of rule) {
@@ -267,7 +282,7 @@ function validKeyup(self, idAttr) {
   return true
 }
 
-
+// 이 페이지가 시작될 때 실행되는 함수
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
@@ -288,9 +303,16 @@ $(document).ready(function () {
 });
 
 
-
+// 이전 버튼을 클릭했을 때
 $('.heun-form-prev').click(function () {
-  
+
+  //선택사항 입력을 안했을때 이전 버튼을 누르면 숙소설명창으로 간다.
+  if (prevCheck) {
+    fullpage_api.moveTo('firstPage', 7);
+    // 이전버튼을 다시 눌렀을때 이 코드가 실행되지않게 초기화 한다.
+    prevCheck = false;
+  }
+
   fullpage_api.moveSlideLeft();
 })
 
@@ -338,6 +360,7 @@ $('#post-search').click(function () {
       var addressEle = $("#address")
       $('#postcode').val(data.zonecode);
       addressEle.val(addr);
+      // 우편변호와 주소 정보를 필드에 넣은 후 주소 인풋창에 통과 되었음을 보여준다.
       addressEle.removeClass('is-invalid');
       addressEle.addClass('is-valid');
 
@@ -377,6 +400,11 @@ $('.heun-push').click(function () {
   })
 
   $('body').on('xy', function() {
+
+    var price = $('#heun-price').val();
+    price = price.replace(',', '');
+    console.log(price)
+
     var allData = {
       type: $('#type').val(),
       maxPerson: $('#maxp').val(),
@@ -392,7 +420,7 @@ $('.heun-push').click(function () {
       welcome: $('#welcome').val(),
       traffic: $('#traffic').val(),
       name: $('#heun-name').val(),
-      price: $('#heun-price').val(),
+      price: price,
       latitude : window.latitude,
       longitude : window.longitude,
       convenience: convenience,
@@ -414,10 +442,6 @@ $('.heun-push').click(function () {
         alert('시스템 오류가 발생했습니다.');
       }
     });
-  
-    // 'curl -v -X GET "https://dapi.kakao.com/v2/local/search/address.json" \
-    // --data-urlencode "query=위례동로 61" \
-    // -H "Authorization: KakaoAK a1cc855a6e6b544dbcdff510261d5c17"'
   
     console.log('타입 : ' + $('#type').val())
     console.log('최대숙박인원 : ' + $('#maxp').val())
@@ -456,11 +480,13 @@ $('.heun-push').click(function () {
   })
 })
 
+// 키를 눌렀을때
 $("#heun-price").keypress(function (event) {
   //숫자만 받기
   if (event.which && (event.which < 48 || event.which > 57)) {
       event.preventDefault();
   }
+  // 키를 누르고 뗏을때
 }).keyup(function () {
   if ($(this).val() != null && $(this).val() != '') {
       var text = $(this).val().replace(/[^0-9]/g, '');
@@ -473,14 +499,22 @@ function comma(x) {
 var temp = "";
 
 num_len = x.length;
+// 콤마 찍을 자릿수 설정
 co = 3;
+// 받은 숫자 길이가 0개 이상일때 까지 반복. 즉 한번씩
 while (num_len > 0) {
+  // 받은 숫자 길이에 콤마 찍을 자릿수 뺀다 
   num_len = num_len - co;
+  // 뺀 길이가 음수면 
   if (num_len < 0) {
+    // 콤마 찍을 자릿수 + 받은 자릿수
       co = num_len + co;
+      // 받은 자릿수 0 으로 초기화
       num_len = 0;
   }
+  // 자릿수 계산하여 temp의 담는다
   temp = "," + x.substr(num_len, co) + temp;
 }
+// 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
 return temp.substr(1);
 }

@@ -24,17 +24,19 @@ public class Room {
   private String reservation;
   private String welcome;
   private String traffic;
+  private String grade;
   
   private String thumbnail;
   
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   
-  private Member host;
+  private int hostNo;
   
   private List<Convenience> conveniences;
-  private List<Safety> safetys;
+  private List<Safety> safeties;
   private List<RoomFile> photos;
+  
   public int getNo() {
     return no;
   }
@@ -155,17 +157,23 @@ public class Room {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
-  public Member getHost() {
-    return host;
+  public int getHostNo() {
+    return hostNo;
   }
-  public void setHost(Member host) {
-    this.host = host;
+  public void setHostNo(int hostNo) {
+    this.hostNo = hostNo;
   }
-  public List<Safety> getSafetys() {
-    return safetys;
+  public List<Convenience> getConveniences() {
+    return conveniences;
   }
-  public void setSafetys(List<Safety> safetys) {
-    this.safetys = safetys;
+  public void setConveniences(List<Convenience> conveniences) {
+    this.conveniences = conveniences;
+  }
+  public List<Safety> getSafeties() {
+    return safeties;
+  }
+  public void setSafeties(List<Safety> safeties) {
+    this.safeties = safeties;
   }
   public List<RoomFile> getPhotos() {
     return photos;
@@ -173,11 +181,11 @@ public class Room {
   public void setPhotos(List<RoomFile> photos) {
     this.photos = photos;
   }
-  public List<Convenience> getConveniences() {
-    return conveniences;
+  public String getGrade() {
+    return grade;
   }
-  public void setConveniences(List<Convenience> conveniences) {
-    this.conveniences = conveniences;
+  public void setGrade(String grade) {
+    this.grade = grade;
   }
   @Override
   public String toString() {
@@ -186,7 +194,9 @@ public class Room {
         + ", address=" + address + ", detailAddress=" + detailAddress + ", latitude=" + latitude
         + ", longitude=" + longitude + ", content=" + content + ", type=" + type + ", details="
         + details + ", reservation=" + reservation + ", welcome=" + welcome + ", traffic=" + traffic
-        + ", thumbnail=" + thumbnail + ", createdDate=" + createdDate + ", host=" + host
-        + ", conveniences=" + conveniences + ", safetys=" + safetys + ", photos=" + photos + "]";
+        + ", grade=" + grade + ", thumbnail=" + thumbnail + ", createdDate=" + createdDate
+        + ", hostNo=" + hostNo + ", conveniences=" + conveniences + ", safeties=" + safeties
+        + ", photos=" + photos + "]";
   }
+  
 }

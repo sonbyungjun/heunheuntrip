@@ -4,6 +4,15 @@ public class Convenience {
 
   private int no;
   private String name;
+  private int roomNo;
+  
+  public int getRoomNo() {
+    return roomNo;
+  }
+
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
+  }
 
   public int getNo() {
     return no;
@@ -23,7 +32,7 @@ public class Convenience {
 
   @Override
   public String toString() {
-    return "convenience [no=" + no + ", name=" + name + "]";
+    return "Convenience [no=" + no + ", name=" + name + ", roomNo=" + roomNo + "]";
   }
 
 }

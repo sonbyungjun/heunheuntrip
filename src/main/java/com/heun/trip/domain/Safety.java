@@ -3,7 +3,16 @@ package com.heun.trip.domain;
 public class Safety {
   private int no;
   private String safety;
+  private int roomNo;
   
+  
+  
+  public int getRoomNo() {
+    return roomNo;
+  }
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
+  }
   public int getNo() {
     return no;
   }
@@ -18,7 +27,7 @@ public class Safety {
   }
   @Override
   public String toString() {
-    return "safety [no=" + no + ", safety=" + safety + "]";
+    return "Safety [no=" + no + ", safety=" + safety + ", roomNo=" + roomNo + "]";
   }
   
   
