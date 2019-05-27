@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,6 @@ import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-
 
 @RestController("json/BlogController")
 @RequestMapping("/json/blog")
@@ -37,6 +37,8 @@ public class BlogController {
   @PostMapping("add")
   public Object add(Blog blog, MultipartFile[] files) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
+    
+    
     
     System.out.println(files);
     // 파일을 경로에 저장

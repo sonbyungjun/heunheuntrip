@@ -82,7 +82,8 @@ CREATE TABLE board (
   main_photo    VARCHAR(255)NOT NULL, -- 블로그 사진
   title         VARCHAR(50) NOT NULL, -- 게시글제목
   conts         MEDIUMTEXT  NOT NULL, -- 게시글내용
-  cdt           DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
+  cdt           DATETIME    NOT NULL DEFAULT current_timestamp(), -- 작성일
+  blike         INTEGER     NOT NULL DEFAULT 0 -- 좋아요
 );
 
 -- 블로그
@@ -549,16 +550,6 @@ ALTER TABLE rm_photo
     )
     REFERENCES rms ( -- 숙소
       rms_id -- 숙소번호
-    );
-
--- 문의첨부파일
-ALTER TABLE qna_photo
-  ADD CONSTRAINT FK_qna_TO_qna_photo -- 문의사항 -> 문의첨부파일
-    FOREIGN KEY (
-      qna_id -- 문의사항번호
-    )
-    REFERENCES qna ( -- 문의사항
-      qna_id -- 문의사항번호
     );
 
 -- 숙소안전시설
