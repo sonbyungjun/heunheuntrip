@@ -148,11 +148,16 @@ $('.heun-form-next').click(function () {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes'
     }).then((result) => {
-      
+      console.log(result.value);
+      if (result.value) {
+        fullpage_api.moveSlideRight();
+      } else {
+        fullpage_api.moveTo('firstPage', 9);
+      }
     })
-    
+    return;
   }
-
+  
   // 검사를 모두 통과하면 다음 페이지로 간다.
   fullpage_api.moveSlideRight();
 })
@@ -238,7 +243,6 @@ var rule = [
 
 $('#heun-submit input').on('keyup', function () {
   var idAttr = $(this).attr('id')
-  console.log(idAttr);
   validKeyup($(this), idAttr)
 })
 
@@ -277,7 +281,8 @@ $(document).ready(function () {
     navigationPosition: 'right',
     scrollHorizontally: false,
     loopHorizontal: false,
-    controlArrows: false
+    controlArrows: false,
+    anchors:['firstPage']
   });
 
 });
@@ -285,6 +290,7 @@ $(document).ready(function () {
 
 
 $('.heun-form-prev').click(function () {
+  
   fullpage_api.moveSlideLeft();
 })
 
