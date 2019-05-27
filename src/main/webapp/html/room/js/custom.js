@@ -307,27 +307,25 @@ $(document).ready(function () {
 				}
 
 				// set main
-				if ($target.is('.gallery-action-asmain') && item.data.listProps) {
-					$.post('php/ajax.php?type=asmain', { name: item.name, id: item.data.listProps.id }, function () {
-						api.getFiles().forEach(function (val) {
-							delete val.data.isMain;
-							val.html.removeClass('file-main-0 file-main-1');
-						});
-						item.html.addClass('file-main-1');
-						item.data.isMain = true;
-
-						api.updateFileList();
+				if ($target.is('.gallery-action-asmain')) {
+					console.log('메인사진 지정 작업 - 섬네일 만들기작업');
+					item.data.isMain = true;
+					api.getFiles().forEach(function (val) {
+						delete val.data.isMain;
+						val.html.removeClass('file-main-0 file-main-1');
 					});
+					item.html.addClass('file-main-1');
+					api.updateFileList();
 				}
 			});
 		},
 		captions: {
 			feedback: 'Drag & Drop',
-			setting_asMain: 'Use as main',
-			setting_download: 'Download',
-			setting_edit: 'Edit',
-			setting_rename: 'Rename',
-			rename: 'Enter the new file name:',
+			setting_asMain: '메인사진으로 등록',
+			setting_download: '다운로드',
+			setting_edit: '사진수정',
+			setting_rename: '이름변경',
+			rename: '이름을 지정하고 엔터를 누르세요 :',
 			renameError: 'Please enter another name.',
 			imageSizeError: 'The image ${name} is too small.',
 		}
