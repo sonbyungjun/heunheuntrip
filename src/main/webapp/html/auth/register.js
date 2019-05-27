@@ -228,6 +228,7 @@ $('body').on('loaded-file', function () {
 		$(this).find('img').remove();
 		$('.custom-file').find('label').html('파일을 선택하세요')
 		$('#btn1').show();
+		$('p').hide();
 		$('#file-btn1').hide();
 	})
 })
