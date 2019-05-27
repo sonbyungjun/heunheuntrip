@@ -14,6 +14,7 @@ public interface BlogDao {
   int update(Blog blog);
   List<Blog> orderbylist();
   List<Blog> orderbygradelist();
+  int increaseLike(int no);
   
 }
 

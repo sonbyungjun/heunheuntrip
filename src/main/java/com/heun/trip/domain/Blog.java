@@ -10,6 +10,7 @@ public class Blog { // 일반 회원이 작성하는 블로그 게시판
   private String mainPhoto;
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
+  private int blike;
   
   private int userNo;
   private String name;
@@ -115,15 +116,25 @@ public class Blog { // 일반 회원이 작성하는 블로그 게시판
   public void setMainPhoto(String mainPhoto) {
     this.mainPhoto = mainPhoto;
   }
+  
+  public int getBlike() {
+    return blike;
+  }
+
+  public void setBlike(int blike) {
+    this.blike = blike;
+  }
 
   @Override
   public String toString() {
-    return "Blog [no=" + no + ", title=" + title + ", content=" + content + ", createdDate="
-        + createdDate + ", userNo=" + userNo + ", name=" + name + ", rmsNo=" + rmsNo + ", grade="
-        + grade + ", rmsName=" + rmsName + ", rmsAddr=" + rmsAddr + ", rmsDetailAddr="
-        + rmsDetailAddr + ", mainPhoto=" + mainPhoto + "]";
+    return "Blog [no=" + no + ", title=" + title + ", content=" + content + ", mainPhoto="
+        + mainPhoto + ", createdDate=" + createdDate + ", blike=" + blike + ", userNo=" + userNo
+        + ", name=" + name + ", rmsNo=" + rmsNo + ", grade=" + grade + ", rmsName=" + rmsName
+        + ", rmsAddr=" + rmsAddr + ", rmsDetailAddr=" + rmsDetailAddr + "]";
   }
 
+
+  
  
   
 }

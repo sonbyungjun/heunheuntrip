@@ -12,6 +12,7 @@
     <result column="conts" property="content"/>
     <result column="main_photo" property="mainPhoto" />
     <result column="cdt" property="createdDate"/>
+    <result column="blike" property="blike"/>
     
     <result column="usr_id" property="userNo"/>
     <result column="name" property="name"/>
@@ -182,6 +183,14 @@
     where 
       board_id = #{no} 
   </delete>
+  
+  <update id="increaseLike" parameterType="int">
+    update board 
+    set 
+      blike = blike + 1 
+    where board_id = #{value}
+  </update>
+
   
 </mapper>  
 

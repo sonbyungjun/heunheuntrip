@@ -84,8 +84,7 @@ CREATE TABLE board (
   title      VARCHAR(50) NOT NULL, -- 게시글제목
   conts      MEDIUMTEXT  NOT NULL, -- 게시글내용
   cdt        DATETIME    NOT NULL DEFAULT current_timestamp(), -- 작성일
-  blike      INTEGER     NOT NULL DEFAULT 0 -- 좋아요
-);
+  );
 
 -- 블로그
 ALTER TABLE board
@@ -267,6 +266,26 @@ ALTER TABLE amn
 
 ALTER TABLE amn
   MODIFY COLUMN amn_id INTEGER NOT NULL AUTO_INCREMENT;
+  
+  
+  -- 블로그 좋아요
+CREATE TABLE blike (
+  blike_no    INTEGER NOT NULL, -- 좋아요번호
+  blike_check INTEGER NOT NULL DEFAULT 0, -- 좋아요체크
+  board_id    INTEGER NOT NULL, -- 게시글번호
+  usr_id      INTEGER NOT NULL  -- 회원번호
+);
+
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT PK_blike -- 블로그 좋아요 기본키
+    PRIMARY KEY (
+      blike_no -- 좋아요번호
+    );
+
+ALTER TABLE blike
+  MODIFY COLUMN blike_no INTEGER NOT NULL AUTO_INCREMENT;
+
 
 -- 이용상태
 CREATE TABLE stus (
