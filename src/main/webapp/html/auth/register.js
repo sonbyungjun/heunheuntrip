@@ -251,19 +251,12 @@ $('#fileupload').fileupload({
 			
       $('#file-btn1').click(function() {
 				// 파일버튼을 클릭했을때 필수값들의 다 들어오면 submit을 호출한다.
-        console.log($('#name').hasClass("is-valid"))
-        console.log($('#email').hasClass("is-valid"))
-        console.log($('#play').hasClass("is-valid"))
-        console.log($('#pwd').hasClass("is-valid"))
-        console.log($('#rePwd').hasClass("is-valid"))
-        console.log(typeof $('img').attr('src') == 'string')
         if ($('#name').hasClass("is-valid") &
             $('#email').hasClass("is-valid") &
             $('#play').hasClass("is-valid") &
             $('#pwd').hasClass("is-valid") &
             $('#rePwd').hasClass("is-valid") &
             typeof $('img').attr('src') == 'string') {
-          console.log('오나')
           data.submit();
         } else {
           return filechkValue();
@@ -271,13 +264,11 @@ $('#fileupload').fileupload({
       });
   },
     done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
-      console.log('done()...');
       $.each(data.result.files, function(index, file) {
         $('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
       });
     },
     submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
-      console.log('submit()...');
       // data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
       data.formData = {
           email: $("#email").val(),
