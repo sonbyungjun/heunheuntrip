@@ -3,6 +3,7 @@ $(document).ready(function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
 	$('#file-btn1').hide();
+	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
 
@@ -249,6 +250,7 @@ $('#fileupload').fileupload({
 								data.files[i].preview.toDataURL())
             .css('width', '100px')
 						.appendTo(imagesDiv);
+						$('p').show();
 						// 자신이 선택한 파일 이름이 나오게 만듬
             $('.custom-file').find('label').html(data.files[i].name)
           }
