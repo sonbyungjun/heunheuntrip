@@ -551,16 +551,6 @@ ALTER TABLE rm_photo
       rms_id -- 숙소번호
     );
 
--- 문의첨부파일
-ALTER TABLE qna_photo
-  ADD CONSTRAINT FK_qna_TO_qna_photo -- 문의사항 -> 문의첨부파일
-    FOREIGN KEY (
-      qna_id -- 문의사항번호
-    )
-    REFERENCES qna ( -- 문의사항
-      qna_id -- 문의사항번호
-    );
-
 -- 숙소안전시설
 ALTER TABLE rms_safety
   ADD CONSTRAINT FK_safety_TO_rms_safety -- 안전시설 -> 숙소안전시설
