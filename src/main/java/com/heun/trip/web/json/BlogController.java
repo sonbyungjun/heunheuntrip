@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -165,6 +164,30 @@ public class BlogController {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
+    return content;
+  }
+  
+  @GetMapping("order")
+  public Object order() { // localhost:8080/heunheuntrip/app/json/blog/order
+    
+    
+    List<Blog> blogs = blogService.order();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
+    return content;
+  }
+  
+  @GetMapping("gradeorder")
+  public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
+    
+    
+    List<Blog> blogs = blogService.gradeorder();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
     return content;
   }
 }
