@@ -3,7 +3,7 @@ package com.heun.trip.web.json;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
@@ -34,12 +34,12 @@ public class BlogController {
   }
 
 
-  @PostMapping("add")
+  @PostMapping("add") 
   public Object add(Blog blog, MultipartFile[] files) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
     
     System.out.println(files);
-    // 파일을 경로에 저장
+    // �뙆�씪�쓣 寃쎈줈�뿉 ���옣 
     for (MultipartFile part : files) {
       if (part.getSize() == 0) 
         continue;
@@ -56,7 +56,7 @@ public class BlogController {
     }
     
     
-    System.out.println("컨트롤러====> " + blog);
+    System.out.println("而⑦듃濡ㅻ윭====> " + blog);
     try {
       blogService.add(blog);
       content.put("status", "success");
@@ -138,7 +138,7 @@ public class BlogController {
     HashMap<String,Object> content = new HashMap<>();
     try {
       if (blogService.update(blog) == 0) 
-        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+        throw new RuntimeException("�빐�떦 踰덊샇�쓽 寃뚯떆臾쇱씠 �뾾�뒿�땲�떎.");
       content.put("status", "success");
       
     } catch (Exception e) {
@@ -148,7 +148,7 @@ public class BlogController {
     return content;
   }
 
-
+ 
   @GetMapping("delete")
   public Object delete(int no) {
 
@@ -156,7 +156,7 @@ public class BlogController {
 
     try {
       if (blogService.delete(no) == 0) { 
-        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+        throw new RuntimeException("�빐�떦 踰덊샇�쓽 寃뚯떆臾쇱씠 �뾾�뒿�땲�떎.");
       }
       content.put("status", "success");
     } catch (Exception e) {
@@ -165,4 +165,34 @@ public class BlogController {
     }
     return content;
   }
+
+  @GetMapping("order")
+  public Object order() { // localhost:8080/heunheuntrip/app/json/blog/order
+    
+    
+    List<Blog> blogs = blogService.order();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
+    return content;
+  }
+  
+  @GetMapping("gradeorder")
+  public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
+    
+    
+    List<Blog> blogs = blogService.gradeorder();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
+    return content;
+  }
+  
+  
+  
+  
 }
+
+
