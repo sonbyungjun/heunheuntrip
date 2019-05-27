@@ -11,7 +11,7 @@ import com.heun.trip.service.BlogService;
 public class BlogServiceImpl implements BlogService {
 
   BlogDao blogDao;
- 
+  
 
   public BlogServiceImpl(BlogDao blogDao) {
     this.blogDao = blogDao;
@@ -34,6 +34,7 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public int add(Blog blog) {
+    System.out.println("서비스====> " + blog);
     return blogDao.insert(blog);
   }
 

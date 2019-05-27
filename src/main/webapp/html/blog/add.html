@@ -30,6 +30,10 @@
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../summernote/summernote-lite.js"></script>
   <script src="../../lib/lib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 
 
 
@@ -61,6 +65,10 @@
                             <div class="dropdown-menu heun-checkout"
                               aria-labelledby="dropdownMenuButton"></div>
                           </div>
+                          <label class="btn btn-primary btn-file">
+                            메인이미지 업로드<input id="fileupload" type="file" name="files" multiple>
+                          </label>
+
                           <input class="form-control" id="title" type="text" placeholder="제목을 입력해주세요.">
                         </div>
                       </div>

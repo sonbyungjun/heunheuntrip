@@ -1,12 +1,17 @@
 package com.heun.trip.web.json;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import javax.servlet.ServletContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.Gmail;
@@ -19,9 +24,11 @@ public class MemberController {
   
  
   MemberService memberService;
+  ServletContext servletContext;
 
-  public MemberController(MemberService memberService) {
+  public MemberController(MemberService memberService, ServletContext servletContext) {
     this.memberService = memberService;
+    this.servletContext= servletContext;
   }
 
   @GetMapping("list")
@@ -61,8 +68,23 @@ public class MemberController {
   }
 
   @PostMapping("add")
-  public Object add(Member member) {
+  public Object add(Member member, MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
+    
+    if (photo.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      String uploadDir = servletContext.getRealPath(
+          "/html/memberupload");
+      try {
+        photo.transferTo(new File(uploadDir + "/" + filename));
+      } catch (IllegalStateException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      member.setPhoto(filename);
+    }
+    
     try {
       memberService.add(member);
       content.put("status", "success");
