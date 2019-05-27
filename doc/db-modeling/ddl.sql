@@ -39,7 +39,8 @@ CREATE TABLE rms (
   lati      VARCHAR(50)  NOT NULL, -- 위도
   longi     VARCHAR(50)  NOT NULL, -- 경도
   cdt       DATETIME     NOT NULL DEFAULT current_timestamp(), -- 등록일
-  grd       INTEGER      NULL      -- 평균평점
+  grd       VARCHAR(5)   NULL,     -- 평균평점
+  thum      VARCHAR(255) NULL      -- 섬네일
 );
 
 -- 숙소
@@ -73,17 +74,17 @@ ALTER TABLE usr
 
 ALTER TABLE usr
   MODIFY COLUMN usr_id INTEGER NOT NULL AUTO_INCREMENT;
-  
+
 -- 블로그
 CREATE TABLE board (
-  board_id      INTEGER     NOT NULL, -- 게시글번호
-  usr_id        INTEGER     NOT NULL, -- 회원번호
-  rms_id        INTEGER     NULL,     -- 숙소번호
-  main_photo    VARCHAR(255)NOT NULL, -- 블로그 사진
-  title         VARCHAR(50) NOT NULL, -- 게시글제목
-  conts         MEDIUMTEXT  NOT NULL, -- 게시글내용
-  cdt           DATETIME    NOT NULL DEFAULT current_timestamp(), -- 작성일
-  blike         INTEGER     NOT NULL DEFAULT 0 -- 좋아요
+  board_id   INTEGER     NOT NULL, -- 게시글번호
+  usr_id     INTEGER     NOT NULL, -- 회원번호
+  rms_id     INTEGER     NULL,     -- 숙소번호
+  main_photo text        NOT NULL, -- 블로그 사진
+  title      VARCHAR(50) NOT NULL, -- 게시글제목
+  conts      MEDIUMTEXT  NOT NULL, -- 게시글내용
+  cdt        DATETIME    NOT NULL DEFAULT current_timestamp(), -- 작성일
+  blike      INTEGER     NOT NULL DEFAULT 0 -- 좋아요
 );
 
 -- 블로그
@@ -95,7 +96,6 @@ ALTER TABLE board
 
 ALTER TABLE board
   MODIFY COLUMN board_id INTEGER NOT NULL AUTO_INCREMENT;
-
 
 -- 예약
 CREATE TABLE rev (
@@ -235,7 +235,6 @@ ALTER TABLE auth
 ALTER TABLE auth
   MODIFY COLUMN auth_id INTEGER NOT NULL AUTO_INCREMENT;
 
-
 -- 호스트
 CREATE TABLE host (
   usr_id  INTEGER     NOT NULL, -- 호스트번호
@@ -329,7 +328,6 @@ ALTER TABLE qna_cate
       qna_cate_id -- 문의구분번호
     );
 
-
 -- 안전시설
 CREATE TABLE safety (
   safety_id INTEGER      NOT NULL, -- 안전시설번호
@@ -345,7 +343,6 @@ ALTER TABLE safety
 
 ALTER TABLE safety
   MODIFY COLUMN safety_id INTEGER NOT NULL AUTO_INCREMENT;
-
 
 -- 숙소안전시설
 CREATE TABLE rms_safety (
@@ -380,7 +377,6 @@ ALTER TABLE usr
     REFERENCES auth ( -- 권한
       auth_id -- 권한번호
     );
-
 
 -- 블로그
 ALTER TABLE board
