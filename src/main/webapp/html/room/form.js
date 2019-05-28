@@ -24,7 +24,7 @@ var rule = [
   {
     id: 'contents',
     ele: $('#contents'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+    Pattern: /^[\s\S]{10,500}$/,
     message: '10자 이상 500자 이하로 작성해주세요!'
   },
   {
@@ -122,7 +122,7 @@ var slideRule = [
       {
         name: 'contents',
         InputEle: $('#contents'),
-        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+        Pattern: /^[\s\S]{10,500}$/,
         message: '10자 이상 500자 이하로 작성해주세요!'
       }
     ]
