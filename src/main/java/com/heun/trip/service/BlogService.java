@@ -1,6 +1,7 @@
 package com.heun.trip.service;
 
 import java.util.List;
+import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
 import com.heun.trip.domain.Roomcheckout;
 
@@ -14,4 +15,10 @@ public interface BlogService {
   int update(Blog blog);
   List<Blog> order();
   List<Blog> gradeorder();
+  int increaseLike(Blike blike);
+  int decreaseLike(Blike blike);
+  int checkLike(Blike blike);
+  int checkView(Blike blike);
+  int createLike(Blike blike);
+  int countLike(int no);
 }

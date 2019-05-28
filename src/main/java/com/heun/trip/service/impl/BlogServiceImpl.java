@@ -3,6 +3,7 @@ package com.heun.trip.service.impl;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.BlogDao;
+import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
@@ -62,6 +63,37 @@ public class BlogServiceImpl implements BlogService {
   public List<Blog> gradeorder() {
     
     return blogDao.orderbygradelist();
+  }
+
+  @Override
+  public int increaseLike(Blike blike) {
+    
+    return blogDao.increaseLike(blike);
+  }
+
+  @Override
+  public int decreaseLike(Blike blike) {
+    return blogDao.decreaseLike(blike);
+  }
+
+  @Override
+  public int checkLike(Blike blike) {
+    return blogDao.checkLike(blike);
+  }
+ 
+  @Override
+  public int checkView(Blike blike) {
+    return blogDao.checkView(blike);
+  }
+  
+  @Override
+  public int createLike(Blike blike) {
+    return blogDao.createLike(blike);
+  }
+  
+  @Override
+  public int countLike(int no) {
+    return blogDao.countLike(no);
   }
 }
 
