@@ -22,21 +22,21 @@ var rule = [
     message: '상세주소를 입력해주세요'
   },
   {
-    id : 'contents',
-    ele : $('#contents'),
-    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+    id: 'contents',
+    ele: $('#contents'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
     message: '10자 이상 500자 이하로 작성해주세요!'
   },
   {
-    id : 'heun-name',
-    ele : $('#heun-name'),
-    Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    id: 'heun-name',
+    ele: $('#heun-name'),
+    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
     message: '1자 이상 20자 이하로 입력해주세요.'
   },
   {
-    id : 'heun-price',
-    ele : $('#heun-price'),
-    Pattern : /^([0-9,]){1,20}$/,
+    id: 'heun-price',
+    ele: $('#heun-price'),
+    Pattern: /^([0-9,]){1,20}$/,
     message: '숫자만 입력해주세요.'
   }
 ]
@@ -44,39 +44,39 @@ var rule = [
 // 모든 슬라이드의 유효성 검사 코드를 객체화
 var slideRule = [
   {
-    id : 's1',
-    ele : $('#s1'),
-    rule : [
+    id: 's1',
+    ele: $('#s1'),
+    rule: [
       {
-        name : 'area',
-        InputEle : $('#area'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        name: 'area',
+        InputEle: $('#area'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
         message: '지역을 입력해주세요. \n(1자 이상 20자 이하)'
       }
     ]
   },
   {
-    id : 's2',
-    ele : $('#s2'),
-    rule : [
+    id: 's2',
+    ele: $('#s2'),
+    rule: [
       {
-        name : 'bed',
-        InputEle : $('#bed'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        name: 'bed',
+        InputEle: $('#bed'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
         message: '침대 갯수를 선택해주세요.'
       },
       {
-        name : 'bath',
-        InputEle : $('#bath'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        name: 'bath',
+        InputEle: $('#bath'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
         message: '욕실 갯수를 선택해주세요.'
       }
     ]
   },
   {
-    id : 's3',
-    ele : $('#s3'),
-    rule : [
+    id: 's3',
+    ele: $('#s3'),
+    rule: [
       {
         name: 'address',
         InputEle: $('#address'),
@@ -92,54 +92,54 @@ var slideRule = [
     ]
   },
   {
-    id : 's4',
-    ele : $('#s4'),
-    rule : [
+    id: 's4',
+    ele: $('#s4'),
+    rule: [
       {
-        name : 'convenience',
-        InputEle : $('input[name=convenience]:checked'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        name: 'convenience',
+        InputEle: $('input[name=convenience]:checked'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
         message: '편의시설을 1개 이상 선택해주세요.'
       }
     ]
   },
   {
-    id : 's5',
-    ele : $('#s5'),
-    rule : [
+    id: 's5',
+    ele: $('#s5'),
+    rule: [
       {
-        name : 'safety',
-        InputEle : $('input[name=safety]:checked'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,}$/,
+        name: 'safety',
+        InputEle: $('input[name=safety]:checked'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,}$/,
         message: '안전시설을 1개 이상 선택해주세요.'
       }
     ]
   },
   {
-    id : 's7',
-    ele : $('#s7'),
-    rule : [
+    id: 's7',
+    ele: $('#s7'),
+    rule: [
       {
-        name : 'contents',
-        InputEle : $('#contents'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
+        name: 'contents',
+        InputEle: $('#contents'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){10,500}$/,
         message: '10자 이상 500자 이하로 작성해주세요!'
       }
     ]
   },
   {
-    id : 's10',
-    ele : $('#s10'),
-    rule : [
+    id: 's10',
+    ele: $('#s10'),
+    rule: [
       {
-        name : 'heun-name',
-        InputEle : $('#heun-name'),
-        Pattern : /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        name: 'heun-name',
+        InputEle: $('#heun-name'),
+        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
         message: '1자 이상 20자 이하로 입력해주세요.'
-      },{
-        name : 'heun-price',
-        InputEle : $('#heun-price'),
-        Pattern : /^([0-9,]){1,20}$/,
+      }, {
+        name: 'heun-price',
+        InputEle: $('#heun-price'),
+        Pattern: /^([0-9,]){1,20}$/,
         message: '숫자만 입력해주세요.'
       }
     ]
@@ -147,7 +147,7 @@ var slideRule = [
 ]
 
 // textarea - 숙소설명에 글을 작성할때 글자수를 계산하고 유효성 검사를 한다.
-$('#contents').keyup(function(e) {
+$('#contents').keyup(function (e) {
   var content = $(this).val();
   $('.counter').html((500 - content.length) + ' 자');
 
@@ -198,7 +198,7 @@ $('.heun-form-next').click(function () {
         // 다음 슬라이드로 넘어간다.
         fullpage_api.moveSlideRight();
 
-      // cancel을 눌렀을 때
+        // cancel을 눌렀을 때
       } else {
         // 마지막 슬라이드로 넘어간다.
         fullpage_api.moveTo('firstPage', 9);
@@ -208,7 +208,7 @@ $('.heun-form-next').click(function () {
     // 이 함수(경고창)를 모두 실행 한뒤 리턴 한다. (마지막 라인이 실행되지 않게)
     return;
   }
-  
+
   // 검사를 모두 통과하면 다음 페이지로 간다.
   fullpage_api.moveSlideRight();
 })
@@ -225,17 +225,17 @@ function validNext(idAttr) {
 
   var inputs = nowSlide.rule;
   var isEmpty = true;
-  $(inputs).each(function(i, e) {
+  $(inputs).each(function (i, e) {
 
     if (!e.InputEle.val() || !e.Pattern.test(e.InputEle.val())) {
       Swal.fire({
         type: 'error',
         title: e.message,
       }).then((value) => {
-          setTimeout(function() {
-            e.InputEle.focus();
-          }, 500)
-        });
+        setTimeout(function () {
+          e.InputEle.focus();
+        }, 500)
+      });
 
       e.InputEle.removeClass('is-valid');
       e.InputEle.addClass('is-invalid');
@@ -250,8 +250,6 @@ function validNext(idAttr) {
   }
   return true;
 }
-
-
 
 
 // 폼 태그 밑에 모든 인풋 태그를 키업 했을때 유효성 검사 한다.
@@ -297,11 +295,10 @@ $(document).ready(function () {
     scrollHorizontally: false,
     loopHorizontal: false,
     controlArrows: false,
-    anchors:['firstPage']
+    anchors: ['firstPage']
   });
 
 });
-
 
 // 이전 버튼을 클릭했을 때
 $('.heun-form-prev').click(function () {
@@ -315,7 +312,6 @@ $('.heun-form-prev').click(function () {
 
   fullpage_api.moveSlideLeft();
 })
-
 
 $('#post-search').click(function () {
   new daum.Postcode({
@@ -370,113 +366,95 @@ $('#post-search').click(function () {
   }).open();
 })
 
-
-
 $('.heun-push').click(function () {
+  var api = $.fileuploader.getInstance($('.gallery_media'));
+  api.uploadStart();
 
-  var address = $('#address').val();
+  $('body').on('file-success', function () {
 
-  // 주소-좌표 변환 객체를 생성합니다
-  var geocoder = new daum.maps.services.Geocoder();
+    var address = $('#address').val();
 
-  // 주소로 좌표를 검색합니다
-  geocoder.addressSearch(address , function (result, status) {
-    // 정상적으로 검색이 완료됐으면 
-    if (status === daum.maps.services.Status.OK) {
-      window.latitude = result[0].y;
-      window.longitude = result[0].x;
-      $('body').trigger('xy');
-    }
-  });
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new daum.maps.services.Geocoder();
 
-  var convenience = [];
-  $("input[name=convenience]:checked").each(function () {
-    convenience.push($(this).val());
-  })
-
-  var safety = [];
-  $("input[name=safety]:checked").each(function () {
-    safety.push($(this).val());
-  })
-
-  $('body').on('xy', function() {
-
-    var price = $('#heun-price').val();
-    price = price.replace(',', '');
-    console.log(price)
-
-    var allData = {
-      type: $('#type').val(),
-      maxPerson: $('#maxp').val(),
-      area: $('#area').val(),
-      bed: $('#bed').val(),
-      bath: $('#bath').val(),
-      postcode: $('#postcode').val(),
-      address: address,
-      detailAddress: $('#detailAddress').val(),
-      content: $('#contents').val(),
-      details: $('#details').val(),
-      reservation: $('#reservation').val(),
-      welcome: $('#welcome').val(),
-      traffic: $('#traffic').val(),
-      name: $('#heun-name').val(),
-      price: price,
-      latitude : window.latitude,
-      longitude : window.longitude,
-      convenience: convenience,
-      safety: safety
-    }
-  
-    $.ajax({
-      url: '../../app/json/room/add',
-      type: 'POST',
-      data: allData,
-      dataType: 'json',
-      success: function (response) {
-        if (response.status == 'success') {
-          location.href = 'form.html';
-        } else {
-        }
-      },
-      fail: function (error) {
-        alert('시스템 오류가 발생했습니다.');
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch(address, function (result, status) {
+      // 정상적으로 검색이 완료됐으면 
+      if (status === daum.maps.services.Status.OK) {
+        window.latitude = result[0].y;
+        window.longitude = result[0].x;
+        $('body').trigger('xy');
       }
     });
-  
-    console.log('타입 : ' + $('#type').val())
-    console.log('최대숙박인원 : ' + $('#maxp').val())
-    console.log('지역명 : ' + $('#area').val())
-    console.log('침대갯수 : ' + $('#bed').val())
-    console.log('욕실갯수 : ' + $('#bath').val())
-    console.log('우편번호 : ' + $('#postcode').val())
-    console.log('기본주소 : ' + $('#address').val() + ' ' + $('#extraAddress').val())
-    console.log('상세주소 : ' + $('#detailAddress').val())
-  
-    var result = '';
+
+    var convenience = [];
     $("input[name=convenience]:checked").each(function () {
-      result += $(this).val() + ' ';
+      convenience.push($(this).val());
     })
-    console.log('편의시설목록 : ' + result);
-  
-    result = '';
+
+    var safety = [];
     $("input[name=safety]:checked").each(function () {
-      result += $(this).val() + ' ';
+      safety.push($(this).val());
     })
-    console.log('편의시설목록 : ' + result);
-  
-    console.log('숙소설명 : ' + $('#contents').val())
-    console.log('숙소세부정보 : ' + $('#details').val())
-    console.log('예약가능여부 : ' + $('#reservation').val())
-    console.log('숙소가위치한지역 : ' + $('#welcome').val())
-    console.log('교통편 : ' + $('#traffic').val())
-    console.log('숙소이름 : ' + $('#heun-name').val())
-    console.log('숙소가격 : ' + $('#heun-price').val())
-  
-    console.log('위도 : ' + window.latitude);
-    console.log('경도 : ' + window.longitude);
-  
-    var api = $.fileuploader.getInstance($('.gallery_media'));
-    api.uploadStart();
+
+    $('body').on('xy', function () {
+
+      var price = $('#heun-price').val();
+      price = price.replace(',', '');
+
+      var allData = {
+        type: $('#type').val(),
+        maxPerson: $('#maxp').val(),
+        area: $('#area').val(),
+        bed: $('#bed').val(),
+        bath: $('#bath').val(),
+        postcode: $('#postcode').val(),
+        address: address,
+        detailAddress: $('#detailAddress').val(),
+        content: $('#contents').val(),
+        details: $('#details').val(),
+        reservation: $('#reservation').val(),
+        welcome: $('#welcome').val(),
+        traffic: $('#traffic').val(),
+        name: $('#heun-name').val(),
+        price: price,
+        latitude: window.latitude,
+        longitude: window.longitude,
+        convenience: convenience,
+        safety: safety,
+        thumbnail: thumbnail,
+        files: photos
+      }
+
+      console.log(allData)
+
+      $.ajax({
+        url: '../../app/json/room/add',
+        type: 'POST',
+        data: allData,
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            location.href = 'form.html';
+          } else {
+          }
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
+
+      var result = '';
+      $("input[name=convenience]:checked").each(function () {
+        result += $(this).val() + ' ';
+      })
+
+      result = '';
+      $("input[name=safety]:checked").each(function () {
+        result += $(this).val() + ' ';
+      })
+
+    })
   })
 })
 
@@ -484,37 +462,37 @@ $('.heun-push').click(function () {
 $("#heun-price").keypress(function (event) {
   //숫자만 받기
   if (event.which && (event.which < 48 || event.which > 57)) {
-      event.preventDefault();
+    event.preventDefault();
   }
   // 키를 누르고 뗏을때
 }).keyup(function () {
   if ($(this).val() != null && $(this).val() != '') {
-      var text = $(this).val().replace(/[^0-9]/g, '');
-      $(this).val(comma(text));
+    var text = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(comma(text));
   }
 });
 
 //콤마찍기
 function comma(x) {
-var temp = "";
+  var temp = "";
 
-num_len = x.length;
-// 콤마 찍을 자릿수 설정
-co = 3;
-// 받은 숫자 길이가 0개 이상일때 까지 반복. 즉 한번씩
-while (num_len > 0) {
-  // 받은 숫자 길이에 콤마 찍을 자릿수 뺀다 
-  num_len = num_len - co;
-  // 뺀 길이가 음수면 
-  if (num_len < 0) {
-    // 콤마 찍을 자릿수 + 받은 자릿수
+  num_len = x.length;
+  // 콤마 찍을 자릿수 설정
+  co = 3;
+  // 받은 숫자 길이가 0개 이상일때 까지 반복. 즉 한번씩
+  while (num_len > 0) {
+    // 받은 숫자 길이에 콤마 찍을 자릿수 뺀다 
+    num_len = num_len - co;
+    // 뺀 길이가 음수면 
+    if (num_len < 0) {
+      // 콤마 찍을 자릿수 + 받은 자릿수
       co = num_len + co;
       // 받은 자릿수 0 으로 초기화
       num_len = 0;
+    }
+    // 자릿수 계산하여 temp의 담는다
+    temp = "," + x.substr(num_len, co) + temp;
   }
-  // 자릿수 계산하여 temp의 담는다
-  temp = "," + x.substr(num_len, co) + temp;
-}
-// 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
-return temp.substr(1);
+  // 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
+  return temp.substr(1);
 }

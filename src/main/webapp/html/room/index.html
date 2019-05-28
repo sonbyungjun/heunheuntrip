@@ -161,27 +161,7 @@
 
                 <div class="item-listing grid">
 
-                  <div class="row">
-
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                      <div class="item">
-                        <div class="item-image"><a href="property_single.html"><img src="../../img/demo/property/1.jpg"
-                              class="img-fluid" alt="">
-                            <div class="item-meta">
-                              <div class="item-price">$420,000</div>
-                            </div>
-                          </a> <a href="#" class="save-item"><i class="fa fa-star"></i></a> </div>
-                        <div class="item-info">
-                          <h3 class="item-title">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h3>
-                          <div class="item-location"><i class="fa fa-map-marker"></i> Kirkstone Road, Middlesbrough TS3
-                          </div>
-                          <div class="item-details-i"> <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">3
-                              <i class="fa fa-bed"></i></span> <span class="bathrooms" data-toggle="tooltip"
-                              title="2 Bathrooms">2 <i class="fa fa-bath"></i></span> </div>
-                        </div>
-                      </div>
-                    </div>
-
+                  <div id="room-list" class="row">
 
                   </div>
 
@@ -209,7 +189,39 @@
 
   </div>
 
+  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script id="list-template" type="text/x-handlebars-template">
+    {{#each list}}
+      
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="item">
+        <div class="item-image">
+          <a href="property_single.html">
+            <img src="../../img/demo/property/1.jpg" class="img-fluid" alt="">
+              <div class="item-meta">
+                <div class="item-price">${{price}}</div>
+              </div>
+          </a> 
+          <a href="#" class="save-item"><i class="fa fa-star"></i></a> 
+        </div>
+        <div class="item-info">
+          <h3 class="item-title">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h3>
+          <div class="item-location">
+            <i class="fa fa-map-marker"></i>
+            Kirkstone Road, Middlesbrough TS3
+          </div>
+          <div class="item-details-i"> 
+            <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">3<i class="fa fa-bed"></i></span>
+            <span class="bathrooms" data-toggle="tooltip" title="2 Bathrooms">2<i class="fa fa-bath"></i></span> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/each}}
+  </script>
   <script src="index.js"></script>
+
 </body>
 
 </html>
