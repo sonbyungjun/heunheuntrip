@@ -95,6 +95,11 @@ public class BlogServiceImpl implements BlogService {
   public int countLike(int no) {
     return blogDao.countLike(no);
   }
+  @Override
+  public List<Blog> deorder() {
+    
+    return blogDao.deorderbylist();
+  }
 }
 
 

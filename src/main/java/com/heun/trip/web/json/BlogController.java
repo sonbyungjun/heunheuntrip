@@ -243,6 +243,18 @@ public class BlogController {
 
     return content;
   }
+  
+  @GetMapping("deorder")
+  public Object deorder() { // localhost:8080/heunheuntrip/app/json/blog/order
+    
+    
+    List<Blog> blogs = blogService.deorder();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+    
+    return content;
+  }
 
   @GetMapping("gradeorder")
   public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
