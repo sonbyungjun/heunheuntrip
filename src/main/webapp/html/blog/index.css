@@ -35,3 +35,7 @@ h1 {
 .check-form {
     float: right;
 }
+
+.mb0 {
+	margin: 0px;
+}

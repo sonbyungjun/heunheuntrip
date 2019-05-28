@@ -50,7 +50,7 @@ $(document.body).bind('loaded-list', () => {
 	$('.bit-view-link').on('click', function (e) {
 		e.preventDefault();
 		console.log(e.target);
-		window.location.href = 'view.html?no=' + $(e.target).attr('data-no');
+		 window.location.href = 'view.html?no=' + $(e.target).attr('data-no');
 	})
 
 	$('.check-btn').on('click', function (e) {

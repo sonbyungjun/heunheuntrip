@@ -164,8 +164,10 @@ public class BlogController {
 
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    System.out.println("로긴한사람~ ===> "  +  loginUser);
     if(loginUser != null) {
-      content.put("userNo", loginUser.getNo());
+      content.put("loginNo", loginUser.getNo());
     }
     content.put("blog", blog);
     content.put("count", countNo);
