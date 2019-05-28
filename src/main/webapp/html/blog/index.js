@@ -15,14 +15,20 @@ $(document).ready(function () {
 
 
 function loadList() {
-
-	$.ajax({
+$('.blog-form-list').css("width", "1150px");
+	$('.blog-form-list').css("height", "600px");
+	
+	$('.blog-form-list').css("overflow", "hidden");
+	$.ajax({ 
 		url: '../../app/json/blog/list',
 		type: 'GET',
 		dataType: 'json',
 		success: function (response) {
 
 			$(trGenerator(response)).appendTo(form);
+
+			// ig.prepend($(trGenerator(response))).appendTo(form);
+
 			$(document.body).trigger('loaded-list');
 
 		},
@@ -30,6 +36,9 @@ function loadList() {
 			alert('시스템 오류가 발생했습니다.');
 		}
 	});
+	
+	
+	
 } // loadList()
 
 

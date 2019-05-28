@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
@@ -69,7 +70,7 @@ public class RoomController {
     }
     room.setConveniences(cons);
     room.setSafeties(safes);
-    
+    System.out.println(room);
 //    roomSerive.add(room);
 
     return null;
@@ -77,30 +78,41 @@ public class RoomController {
   
   @PostMapping("fileAdd")
   public Object fileAdd(@RequestParam(value="files[]", required=false) MultipartFile[] files, boolean isMain) {
+   System.out.println("파일 업로드중");
+    Map<String, Object> content = new HashMap<>();
     
-    System.out.println(isMain);
+    String uploadDir = servletContext.getRealPath(
+        "/upload/roomphoto");
+
+    String filename = UUID.randomUUID().toString();
+    File originFile = new File(uploadDir + "/" + filename);
+    File thumFile = new File(uploadDir + "/Thumbnail/" + filename);
     
     for (MultipartFile f : files) {
       if (!f.isEmpty()) {
+        
+        // 메인사진이 아니면 그냥 저장한다.
+        try {
+          f.transferTo(originFile);
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
+        
+        // 메인사진이면 섬네일로 만든 후 맵에 담는다.
         if (isMain) {
-          String uploadDir = servletContext.getRealPath(
-              "/upload/blogphoto");
-  
-          String filename = UUID.randomUUID().toString();
-
           try {
-          f.transferTo(new File(uploadDir + "/" + filename));
-          Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
+            Thumbnails.of(originFile).crop(Positions.CENTER).size(530,375).outputFormat("jpeg").toFile(thumFile);
+            content.put("thumbnail", filename);
           } catch(Exception e) {
             e.printStackTrace();
           }
-          
+        } else {
+          // 메인사진이 아니면 키값을 다르게 하고 담는다.
+          content.put("photo", filename);
         }
-        System.out.println(f.getOriginalFilename());
       }
     }
-    
-    return null;
+    return content;
   }
   
   @GetMapping("list")

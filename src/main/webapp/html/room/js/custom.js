@@ -3,7 +3,6 @@ var fileMainCheck = true;
 
 $(document).ready(function () {
 
-
 	$('input.gallery_media').fileuploader({
 		limit: 100,
 		fileMaxSize: 20,
@@ -150,6 +149,8 @@ $(document).ready(function () {
 					data.hasWarnings = true;
 				}
 
+				console.log(data);
+				
 				// if success update the information
 				if (data.isSuccess && data.files.length) {
 					if (!item.data.listProps)

@@ -2,71 +2,18 @@ $(document).ready(function () {
 	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
-	$('#file-btn1').hide();
-	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
 
-$("#name").keyup(function () {
-	var name = $(this).val();
-	var reg = /^([가-힣]{1,5}|[a-zA-Z]{1,30})$/;
-	if (reg.test(name)) {//정규표현식을 통과 한다면
-		$("#nameErr").hide();
-		successState("#name");
-	} else {//정규표현식을 통과하지 못하면
-		$("#nameErr").show();
-		errorState("#name");
-	}
-});
 
-$("#pwd").keyup(function(){
-	var pwd=$(this).val();
-	// 비밀번호 검증할 정규 표현식
-	var reg = /^([0-9a-zA-Z_~!@#$%^&*()_+|<>?:{}]){8,16}$/;
-	if (reg.test(pwd)) {//정규표현식을 통과 한다면
-		$("#pwdRegErr").hide();
-		successState("#pwd");
-	} else {//정규표현식을 통과하지 못하면
-		$("#pwdRegErr").show();
-		errorState("#pwd");
-	}
-});
-
-$("#rePwd").keyup(function () {
-	var rePwd = $(this).val();
-	var pwd = $("#pwd").val();
-	// 비밀번호 같은지 확인
-	if (rePwd == pwd) {//비밀번호 같다면
-		$("#rePwdErr").hide();
-		successState("#rePwd");
-	} else {//비밀번호 다르다면
-		$("#rePwdErr").show();
-		errorState("#rePwd");
-	}
-});
 
 $("#email").keyup(function () {
 	var email = $(this).val();
 	// 이메일 검증할 정규 표현식
 	var reg = /^[A-Za-z0-9_\.\-]+@[A-Za-z\-]+\.[A-Za-z\-]{2,8}$/;
 	if (reg.test(email)) {//정규표현식을 통과 한다면
-		$.getJSON('../../app/json/member/list',
-				function (obj){
-			for(emailcheck of obj.list){
-				if(emailcheck.email != email){
-					$("#emailErr").hide();
-					successState("#email");
-					$('#add-btn').removeAttr("disabled");
-				}else{
-					errorState("#email");
-					Swal.fire({
-						type: 'error',
-						title: '이메일 중복입니다. 다시 입력해주세요'});
-					$('#add-btn').attr("disabled","disabled");
-					break;
-				}
-			}
-		})
+		$("#emailErr").hide();
+		successState("#email");
 	} else {//정규표현식을 통과하지 못하면
 		$("#emailErr").show();
 		errorState("#email");
@@ -74,13 +21,6 @@ $("#email").keyup(function () {
 });
 
 // 파일업로드를 선택했을때 버튼이 바뀌게 만듬
-$("#fileupload").change(function(e){
-
-	// 기본 버튼을 숨김
-	$('#btn1').hide();
-	// 파일 전용 버튼을 나오게만듬 
-  $('#file-btn1').show();
-})
 
 // 인증 번호 보내기
 $('#add-btn').on('click', function () {
@@ -233,78 +173,6 @@ $('body').on('loaded-file', function () {
 	})
 })
 
-$('#fileupload').fileupload({
-  url: '../../app/json/member/add',        // 서버에 요청할 URL
-  dataType: 'json',         // 서버가 보낸 응답이 JSON임을 지정하기
-    singleFileUploads: false, // 한 요청에 여러 개의 파일을 전송시키기.  
-    autoUpload: false,
-    previewMaxWidth: 100,   // 미리보기 이미지 너비
-    previewMaxHeight: 100,  // 미리보기 이미지 높이 
-    previewCrop: true,      // 미리보기 이미지를 출력할 때 원본에서 지정된 크기로 자르기
-    processalways: function(e, data) {
-      var imagesDiv = $('#images-div');
-      imagesDiv.html("");
-      for (var i = 0; i < data.files.length; i++) {
-        try {
-          if (data.files[i].preview.toDataURL) {
-            $("<img>").attr('src',
-								data.files[i].preview.toDataURL())
-            .css('width', '100px')
-						.appendTo(imagesDiv);
-						$('p').show();
-						// 자신이 선택한 파일 이름이 나오게 만듬
-            $('.custom-file').find('label').html(data.files[i].name)
-          }
-        } catch (err) {}
-			}
-			$(document.body).trigger('loaded-file');
-			$('#file-btn1').unbind("click");
-			
-      $('#file-btn1').click(function() {
-				// 파일버튼을 클릭했을때 필수값들의 다 들어오면 submit을 호출한다.
-        if ($('#name').hasClass("is-valid") &
-            $('#email').hasClass("is-valid") &
-            $('#play').hasClass("is-valid") &
-            $('#pwd').hasClass("is-valid") &
-            $('#rePwd').hasClass("is-valid") &
-            typeof $('img').attr('src') == 'string') {
-          data.submit();
-          
-       
-          
-        } else {
-          return filechkValue();
-        }
-      });
-  },
-    done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
-    	  
-    	
-      $.each(data.result.files, function(index, file) {
-        $('<p/>').text(file.filename + " : " + file.filesize).appendTo(document.body);
-      });
-     
-      Swal.fire({
-			type: 'success',
-			title:"회원 가입을 환영 합니다!"
-		}).then((result) =>{
-			if(result.value){
-				location.href='signin.html'
-			}	
-		})
-      
-    },
-    submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
-      // data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
-      data.formData = {
-          email: $("#email").val(),
-          password: $("#pwd").val(),
-          name: $("#name").val(),
-          auth: $("input[type=radio][name=customRadioInline1]:checked").val()
-      };
-    
-    }
-}); //fileupload
 
 //성공 상태로 바꾸는 함수
 function successState(sel) {
