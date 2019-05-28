@@ -15,7 +15,7 @@ $(document).ready(function () {
 
 
 function loadList() {
-$('.blog-form-list').css("width", "1150px");
+    $('.blog-form-list').css("width", "1150px");
 	$('.blog-form-list').css("height", "600px");
 	
 	$('.blog-form-list').css("overflow", "hidden");
