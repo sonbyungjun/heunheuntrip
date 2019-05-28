@@ -220,7 +220,7 @@ insert into stus(stus_id, stus) values(4, '결제취소');
 
 -- 예약
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(1,1,1,'2019-05-08','2020-05-10','대기중', '승인', 2);
+values(1,3,10,'2019-05-08','2020-05-10','대기중', '승인', 2);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
 values(2,4,2,'2019-05-02','2020-05-10', '거절', 2);
 insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
