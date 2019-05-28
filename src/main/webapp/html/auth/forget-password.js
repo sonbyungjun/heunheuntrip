@@ -14,9 +14,12 @@ $("#email").keyup(function () {
 	if (reg.test(email)) {//정규표현식을 통과 한다면
 		$("#emailErr").hide();
 		successState("#email");
+		$('#add-btn').removeAttr("disabled");
 	} else {//정규표현식을 통과하지 못하면
 		$("#emailErr").show();
 		errorState("#email");
+		$('#add-btn').attr("disabled","disabled");
+		
 	}
 });
 
@@ -68,112 +71,47 @@ $('#add-btn').on('click', function () {
 	});
 })
 
-// 버튼을 클릭했을때의 필수값 체크함수
-function chkValue() {
-	// 공통입력폼내의 모든 입력오브젝트
-	var inputObjs = $("#signupForm .required");
-	var focus;
 
-	// 각 오브젝트에 대해 입력체크
-	inputObjs.each(function(index, ele) {
-		if (!$(ele).hasClass("is-valid")) {
-			focus = $(ele);
-			bEmpty = false;
-			Swal.fire({
-				type: 'error',
-				title: $(ele).attr('data-name') + "은 필수 입력 사항입니다."
-			}).then((result) =>{
-				if(result.value){
-					focus.focus();
-				}	
-
-			})
-			return false;
-		}
-	});
-
-	// 모든 값이 정상적으로 다들어 왔다면 서버에 요청을 보냄
-	if ($('#name').hasClass("is-valid") &
-	    $('#email').hasClass("is-valid") &
-	    $('#play').hasClass("is-valid") &
-	    $('#pwd').hasClass("is-valid") &
-	    $('#rePwd').hasClass("is-valid") &
-	    $('#fileupload').val() == ""){
+// 인증 번호 보내기
+$('#re-btn').on('click', function () {
+	if($('#email').hasClass("is-valid")){
 	$.ajax({
-		url: '../../app/json/member/add',
-		type: 'POST',
-
+		url: '../../app/json/member/resetemail',
+		type: 'GET',
 		data: {
-			email: $("#email").val(),
-			password: $("#pwd").val(),
-			name: $("#name").val(),
-			auth: $("input[type=radio][name=customRadioInline1]:checked").val()
+			email : $("#email").val()
 		},
 		dataType: 'json',
-		success: function(response) {
-
-			if(response.status == 'success'){
-
-				Swal.fire({
-					type: 'success',
-					title:"회원 가입을 환영 합니다!"
-				}).then((result) =>{
-					if(result.value){
-						location.href='login.html'
-					}	
-				})
-			} 
+		success: function (response) {
+			// 요청이 성공하면 먼저 엘럿창을 띄움
+		  Swal.fire({
+        type: 'success',
+        title: "이메일을 확인해주세요."
+			}).then((result) => {
+				if(result.value){
+					location.href='signin.html'
+				}
+			});
+			$.ajax({
+				url: '../../app/json/member/Emailupdate',
+				type: 'POST',
+				data: {
+					email : $("#email").val(),
+					password: response.EnranNo
+				}
+			})
 		},
-		error: function(error) {
-			alert('시스템 오류가 발생했습니다.');
+		fail: function (error) {
+			alert('등록 실패!!');
 		}
 	});
-} 
-}
-
-$('#btn1').on('click', function () {
-	return chkValue()
-  })
-  
-$('#file-btn1').on('click', function () {
-  return filechkValue()
-  })
-	
-	// 파일업로드를 눌렀을때의 필수값체크
-  function filechkValue() {
-  // 공통입력폼내의 모든 입력오브젝트
-  var inputObjs = $("#signupForm .required");
-  // 미입력여부(경우에 따라 사용)
-  var bEmpty = true;
-  var focus;
-  // 각 오브젝트에 대해 입력체크
-  inputObjs.each(function(index, ele) {
-    if (!$(ele).hasClass("is-valid")) {
-      focus = $(ele);
-      bEmpty = false;
-      Swal.fire({
-        type: 'error',
-        title: $(ele).attr('data-name') + "은 필수 입력 사항입니다."
-      }).then((result) =>{
-        if(result.value){
-          focus.focus();
-        } 
-      })
-      return false;
-    }
-  });
-}
-$('body').on('loaded-file', function () {
-	$('#images-div').on('click', function () {
-		$(this).find('img').remove();
-		$('.custom-file').find('label').html('파일을 선택하세요')
-		$('#btn1').show();
-		$('p').hide();
-		$('#file-btn1').hide();
-	})
+	}else{
+		Swal.fire({
+			type: 'error',
+			title: "이메일 인증을 진행해 주세요."
+		})
+	}
 })
-
-
 //성공 상태로 바꾸는 함수
 function successState(sel) {
 	$(sel)

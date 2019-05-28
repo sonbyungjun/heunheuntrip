@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
+import com.heun.trip.web.EnRanNo;
 import com.heun.trip.web.Gmail;
 import com.heun.trip.web.RanNo;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 
 @RestController("json/MemberController")
 @RequestMapping("/json/member")
@@ -75,8 +78,11 @@ public class MemberController {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
           "/html/memberupload");
+      File orginFile= new File(uploadDir + "/" + filename); 
+      File thumFile=new File(uploadDir+"/" + filename);
       try {
-        photo.transferTo(new File(uploadDir + "/" + filename));
+        photo.transferTo(orginFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -110,6 +116,20 @@ public class MemberController {
     }
     return content;
   }
+  
+  @PostMapping("Emailupdate")
+  public Object Emailupdate(Member member) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      memberService.Emailupdate(member);
+      content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
   @GetMapping("delete")
   public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
@@ -132,6 +152,22 @@ public class MemberController {
       
       content.put("status", "success");
       content.put("ranNo", ranNo);
+
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  @GetMapping("resetemail")
+  public Object resetemail(String email) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      StringBuffer EnranNo = EnRanNo.randomNo();
+      Gmail.gmailSend(email, EnranNo);
+      
+      content.put("status", "success");
+      content.put("EnranNo", EnranNo);
 
     }catch (Exception e){
       content.put("status", "fail");

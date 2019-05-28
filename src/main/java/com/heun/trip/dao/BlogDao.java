@@ -1,5 +1,5 @@
 package com.heun.trip.dao;
-
+ 
 import java.util.List;
 import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
@@ -15,6 +15,7 @@ public interface BlogDao {
   int update(Blog blog);
   List<Blog> orderbylist();
   List<Blog> orderbygradelist();
+  List<Blog> deorderbylist();
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);
   int checkLike(Blike blike);

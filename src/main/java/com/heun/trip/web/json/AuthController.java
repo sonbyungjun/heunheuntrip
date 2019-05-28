@@ -47,18 +47,18 @@ public class AuthController {
     return content;
   }
   
-//  @GetMapping("logout")
-//  public Object logout(HttpSession session) throws Exception {
-//    
-//    logger.debug("세션 무효화시킴!");
-//    logger.debug("loginUser: " + session.getAttribute("loginUser"));
-//    session.invalidate();
-//    
-//    HashMap<String,Object> content = new HashMap<>();
-//    content.put("status", "success");
-//    
-//    return content;
-//  }
+  @GetMapping("logout")
+  public Object logout(HttpSession session) throws Exception {
+    
+    logger.debug("세션 무효화시킴!");
+    logger.debug("loginUser: " + session.getAttribute("loginUser"));
+    session.invalidate();
+    
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("status", "success");
+    
+    return content;
+  }
   
   @GetMapping("user")
   public Object user(HttpSession session) throws Exception {

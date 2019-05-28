@@ -1,5 +1,5 @@
 package com.heun.trip.domain;
-
+ 
 public class RoomFile {
   private int no;
   private int RoomNo;

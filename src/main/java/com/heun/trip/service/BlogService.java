@@ -1,5 +1,5 @@
 package com.heun.trip.service;
-
+ 
 import java.util.List;
 import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
@@ -14,6 +14,7 @@ public interface BlogService {
   int delete(int no);
   int update(Blog blog);
   List<Blog> order();
+  List<Blog> deorder();
   List<Blog> gradeorder();
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);

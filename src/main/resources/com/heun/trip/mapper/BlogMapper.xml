@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.heun.trip.dao.BlogDao">
-  
+   
   <resultMap type="blog" id="blogMap">
     <id column="board_id" property="no"/>
     <result column="title" property="title"/>
@@ -83,6 +83,30 @@
       b.cdt desc
   </select>
   
+   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt asc
+  </select>
+  
+    
    <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
     select
       b.board_id,

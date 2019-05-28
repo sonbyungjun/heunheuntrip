@@ -1,4 +1,4 @@
---faq
+--faq 
 insert into faq(faq_id,faq,faq_an) 
 values(1,'환불은 어떻게 하나요?','3일내 하셔야해요');
 insert into faq(faq_id,faq,faq_an) 

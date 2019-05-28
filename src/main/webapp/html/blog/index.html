@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Real Estate</title>
-
+ 
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
 
   <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,17 +44,17 @@
 
         <div class='row main-btn justify-content-between'>
 
-          <div class="col-auto mr-auto btn-group search-choose">
-            <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              리스트형식
-            </button>
-            <div class="dropdown-menu heun-search">
-              <a class="dropdown-item new" data-no="createdDate">최신글</a>
-              <a class="dropdown-item grade" data-no="grade">평점</a>
-            </div>
-            <button type="submit" class="btn btn-secondary btn-primary mb-2 search-btn" value="">검색</button>
-          </div>
+          <div class="btn-group search-choose">
+                  <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    리스트형식
+                  </button>
+                  <div class="dropdown-menu heun-search">
+                    <a class="dropdown-item new" data-no="createdDate">최신순</a>
+                    <a class="dropdown-item old">오래된순</a>
+                     <a class="dropdown-item grade" data-no="grade">평점순</a>
+                  </div>
+                 <button type="submit" class="btn btn-primary mb-2 search-btn" value="">검색</button>
+                </div>
 
           <div class="col-auto">
             <a href='view.html' class="btn btn-primary btn check-btn">새 블로그 작성하기</a>
@@ -67,7 +67,7 @@
         <div class="clearfix"></div>
 
         <!-- 핸들바스 적용 지점 -->
-        <div class="item-listing blog-form-list row app"></div>
+        <div class="item-listing blog-form-list row" style="width: auto;"></div>
 
       </div>
     </div>

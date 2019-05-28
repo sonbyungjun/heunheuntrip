@@ -4,7 +4,7 @@ var thumbnail = '';
 var photos = [];
 var fileCount = 0;
 var reqCount = 0;
-
+ 
 $(document).ready(function () {
 
 	$('input.gallery_media').fileuploader({

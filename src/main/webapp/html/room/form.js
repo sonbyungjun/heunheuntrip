@@ -1,7 +1,7 @@
 var latitude = '';
 var longitude = '';
 var prevCheck = false;
-
+ 
 var rule = [
   {
     id: 'area',
