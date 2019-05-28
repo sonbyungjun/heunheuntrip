@@ -41,6 +41,11 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
+  public int Emailupdate(Member member) {
+    return memberDao.Emailupdate(member);
+  }
+  
+  @Override
   public int delete(int no) {
     return memberDao.delete(no);
   }
