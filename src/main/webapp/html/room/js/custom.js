@@ -1,8 +1,11 @@
 var fileCountCheck = true;
 var fileMainCheck = true;
-
+var thumbnail = '';
+var photos = [];
+var fileCount = 0;
+var reqCount = 0;
+ 
 $(document).ready(function () {
-
 
 	$('input.gallery_media').fileuploader({
 		limit: 100,
@@ -110,6 +113,7 @@ $(document).ready(function () {
 					// item.upload.send();
 				}
 				fileCountCheck = false;
+				fileCount++;
 			},
 			onItemRemove: function (html) {
 				console.log('onItemRemove()');
@@ -142,41 +146,17 @@ $(document).ready(function () {
 			},
 			onSuccess: function (result, item) {
 				console.log('onSuccess()');
-				var data = {};
-
-				try {
-					data = JSON.parse(result);
-				} catch (e) {
-					data.hasWarnings = true;
+				
+				if (result.thumbnail) {
+					thumbnail = result.thumbnail;
+				} else if (result.photo) {
+					photos.push(result.photo);
 				}
-
-				// if success update the information
-				if (data.isSuccess && data.files.length) {
-					if (!item.data.listProps)
-						item.data.listProps = {};
-					item.title = data.files[0].title;
-					item.name = data.files[0].name;
-					item.size = data.files[0].size;
-					item.size2 = data.files[0].size2;
-					item.data.url = data.files[0].url;
-					item.data.listProps.id = data.files[0].id;
-
-					item.html.find('.content-holder h5').attr('title', item.name).text(item.name);
-					item.html.find('.content-holder span').text(item.size2);
-					item.html.find('.gallery-item-dropdown [download]').attr('href', item.data.url);
+				
+				if (++reqCount == fileCount) {
+					$('body').trigger('file-success');
 				}
-
-				data.hasWarnings = false;
-				// if warnings
-				if (data.hasWarnings) {
-					for (var warning in data.warnings) {
-						alert(data.warnings[warning]);
-					}
-
-					item.html.removeClass('upload-successful').addClass('upload-failed');
-					return this.onError ? this.onError(item) : null;
-				}
-
+				
 				delete item.imU;
 				item.html.find('.fileuploader-action-remove').addClass('fileuploader-action-success');
 
@@ -323,7 +303,7 @@ $(document).ready(function () {
 		},
 		captions: {
 			feedback: 'Drag & Drop',
-			setting_asMain: '메인사진으로 등록',
+			setting_asMain: '메인 지정',
 			setting_download: '다운로드',
 			setting_edit: '사진수정',
 			setting_rename: '이름변경',

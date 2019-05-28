@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS rms RESTRICT;
+DROP TABLE IF EXISTS rms RESTRICT; 
 DROP TABLE IF EXISTS stus RESTRICT;
 DROP TABLE IF EXISTS board RESTRICT;
 DROP TABLE IF EXISTS rm_photo RESTRICT;
@@ -16,6 +16,7 @@ DROP TABLE IF EXISTS faq RESTRICT;
 DROP TABLE IF EXISTS qna_cate RESTRICT;
 DROP TABLE IF EXISTS safety RESTRICT;
 DROP TABLE IF EXISTS rms_safety RESTRICT;
+DROP TABLE IF EXISTS blike RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
@@ -83,7 +84,7 @@ CREATE TABLE board (
   main_photo text        NOT NULL, -- 블로그 사진
   title      VARCHAR(50) NOT NULL, -- 게시글제목
   conts      MEDIUMTEXT  NOT NULL, -- 게시글내용
-  cdt        DATETIME    NOT NULL DEFAULT current_timestamp(), -- 작성일
+  cdt        DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
   );
 
 -- 블로그

@@ -36,7 +36,7 @@ public class Gmail {
 
       // 수신자메일주소
       message.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); 
-
+ 
       message.setSubject("이메일 인증"); //메일 제목을 입력
 
       message.setText("인증번호는[" + ranNo + "]입니다.");    //메일 내용을 입력

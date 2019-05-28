@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -103,28 +103,23 @@
     </foreach>
   </insert>
   
-  
-  
-  
-  <!-- <select id="findAll" resultMap="roomMap" parameterType="map">
+  <select id="findAll" resultMap="roomMap" parameterType="map">
     select
-      r.rms_id,
-      r.rm_name,
-      r.rm_chge,
-      r.grd,
-      p.rm_photo as thumbnail
+      rms_id,
+      rm_name,
+      rm_chge,
+      come,
+      bed,
+      bath,
     from
-      rms r
-    left outer join rm_photo p on r.rms_id=p.rms_id
-    where
-      p.rm_photo like '%thumbnail%'
+      rms
     order by
       r.rms_id desc
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>
- 
+ <!--
   <select id="countAll" resultType="int">
     select count(*) from rms
   </select>

@@ -1,11 +1,13 @@
 package com.heun.trip.service.impl;
-
+ 
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.RoomDao;
+import com.heun.trip.dao.RoomFileDao;
 import com.heun.trip.domain.Convenience;
 import com.heun.trip.domain.Room;
+import com.heun.trip.domain.RoomFile;
 import com.heun.trip.domain.Safety;
 import com.heun.trip.service.RoomService;
 
@@ -13,9 +15,11 @@ import com.heun.trip.service.RoomService;
 public class RoomServiceImpl implements RoomService {
   
   RoomDao roomDao;
+  RoomFileDao roomFileDao;
   
-  public RoomServiceImpl(RoomDao roomDao) {
+  public RoomServiceImpl(RoomDao roomDao, RoomFileDao roomFileDao) {
     this.roomDao = roomDao;
+    this.roomFileDao = roomFileDao;
   }
   
   @Override
@@ -34,6 +38,12 @@ public class RoomServiceImpl implements RoomService {
       s.setRoomNo(room.getNo());
     }
     roomDao.insertSafety(safes);
+    
+    List<RoomFile> files = room.getPhotos();
+    for (RoomFile f : files) {
+      f.setRoomNo(room.getNo());
+    }
+    roomFileDao.insert(files);
     
     return 1;
   }

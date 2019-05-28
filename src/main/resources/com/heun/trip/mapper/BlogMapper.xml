@@ -5,14 +5,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.heun.trip.dao.BlogDao">
-  
+   
   <resultMap type="blog" id="blogMap">
     <id column="board_id" property="no"/>
     <result column="title" property="title"/>
     <result column="conts" property="content"/>
     <result column="main_photo" property="mainPhoto" />
     <result column="cdt" property="createdDate"/>
-    <result column="blike" property="blike"/>
     
     <result column="usr_id" property="userNo"/>
     <result column="name" property="name"/>
@@ -28,6 +27,14 @@
     <id column="rms_id" property="rmsNo"/>
     <result column="rm_name" property="rmsName"/>
   </resultMap>
+
+  <resultMap type="blike" id="blikeMap">
+    <id column="blike_no" property="blikeNo"/>
+    <result column="blike_check" property="blikeCheck"/>
+    <result column="board_id" property="boardNo"/>
+    <result column="usr_id" property="userNo"/>
+  </resultMap>
+
   
 
   <select id="findAll" resultMap="blogMap" parameterType="map">
@@ -76,6 +83,30 @@
       b.cdt desc
   </select>
   
+   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt asc
+  </select>
+  
+    
    <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
     select
       b.board_id,
@@ -184,13 +215,58 @@
       board_id = #{no} 
   </delete>
   
-  <update id="increaseLike" parameterType="int">
-    update board 
-    set 
-      blike = blike + 1 
-    where board_id = #{value}
-  </update>
-
+  <select id="checkView" resultType="int" parameterType="map">
+   select 
+    count(*) 
+   from 
+    blike 
+   where 
+    board_id=#{boardNo} and usr_id=#{userNo}
+  </select>
   
+  <select id="checkLike" resultType="int" parameterType="map">
+    select
+      blike_check
+    from
+      blike
+    where
+      board_id = #{boardNo} and usr_id = #{userNo}
+  </select>
+  
+  <update id="increaseLike" parameterType="map">
+    update
+      blike
+    set
+      blike_check = blike_check + 1
+    where
+      board_id = #{boardNo} and usr_id = #{userNo}  
+  </update>
+  
+  <update id="decreaseLike" parameterType="map">
+    update
+      blike
+    set
+      blike_check = blike_check - 1
+    where
+      board_id = #{boardNo} and usr_id = #{userNo}  
+  </update>
+  
+  <insert id="createLike" parameterType="blike">
+   insert into blike 
+    (board_id, usr_id)
+   values
+     (#{boardNo}, #{userNo});
+  </insert>
+
+  <select id="countLike" resultType="int" parameterType="int">
+    select 
+      count(blike_check) 
+    from 
+      board b 
+    left outer join 
+      blike l on l.board_id = b.board_id 
+    where 
+      l.blike_check = 1 and b.board_id = #{boardNo}
+  </select>
 </mapper>  
 
