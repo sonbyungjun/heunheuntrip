@@ -95,9 +95,13 @@ public class BlogController {
   }
 
   @PostMapping("add")
-  public Object add(Blog blog, MultipartFile[] files) throws IOException {
+  public Object add(Blog blog, MultipartFile[] files, HttpSession session) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
-
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    // 로긴 유저 정보 저장
+    blog.setUserNo(loginUser.getNo());
+    
     System.out.println(files);
     // 파일을 경로에 저장
     for (MultipartFile part : files) {
@@ -114,7 +118,6 @@ public class BlogController {
       Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
 
     }
-
 
     System.out.println("컨트롤러====> " + blog);
     try {
@@ -261,6 +264,18 @@ public class BlogController {
 
 
     List<Blog> blogs = blogService.gradeorder();
+
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", blogs);
+
+    return content;
+  }
+  
+  @GetMapping("likeorder")
+  public Object likeorder() { // localhost:8080/heunheuntrip/app/json/blog/likeorder
+
+
+    List<Blog> blogs = blogService.likebylist();
 
     HashMap<String,Object> content = new HashMap<>();
     content.put("list", blogs);

@@ -28,6 +28,7 @@
   <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../lib/lib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>  
   <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
   
 </head>
@@ -51,10 +52,10 @@
                   <div class="dropdown-menu heun-search">
                     <a class="dropdown-item new" data-no="createdDate">최신순</a>
                     <a class="dropdown-item old">오래된순</a>
-                     <a class="dropdown-item grade" data-no="grade">평점순</a>
+                    <a class="dropdown-item grade" data-no="grade">평점순</a>
+                    <a class="dropdown-item like" >인기순</a>
                   </div>
-                 <button type="submit" class="btn btn-primary mb-2 search-btn" value="">검색</button>
-                </div>
+         </div>
 
           <div class="col-auto">
             <a href='view.html' class="btn btn-primary btn check-btn">새 블로그 작성하기</a>
@@ -67,7 +68,7 @@
         <div class="clearfix"></div>
 
         <!-- 핸들바스 적용 지점 -->
-        <div class="item-listing blog-form-list row" style="width: auto;"></div>
+        <div class="item-listing blog-form-list row"></div>
 
       </div>
     </div>

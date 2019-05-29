@@ -16,6 +16,7 @@ public interface BlogService {
   List<Blog> order();
   List<Blog> deorder();
   List<Blog> gradeorder();
+  List<Blog> likebylist();
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);
   int checkLike(Blike blike);

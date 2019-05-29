@@ -21,6 +21,8 @@
     <result column="rm_name" property="rmsName"/>
     <result column="addr" property="rmsAddr"/>
     <result column="dtil_addr" property="rmsDetailAddr"/>
+    
+    <result column="blike_check" property="blike"/>
   </resultMap>
   
   <resultMap type="roomcheckout" id="roomcheckoutMap">
@@ -60,75 +62,7 @@
       board_id desc
   </select>
   
-   <select id="orderbylist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt,
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      b.cdt desc
-  </select>
-  
-   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt,
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      b.cdt asc
-  </select>
-  
-    
-   <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt,
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      r.grd desc
-  </select>
+ 
   
   <insert id="insert" parameterType="blog" >
     insert into board(
@@ -267,6 +201,102 @@
       blike l on l.board_id = b.board_id 
     where 
       l.blike_check = 1 and b.board_id = #{boardNo}
+  </select>
+  
+  <select id="orderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt desc
+  </select>
+  
+   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt asc
+  </select>
+  
+    
+   <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      r.grd desc
+  </select>
+  
+  <select id="likebylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr,
+      l.blike_check
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    left outer join
+     blike l on l.board_id=b.board_id
+    order by
+      l.blike_check desc
   </select>
 </mapper>  
 

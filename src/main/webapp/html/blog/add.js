@@ -3,49 +3,49 @@ checkout = $('#checkoutlist').html(),
 checkoutGenerator = Handlebars.compile(checkout);	
 imageCheck = false;	
 
- $(document).ready(function () {	
+$(document).ready(function () {	
   $('#heun-header').load('../header.html', function () {	
     $('.heun-header-nav').removeClass('navbar-over absolute-top');	
   });	
 
-   $('#heun-footer').load('../footer.html', function () {	
+  $('#heun-footer').load('../footer.html', function () {	
   });	
 
-   loadCheckOut();	
+  loadCheckOut();	
 
-   $('#summernote').summernote({	
+  $('#summernote').summernote({	
     placeholder: 'Hello bootstrap 4',	
     tabsize: 2,	
     height: 400	
   });	
 
-   if(imageCheck == false){	
+  if(imageCheck == false){	
     $('#add-btn').hide();	
   } 	
 })	
 
 
- function loadCheckOut() {	
+function loadCheckOut() {	
   $.getJSON('../../app/json/blog/roomCheckOut', function (obj) {	
 
-     $('#title').attr("data-no", obj.userNo);	
+    $('#title').attr("data-no", obj.userNo);	
     $('#title').attr("data-rno", obj.list[0].rmsNo);	
 
-     $(checkoutGenerator(obj)).appendTo('.heun-checkout');	
+    $(checkoutGenerator(obj)).appendTo('.heun-checkout');	
     $(document.body).trigger('loaded-checkout');	
   });	
 };	
 
- function check_input() {	
+function check_input() {	
   dropdown = $('.heun-cc').html();	
   summernote = $('#summernote').summernote('code');	
   title = $('.heun-title').val();	
 
-   console.log(title);	
+  console.log(title);	
   console.log(dropdown);	
   console.log(summernote);	
 
-   if(title == undefined || title == "") {	
+  if(title == undefined || title == "") {	
     Swal.fire({	
       type: 'error',	
       title: '필수 입력사항이 비었습니다.',	
@@ -69,7 +69,7 @@ imageCheck = false;
   }	
 }	
 
- $(document.body).on('loaded-checkout', function () {	
+$(document.body).on('loaded-checkout', function () {	
   $('.heun-checkout > a').on('click', function () {	
     console.log(this);	
     $('#dropdownMenuButton').html($(this).html());	
@@ -78,7 +78,7 @@ imageCheck = false;
 })	
 
 
- $('#error-btn').on('click', function(){	
+$('#error-btn').on('click', function(){	
   Swal.fire({	
     type: 'error',	
     title: '필수 입력사항이 비었습니다.',	
@@ -88,7 +88,7 @@ imageCheck = false;
 
 
 
- $('#fileupload').fileupload({	
+$('#fileupload').fileupload({	
   url: '../../app/json/blog/add',	
   dataType: 'json',         	
   add: function (e, data) {	
@@ -103,7 +103,7 @@ imageCheck = false;
     });	
     $('#add-btn').click(function() {	
 
-       Swal.fire({	
+      Swal.fire({	
         title: '잠깐!',	
         text: "후기를 등록하시겠어요?",	
         type: 'question',	
@@ -114,33 +114,32 @@ imageCheck = false;
         cancelButtonText: '아뇨, 다시 한번 볼게요!'	
       }).then((result) => {	
 
-         data.formData = {	
-          userNo: $('#title').attr('data-no'),	
-          title: $('#title').val(),	
-          content: $('#summernote').summernote('code'),	
-          rmsNo: $('#title').attr('data-rno')	
+        data.formData = {	
+            title: $('#title').val(),	
+            content: $('#summernote').summernote('code'),	
+            rmsNo: $('#title').attr('data-rno')	
         };	
 
 
-         if(check_input() == "error"){	
+        if(check_input() == "error"){	
           return;	
         }	
 
-         data.submit();	
+        data.submit();	
 
-         if (result.value) {	
+        if (result.value) {	
 
-           Swal.fire(	
-            '성공!!',	
-            '당신의 후기가 성공적으로 등록됐어요.',	
-            'success'	
+          Swal.fire(	
+              '성공!!',	
+              '당신의 후기가 성공적으로 등록됐어요.',	
+              'success'	
           ).then(() => {	
-             location.href="index.html";	
+            location.href="index.html";	
           })	
         }	
       })	
 
-     });	
+    });	
   }	
 }); 	
 

@@ -100,6 +100,11 @@ public class BlogServiceImpl implements BlogService {
     
     return blogDao.deorderbylist();
   }
+
+  @Override
+  public List<Blog> likebylist() {
+    return blogDao.likebylist();
+  }
 }
 
 

@@ -1,10 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap'); 
 
+@font-face { 
+  font-family: 'BBTreeGL'; 
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); 
+  font-weight: normal; 
+  font-style: normal; 
+  }
 
 h1 {
     text-align: center;
     margin: 30px;
-    font-family: 'Nanum Myeongjo', serif;
+    font-family: 'BBTreeGL';
+}
+
+#content {
+    font-family: 'BBTreeGL';
 }
  
 .item-meta-info {

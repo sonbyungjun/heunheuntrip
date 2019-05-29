@@ -16,6 +16,7 @@ public interface BlogDao {
   List<Blog> orderbylist();
   List<Blog> orderbygradelist();
   List<Blog> deorderbylist();
+  List<Blog> likebylist();
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);
   int checkLike(Blike blike);

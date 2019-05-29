@@ -5,74 +5,74 @@ trGenerator = Handlebars.compile(templateSrc);
 
 //header, footer 가져오기
 $(document).ready(function () {
-	$('#heun-header').load('../header.html', function () {
-		$('.heun-header-nav').removeClass('navbar-over absolute-top');
-	});
+  $('#heun-header').load('../header.html', function () {
+    $('.heun-header-nav').removeClass('navbar-over absolute-top');
+  });
 
-	$('#heun-footer').load('../footer.html', function () {
-	});
+  $('#heun-footer').load('../footer.html', function () {
+  });
 })
 
 
 function loadList() {
-   
-	
-	//보여주기위한 1페이지를 만들기 위해 초기화작업
-	$('.blog-form-list').css("width", "1150");
-	$('.blog-form-list').css("height", "500px");
-	$('.blog-form-list').css("overflow", "hidden");
-	
-	
-	$.ajax({ 
-		url: '../../app/json/blog/list',
-		type: 'GET',
-		dataType: 'json',
-		success: function (response) {
 
-			$(trGenerator(response)).appendTo(form);
 
-			// ig.prepend($(trGenerator(response))).appendTo(form);
+  //보여주기위한 1페이지를 만들기 위해 초기화작업
+  $('.blog-form-list').css("width", "auto");
+  $('.blog-form-list').css("height", "500px");
+  $('.blog-form-list').css("overflow", "hidden");
 
-			$(document.body).trigger('loaded-list');
 
-		},
-		fail: function (error) {
-			alert('시스템 오류가 발생했습니다.');
-		}
-	});
-	
-	
-	
+  $.ajax({ 
+    url: '../../app/json/blog/list',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+
+      $(trGenerator(response)).appendTo(form);
+
+      // ig.prepend($(trGenerator(response))).appendTo(form);
+
+      $(document.body).trigger('loaded-list');
+
+    },
+    fail: function (error) {
+      alert('시스템 오류가 발생했습니다.');
+    }
+  });
+
+
+
 } // loadList()
 
 
 $(document).scroll(function(){
-    let $window = $(this);
-    let scrollTop = $(window).scrollTop();
-    let windowHeight = $(window).height();
-    let documentHeight = $(document).height();
-    
-   // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
-    
-    // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
-    if( scrollTop + windowHeight + 30 > documentHeight ){
-    	$('.blog-form-list').css("height", documentHeight);
-    }
+  let $window = $(this);
+  let scrollTop = $(window).scrollTop();
+  let windowHeight = $(window).height();
+  let documentHeight = $(document).height();
+
+  // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+
+  // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+  if( scrollTop + windowHeight + 30 > documentHeight ){
+    $('.blog-form-list').css("height", documentHeight );
+  }
 })
 
 
 ////스크롤 이벤트를 발생시키는 부분
 //$(document).scroll(function() {
-//	maxHeight = $(document).height();
-//	currentScroll = $(window).scrollTop() + $(window).height();
-//
-//	if (maxHeight <= currentScroll) {
-//		console.log("무한스크롤 발생");
-//
-//		$('.blog-form-list').css("height", maxHeight);
-//	}
-//
-//	//$(window).trigger("scroll");
+//maxHeight = $(document).height();
+//currentScroll = $(window).scrollTop() + $(window).height();
+
+//if (maxHeight <= currentScroll) {
+//console.log("무한스크롤 발생");
+
+//$('.blog-form-list').css("height", maxHeight);
+//}
+
+////$(window).trigger("scroll");
 //});
 
 
@@ -85,31 +85,36 @@ loadList();
 
 $(document.body).bind('loaded-list', () => {
 
-	$('.bit-view-link').on('click', function (e) {
-		e.preventDefault();
-		console.log(e.target);
-		 window.location.href = 'view.html?no=' + $(e.target).attr('data-no');
-	})
+  $('.bit-view-link').on('click', function (e) {
+    e.preventDefault();
+    console.log(e.target);
+    window.location.href = 'view.html?no=' + $(e.target).attr('data-no');
+  })
 
-	$('.check-btn').on('click', function (e) {
-		e.preventDefault();
-		$.ajax({
-			url: '../../app/json/blog/checkUser',
-			type: 'GET',
-			dataType: 'json',
-			success: function (response) {
-				if (response.status == 'success') {
+  $('.check-btn').on('click', function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: '../../app/json/blog/checkUser',
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+        if (response.status == 'success') {
 
-					location.href = 'add.html';
-				} else {
-					alert('체크아웃 목록이 없어 블로그를 작성할 수 없습니다.');
-				}
-			},
-			fail: function (error) {
-				alert('시스템 오류가 발생했습니다.');
-			}
-		});
-	});
+          location.href = 'add.html';
+          
+        } else {
+          Swal.fire({
+            type: 'error',
+            title: '에러!',
+            text: '체크아웃 목록이 없어 블로그를 작성할 수 없습니다.'
+          })
+        }
+      },
+      fail: function (error) {
+        alert('시스템 오류가 발생했습니다.');
+      }
+    });
+  });
 });
 
 
@@ -117,81 +122,87 @@ $(document.body).bind('loaded-list', () => {
 
 
 $('.heun-search > a').on('click', function() {
+  
+  $('.searchselect').html($(this).html());
 
-	$('.searchselect').html($(this).html());
+    form.html('');
 
-	$('.search-btn').on('click', function(e){
+    if($('.searchselect').html() == "최신순") {
+      console.log($('.searchselect').html());
+      $.ajax({
+        url: '../../app/json/blog/order',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
 
-		e.preventDefault();
+          $(trGenerator(response)).appendTo(form);
+          $(document.body).trigger('loaded-list');
+          return;
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
+    } 
+    
+    if($('.searchselect').html() == "인기순") {
+      console.log($('.searchselect').html());
+      $.ajax({
+        url: '../../app/json/blog/likeorder',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
 
-		form.html('');
-		
-		
+
+          $(trGenerator(response)).appendTo(form);
+          $(document.body).trigger('loaded-list');
+          return;
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
+    } 
+
+    if($('.searchselect').html() == "평점순") {
+      console.log($('.searchselect').html());
+      $.ajax({
+        url: '../../app/json/blog/gradeorder',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
 
 
-		if($('.searchselect').html() == "최신순") {
-			console.log($('.searchselect').html());
-			$.ajax({
-				url: '../../app/json/blog/order',
-				type: 'GET',
-				dataType: 'json',
-				success: function (response) {
+          $(trGenerator(response)).appendTo(form);
+          $(document.body).trigger('loaded-list');
+          return;
 
-					form.html('');
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
 
-					$(trGenerator(response)).appendTo(form);
-					$(document.body).trigger('loaded-list');
-					return;
-				},
-				fail: function (error) {
-					alert('시스템 오류가 발생했습니다.');
-				}
-			});
-		} 
-		
-		if($('.searchselect').html() == "평점순") {
-			console.log($('.searchselect').html());
-			$.ajax({
-				url: '../../app/json/blog/gradeorder',
-				type: 'GET',
-				dataType: 'json',
-				success: function (response) {
+    }
 
-					form.html('');
+    if($('.searchselect').html() == "오래된순") {
+      console.log($('.searchselect').html());
+      $.ajax({
+        url: '../../app/json/blog/deorder',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
 
-					$(trGenerator(response)).appendTo(form);
-					$(document.body).trigger('loaded-list');
-					return;
 
-				},
-				fail: function (error) {
-					alert('시스템 오류가 발생했습니다.');
-				}
-			});
+          $(trGenerator(response)).appendTo(form);
+          $(document.body).trigger('loaded-list');
+          return;
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
 
-		}
-		
-		if($('.searchselect').html() == "오래된순") {
-			console.log($('.searchselect').html());
-			$.ajax({
-				url: '../../app/json/blog/deorder',
-				type: 'GET',
-				dataType: 'json',
-				success: function (response) {
-
-					form.html('');
-
-					$(trGenerator(response)).appendTo(form);
-					$(document.body).trigger('loaded-list');
-					return;
-				},
-				fail: function (error) {
-					alert('시스템 오류가 발생했습니다.');
-				}
-			});
-
-		}
-
-	});
+    }
 
 })
