@@ -88,9 +88,9 @@ public class MemberController {
       } catch (IOException e) {
         e.printStackTrace();
       }
-      member.setPhoto(filename);
+      member.setPhoto(filename+".jpeg");
     } else {
-      String deft = servletContext.getRealPath("/images/default.jpg");
+      String deft ="default.jpeg";
       member.setPhoto(deft);
     }
     

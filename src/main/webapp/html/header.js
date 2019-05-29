@@ -68,14 +68,14 @@ function loadLoginUser() {
 	 var logoutState = $('#logout-btn'),
      LoginState = $('#login-btn');
 	$.ajax({
-		url: '/heunheuntrip//app/json/auth/user',
+		url: '/heunheuntrip/app/json/auth/user',
 		type: 'GET',
 		dataType: 'json',
 		success: function (response) {
 			if (response.status == 'success'){
 		$('#login-btn').hide();
 		      $('#login-username').append(response.user.name +"님");
-		      $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + ".jpeg')");
+		      $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
 			} else {
 				$('#login-btn').show();
 				$('#logout-btn').hide();

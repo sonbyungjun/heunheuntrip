@@ -21,12 +21,29 @@ $("#name").keyup(function () {
 
 $("#pwd").keyup(function(){
 	var pwd=$(this).val();
+	var rePwd = $("#rePwd").val();
 	// 비밀번호 검증할 정규 표현식
 	var reg = /^([0-9a-zA-Z_~!@#$%^&*()_+|<>?:{}]){8,16}$/;
 	if (reg.test(pwd)) {//정규표현식을 통과 한다면
 		$("#pwdRegErr").hide();
 		successState("#pwd");
-	} else {//정규표현식을 통과하지 못하면
+		
+		if (pwd == rePwd){
+			$("#rePwdErr").hide();
+			successState("#rePwd");
+		} else {
+			errorState("#rePwd");
+		}
+	} else if(pwd != rePwd &
+			!reg.test(pwd)){
+		errorState("#rePwd");
+		errorState("#pwd");
+		$("#pwdRegErr").show();
+	}else if(pwd == rePwd &
+			reg.test(pwd)){
+		successState("#rePwd");
+		
+	}else if(!reg.test(pwd)){//정규표현식을 통과하지 못하면
 		$("#pwdRegErr").show();
 		errorState("#pwd");
 	}
@@ -179,7 +196,7 @@ function chkValue() {
 					title:"회원 가입을 환영 합니다!"
 				}).then((result) =>{
 					if(result.value){
-						location.href='login.html'
+						location.href='signin.html'
 					}	
 				})
 			} 
