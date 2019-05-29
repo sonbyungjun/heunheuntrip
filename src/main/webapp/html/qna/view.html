@@ -16,6 +16,7 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
   <link href="view.css" rel="stylesheet">
 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -27,6 +28,7 @@
   <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
   <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../summernote/summernote-lite.js"></script>
   <script src="../../lib/lib.js"></script>
 
 
@@ -41,7 +43,7 @@
 
     <div id="content">
       <div class="container">
-        <h1></h1>
+       
 
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
@@ -58,7 +60,7 @@
                         </button>
                         <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
                         <input type = "hidden" id="no">
-                        <h4 class="heun-form update-title" id="title" name='tilte'></h4>
+                        <h4 class="heun-form update-title" id="title"></h4>
                       </div>
                     </div>
                   </div>
@@ -72,7 +74,7 @@
                 <div class="clearfix"></div>
                 <div class="item-detail">
                   <div class="col-sm-12">
-                    <pre class="heun-form heun-content update-content" id='cont' name='content' rows='5'>내용</pre>
+                    <pre class="heun-form heun-content update-content" id='cont' ></pre>
                   </div>
                    <div class="col-sm-12">
                     <input type = "hidden" class="form-control is-valid form-control heun-form update-password" id="password" name='password' placeholder="비밀번호 재설정(선택)">

@@ -1,7 +1,9 @@
 var form = $('.blog-form-list'),
 templateSrc = $('#tr-template').html(),
-trGenerator = Handlebars.compile(templateSrc);
-
+trGenerator = Handlebars.compile(templateSrc),
+i = 1,
+pageNo = 0,
+totalPage = 0;
 
 //header, footer 가져오기
 $(document).ready(function () {
@@ -14,73 +16,68 @@ $(document).ready(function () {
 })
 
 
-function loadList() {
+var timer;
+
+
+
+
+
+function loadList(pn) {   
    
+   $.getJSON('../../app/json/blog/list?pageNo=' + pn,
+        function(obj) {
+  
+      pageNo = obj.pageNo;
+      totalPage = obj.totalPage
+     
+      obj.pagination = {
+          page: obj.pageNo,
+          pageCount: obj.totalPage
+      };
+  
+      $(trGenerator(obj)).appendTo(form);
+
+      ++window.i;
+      
+      $(document.body).trigger('loaded-list');
+      
+		
+  
+    }); // Bitcamp.getJSON(
+  
+  } // loadList()
+
+
 	
-	//보여주기위한 1페이지를 만들기 위해 초기화작업
-	$('.blog-form-list').css("width", "1150");
-	$('.blog-form-list').css("height", "500px");
-	$('.blog-form-list').css("overflow", "hidden");
-	
-	
-	$.ajax({ 
-		url: '../../app/json/blog/list',
-		type: 'GET',
-		dataType: 'json',
-		success: function (response) {
-
-			$(trGenerator(response)).appendTo(form);
-
-			// ig.prepend($(trGenerator(response))).appendTo(form);
-
-			$(document.body).trigger('loaded-list');
-
-		},
-		fail: function (error) {
-			alert('시스템 오류가 발생했습니다.');
-		}
-	});
-	
-	
-	
-} // loadList()
-
-
-$(document).scroll(function(){
-    let $window = $(this);
-    let scrollTop = $(window).scrollTop();
-    let windowHeight = $(window).height();
-    let documentHeight = $(document).height();
-    
-   // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
-    
-    // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
-    if( scrollTop + windowHeight + 30 > documentHeight ){
-    	$('.blog-form-list').css("height", documentHeight);
-    }
-})
-
-
-////스크롤 이벤트를 발생시키는 부분
-//$(document).scroll(function() {
-//	maxHeight = $(document).height();
-//	currentScroll = $(window).scrollTop() + $(window).height();
-//
-//	if (maxHeight <= currentScroll) {
-//		console.log("무한스크롤 발생");
-//
-//		$('.blog-form-list').css("height", maxHeight);
-//	}
-//
-//	//$(window).trigger("scroll");
-//});
-
-
-
 
 //페이지를 출력한 후 1페이지 목록을 로딩한다.
-loadList();
+loadList(window.i);
 
+
+$(document).scroll(function(event){
+   
+	
+//    let scrollTop = $(window).scrollTop();
+//    let windowHeight = $(window).height();
+//    let documentHeight = $(document).height();
+	  var maxHeight = $(document).height();
+	  var currentScroll = $(window).scrollTop() + $(window).height();
+    
+    
+    // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+    if( maxHeight <= currentScroll + 20 ){
+    	    	
+    	
+    	if (totalPage <= pageNo) {
+    	return;	
+    	}
+   
+    	
+    		console.log(window.i);
+    		loadList(window.i);
+   
+    }
+})
 
 
 $(document.body).bind('loaded-list', () => {

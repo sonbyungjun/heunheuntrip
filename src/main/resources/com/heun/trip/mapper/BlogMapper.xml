@@ -58,7 +58,16 @@
       rms r on b.rms_id=r.rms_id
     order by
       board_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if> 
   </select>
+  
+  
+    <select id="countAll" resultType="int">
+    select count(*) from board
+  </select>
+  
   
    <select id="orderbylist" resultMap="blogMap" parameterType="map">
     select

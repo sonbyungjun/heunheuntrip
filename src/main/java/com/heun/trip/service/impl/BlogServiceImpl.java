@@ -1,5 +1,6 @@
 package com.heun.trip.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.BlogDao;
@@ -19,8 +20,18 @@ public class BlogServiceImpl implements BlogService {
   }
 
   @Override
-  public List<Blog> list() {
-    return blogDao.findAll();
+  public List<Blog> list(int pageNo, int pageSize) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return blogDao.findAll(params);
+  }
+  
+  @Override
+  public int size() {
+    return blogDao.countAll();
   }
        
   @Override

@@ -114,13 +114,23 @@ $(document).ready(function(){
 
 $('#update-btn').on('click', function() {
 
-  $('.update-title').contents().unwrap().wrap( '<textarea id="title"></textarea>' );
-  $('.update-content').contents().unwrap().wrap( '<textarea id="cont"></textarea>' );
+  $('h4').contents().unwrap().wrap( '<textarea id="titl"></textarea>' );
+  $('#cont').contents().unwrap().wrap( '<div id="summernote"></div>' );
   $('.update-password').attr('type', 'password');
+  
+  $('#summernote').summernote({  //썸머노트 활성화 시작
+      placeholder: 'Hello bootstrap 4',
+      tabsize: 2,
+      height: 400
+    });
+  
+  
   if($('#delete-btn').css("display") != "none") {
     $('#delete-btn').css("display", "none");
     $('#re-btn').css("display", "none");
     $('.bit-view-password').show();
+ 
+  
   } else{
     updateDate();
   }
@@ -130,13 +140,15 @@ $('#update-btn').on('click', function() {
 
 
 function updateDate() {
+ var markupStr = $('#summernote').summernote('code');
+	
   $.ajax({
     url: '../../app/json/qna/update',
     type: 'POST',
     data: {
       qnaNo: $('#no').val(),      
-      title: $('#title').val(),
-      content: $('#cont').val(),
+      title: $('#titl').val(),
+      content: markupStr,
       password: $('#password').val()
     },
     dataType: 'json',
