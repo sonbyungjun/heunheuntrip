@@ -16,10 +16,10 @@ public interface BlogDao {
   int delete(int no);
   int deletelike(int no);
   int update(Blog blog);
-  List<Blog> orderbylist();
+  List<Blog> orderbylist(Map<String,Object> params);
   List<Blog> orderbygradelist();
-  List<Blog> deorderbylist();
-  List<Blog> likebylist(); 
+  List<Blog> deorderbylist(Map<String,Object> params);
+  List<Blog> likebylist(Map<String,Object> params); 
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);
   int checkLike(Blike blike);

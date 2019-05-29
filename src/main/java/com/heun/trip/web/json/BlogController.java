@@ -110,35 +110,66 @@ public class BlogController {
 
   @GetMapping("list")
   public Object list(@RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="8") int pageSize) { // localhost:8080/heunheuntrip/app/json/blog/list
-  
-  
+      @RequestParam(defaultValue="8") int pageSize,
+      @RequestParam(value="order") int order,
+      @RequestParam(value="blike") int blike,
+      @RequestParam(value="deorder") int deorder
+      ) { // localhost:8080/heunheuntrip/app/json/blog/list
+
+    //System.out.println(order);
+
+
+
     if (pageSize < 1 || pageSize > 8) 
       pageSize = 7;
-    
-     int rowCount = blogService.size();
-    
-     int totalPage = rowCount / pageSize;
-     if (rowCount % pageSize > 0)
-       totalPage++;
-     
-     if (pageNo < 1) 
-       pageNo = 1;
-     else if (pageNo > totalPage)
-       pageNo = totalPage;
-     
-    List<Blog> blogs = blogService.list(pageNo, pageSize);
-  
-  
+
+
+    int rowCount = blogService.size();
+
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
-  
+
+    //여기서 리스트를 뿌려주는 형식이 정해짐
+    if(order == 1) {
+      List<Blog> blogs = blogService.order(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
+    if(blike == 1) {
+      List<Blog> blogs = blogService.likebylist(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
+    if(deorder == 1) {
+      List<Blog> blogs = blogService.deorder(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
+    
+      List<Blog> blogs = blogService.list(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+     
     return content;
   }
-
+  
+  
   @GetMapping("detail")
   public Object detail(int no, HttpSession session) {
     Blog blog = blogService.get(no);
@@ -302,39 +333,7 @@ public class BlogController {
     return content;
   }
 
-  @GetMapping("order")
-  public Object order() { // localhost:8080/heunheuntrip/app/json/blog/order
-
-    List<Blog> blogs = blogService.order();
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-
-    return content;
-  }
-  
-  @GetMapping("deorder")
-  public Object deorder() { // localhost:8080/heunheuntrip/app/json/blog/order
-    
-    List<Blog> blogs = blogService.deorder();
-    
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-    
-    return content;
-  }
-
-  @GetMapping("likeorder")
-  public Object likeorder() { // localhost:8080/heunheuntrip/app/json/blog/likeorder
-  
-    List<Blog> blogs = blogService.likebylist();
-  
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-  
-    return content;
-  }
-
+ 
   @GetMapping("gradeorder")
   public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
 

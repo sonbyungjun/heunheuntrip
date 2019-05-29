@@ -34,6 +34,34 @@ public class BlogServiceImpl implements BlogService {
   }
   
   @Override
+  public List<Blog> order(int pageNo, int pageSize) {
+  
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return blogDao.orderbylist(params);
+  }
+  
+  @Override
+  public List<Blog> deorder(int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    return blogDao.deorderbylist(params);
+
+  }
+
+  @Override
+  public List<Blog> likebylist(int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    return blogDao.likebylist(params);
+  }
+
+  
+  @Override
   public int add(Blog blog) {
     blogDao.insert(blog);
     List<BlogFile> files = blog.getPhotoFiles();
@@ -116,18 +144,7 @@ public class BlogServiceImpl implements BlogService {
   public int countLike(int no) {
     return blogDao.countLike(no);
   }
-  @Override
-  public List<Blog> deorder() {
-    
-    return blogDao.deorderbylist();
-
-  }
-
-  @Override
-  public List<Blog> order() {
-    
-    return blogDao.orderbylist();
-  }
+ 
 
   @Override
   public List<Blog> gradeorder() {
@@ -135,11 +152,7 @@ public class BlogServiceImpl implements BlogService {
     return blogDao.orderbygradelist();
   }
 
-  @Override
-  public List<Blog> likebylist() {
-    return blogDao.likebylist();
-  }
-
+  
 }
 
 
