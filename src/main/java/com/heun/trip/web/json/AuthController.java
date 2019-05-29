@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
@@ -76,6 +77,23 @@ public class AuthController {
     
     return content;
   }
+  
+  @RequestMapping(value="login", method=RequestMethod.GET)
+  public String loginGET() {
+      
+      return "user/login";
+  }
+  
+  @RequestMapping(value="loginPostNaver", method=RequestMethod.GET)
+  public String loginPOSTNaver(HttpSession session) {
+      
+      return "user/loginPostNaver";
+  }
+  
+  
+  
+  
+  
 }
 
 
