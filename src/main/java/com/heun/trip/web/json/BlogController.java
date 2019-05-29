@@ -105,6 +105,16 @@ public class BlogController {
     List<BlogFile> photoFiles = new ArrayList<>();
     
     for (String s : filenames) {
+      System.out.println(blog.getContent().contains(s));
+      if (!blog.getContent().contains(s)) {
+        String uploadDir = servletContext.getRealPath(
+            "/upload/blogphoto");
+        try {
+          new File(uploadDir + "/" + s).delete();
+        } catch (Exception e) {
+        }
+        continue;
+      }
       BlogFile file = new BlogFile();
       file.setFile(s);
       photoFiles.add(file);

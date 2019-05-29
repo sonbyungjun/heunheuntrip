@@ -50,22 +50,13 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public int add(Blog blog) {
-    
     blogDao.insert(blog);
-    
     List<BlogFile> files = blog.getPhotoFiles();
     for (BlogFile f : files) {
       f.setBlogNo(blog.getNo());
     }
-    
     blogFileDao.insert(files);
-    
-    
     System.out.println("서비스====> " + blog);
-    
-    
-    
-    
     return 1;
   }
 
