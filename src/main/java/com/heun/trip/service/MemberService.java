@@ -9,6 +9,7 @@ public interface MemberService {
   Member get(int no);
   Member get(String email, String password);
   int update(Member member);
+  int Emailupdate(Member member); 
   int delete(int no); 
   int size(String search);
 }

@@ -1,5 +1,5 @@
 package com.heun.trip.domain;
-
+ 
 public class Blike {
   private int blikeNo;
   private int blikeCheck;

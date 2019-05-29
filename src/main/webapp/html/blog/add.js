@@ -3,7 +3,8 @@ checkout = $('#checkoutlist').html(),
 checkoutGenerator = Handlebars.compile(checkout);	
 imageCheck = false;	
 
-$(document).ready(function () {	
+ $(document).ready(function () {	
+
   $('#heun-header').load('../header.html', function () {	
     $('.heun-header-nav').removeClass('navbar-over absolute-top');	
   });	

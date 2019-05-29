@@ -99,12 +99,14 @@ public class BlogServiceImpl implements BlogService {
   public List<Blog> deorder() {
     
     return blogDao.deorderbylist();
+
   }
 
   @Override
   public List<Blog> likebylist() {
     return blogDao.likebylist();
   }
+
 }
 
 

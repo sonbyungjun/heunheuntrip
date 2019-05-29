@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -108,21 +108,24 @@
       rms_id,
       rm_name,
       rm_chge,
-      come,
+      traf,
       bed,
       bath,
+      thum
     from
       rms
     order by
-      r.rms_id desc
+      rms_id desc
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>
- <!--
+  
   <select id="countAll" resultType="int">
     select count(*) from rms
   </select>
+  
+ <!--
   
   <select id="findByNo" resultMap="roomPhotoMap" parameterType="int">
     select

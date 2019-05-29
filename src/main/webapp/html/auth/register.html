@@ -61,6 +61,10 @@
 
   }
 </style>
+<style>
+.form-group {
+}
+</style>
 
 <body>
   <div id='main'>
@@ -97,19 +101,20 @@
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
+                  <div>
                 <label class="control-label" for="email">이메일</label>
 
                 <div class="row form-group has-feedback in-line">
                   <div class="col col-lg-8">
                     <input class="form-control required" type="text" data-name='이메일' name="email" id="email" />
+                <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시입력해 주세요.</span> 
                   </div>
 
                   <div class="col col-lg-4">
                     <button type='button' class='btn btn-primary btn-lg' id='add-btn' style='font-size:small' disabled="disabled">인증번호 받기</button>
                   </div>
                 </div>
-
-                <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시입력해 주세요.</span> 
+                    </div>
                 <span class="glyphicon glyphicon-ok form-control-feedback"></span>
 
                 <div class="form-group has-feedback">
@@ -174,7 +179,9 @@
     <i class='fa fa-angle-up'></i>
   </button>
   <div id='heun-footer'></div>
+   <script src='../header.js'></script>
   <script src='register.js'></script>
+  
 </body>
 
 </html>

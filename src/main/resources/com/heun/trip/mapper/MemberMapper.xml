@@ -113,6 +113,15 @@
       usr_id = #{no}
   </update>
   
+  <update id="Emailupdate" parameterType="member">
+    update usr
+    <set>
+      <if test="password != null">pwd = password(#{password})</if>
+    </set>  
+    where 
+      email = #{email}
+  </update>
+  
    <delete id="delete" parameterType="int">
     delete from usr 
     where usr_id = #{value}

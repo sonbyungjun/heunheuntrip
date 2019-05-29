@@ -1,7 +1,7 @@
 var form = $('.blog-form-list'),
 templateSrc = $('#tr-template').html(),
 trGenerator = Handlebars.compile(templateSrc);
-
+ 
 
 //header, footer 가져오기
 $(document).ready(function () {
