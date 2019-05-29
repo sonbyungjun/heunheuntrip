@@ -84,10 +84,10 @@ public class RoomController {
 
       System.out.println(room);
       roomSerive.add(room);
-      content.put("state", "success");
+      content.put("status", "success");
       
     } catch (Exception e) {
-      content.put("state", "fail");
+      content.put("status", "fail");
       content.put("message", e.getMessage());
     }
 
