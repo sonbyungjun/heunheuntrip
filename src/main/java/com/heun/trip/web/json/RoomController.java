@@ -135,11 +135,11 @@ public class RoomController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize
+      @RequestParam(defaultValue="12") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
 
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
+    if (pageSize < 1 || pageSize > 12) 
+      pageSize = 12;
 
     int rowCount = roomSerive.size();
 

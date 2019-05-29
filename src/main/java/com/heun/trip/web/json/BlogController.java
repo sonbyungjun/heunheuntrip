@@ -2,6 +2,7 @@ package com.heun.trip.web.json;
  
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
+import com.heun.trip.domain.BlogFile;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
@@ -96,14 +98,23 @@ public class BlogController {
   }
 
   @PostMapping("add")
-  public Object add(Blog blog, MultipartFile[] files, HttpSession session) throws IOException {
+  public Object add(Blog blog, MultipartFile[] files, HttpSession session, String[] filenames) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    List<BlogFile> photoFiles = new ArrayList<>();
+    
+    for (String s : filenames) {
+      BlogFile file = new BlogFile();
+      file.setFile(s);
+      photoFiles.add(file);
+    }
+    
+    blog.setPhotoFiles(photoFiles);
     
     // 로긴 유저 정보 저장
     blog.setUserNo(loginUser.getNo());
     
-    System.out.println(files);
     // 파일을 경로에 저장
     for (MultipartFile part : files) {
       if (part.getSize() == 0) 
@@ -117,10 +128,8 @@ public class BlogController {
       blog.setMainPhoto(filename);
 
       Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
-
     }
 
-    System.out.println("컨트롤러====> " + blog);
     try {
       blogService.add(blog);
       content.put("status", "success");
@@ -129,6 +138,28 @@ public class BlogController {
       content.put("message", e.getMessage());
     }
     return content;
+  }
+  
+  @PostMapping("addfile")
+  public Object addFile(MultipartFile[] file) {
+    
+    String uploadDir = servletContext.getRealPath(
+        "/upload/blogphoto");
+
+    String filename = UUID.randomUUID().toString();
+    File originFile = new File(uploadDir + "/" + filename);
+
+    for (MultipartFile f : file) {
+      
+      if (!f.isEmpty()) {
+        try {
+          f.transferTo(originFile);
+        } catch(Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    return filename;
   }
 
   @GetMapping("roomCheckOut")
@@ -141,7 +172,6 @@ public class BlogController {
       content.put("userNo", userNo);
       content.put("userName", userName);
       List<Roomcheckout> roomCheckOut = blogService.roomCheckOut(userNo);
-      System.out.println(userNo);
       content.put("list", roomCheckOut);
     }
     return content;

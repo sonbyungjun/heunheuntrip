@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.BlogDao;
+import com.heun.trip.dao.BlogFileDao;
 import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
+import com.heun.trip.domain.BlogFile;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
 
@@ -13,10 +15,12 @@ import com.heun.trip.service.BlogService;
 public class BlogServiceImpl implements BlogService {
 
   BlogDao blogDao;
+  BlogFileDao blogFileDao;
   
 
-  public BlogServiceImpl(BlogDao blogDao) {
+  public BlogServiceImpl(BlogDao blogDao, BlogFileDao blogFileDao) {
     this.blogDao = blogDao;
+    this.blogFileDao = blogFileDao;
   }
 
   @Override
@@ -46,8 +50,23 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public int add(Blog blog) {
+    
+    blogDao.insert(blog);
+    
+    List<BlogFile> files = blog.getPhotoFiles();
+    for (BlogFile f : files) {
+      f.setBlogNo(blog.getNo());
+    }
+    
+    blogFileDao.insert(files);
+    
+    
     System.out.println("서비스====> " + blog);
-    return blogDao.insert(blog);
+    
+    
+    
+    
+    return 1;
   }
 
   @Override

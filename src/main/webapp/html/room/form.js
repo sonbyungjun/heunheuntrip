@@ -6,7 +6,7 @@ var rule = [
   {
     id: 'area',
     ele: $('#area'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    Pattern: /^[\s\S]{1,20}$/,
     message: '1자 이상 20자 이하로 입력해주세요.'
   },
   {
@@ -24,13 +24,13 @@ var rule = [
   {
     id: 'contents',
     ele: $('#contents'),
-    Pattern: /^[\s\S]{10,500}$/,
+    Pattern: /^[\s\S]{10,1000}$/,
     message: '10자 이상 500자 이하로 작성해주세요!'
   },
   {
     id: 'heun-name',
     ele: $('#heun-name'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    Pattern: /^[\s\S]{1,20}$/,
     message: '1자 이상 20자 이하로 입력해주세요.'
   },
   {
@@ -50,7 +50,7 @@ var slideRule = [
       {
         name: 'area',
         InputEle: $('#area'),
-        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        Pattern: /^[\s\S]{1,20}$/,
         message: '지역을 입력해주세요. \n(1자 이상 20자 이하)'
       }
     ]
@@ -122,7 +122,7 @@ var slideRule = [
       {
         name: 'contents',
         InputEle: $('#contents'),
-        Pattern: /^[\s\S]{10,500}$/,
+        Pattern: /^[\s\S]{10,1000}$/,
         message: '10자 이상 500자 이하로 작성해주세요!'
       }
     ]
@@ -134,7 +134,7 @@ var slideRule = [
       {
         name: 'heun-name',
         InputEle: $('#heun-name'),
-        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        Pattern: /^[\s\S]{1,20}$/,
         message: '1자 이상 20자 이하로 입력해주세요.'
       }, {
         name: 'heun-price',
@@ -149,7 +149,7 @@ var slideRule = [
 // textarea - 숙소설명에 글을 작성할때 글자수를 계산하고 유효성 검사를 한다.
 $('#contents').keyup(function (e) {
   var content = $(this).val();
-  $('.counter').html((500 - content.length) + ' 자');
+  $('.counter').html((1000 - content.length) + ' 자');
 
   // textarea의 유효성 검사를 시행한다.
   var idAttr = $(this).attr('id');

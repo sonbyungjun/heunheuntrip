@@ -141,7 +141,7 @@
   </select>
 
   
-  <insert id="insert" parameterType="blog" >
+  <insert id="insert" parameterType="blog"  useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
     insert into board(
       title,
       conts,
