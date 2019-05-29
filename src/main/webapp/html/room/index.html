@@ -16,6 +16,7 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -162,7 +163,6 @@
                 <div class="item-listing grid">
 
                   <div id="room-list" class="row">
-
                   </div>
 
                 </div>
@@ -197,22 +197,20 @@
       <div class="item">
         <div class="item-image">
           <a href="property_single.html">
-            <img src="../../img/demo/property/1.jpg" class="img-fluid" alt="">
-              <div class="item-meta">
-                <div class="item-price">${{price}}</div>
-              </div>
+            <img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" class="img-fluid" alt="">
           </a> 
           <a href="#" class="save-item"><i class="fa fa-star"></i></a> 
         </div>
         <div class="item-info">
-          <h3 class="item-title">ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h3>
+          <h3 class="item-title">{{name}}</h3>
           <div class="item-location">
             <i class="fa fa-map-marker"></i>
-            Kirkstone Road, Middlesbrough TS3
+            {{traffic}}
           </div>
           <div class="item-details-i"> 
-            <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">3<i class="fa fa-bed"></i></span>
-            <span class="bathrooms" data-toggle="tooltip" title="2 Bathrooms">2<i class="fa fa-bath"></i></span> 
+            <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">{{bed}}<i class="fa fa-bed"></i></span>
+            <span class="bathrooms" data-toggle="tooltip" title="2 Bathrooms">{{bath}}<i class="fa fa-bath"></i></span> 
+            <span class="float-right">$ {{price}}</span>
           </div>
         </div>
       </div>

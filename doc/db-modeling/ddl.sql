@@ -17,6 +17,7 @@ DROP TABLE IF EXISTS qna_cate RESTRICT;
 DROP TABLE IF EXISTS safety RESTRICT;
 DROP TABLE IF EXISTS rms_safety RESTRICT;
 DROP TABLE IF EXISTS blike RESTRICT;
+DROP TABLE IF EXISTS photoboard RESTRICT;
 
 -- 숙소
 CREATE TABLE rms (
@@ -78,14 +79,14 @@ ALTER TABLE usr
 
 -- 블로그
 CREATE TABLE board (
-  board_id   INTEGER     NOT NULL, -- 게시글번호
-  usr_id     INTEGER     NOT NULL, -- 회원번호
-  rms_id     INTEGER     NULL,     -- 숙소번호
-  main_photo text        NOT NULL, -- 블로그 사진
-  title      VARCHAR(50) NOT NULL, -- 게시글제목
-  conts      MEDIUMTEXT  NOT NULL, -- 게시글내용
-  cdt        DATETIME    NOT NULL DEFAULT current_timestamp() -- 작성일
-  );
+  board_id   INTEGER      NOT NULL, -- 게시글번호
+  usr_id     INTEGER      NOT NULL, -- 회원번호
+  rms_id     INTEGER      NOT NULL, -- 숙소번호
+  main_photo VARCHAR(255) NOT NULL, -- 섬네일
+  title      VARCHAR(50)  NOT NULL, -- 게시글제목
+  conts      MEDIUMTEXT   NOT NULL, -- 게시글내용
+  cdt        DATETIME     NOT NULL DEFAULT current_timestamp() -- 작성일
+);
 
 -- 블로그
 ALTER TABLE board
@@ -267,46 +268,6 @@ ALTER TABLE amn
 
 ALTER TABLE amn
   MODIFY COLUMN amn_id INTEGER NOT NULL AUTO_INCREMENT;
-  
-  
-  -- 블로그 좋아요
-CREATE TABLE blike (
-  blike_no    INTEGER NOT NULL, -- 좋아요번호
-  blike_check INTEGER NOT NULL DEFAULT 0, -- 좋아요체크
-  board_id    INTEGER NOT NULL, -- 게시글번호
-  usr_id      INTEGER NOT NULL  -- 회원번호
-);
-
--- 블로그 좋아요
-ALTER TABLE blike
-  ADD CONSTRAINT PK_blike -- 블로그 좋아요 기본키
-    PRIMARY KEY (
-      blike_no -- 좋아요번호
-    );
-
-ALTER TABLE blike
-  MODIFY COLUMN blike_no INTEGER NOT NULL AUTO_INCREMENT;
-  
--- 블로그 좋아요
-ALTER TABLE blike
-  ADD CONSTRAINT FK_board_TO_blike -- 블로그 -> 블로그 좋아요
-    FOREIGN KEY (
-      board_id -- 게시글번호
-    )
-    REFERENCES board ( -- 블로그
-      board_id -- 게시글번호
-    );
-
--- 블로그 좋아요
-ALTER TABLE blike
-  ADD CONSTRAINT FK_usr_TO_blike -- 회원 -> 블로그 좋아요
-    FOREIGN KEY (
-      usr_id -- 회원번호
-    )
-    REFERENCES usr ( -- 회원
-      usr_id -- 회원번호
-    );
-
 
 -- 이용상태
 CREATE TABLE stus (
@@ -397,6 +358,41 @@ ALTER TABLE rms_safety
       safety_id, -- 안전시설번호
       rms_id     -- 숙소번호
     );
+
+-- 블로그 좋아요
+CREATE TABLE blike (
+  blike_no    INTEGER NOT NULL, -- 좋아요번호
+  blike_check INTEGER NOT NULL DEFAULT 0, -- 좋아요체크
+  board_id    INTEGER NOT NULL, -- 게시글번호
+  usr_id      INTEGER NOT NULL  -- 회원번호
+);
+
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT PK_blike -- 블로그 좋아요 기본키
+    PRIMARY KEY (
+      blike_no -- 좋아요번호
+    );
+
+ALTER TABLE blike
+  MODIFY COLUMN blike_no INTEGER NOT NULL AUTO_INCREMENT;
+
+-- 블로그사진
+CREATE TABLE photoboard (
+  pboard_id INTEGER      NOT NULL, -- 블로그사진번호
+  board_id  INTEGER      NOT NULL, -- 게시글번호
+  photo     VARCHAR(255) NOT NULL  -- 사진
+);
+
+-- 블로그사진
+ALTER TABLE photoboard
+  ADD CONSTRAINT PK_photoboard -- 블로그사진 기본키
+    PRIMARY KEY (
+      pboard_id -- 블로그사진번호
+    );
+
+ALTER TABLE photoboard
+  MODIFY COLUMN pboard_id INTEGER NOT NULL AUTO_INCREMENT;
 
 -- 숙소
 ALTER TABLE rms
@@ -606,4 +602,34 @@ ALTER TABLE rms_safety
     )
     REFERENCES rms ( -- 숙소
       rms_id -- 숙소번호
+    );
+
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT FK_board_TO_blike -- 블로그 -> 블로그 좋아요
+    FOREIGN KEY (
+      board_id -- 게시글번호
+    )
+    REFERENCES board ( -- 블로그
+      board_id -- 게시글번호
+    );
+
+-- 블로그 좋아요
+ALTER TABLE blike
+  ADD CONSTRAINT FK_usr_TO_blike -- 회원 -> 블로그 좋아요
+    FOREIGN KEY (
+      usr_id -- 회원번호
+    )
+    REFERENCES usr ( -- 회원
+      usr_id -- 회원번호
+    );
+
+-- 블로그사진
+ALTER TABLE photoboard
+  ADD CONSTRAINT FK_board_TO_photoboard -- 블로그 -> 블로그사진
+    FOREIGN KEY (
+      board_id -- 게시글번호
+    )
+    REFERENCES board ( -- 블로그
+      board_id -- 게시글번호
     );

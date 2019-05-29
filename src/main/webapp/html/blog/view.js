@@ -21,11 +21,11 @@ function loadData(no) {
   $.getJSON("../../app/json/blog/detail?no=" + no, function (data) {
     $('#no').attr('data-no', data.blog.no);
     $('#no').attr('data-title', data.blog.title);
-    $('#name').html(data.blog.name);
+    $('#name').html("작성자 : " + data.blog.name);
     $('h1').html(data.blog.title);
     $('#cont').html(data.blog.content);
     $('.tooltip').attr('title', data.blog.rmsAddr + " " + data.blog.rmsDetailAddr);
-    $('#createdDate').html(data.blog.createdDate);
+    $('#createdDate').html("작성일 : " + data.blog.createdDate);
     $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
     $('#grade').html("평점 : " + data.blog.grade);
 
@@ -41,7 +41,7 @@ function loadData(no) {
     // 이 게시글이 받은 좋아요 갯수
     console.log(data.count);
 
-    if(data.blog.userNo != data.userNo){
+    if(data.blog.userNo != data.loginNo){
       $('#delete-btn').hide();
       $('#update-btn').hide();
     }
@@ -176,7 +176,6 @@ function loadData(no) {
     $('#add-btn').hide();
 
     $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
-
     $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );
 
     $('#summernote').summernote({  //썸머노트 활성화 시작

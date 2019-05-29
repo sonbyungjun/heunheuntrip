@@ -6,7 +6,8 @@ import com.heun.trip.domain.Blog;
 import com.heun.trip.domain.Roomcheckout;
 
 public interface BlogService {
-  List<Blog> list();
+  List<Blog> list(int pageNo, int pageSize);
+  int size();
   Blog get(int no);
   int checkRev(int no);
   int add(Blog blog);
@@ -16,6 +17,7 @@ public interface BlogService {
   List<Blog> order();
   List<Blog> deorder();
   List<Blog> gradeorder();
+  List<Blog> likebylist();
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);
   int checkLike(Blike blike);

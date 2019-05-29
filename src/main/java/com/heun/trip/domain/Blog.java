@@ -1,6 +1,7 @@
 package com.heun.trip.domain;
 
 import java.sql.Date;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Blog { // 일반 회원이 작성하는 블로그 게시판
@@ -20,6 +21,8 @@ public class Blog { // 일반 회원이 작성하는 블로그 게시판
   private String rmsName;
   private String rmsAddr;
   private String rmsDetailAddr;
+  
+  private List<BlogFile> photoFiles;
 
   public int getNo() {
     return no;
@@ -125,16 +128,22 @@ public class Blog { // 일반 회원이 작성하는 블로그 게시판
     this.blike = blike;
   }
 
+  public List<BlogFile> getPhotoFiles() {
+    return photoFiles;
+  }
+
+  public void setPhotoFiles(List<BlogFile> photoFiles) {
+    this.photoFiles = photoFiles;
+  }
+
   @Override
   public String toString() {
     return "Blog [no=" + no + ", title=" + title + ", content=" + content + ", mainPhoto="
         + mainPhoto + ", createdDate=" + createdDate + ", blike=" + blike + ", userNo=" + userNo
         + ", name=" + name + ", rmsNo=" + rmsNo + ", grade=" + grade + ", rmsName=" + rmsName
-        + ", rmsAddr=" + rmsAddr + ", rmsDetailAddr=" + rmsDetailAddr + "]";
+        + ", rmsAddr=" + rmsAddr + ", rmsDetailAddr=" + rmsDetailAddr + ", photoFiles=" + photoFiles
+        + "]";
   }
 
-
-  
- 
   
 }
