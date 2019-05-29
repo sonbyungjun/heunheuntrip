@@ -17,7 +17,6 @@ public interface BlogDao {
   int deletelike(int no);
   int update(Blog blog);
   List<Blog> orderbylist(Map<String,Object> params);
-  List<Blog> orderbygradelist();
   List<Blog> deorderbylist(Map<String,Object> params);
   List<Blog> likebylist(Map<String,Object> params); 
   int increaseLike(Blike blike);
@@ -27,8 +26,3 @@ public interface BlogDao {
   int createLike(Blike blike);
   int countLike(int no);
 }
-
-
-
-
-

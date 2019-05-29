@@ -17,7 +17,6 @@ public interface BlogService {
   int update(Blog blog);
   List<Blog> order(int pageNo, int pageSize);
   List<Blog> deorder(int pageNo, int pageSize);
-  List<Blog> gradeorder();
   List<Blog> likebylist(int pageNo, int pageSize);
   int increaseLike(Blike blike);
   int decreaseLike(Blike blike);

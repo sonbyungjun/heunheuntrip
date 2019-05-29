@@ -6,8 +6,7 @@ pageNo = 0,
 totalPage = 0,
 order = 0,
 deorder = 0,
-blike = 0
-;
+blike = 0;
 
 
 //header, footer 가져오기
@@ -24,6 +23,10 @@ $(document).ready(function () {
 
 function loadList(pn, order, blike, dedorder) {
 
+  console.log(order);
+  console.log(blike);
+  console.log(dedorder);
+  
 	$.getJSON('../../app/json/blog/list?pageNo=' + pn + '&order=' + order + '&blike=' + blike + '&deorder=' + deorder,
 			function(obj) {
 
@@ -41,13 +44,9 @@ function loadList(pn, order, blike, dedorder) {
 
 		$(document.body).trigger('loaded-list');
 
-
-
 	}); // Bitcamp.getJSON(
 
 } // loadList()
-
-
 
 
 
@@ -72,7 +71,6 @@ $(document).scroll(function(event){
 })
 
 
-
 //필터기능  
 $('.heun-search > a').on('click', function() {
 
@@ -83,6 +81,7 @@ $('.heun-search > a').on('click', function() {
 
 
 	if($('.searchselect').html() == "최신순") {
+	  console.log("최신순")
 		window.deorder = 0;
 		window.blike = 0;
 		window.order = 1;
@@ -91,6 +90,7 @@ $('.heun-search > a').on('click', function() {
 	} 
 
 	if($('.searchselect').html() == "인기순") {
+	  console.log("인기순")
 		window.deorder = 0;
 		window.blike = 1;
 		window.order = 0;
@@ -99,6 +99,7 @@ $('.heun-search > a').on('click', function() {
 	} 
 
 	if($('.searchselect').html() == "오래된순") {
+	  console.log("오래된순")
 		window.deorder = 1;
 		window.blike = 0;
 		window.order = 0;
@@ -107,7 +108,6 @@ $('.heun-search > a').on('click', function() {
 	} 
 
 })
-
 
 
 $(document.body).bind('loaded-list', () => {

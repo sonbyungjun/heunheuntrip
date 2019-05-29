@@ -118,11 +118,8 @@ public class BlogController {
 
     //System.out.println(order);
 
-
-
     if (pageSize < 1 || pageSize > 8) 
       pageSize = 7;
-
 
     int rowCount = blogService.size();
 
@@ -144,28 +141,25 @@ public class BlogController {
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-    }
-    if(blike == 1) {
+    } else if(blike == 1) {
       List<Blog> blogs = blogService.likebylist(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-    }
-    if(deorder == 1) {
+    } else if (deorder == 1) {
       List<Blog> blogs = blogService.deorder(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-    }
-    
+    } else {
       List<Blog> blogs = blogService.list(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-     
+    }
     return content;
   }
   
@@ -333,16 +327,4 @@ public class BlogController {
     return content;
   }
 
- 
-  @GetMapping("gradeorder")
-  public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
-
-
-    List<Blog> blogs = blogService.gradeorder();
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-
-    return content;
-  }
 }
