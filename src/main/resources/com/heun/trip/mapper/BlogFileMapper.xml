@@ -12,8 +12,17 @@
     <result column="photo" property="file"/>
   </resultMap>
   
+  <select id="findByNo" parameterType="int" resultMap="blogfileMap">
+    select 
+      photo
+    from
+      photoboard
+    where
+      board_id=#{no}
+  </select>
+  
   <insert id="insert" parameterType="list" >
-    insert into board(
+    insert into photoboard(
       board_id,
       photo)
     values
@@ -21,6 +30,14 @@
       ("${item.blogNo}", "${item.file}")
     </foreach>
   </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete 
+     from 
+      photoboard 
+    where 
+      board_id=#{no}
+  </delete>
   
 </mapper>  
 

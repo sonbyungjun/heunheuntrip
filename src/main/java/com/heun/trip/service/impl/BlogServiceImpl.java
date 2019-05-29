@@ -34,21 +34,6 @@ public class BlogServiceImpl implements BlogService {
   }
   
   @Override
-  public int size() {
-    return blogDao.countAll();
-  }
-       
-  @Override
-  public Blog get(int no) {
-    return blogDao.findByNo(no);
-  }
-  
-  @Override
-  public int checkRev(int no) {
-    return blogDao.checkRev(no);
-  }
-
-  @Override
   public int add(Blog blog) {
     blogDao.insert(blog);
     List<BlogFile> files = blog.getPhotoFiles();
@@ -61,31 +46,51 @@ public class BlogServiceImpl implements BlogService {
   }
 
   @Override
-  public List<Roomcheckout> roomCheckOut(int no) {
-    return blogDao.roomCheckOut(no);
-  }
-  
-  @Override
-  public int delete(int no) {
-    return blogDao.delete(no);
-  }
-  
-  @Override
   public int update(Blog blog) {
     return blogDao.update(blog);
   }
 
   @Override
-  public List<Blog> order() {
-    
-    return blogDao.orderbylist();
+  public Blog get(int no) {
+    return blogDao.findByNo(no);
   }
+  
   @Override
-  public List<Blog> gradeorder() {
-    
-    return blogDao.orderbygradelist();
+  public List<BlogFile> filelist(int no){
+    return blogFileDao.findByNo(no);
   }
 
+  @Override
+  public int delete(int no) {
+    // file 삭제
+    blogFileDao.delete(no);
+    
+    // 좋아요 컬럼 삭제
+    blogDao.deletelike(no);
+    
+    return blogDao.delete(no);
+  }
+
+  @Override
+  public int size() {
+    return blogDao.countAll();
+  }
+       
+  @Override
+  public int checkRev(int no) {
+    return blogDao.checkRev(no);
+  }
+
+  @Override
+  public int checkView(Blike blike) {
+    return blogDao.checkView(blike);
+  }
+
+  @Override
+  public List<Roomcheckout> roomCheckOut(int no) {
+    return blogDao.roomCheckOut(no);
+  }
+  
   @Override
   public int increaseLike(Blike blike) {
     
@@ -101,12 +106,7 @@ public class BlogServiceImpl implements BlogService {
   public int checkLike(Blike blike) {
     return blogDao.checkLike(blike);
   }
- 
-  @Override
-  public int checkView(Blike blike) {
-    return blogDao.checkView(blike);
-  }
-  
+
   @Override
   public int createLike(Blike blike) {
     return blogDao.createLike(blike);
@@ -121,6 +121,18 @@ public class BlogServiceImpl implements BlogService {
     
     return blogDao.deorderbylist();
 
+  }
+
+  @Override
+  public List<Blog> order() {
+    
+    return blogDao.orderbylist();
+  }
+
+  @Override
+  public List<Blog> gradeorder() {
+    
+    return blogDao.orderbygradelist();
   }
 
   @Override

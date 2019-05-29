@@ -3,6 +3,7 @@ package com.heun.trip.service;
 import java.util.List;
 import com.heun.trip.domain.Blike;
 import com.heun.trip.domain.Blog;
+import com.heun.trip.domain.BlogFile;
 import com.heun.trip.domain.Roomcheckout;
 
 public interface BlogService {
@@ -24,4 +25,5 @@ public interface BlogService {
   int checkView(Blike blike);
   int createLike(Blike blike);
   int countLike(int no);
+  List<BlogFile> filelist(int no);
 }
