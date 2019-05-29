@@ -12,7 +12,7 @@
     <result column="conts" property="content"/>
     <result column="main_photo" property="mainPhoto" />
     <result column="cdt" property="createdDate"/>
-    
+     
     <result column="usr_id" property="userNo"/>
     <result column="name" property="name"/>
     
@@ -60,9 +60,86 @@
       rms r on b.rms_id=r.rms_id
     order by
       board_id desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if> 
   </select>
   
- 
+    <select id="countAll" resultType="int">
+    select count(*) from board
+  </select>
+  
+  
+   <select id="orderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt desc
+  </select>
+  
+   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt, 
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.cdt asc
+  </select>
+  
+    
+   <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      r.grd desc
+  </select>
+
   
   <insert id="insert" parameterType="blog" >
     insert into board(
@@ -291,7 +368,7 @@
       board b
     left outer join
       usr u on b.usr_id=u.usr_id
-    left outer join
+    left outer join 
       rms r on b.rms_id=r.rms_id
     left outer join
      blike l on l.board_id=b.board_id

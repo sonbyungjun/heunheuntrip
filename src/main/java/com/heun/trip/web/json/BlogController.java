@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Blike;
@@ -148,14 +149,32 @@ public class BlogController {
 
 
   @GetMapping("list")
-  public Object list() { // localhost:8080/heunheuntrip/app/json/blog/list
+  public Object list(@RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="8") int pageSize) { // localhost:8080/heunheuntrip/app/json/blog/list
 
 
-    List<Blog> blogs = blogService.list();
+    if (pageSize < 1 || pageSize > 8) 
+      pageSize = 7;
+    
+     int rowCount = blogService.size();
+    
+     int totalPage = rowCount / pageSize;
+     if (rowCount % pageSize > 0)
+       totalPage++;
+     
+     if (pageNo < 1) 
+       pageNo = 1;
+     else if (pageNo > totalPage)
+       pageNo = totalPage;
+     
+    List<Blog> blogs = blogService.list(pageNo, pageSize);
 
 
     HashMap<String,Object> content = new HashMap<>();
     content.put("list", blogs);
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
 
     return content;
   }

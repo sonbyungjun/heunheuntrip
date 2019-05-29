@@ -1,7 +1,10 @@
 var form = $('.blog-form-list'),
 templateSrc = $('#tr-template').html(),
-trGenerator = Handlebars.compile(templateSrc);
- 
+trGenerator = Handlebars.compile(templateSrc),
+i = 1,
+pageNo = 0,
+totalPage = 0;
+
 
 //header, footer 가져오기
 $(document).ready(function () {
@@ -12,6 +15,7 @@ $(document).ready(function () {
   $('#heun-footer').load('../footer.html', function () {
   });
 })
+
 
 
 function loadList() {
@@ -78,9 +82,69 @@ $(document).scroll(function(){
 
 
 
-//페이지를 출력한 후 1페이지 목록을 로딩한다.
-loadList();
 
+
+
+
+
+
+function loadList(pn) {   
+   
+   $.getJSON('../../app/json/blog/list?pageNo=' + pn,
+        function(obj) {
+  
+      pageNo = obj.pageNo;
+      totalPage = obj.totalPage
+     
+      obj.pagination = {
+          page: obj.pageNo,
+          pageCount: obj.totalPage
+      };
+  
+      $(trGenerator(obj)).appendTo(form);
+
+      ++window.i;
+      
+      $(document.body).trigger('loaded-list');
+      
+		
+  
+    }); // Bitcamp.getJSON(
+  
+  } // loadList()
+
+
+	
+
+
+//페이지를 출력한 후 1페이지 목록을 로딩한다.
+loadList(window.i);
+
+
+$(document).scroll(function(event){
+   
+	
+//    let scrollTop = $(window).scrollTop();
+//    let windowHeight = $(window).height();
+//    let documentHeight = $(document).height();
+	  var maxHeight = $(document).height();
+	  var currentScroll = $(window).scrollTop() + $(window).height();
+    
+    
+    // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+    if( maxHeight <= currentScroll + 20 ){
+    	    	
+    	
+    	if (totalPage <= pageNo) {
+    	return;	
+    	}
+   
+    	
+    		console.log(window.i);
+    		loadList(window.i);
+   
+    }
+})
 
 
 $(document.body).bind('loaded-list', () => {
