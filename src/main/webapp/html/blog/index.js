@@ -18,68 +18,6 @@ $(document).ready(function () {
 
 
 
-function loadList() {
-
-
-  //보여주기위한 1페이지를 만들기 위해 초기화작업
-  $('.blog-form-list').css("width", "auto");
-  $('.blog-form-list').css("height", "500px");
-  $('.blog-form-list').css("overflow", "hidden");
-
-
-  $.ajax({ 
-    url: '../../app/json/blog/list',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-
-      $(trGenerator(response)).appendTo(form);
-
-      // ig.prepend($(trGenerator(response))).appendTo(form);
-
-      $(document.body).trigger('loaded-list');
-
-    },
-    fail: function (error) {
-      alert('시스템 오류가 발생했습니다.');
-    }
-  });
-
-
-
-} // loadList()
-
-
-$(document).scroll(function(){
-  let $window = $(this);
-  let scrollTop = $(window).scrollTop();
-  let windowHeight = $(window).height();
-  let documentHeight = $(document).height();
-
-  // console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
-
-  // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
-  if( scrollTop + windowHeight + 30 > documentHeight ){
-    $('.blog-form-list').css("height", documentHeight );
-  }
-})
-
-
-////스크롤 이벤트를 발생시키는 부분
-//$(document).scroll(function() {
-//maxHeight = $(document).height();
-//currentScroll = $(window).scrollTop() + $(window).height();
-
-//if (maxHeight <= currentScroll) {
-//console.log("무한스크롤 발생");
-
-//$('.blog-form-list').css("height", maxHeight);
-//}
-
-////$(window).trigger("scroll");
-//});
-
-
 
 
 
