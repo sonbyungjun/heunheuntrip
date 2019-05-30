@@ -74,7 +74,7 @@ $('#add-btn').on('click', function () {
 
 // 인증 번호 보내기
 $('#re-btn').on('click', function () {
-	if($('#email').hasClass("is-valid")){
+	if($('#play').hasClass("is-valid")){
 	$.ajax({
 		url: '../../app/json/member/resetemail',
 		type: 'GET',
