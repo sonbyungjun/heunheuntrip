@@ -18,6 +18,8 @@
 <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 
+
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
@@ -28,6 +30,7 @@
 <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
 <script src="../../lib/lib.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 
 </head>
 <style>
@@ -41,7 +44,6 @@
   <div id="main">
     <div id='heun-header'></div>
       <div class="container">
-         
   </div>
   <div id="content">
     <div class="container">
@@ -90,8 +92,9 @@
               Continue with Twitter</a> <a href="#" class="btn btn-social btn-block btn-google"><i
               class="icon fa fa-google"></i> Continue with Google</a>
               
-              <a href="#" class="btn btn-social btn-block btn-facebook"><i
-              class="icon fa fa-facebook"></i> Continue with Facebook</a>
+             
+         <div id="naverIdLogin"></div>
+             
           </div>
         </div>
       </div>
@@ -104,6 +107,16 @@
   <div id='heun-footer'></div>
    <script src='../header.js'></script>
   <script src='signin.js'></script>
+
+
+
+
+  
+  
+
+
+
+
 
 
 </body>
