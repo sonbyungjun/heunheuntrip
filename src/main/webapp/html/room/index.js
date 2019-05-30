@@ -1,7 +1,8 @@
 var form = $('#room-list'),
 	templateSrc = $('#list-template').html(),
 	listGenerator = Handlebars.compile(templateSrc),
-	paginateSrc = $('#page-template').html();
+	paginateSrc = $('#page-template').html(),
+	markers = [];
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -68,32 +69,13 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-// 마커가 표시될 위치입니다 
-var markerPosition = new daum.maps.LatLng(33.450701, 126.570667);
-
-// 마커를 생성합니다
-var marker = new daum.maps.Marker({
-	position: markerPosition
-});
-
-// 마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(map);
-
-// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-// marker.setMap(null);
-
-
-
 function panTo(latitude, longitude) {
 	// 이동할 위도 경도 위치를 생성합니다 
 	var moveLatLon = new daum.maps.LatLng(latitude, longitude);
-
 	// 지도 중심을 부드럽게 이동시킵니다
 	// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 	map.panTo(moveLatLon);
 }
-
-
 
 //콤마찍기
 function comma(x) {
@@ -135,10 +117,16 @@ $('body').on('loaded-list', function () {
 			position: markerPosition
 		});
 
-		marker.setMap(null);
+		// 기존 마커를 지운다.
+		markers.forEach(function(e) {
+			e.setMap(null);
+		})
 
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
+
+		// 마커를 배열에 저장한다.		
+		markers.push(marker);
 
 		panTo(latitude, longitude);
 	})
