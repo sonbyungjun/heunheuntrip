@@ -13,6 +13,7 @@
     <result column="auth"    property="auth"/>
     <result column="name"    property="name"/>
     <result column="tel"    property="tel"/>
+    <result column="sns_no"    property="sns_no"/>
     <result column="usr_photo"  property="photo"/>
     <result column="cdt"  property="createdDate"/>
   </resultMap>
@@ -23,9 +24,10 @@
       email,
       name,
       tel,
+      sns_no,
       auth,
       cdt
-    from 
+    from  
       usr u
     left outer join 
       auth a
@@ -86,6 +88,7 @@
       name,
       pwd,
       tel,
+      sns_no,
       usr_photo,
       auth_id)
       
@@ -94,10 +97,29 @@
       #{name},
       password(#{password}),
       #{tel},
+      #{sns_no},
       #{photo},
       #{auth})
   </insert>
-  
+   <insert id="snsinsert" parameterType="member">
+    insert into usr(
+      email,
+      name,
+      pwd,
+      tel,
+      sns_no,
+      usr_photo,
+      auth_id)
+      
+    values(
+      #{email},
+      #{name},
+      password(#{password}),
+      #{tel},
+      #{sns_no},
+      #{photo},
+      #{auth})
+  </insert>
   
   <update id="update" parameterType="member">
     update usr
@@ -146,6 +168,48 @@
       email = #{email}
       and pwd = password(#{password})
   </select>
+  
+  <select id="findByEmailSns" resultMap="memberMap" parameterType="map">
+    select 
+      usr_id,
+      email,
+      name,
+      tel,
+      auth,
+      usr_photo,
+      cdt
+    from 
+      usr u
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
+    where 
+      email = #{email}
+      and sns_no = #{sns_no}
+  </select>
+  
+   <select id="findByEmailName" resultMap="memberMap" parameterType="map">
+    select 
+      usr_id,
+      email,
+      name,
+      tel,
+      auth,
+      usr_photo,
+      cdt
+    from 
+      usr u
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
+    where 
+      email = #{email}
+      and name =#{name}
+  </select>
+  
+  
   
 </mapper>
 

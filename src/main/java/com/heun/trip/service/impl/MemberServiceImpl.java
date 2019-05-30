@@ -58,11 +58,26 @@ public class MemberServiceImpl implements MemberService {
     
     return memberDao.findByEmailPassword(paramMap);
   }
+  @Override
+  public Member snsget(String email, int sns_no) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("email", email);
+    paramMap.put("sns_no",sns_no);
+    
+    return memberDao.findByEmailSns(paramMap);
+  }
   
   @Override
   public int size(String search) {
     return memberDao.countAll(search);
   }
+
+  @Override
+  public int snsadd(Member member) {
+    
+    return memberDao.snsinsert(member);
+  }
+  
 }
 
 

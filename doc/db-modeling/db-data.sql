@@ -26,26 +26,17 @@ insert into auth(auth) values('호스트');
 insert into auth(auth) values('관리자');
 
 -- 회원
-insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(1,'tlwls@naver.com',password('1111'),1,'홍길동','010-4444-3333');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(2,'qwrwer@naver.com',password('1111'),1,'삼순이','010-5647-3333');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(3,'sadfe@naver.com',password('1111'),1,'둘리','010-4456-3433');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(4,'werdf@naver.com',password('1111'),1,'도넛','010-7894-3344');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(5,'sdfdsre@naver.com',password('1111'),2,'원빈','010-5452-3733');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(6,'sdafwerdf@naver.com',password('1111'),2,'한효주','010-4456-3133');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(7,'ewrsdf@daum.net',password('1111'),2,'강동원','010-4433-3322');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(8,'erwerdf@daum.net',password('1111'),2,'이지혜','010-4894-3733');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(9,'fgertewr@daum.net',password('1111'),1,'앙리','010-4466-3983');
-  insert into usr(usr_id,email,pwd,auth_id,name,tel)
-  values(10,'ewrdsf@gmail.com',password('1111'),2,'김사랑','010-4411-3893');
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)
+values(1,'tlwls@naver.com',password('1111'),1,'홍길동','010-4444-3333',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(2,'qwrwer@naver.com',password('1111'),1,'삼순이','010-5647-3333',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(3,'sadfe@naver.com',password('1111'),1,'둘리','010-4456-3433',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(4,'werdf@naver.com',password('1111'),1,'도넛','010-7894-3344',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(5,'sdfdsre@naver.com',password('1111'),2,'원빈','010-5452-3733',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(6,'sdafwerdf@naver.com',password('1111'),2,'한효주','010-4456-3133',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(7,'ewrsdf@daum.net',password('1111'),2,'강동원','010-4433-3322',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(8,'erwerdf@daum.net',password('1111'),2,'이지혜','010-4894-3733',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(9,'fgertewr@daum.net',password('1111'),1,'앙리','010-4466-3983',0);
+insert into usr(usr_id,email,pwd,auth_id,name,tel,sns_no)values(10,'ewrdsf@gmail.com',password('1111'),2,'김사랑','010-4411-3893',0);
   
  -- qna_cate
  insert into qna_cate(qna_cate_id, cate) values(1, '예약');

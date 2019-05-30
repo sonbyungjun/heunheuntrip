@@ -63,6 +63,7 @@ CREATE TABLE usr (
   auth_id   INTEGER      NOT NULL, -- 권한번호
   name      VARCHAR(10)  NOT NULL, -- 이름
   cdt       DATETIME     NOT NULL DEFAULT current_timestamp(), -- 가입일
+  sns_no    INTEGER      NOT NULL, -- 소셜 로그인
   tel       VARCHAR(15)  NULL,     -- 전화번호
   usr_photo VARCHAR(255) NULL      -- 프로필사진
 );

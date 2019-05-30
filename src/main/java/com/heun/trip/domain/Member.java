@@ -12,16 +12,19 @@ public class Member {
   private String tel;
   private String photo;
   private String auth;
+  private int sns_no;
+  
   
   
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   
+  
   @Override
   public String toString() {
     return "Member [no=" + no + ", email=" + email + ", password=" + password + ", name=" + name
-        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + ", createdDate=" + createdDate
-        + "]";
+        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + ", sns_no=" + sns_no
+        + ", createdDate=" + createdDate + "]";
   }
   public Date getCreatedDate() {
     return createdDate;
@@ -70,6 +73,12 @@ public class Member {
   }
   public void setAuth(String auth) {
     this.auth = auth;
+  }
+  public int getSns_no() {
+    return sns_no;
+  }
+  public void setSns_no(int sns_no) {
+    this.sns_no = sns_no;
   }
   
   
