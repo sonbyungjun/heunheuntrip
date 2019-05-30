@@ -17,12 +17,13 @@ document.querySelector('#login-btn').onclick = () => {
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   var email = document.querySelector('#email').value;
   var password = document.querySelector('#password').value;
+  var sns_no = 0;
   if (document.querySelector('#remember_me:checked') != null) {
 	  localStorage.email = email;
   } else {
 	  window.localStorage.removeItem('email');
   }
-  var qs = 'email=' + email + '&password=' + password;
+  var qs = 'email=' + email + '&password=' + password +'&sns_no=' + sns_no;
   xhr.send(qs);
   xhr.onreadystatechange = function() {
     if (xhr.readyState != 4 || xhr.status != 200) 

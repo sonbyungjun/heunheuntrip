@@ -70,6 +70,42 @@ public class MemberController {
     return member;
   }
 
+  @PostMapping("snsadd")
+  public Object snsadd(Member member, MultipartFile photo) {
+    HashMap<String,Object> content = new HashMap<>();
+    StringBuffer ranNo = EnRanNo.randomNo();
+    String EnranNo = ranNo.toString();
+    if (photo != null) {
+      String filename = UUID.randomUUID().toString();
+      String uploadDir = servletContext.getRealPath(
+          "/html/memberupload");
+      File orginFile= new File(uploadDir + "/" + filename); 
+      File thumFile=new File(uploadDir+"/" + filename);
+      try {
+        photo.transferTo(orginFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+      } catch (IllegalStateException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      member.setPhoto(filename+".jpeg");
+    } else {
+      String deft ="default.jpeg";
+      member.setPhoto(deft);
+    }
+    try {
+      member.setPassword(EnranNo);
+      memberService.snsadd(member);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  
   @PostMapping("add")
   public Object add(Member member, MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
@@ -152,7 +188,6 @@ public class MemberController {
       
       content.put("status", "success");
       content.put("ranNo", ranNo);
-
     }catch (Exception e){
       content.put("status", "fail");
       content.put("message", e.getMessage());

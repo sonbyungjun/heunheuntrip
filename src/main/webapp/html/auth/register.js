@@ -184,7 +184,8 @@ function chkValue() {
 			email: $("#email").val(),
 			password: $("#pwd").val(),
 			name: $("#name").val(),
-			auth: $("input[type=radio][name=customRadioInline1]:checked").val()
+			auth: $("input[type=radio][name=customRadioInline1]:checked").val(),
+			sns_no: 0
 		},
 		dataType: 'json',
 		success: function(response) {

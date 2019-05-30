@@ -79,7 +79,7 @@ $('#re-btn').on('click', function () {
 		url: '../../app/json/member/resetemail',
 		type: 'GET',
 		data: {
-			email : $("#email").val()
+			email : $("#play").val()
 		},
 		dataType: 'json',
 		success: function (response) {
