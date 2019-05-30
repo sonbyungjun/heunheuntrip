@@ -1,8 +1,7 @@
 var param = location.href.split('?')[1],
-  blogNo = param.split('=')[1],
-  imageCheck = false,
-  filenames = [],
-  filecheck = false;
+blogNo = param.split('=')[1],
+filenames = [],
+filecheck = false;
 
 $(document).ready(function () {
 
@@ -18,22 +17,18 @@ $(document).ready(function () {
   }
 
   $('#summernote').summernote({
-    placeholder: 'Hello bootstrap 4',
+    placeholder: '내용을 입력해주세요.',
     tabsize: 2,
-    height: 400,
+    height: 600,
     focus: true,
     callbacks: {
       onImageUpload: function (files, editor, welEditable) {
         for (var i = files.length - 1; i >= 0; i--) {
-          sendFile(files[i], this);
+          sendFile(files[i], false, this);
         }
       }
     }
   });
-
-  if (imageCheck == false) {
-    $('#add-btn').hide();
-  }
 })
 
 function loadData(no) {
@@ -55,10 +50,12 @@ function loadData(no) {
 
 }
 
-function sendFile(file, el) {
+//파일과 섬네일인지 아닌지 정보를 받아서 ajax 요청하여 파일정보를 넘겨준다.
+function sendFile(file, isMain, el) {
   var form_data = new FormData();
 
   form_data.append('file', file);
+  form_data.append('isMain', isMain);
 
   $.ajax({
     data: form_data,
@@ -68,11 +65,16 @@ function sendFile(file, el) {
     contentType: false,
     enctype: 'multipart/form-data',
     processData: false,
-    success: function (url) {
-      filenames.push(url);
-      var path = '/heunheuntrip/upload/blogphoto/' + url
-      $(el).summernote('editor.insertImage', path);
-      $('#imageBoard > ul').append('<li><img src="' + path + '" width="480" height="auto"/></li>');
+    success: function(url) {
+      // el(태그) 가 파라미터로 넘어오면 true 값이 없으면 false
+      if (el) {
+        var path = '/heunheuntrip/upload/blogphoto/' + url
+        $(el).summernote('editor.insertImage', path);
+        $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+        filenames.push(url);
+      } else {
+        filenames.push(url + '_tumbnail');
+      }
     }
   });
 }
@@ -98,79 +100,67 @@ function check_input() {
   }
 }
 
+$('#update-btn').click(function () {
 
-$('#error-btn').on('click', function () {
+  if (check_input() == "error") {
+    return;
+  }
+
   Swal.fire({
-    type: 'error',
-    title: '필수 입력사항이 비었습니다.',
-    text: '메인이미지를 반드시 업로드해주세요.',
-  })
-});
+    title: '잠깐!',
+    text: "후기를 등록하시겠어요?",
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '네, 등록하겠습니다!',
+    cancelButtonText: '아뇨, 다시 한번 볼게요!'
+  }).then((result) => {
 
+    if (result.value) {
 
-$('#fileupload').on('change', function () {
-  filecheck = true;
-  $('#fileupload').fileupload({
-    url: '../../app/json/blog/update',
-    dataType: 'json',
-    add: function (e, data) {
-      $.each(data.files, function (index, file) {
-        $('.custom-file-label').html(file.name);
+      $.ajax({
+        url: '../../app/json/blog/update',
+        type: 'POST',
+        data: {
+          no: blogNo,
+          title: $('#title').val(),
+          content: $('#summernote').summernote('code'),
+          filenames: filenames
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            location.href = 'index.html';
+          } else {
+            // 테스트용
+            location.href = 'index.html';
+          }
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
       });
 
-      $('#update-btn').click(function () {
-        data.submit();
+      Swal.fire(
+          '성공!!',
+          '당신의 후기가 성공적으로 등록됐어요.',
+          'success'
+      ).then(() => {
+        location.href = "index.html";
       })
-    },
-    done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
-      if (data.status === "success") {
-        href.location = '/';
-      }
-    },
-    submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
-      console.log('submit()...');
-      // data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
-      data.formData = {
-        no: blogNo,
-        title: $('#title').val(),
-        content: $('#summernote').summernote('code'),
-        filenames: filenames
-      };
     }
-  });
+  })
+
 })
 
+$('#fileupload').on('change', function (e) {
 
-if (!filecheck) {
-  $('#update-btn').click(function () {
-    var formdata = new FormData();
-    formdata.append('files', {});
-    
-    var allData = {
-      no: blogNo,
-      title: $('#title').val(),
-      content: $('#summernote').summernote('code'),
-      filenames: filenames,
-      files: formdata
-    };
+  var files = e.target.files;
 
-    $.ajax({
-      url: '../../app/json/blog/update',
-      type: 'POST',
-      data: allData,
-      dataType: 'json',
-      success: function (response) {
-        if (response.status == 'success') {
-          location.href = 'index.html';
-        } else {
-          // 테스트용
-          location.href = 'index.html';
-        }
-      },
-      fail: function (error) {
-        alert('시스템 오류가 발생했습니다.');
-      }
-    });
-    filecheck = false;
-  })
-}
+  $.each(files, function (index, file) {
+    $('.custom-file-label').html(file.name);
+  });
+
+  sendFile(files[0], true);
+})

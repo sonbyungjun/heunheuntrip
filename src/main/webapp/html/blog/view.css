@@ -32,19 +32,22 @@ h1 {
     height: auto;
 }
 
+.likecount {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-family: Arial;
+  color: #6275a6;
+  font-size: 15px;
+  background: #ffffff;
+  padding: 7px 20px 7px 20px;
+  border: solid #869eba 3px;
+  text-decoration: none;
+}
+
 .buttons {
     float: right;
 }
-
-.heart {
-    width: 100px;
-    height: 100px;
-    transform: translate(-50%, -50%);
-    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
-    background-position: 0 0;
-    cursor: pointer;
-    animation: fave-heart 1s steps(28);
-  }
 
 #update-title{
   height: 40px;

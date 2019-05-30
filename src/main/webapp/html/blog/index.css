@@ -27,6 +27,10 @@
 
 }
 
+.heun-btitle {
+	margin: 70px;
+}
+
 .check-btn {
     float: right;
 }

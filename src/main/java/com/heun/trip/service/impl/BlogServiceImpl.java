@@ -76,22 +76,24 @@ public class BlogServiceImpl implements BlogService {
   @Override
   public int update(Blog blog) {
     
-    System.out.println(blog.getMainPhoto());
+    // 메인사진 업데이트 안할 시 기존 데이터에서 가져온다.
+    if(blog.getMainPhoto() == null) {
+      Blog blogmain = blogDao.findByNo(blog.getNo());
+      String mainPhoto = blogmain.getMainPhoto();
+      blog.setMainPhoto(mainPhoto);
+    }
     
+    // 기존 사진을 DB에서 제거한다.
+    blogFileDao.delete(blog.getNo());
     
-//    blogDao.update(blog);
-    
-    
-//    blogFileDao.delete(blog.getNo());
-    
+    // 내용에 들어간 이미지 파일을 불러와서 photoboard db에 넣어준다.
     List<BlogFile> files = blog.getPhotoFiles();
     for (BlogFile f : files) {
       f.setBlogNo(blog.getNo());
     }
-//    blogFileDao.insert(files);
+    blogFileDao.insert(files);
     
-    
-    return 1;
+    return blogDao.update(blog);
   }
 
   @Override

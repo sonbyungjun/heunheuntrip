@@ -1,8 +1,6 @@
-var param = location.href.split('?')[1],
-  checkout = $('#checkoutlist').html(),
-  checkoutGenerator = Handlebars.compile(checkout);
-  imageCheck = false,
-  filenames = [];
+var checkout = $('#checkoutlist').html(),
+    checkoutGenerator = Handlebars.compile(checkout),
+    filenames = [];
 
 $(document).ready(function () {
 
