@@ -18,9 +18,8 @@
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
-  <link href="add.css" rel="stylesheet">
+  <link href="update.css" rel="stylesheet">
 
-  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
   <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
@@ -48,8 +47,7 @@
 
     <div id="content">
       <div class="container">
-        <h1>새 포스트</h1>
-
+     
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
 
@@ -70,14 +68,6 @@
                 <div class="col-sm-12">
                   <div class="form-group row drowroom">
                     <div class="col-sm-12">
-                      <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle heun-cc form-control" type="button"
-                          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">어느
-                          숙소에 방문하셨나요?</button>
-                        <div class="dropdown-menu heun-checkout" aria-labelledby="dropdownMenuButton"></div>
-                      </div>
-
-
                       <input class="form-control heun-title" id="title" name="title" type="text"
                         placeholder="제목을 입력해주세요.">
                     </div>
@@ -95,8 +85,8 @@
 
             <div class="buttons">
               <a href='index.html' class="btn btn-primary">목록</a>
-              <button type="button" id="add-btn" class="btn btn-primary">등록</button>
-              <button type="button" id="error-btn" class="btn btn-primary">등록</button>
+              <button type="button" id="add-btn" class="btn btn-primary">수정</button>
+              <button type="button" id="error-btn" class="btn btn-primary">수정</button>
             </div>
 
           </div>
@@ -109,18 +99,7 @@
 
   </div>
 
-
-
-
-  <script id="checkoutlist" type="text/x-handlebars-template">
-    {{#each list}}	
-      <a class="dropdown-item heun-dropdown" href="#" data-no="{{rmsNo}}">{{rmsName}}</a>	
-    {{/each}}	
-  </script>
-
-
-
-  <script src="add.js"></script>
+  <script src="update.js"></script>
 </body>
 
 </html>

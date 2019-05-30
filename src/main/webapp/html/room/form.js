@@ -12,13 +12,13 @@ var rule = [
   {
     id: 'address',
     ele: $('#address'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
+    Pattern: /^[\s\S]{1,100}$/,
     message: '주소를 입력해주세요.'
   },
   {
     id: 'detailAddress',
     ele: $('#detailAddress'),
-    Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+    Pattern: /^[\s\S]{1,100}$/,
     message: '상세주소를 입력해주세요'
   },
   {
@@ -80,13 +80,13 @@ var slideRule = [
       {
         name: 'address',
         InputEle: $('#address'),
-        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ -_]){1,20}$/,
+        Pattern: /^[\s\S]{1,100}$/,
         message: '주소를 입력해주세요.'
       },
       {
         name: 'detailAddress',
         InputEle: $('#detailAddress'),
-        Pattern: /^([0-9a-zA-Z가-힣ㄱ-ㅎㅏ-ㅣ _]){1,20}$/,
+        Pattern: /^[\s\S]{1,100}$/,
         message: '상세주소를 입력해주세요'
       }
     ]

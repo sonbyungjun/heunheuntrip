@@ -29,6 +29,7 @@ function loadList(pn, order, blike, dedorder) {
   
 	$.getJSON('../../app/json/blog/list?pageNo=' + pn + '&order=' + order + '&blike=' + blike + '&deorder=' + deorder,
 			function(obj) {
+	  
 
 		pageNo = obj.pageNo;
 		totalPage = obj.totalPage
@@ -65,8 +66,8 @@ $(document).scroll(function(event){
 		if (totalPage <= pageNo) {
 			return;	
 		}
-
-		loadList(window.i, window.order, window.blike, window.deorder);
+	  
+		 loadList(window.i, window.order, window.blike, window.deorder);
 	}
 })
 

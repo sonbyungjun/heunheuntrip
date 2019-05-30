@@ -110,12 +110,12 @@ $('#add-btn').on('click', function () {
 		},
 		dataType: 'json',
 		success: function (response) {
+									Swal.fire({
+										type: 'success',
+										title: "이메일을 확인해주세요."
+									})
 
 			// 요청이 성공하면 먼저 엘럿창을 띄움
-		  Swal.fire({
-        type: 'success',
-        title: "이메일을 확인해주세요."
-			})
 			
 			// 인증번호 입력창의 readonly를 해제
 			$('#play').attr("readonly",false);

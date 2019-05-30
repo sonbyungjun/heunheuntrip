@@ -95,6 +95,11 @@ function loadLike() {
       }
     });
 
+    $('.heart').on('click', function(){
+      $('.heart').css("background-position","-2800px 0");
+      $('.heart').css("transition", "background 1s steps(28)");
+    })
+
     // like 버튼을 눌렀을 때 숫자 증가, 감소 + 하트 활성화, 비활성화
     $('.like-btn').on('click', function(){
 
@@ -161,26 +166,10 @@ function loadLike() {
 
 
 // 업데이트 버튼
-$('#update-btn').on('click', function() {
-
-  $('#add-btn').hide();
-
-  $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
-  $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );
-
-  $('#summernote').summernote({  //썸머노트 활성화 시작
-    placeholder: 'Hello bootstrap 4',
-    tabsize: 2,
-    height: 400
-  });
-
-  if($('#delete-btn').css("display") != "none") {
-    $('#delete-btn').css("display", "none");
-
-  } else{
-    updateDate();
-  }
-
+$('#update-btn').on('click', function(e) {
+  e.preventDefault();
+  console.log(e.target);
+  window.location.href = 'update.html?no=' + $('#no').attr('data-no');
 });
 
 

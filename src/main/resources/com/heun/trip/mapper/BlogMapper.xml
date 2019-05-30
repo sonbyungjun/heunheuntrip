@@ -112,7 +112,8 @@
       board
     set
       title = #{title},
-      conts = #{content}
+      conts = #{content},
+      main_photo = #{mainPhoto}
     where 
       board_id = #{no}
   </update>
