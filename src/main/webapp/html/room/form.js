@@ -435,8 +435,10 @@ $('.heun-push').click(function () {
         dataType: 'json',
         success: function (response) {
           if (response.status == 'success') {
-            location.href = 'form.html';
+            location.href = 'index.html';
           } else {
+            // 테스트용
+            location.href = 'index.html';
           }
         },
         fail: function (error) {
