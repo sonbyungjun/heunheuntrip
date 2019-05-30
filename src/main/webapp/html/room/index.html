@@ -51,29 +51,6 @@
                       <div class="card">
                         <div class="card-header">
                           <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
-                              href="#p_budget" aria-expanded="true" aria-controls="p_type"> Budget <i
-                                class="fa fa-caret-down float-right"></i> </a> </h4>
-                        </div>
-                        <div id="p_budget" class="panel-collapse collapse" role="tabpanel">
-                          <div class="card-body">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <input type="text" class="form-control input-sm" placeholder="Min">
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="form-group">
-                                  <input type="text" class="form-control input-sm" placeholder="Max">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
                               href="#p_type" aria-expanded="true" aria-controls="p_type"> Property Type <i
                                 class="fa fa-caret-down float-right"></i> </a> </h4>
                         </div>
@@ -101,6 +78,9 @@
                             </div>
                           </div>
                         </div>
+                      </div>
+                      <div class="card">
+                        <div id="map" style="width:280px;height:300px;"></div>
                       </div>
                       <div class="card">
                         <div class="card-header">
@@ -143,11 +123,10 @@
                     <div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
                       <div class="form-group">
                         <select class="form-control ui-select">
-                          <option selected="selected">Most recent</option>
-                          <option>Highest price</option>
-                          <option>Lowest price</option>
-                          <option>Most reduced</option>
-                          <option>Most popular</option>
+                          <option selected="selected">최신순</option>
+                          <option>높은 가격순</option>
+                          <option>낮은 가격순</option>
+                          <option>인기순</option>
                         </select>
                       </div>
                     </div>
@@ -167,15 +146,10 @@
 
                 </div>
 
-                <nav aria-label="Page navigation">
-                  <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                  </ul>
-                </nav>
+                <div class="pagination-menu"></div>
+
+
+
               </div>
             </div>
           </div>
@@ -190,13 +164,15 @@
   </div>
 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
+
   <script id="list-template" type="text/x-handlebars-template">
     {{#each list}}
       
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="item">
         <div class="item-image">
-          <a href="property_single.html">
+          <a class="heun-room" href="property_single.html" data-no="{{no}}" data-latitude="{{latitude}}" data-longitude="{{longitude}}">
             <img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" class="img-fluid" alt="">
           </a> 
           <a href="#" class="save-item"><i class="fa fa-star"></i></a> 
@@ -205,7 +181,7 @@
           <h3 class="item-title">{{name}}</h3>
           <div class="item-location">
             <i class="fa fa-map-marker"></i>
-            {{traffic}}
+            {{area}}
           </div>
           <div class="item-details-i"> 
             <span class="bedrooms" data-toggle="tooltip" title="3 Bedrooms">{{bed}}<i class="fa fa-bed"></i></span>
@@ -218,6 +194,35 @@
 
     {{/each}}
   </script>
+
+  <script id="page-template" type="text/x-handlebars-template">
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {{#paginate pagination type="first"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="previous"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="middle" limit="5"}}
+        <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+      {{/paginate}}
+    </ul>
+  </nav>
+  </script>
+
+
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
   <script src="index.js"></script>
 
 </body>

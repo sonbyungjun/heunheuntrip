@@ -108,10 +108,12 @@
       rms_id,
       rm_name,
       rm_chge,
-      traf,
+      area,
       bed,
       bath,
-      thum
+      thum,
+      lati,
+      longi
     from
       rms
     order by
