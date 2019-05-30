@@ -65,83 +65,7 @@
     </if> 
   </select>
   
-    <select id="countAll" resultType="int">
-    select count(*) from board
-  </select>
-  
-  
-   <select id="orderbylist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt,
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      b.cdt desc
-  </select>
-  
-   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt, 
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      b.cdt asc
-  </select>
-  
-    
-   <select id="orderbygradelist" resultMap="blogMap" parameterType="map">
-    select
-      b.board_id,
-      b.title,
-      b.conts,
-      b.cdt,
-      b.main_photo,
-      u.usr_id,
-      u.name,
-      r.rms_id,
-      r.grd,
-      r.rm_name,
-      r.addr
-    from
-      board b
-    left outer join
-      usr u on b.usr_id=u.usr_id
-    left outer join
-      rms r on b.rms_id=r.rms_id
-    order by
-      r.grd desc
-  </select>
-
-  
-  <insert id="insert" parameterType="blog"  useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
+  <insert id="insert" parameterType="blog" useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
     insert into board(
       title,
       conts,
@@ -157,7 +81,8 @@
       #{mainPhoto})
   </insert>
   
-   <select id="findByNo" resultMap="blogMap" parameterType="int">
+  
+  <select id="findByNo" resultMap="blogMap" parameterType="int">
     select
       b.board_id,
       b.title,
@@ -182,34 +107,7 @@
       board_id desc
   </select>
   
-  <select id="checkRev" resultType="int" parameterType="int">
-    select 
-      count(*)
-    from 
-      rev r
-    left outer join 
-      usr u 
-        on r.usr_id=u.usr_id
-    where
-      r.usr_id =#{no} and r.stus_id=3;
-  </select>
-  
-
-  <select id="roomCheckOut" resultMap="roomcheckoutMap" parameterType="int">
-    select
-      r.rms_id,
-      r.rm_name
-    from
-      rev v
-    left outer join
-      usr u on v.usr_id = u.usr_id
-    left outer join
-      rms r on v.rms_id = r.rms_id
-    where
-      v.usr_id = #{no} and v.stus_id = 3;
-  </select>
-
-   <update id="update" parameterType="blog">
+  <update id="update" parameterType="blog">
     update
       board
     set
@@ -226,6 +124,43 @@
       board_id = #{no} 
   </delete>
   
+  <delete id="deletelike" parameterType="int">
+    delete 
+      from blike
+    where 
+      board_id = #{no} 
+  </delete>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from board
+  </select>
+  
+  <select id="checkRev" resultType="int" parameterType="int">
+    select 
+      count(*)
+    from 
+      rev r
+    left outer join 
+      usr u 
+        on r.usr_id=u.usr_id
+    where
+      r.usr_id =#{no} and r.stus_id=3;
+  </select>
+  
+  <select id="roomCheckOut" resultMap="roomcheckoutMap" parameterType="int">
+    select
+      r.rms_id,
+      r.rm_name
+    from
+      rev v
+    left outer join
+      usr u on v.usr_id = u.usr_id
+    left outer join
+      rms r on v.rms_id = r.rms_id
+    where
+      v.usr_id = #{no} and v.stus_id = 3;
+  </select>
+
   <select id="checkView" resultType="int" parameterType="map">
    select 
     count(*) 
@@ -280,8 +215,6 @@
       l.blike_check = 1 and b.board_id = #{boardNo}
   </select>
   
- 
-  
   <select id="likebylist" resultMap="blogMap" parameterType="map">
     select
       b.board_id,
@@ -307,5 +240,52 @@
     order by
       l.blike_check desc
   </select>
+  
+  <select id="orderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.board_id desc
+  </select>
+  
+  <select id="deorderbylist" resultMap="blogMap" parameterType="map">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt, 
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      b.board_id asc
+  </select>
+  
 </mapper>  
 

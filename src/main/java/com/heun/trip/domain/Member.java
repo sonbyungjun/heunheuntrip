@@ -13,6 +13,7 @@ public class Member {
   private String photo;
   private String auth;
   
+  
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   

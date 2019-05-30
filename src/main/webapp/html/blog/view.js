@@ -1,6 +1,6 @@
 var param = location.href.split('?')[1];
 
- 
+
 $(document).ready(function () {
   $('#heun-header').load('../header.html', function () {
     $('.heun-header-nav').removeClass('navbar-over absolute-top');
@@ -52,38 +52,53 @@ function loadData(no) {
 
 }
 
-  function loadLike() {
-    
+function loadLike() {
 
-    console.log($('#no').attr('data-uno')); 
-    console.log($('#no').attr('data-no')); 
-    console.log($('#no').attr('data-title')); 
-    // 글 조회 시 Like 할 수 있는 데이터 생김
-  
-    if($('#no').attr('data-uno') != undefined){
+  // 로그인한 유저일 경우, 
+  if($('#no').attr('data-uno') != undefined){
 
-      console.log('여기로 안들어가져?');
-      console.log($('#no').attr('data-uno'));
-      
-      $.ajax({
-        url: '../../app/json/blog/checkView',
-        type: 'POST',
-        data: {
-          userNo: $('#no').attr('data-uno'),      
-          boardNo: $('#no').attr('data-no')
-        },
-        dataType: 'json',
-        success: function(response) {
-          console.log('like 데이터 생겼는지 확인 점 해바바');
-        },
-        fail: function(error) {
-          alert('확인 실패!');
+    $.ajax({
+      url: '../../app/json/blog/checkView',
+      type: 'POST',
+      data: {
+        userNo: $('#no').attr('data-uno'),      
+        boardNo: $('#no').attr('data-no')
+      },
+      dataType: 'json',
+      success: function(response) {
+        console.log('like 데이터 생겼는지 확인 점 해바바');
+      },
+      fail: function(error) {
+        alert('확인 실패!');
+      }
+    });
+
+    // 좋아요를 눌렀을 시 하트가 활성화, 좋아요를 누른 적이 없으면 비 활성화
+    $.ajax({
+      url: '../../app/json/blog/checkBlike',
+      type: 'POST',
+      data: {
+        userNo: $('#no').attr('data-uno'),      
+        boardNo: $('#no').attr('data-no')
+      },
+      dataType: 'json',
+      success: function(response) {
+
+        if(response.blike == 0){
+          $('.heart-btn').css("color", "white");
+        } else if (response.blike == 1){
+          $('.heart-btn').css("color", "red");
         }
+      },
+      fail: function(error){
 
-      });
+      }
+    });
 
+    // like 버튼을 눌렀을 때 숫자 증가, 감소 + 하트 활성화, 비활성화
+    $('.like-btn').on('click', function(){
 
-      // 좋아요를 눌렀을 시 하트가 활성화, 좋아요를 누른 적이 없으면 비 활성화
+      // 좋아요 수를 check한 후, 0이면 +1, 1이면 -1
       $.ajax({
         url: '../../app/json/blog/checkBlike',
         type: 'POST',
@@ -93,132 +108,117 @@ function loadData(no) {
         },
         dataType: 'json',
         success: function(response) {
-
+          console.log(response);
           if(response.blike == 0){
-            $('.heart-btn').css("color", "white");
-          } else if (response.blike == 1){
-            $('.heart-btn').css("color", "red");
-          }
-        },
-        fail: function(error){
 
+            $.ajax({
+              url: '../../app/json/blog/increaseLike',
+              type: 'POST',
+              data: {
+                userNo: $('#no').attr('data-uno'),      
+                boardNo: $('#no').attr('data-no')
+              },
+              dataType: 'json',
+              success: function(response) {
+                $('.heart-btn').css("color", "red");
+                console.log('make sure increaseLike')
+              },
+              fail: function(error) {
+                alert('변경 실패!!');
+              }
+            }); // increaseLike 
+
+          } else if (response.blike == 1) {
+
+            $.ajax({
+              url: '../../app/json/blog/decreaseLike',
+              type: 'POST',
+              data: {
+                userNo: $('#no').attr('data-uno'),      
+                boardNo: $('#no').attr('data-no')
+              },
+              dataType: 'json',
+              success: function(response) {
+                $('.heart-btn').css("color", "white");
+                console.log('make sure decreaseLike')
+              },
+              fail: function(error) {
+                alert('변경 실패!!');
+              }
+            }); // decreaseLike
+            
+          }
+        }, // success의 끝
+        fail: function(error) {
+          alert('변경 실패!!');
         }
-      });
+      }); // checkBlike의 끝
 
-      // like 버튼을 눌렀을 때 숫자 증가, 감소 + 하트 활성화, 비활성화
-      $('.like-btn').on('click', function(){
-        
-
-        $.ajax({
-          url: '../../app/json/blog/checkBlike',
-          type: 'POST',
-          data: {
-            userNo: $('#no').attr('data-uno'),      
-            boardNo: $('#no').attr('data-no')
-          },
-          dataType: 'json',
-          success: function(response) {
-            console.log(response);
-            if(response.blike == 0){
-
-              $.ajax({
-                url: '../../app/json/blog/increaseLike',
-                type: 'POST',
-                data: {
-                  userNo: $('#no').attr('data-uno'),      
-                  boardNo: $('#no').attr('data-no')
-                },
-                dataType: 'json',
-                success: function(response) {
-                  $('.heart-btn').css("color", "red");
-                  console.log('make sure increaseLike')
-                },
-                fail: function(error) {
-                  alert('변경 실패!!');
-                }
-              });
-
-            } else if (response.blike == 1) {
-
-              $.ajax({
-                url: '../../app/json/blog/decreaseLike',
-                type: 'POST',
-                data: {
-                  userNo: $('#no').attr('data-uno'),      
-                  boardNo: $('#no').attr('data-no')
-                },
-                dataType: 'json',
-                success: function(response) {
-                  $('.heart-btn').css("color", "white");
-                  console.log('make sure decreaseLike')
-                },
-                fail: function(error) {
-                  alert('변경 실패!!');
-                }
-              });
-            }
-          },
-          fail: function(error) {
-            alert('변경 실패!!');
-          }
-        });
-
-      })
-
-    }
+    }) // like click 이벤트의 끝
   }
+} // loadLike의 끝
 
 
 
+// 업데이트 버튼
+$('#update-btn').on('click', function() {
 
-  $('#update-btn').on('click', function() {
+  $('#add-btn').hide();
 
-    $('#add-btn').hide();
+  $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
+  $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );
 
-    $('h1').contents().unwrap().wrap( '<textarea id="update-title"></textarea>' );
-    $('.update-content').contents().unwrap().wrap( '<div id="summernote"></div>' );
-
-    $('#summernote').summernote({  //썸머노트 활성화 시작
-      placeholder: 'Hello bootstrap 4',
-      tabsize: 2,
-      height: 400
-    });
-
-    if($('#delete-btn').css("display") != "none") {
-      $('#delete-btn').css("display", "none");
-
-    } else{
-      updateDate();
-    }
-
+  $('#summernote').summernote({  //썸머노트 활성화 시작
+    placeholder: 'Hello bootstrap 4',
+    tabsize: 2,
+    height: 400
   });
 
+  if($('#delete-btn').css("display") != "none") {
+    $('#delete-btn').css("display", "none");
 
-
-  function updateDate() {
-    var markupStr = $('#summernote').summernote('code');
-
-    $.ajax({
-      url: '../../app/json/blog/update',
-      type: 'POST',
-      data: {
-        no: $('#no').attr('data-no'),      
-        title: $('#update-title').val(),
-        content: markupStr
-      },
-      dataType: 'json',
-      success: function(response) {
-        location.href = 'index.html';
-      },
-      fail: function(error) {
-        alert('변경 실패!!');
-      }
-    });
+  } else{
+    updateDate();
   }
 
+});
 
 
-  $('#delete-btn').on('click', function () {
+// 업데이트 기능
+function updateDate() {
+  var markupStr = $('#summernote').summernote('code');
+
+  $.ajax({
+    url: '../../app/json/blog/update',
+    type: 'POST',
+    data: {
+      no: $('#no').attr('data-no'),      
+      title: $('#update-title').val(),
+      content: markupStr
+    },
+    dataType: 'json',
+    success: function(response) {
+      location.href = 'index.html';
+    },
+    fail: function(error) {
+      alert('변경 실패!!');
+    }
+  });
+}
+
+// 삭제 기능
+$('#delete-btn').on('click', function () {
+
+  Swal.fire({
+    title: '삭제하시겠어요?',
+    text: "당신의 글이 삭제됩니다!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '네, 삭제할게요!',
+    cancelButtonText: '아니요!'
+  }).then((result) => {
 
     $.ajax({
       url: '../../app/json/blog/delete?no=' + $('#no').attr('data-no'),
@@ -226,12 +226,12 @@ function loadData(no) {
       dataType: 'json',
       success: function (response) {
         location.href = 'index.html';
-
       },
       fail: function (error) {
         alert('삭제 실패!!');
       }
     });
-  });
+  })
+});
 
 

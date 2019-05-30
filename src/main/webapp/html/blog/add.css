@@ -7,12 +7,17 @@
   font-style: normal; 
   }
 
- #content {	
-    text-align: center;	
-    margin: 30px;	
+h1 {
+	text-align: center;  
+    margin: 30px; 
+    font-family: 'BBTreeGL';  
+}
 
+ .page-header {	
+    text-align: center;	
     font-family: 'BBTreeGL';	
 }	
+
 
  .dropdown-menu {	
     width: 100% !important;	

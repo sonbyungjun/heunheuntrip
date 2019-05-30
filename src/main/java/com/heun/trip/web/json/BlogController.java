@@ -33,70 +33,6 @@ public class BlogController {
   @Autowired ServletContext servletContext;
 
 
-  @PostMapping("checkBlike")
-  public Object checkBlike(Blike blike) {
-    HashMap<String,Object> content = new HashMap<>();
-    try {
-      int no = blogService.checkLike(blike);
-      System.out.println(no);
-      content.put("blike", no);
-      content.put("status", "success");
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
-    }
-    return content;
-  }
-
-  @PostMapping("checkView")
-  public Object checkView(Blike blike) {
-    HashMap<String,Object> content = new HashMap<>();
-    System.out.println(blike);
-
-    int no = blogService.checkView(blike);
-    System.out.println(no);
-    
-    if(no == 0) {
-      blogService.createLike(blike);
-    }
-
-    try {
-      content.put("status", "success");
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
-    }
-    return content;
-  }
-  
-  @PostMapping("increaseLike")
-  public Object increaseLike(Blike blike) {
-    HashMap<String,Object> content = new HashMap<>();
-
-    try {
-      blogService.increaseLike(blike);
-      content.put("status", "success");
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
-    }
-    return content;
-  }
-  
-  @PostMapping("decreaseLike")
-  public Object decreaseLike(Blike blike) {
-    HashMap<String,Object> content = new HashMap<>();
-
-    try {
-      blogService.decreaseLike(blike);
-      content.put("status", "success");
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
-    }
-    return content;
-  }
-
   @PostMapping("add")
   public Object add(Blog blog, MultipartFile[] files, HttpSession session, String[] filenames) throws IOException {
     HashMap<String,Object> content = new HashMap<>();
@@ -131,15 +67,15 @@ public class BlogController {
         continue;
       String uploadDir = servletContext.getRealPath(
           "/upload/blogphoto");
-
+  
       String filename = UUID.randomUUID().toString();
       part.transferTo(new File(uploadDir + "/" + filename));
-
+  
       blog.setMainPhoto(filename);
-
+  
       Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
     }
-
+  
     try {
       blogService.add(blog);
       content.put("status", "success");
@@ -149,16 +85,16 @@ public class BlogController {
     }
     return content;
   }
-  
+
   @PostMapping("addfile")
   public Object addFile(MultipartFile[] file) {
     
     String uploadDir = servletContext.getRealPath(
         "/upload/blogphoto");
-
+  
     String filename = UUID.randomUUID().toString();
     File originFile = new File(uploadDir + "/" + filename);
-
+  
     for (MultipartFile f : file) {
       
       if (!f.isEmpty()) {
@@ -172,58 +108,67 @@ public class BlogController {
     return filename;
   }
 
-  @GetMapping("roomCheckOut")
-  public Object roomCheckOut(HttpSession session) {
-    Map<String,Object> content = new HashMap<>();
-    Member loginUser = (Member) session.getAttribute("loginUser");
-    if (loginUser != null) {
-      int userNo = loginUser.getNo();
-      String userName = loginUser.getName();
-      content.put("userNo", userNo);
-      content.put("userName", userName);
-      List<Roomcheckout> roomCheckOut = blogService.roomCheckOut(userNo);
-      content.put("list", roomCheckOut);
-    }
-    return content;
-  }
-
-
   @GetMapping("list")
   public Object list(@RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="8") int pageSize) { // localhost:8080/heunheuntrip/app/json/blog/list
+      @RequestParam(defaultValue="8") int pageSize,
+      @RequestParam(value="order") int order,
+      @RequestParam(value="blike") int blike,
+      @RequestParam(value="deorder") int deorder
+      ) { // localhost:8080/heunheuntrip/app/json/blog/list
 
+    //System.out.println(order);
 
     if (pageSize < 1 || pageSize > 8) 
       pageSize = 7;
-    
-     int rowCount = blogService.size();
-    
-     int totalPage = rowCount / pageSize;
-     if (rowCount % pageSize > 0)
-       totalPage++;
-     
-     if (pageNo < 1) 
-       pageNo = 1;
-     else if (pageNo > totalPage)
-       pageNo = totalPage;
-     
-    List<Blog> blogs = blogService.list(pageNo, pageSize);
 
+    int rowCount = blogService.size();
+
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
 
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
 
+    //여기서 리스트를 뿌려주는 형식이 정해짐
+    if(order == 1) {
+      List<Blog> blogs = blogService.order(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } else if(blike == 1) {
+      List<Blog> blogs = blogService.likebylist(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } else if (deorder == 1) {
+      List<Blog> blogs = blogService.deorder(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } else {
+      List<Blog> blogs = blogService.list(pageNo, pageSize);
+      content.put("list", blogs);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
     return content;
   }
-
+  
+  
   @GetMapping("detail")
   public Object detail(int no, HttpSession session) {
     Blog blog = blogService.get(no);
     int countNo = blogService.countLike(no);
-
+  
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
     
@@ -233,7 +178,92 @@ public class BlogController {
     }
     content.put("blog", blog);
     content.put("count", countNo);
+  
+    return content;
+  }
 
+  @PostMapping("update")
+  public Object update(Blog blog) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (blogService.update(blog) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+  
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+  @GetMapping("delete")
+  public Object delete(int no) {
+  
+    HashMap<String,Object> content = new HashMap<>();
+    
+    List<BlogFile> files = blogService.filelist(no);
+    
+    for(BlogFile f : files) {
+      String uploadDir = servletContext.getRealPath("/upload/blogphoto");
+      String filename = f.getFile();
+      try {
+        new File(uploadDir + "/" + filename).delete();
+      } catch (Exception e) {}
+    }
+    
+    try {
+      if (blogService.delete(no) == 0) { 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      }
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+  @PostMapping("checkBlike")
+  public Object checkBlike(Blike blike) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      int no = blogService.checkLike(blike);
+      System.out.println(no);
+      content.put("blike", no);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+  @PostMapping("increaseLike")
+  public Object increaseLike(Blike blike) {
+    HashMap<String,Object> content = new HashMap<>();
+  
+    try {
+      blogService.increaseLike(blike);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+  @PostMapping("decreaseLike")
+  public Object decreaseLike(Blike blike) {
+    HashMap<String,Object> content = new HashMap<>();
+  
+    try {
+      blogService.decreaseLike(blike);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
     return content;
   }
 
@@ -261,31 +291,19 @@ public class BlogController {
     return content;
   }
 
-  @PostMapping("update")
-  public Object update(Blog blog) {
+  @PostMapping("checkView")
+  public Object checkView(Blike blike) {
     HashMap<String,Object> content = new HashMap<>();
-    try {
-      if (blogService.update(blog) == 0) 
-        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-      content.put("status", "success");
+    System.out.println(blike);
 
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
+    int no = blogService.checkView(blike);
+    System.out.println(no);
+    
+    if(no == 0) {
+      blogService.createLike(blike);
     }
-    return content;
-  }
-
-
-  @GetMapping("delete")
-  public Object delete(int no) {
-
-    HashMap<String,Object> content = new HashMap<>();
 
     try {
-      if (blogService.delete(no) == 0) { 
-        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-      }
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
@@ -293,52 +311,20 @@ public class BlogController {
     }
     return content;
   }
-
-  @GetMapping("order")
-  public Object order() { // localhost:8080/heunheuntrip/app/json/blog/order
-
-
-    List<Blog> blogs = blogService.order();
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-
-    return content;
-  }
   
-  @GetMapping("deorder")
-  public Object deorder() { // localhost:8080/heunheuntrip/app/json/blog/order
-    
-    
-    List<Blog> blogs = blogService.deorder();
-    
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-    
+  @GetMapping("roomCheckOut")
+  public Object roomCheckOut(HttpSession session) {
+    Map<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    if (loginUser != null) {
+      int userNo = loginUser.getNo();
+      String userName = loginUser.getName();
+      content.put("userNo", userNo);
+      content.put("userName", userName);
+      List<Roomcheckout> roomCheckOut = blogService.roomCheckOut(userNo);
+      content.put("list", roomCheckOut);
+    }
     return content;
   }
 
-  @GetMapping("gradeorder")
-  public Object gradeorder() { // localhost:8080/heunheuntrip/app/json/blog/gradeorder
-
-
-    List<Blog> blogs = blogService.gradeorder();
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-
-    return content;
-  }
-  
-  @GetMapping("likeorder")
-  public Object likeorder() { // localhost:8080/heunheuntrip/app/json/blog/likeorder
-
-
-    List<Blog> blogs = blogService.likebylist();
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", blogs);
-
-    return content;
-  }
 }
