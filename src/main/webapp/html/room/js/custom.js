@@ -89,7 +89,7 @@ $(document).ready(function () {
 						alert(api.assets.textParse(api.getOptions().captions.imageSizeError, item));
 						return item.remove();
 					}
-
+					
 					item.image.hide();
 					item.reader.done = true;
 
@@ -116,7 +116,6 @@ $(document).ready(function () {
 				fileCount++;
 			},
 			onItemRemove: function (html) {
-				console.log('onItemRemove()');
 				html.fadeOut(250);
 			}
 		},
@@ -213,13 +212,14 @@ $(document).ready(function () {
 					item.imU = true;
 					item.image.addClass('fileuploader-loading').find('img, canvas').hide();
 					item.html.find('.fileuploader-action-popup').hide();
-
+					
 					$.post('php/ajax.php?type=resize', { name: item.name, id: item.data.listProps.id, _editor: JSON.stringify(item.editor) }, function () {
 						// update the image
 						item.reader.read(function () {
 							delete item.imU;
-
+							
 							item.image.removeClass('fileuploader-loading').find('img, canvas').show();
+							
 							item.html.find('.fileuploader-action-popup').show();
 							item.editor.rotation = item.editor.crop = null;
 							item.popup = { open: item.popup.open };

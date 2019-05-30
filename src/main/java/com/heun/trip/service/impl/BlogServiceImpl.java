@@ -75,7 +75,23 @@ public class BlogServiceImpl implements BlogService {
 
   @Override
   public int update(Blog blog) {
-    return blogDao.update(blog);
+    
+    System.out.println(blog.getMainPhoto());
+    
+    
+//    blogDao.update(blog);
+    
+    
+//    blogFileDao.delete(blog.getNo());
+    
+    List<BlogFile> files = blog.getPhotoFiles();
+    for (BlogFile f : files) {
+      f.setBlogNo(blog.getNo());
+    }
+//    blogFileDao.insert(files);
+    
+    
+    return 1;
   }
 
   @Override

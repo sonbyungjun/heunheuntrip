@@ -2,7 +2,8 @@ var form = $('#room-list'),
 	templateSrc = $('#list-template').html(),
 	listGenerator = Handlebars.compile(templateSrc),
 	paginateSrc = $('#page-template').html(),
-	markers = [];
+	markers = [],
+	img = {};
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -105,6 +106,13 @@ function comma(x) {
 $('body').on('loaded-list', function () {
 
 	$('.heun-room').mouseenter(function () {
+		
+		
+		$(img).css('border', '');
+
+		img = $(this);
+
+		img.css('border', '2px solid #eee');
 
 		var latitude = $(this).data('latitude');
 		var longitude = $(this).data('longitude');

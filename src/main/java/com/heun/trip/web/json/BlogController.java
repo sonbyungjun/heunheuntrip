@@ -34,14 +34,20 @@ public class BlogController {
 
 
   @PostMapping("add")
-  public Object add(Blog blog, MultipartFile[] files, HttpSession session, String[] filenames) throws IOException {
+  public Object add(Blog blog,@RequestParam(value="filenames[]") String[] filenames, HttpSession session) throws IOException {
+    
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
     
     List<BlogFile> photoFiles = new ArrayList<>();
     
     for (String s : filenames) {
-      System.out.println(blog.getContent().contains(s));
+      
+      if (s.contains("tumbnail")) {
+        blog.setMainPhoto(s);
+        continue;
+      }
+      
       if (!blog.getContent().contains(s)) {
         String uploadDir = servletContext.getRealPath(
             "/upload/blogphoto");
@@ -51,6 +57,7 @@ public class BlogController {
         }
         continue;
       }
+      
       BlogFile file = new BlogFile();
       file.setFile(s);
       photoFiles.add(file);
@@ -61,21 +68,6 @@ public class BlogController {
     // 로긴 유저 정보 저장
     blog.setUserNo(loginUser.getNo());
     
-    // 파일을 경로에 저장
-    for (MultipartFile part : files) {
-      if (part.getSize() == 0) 
-        continue;
-      String uploadDir = servletContext.getRealPath(
-          "/upload/blogphoto");
-  
-      String filename = UUID.randomUUID().toString();
-      part.transferTo(new File(uploadDir + "/" + filename));
-  
-      blog.setMainPhoto(filename);
-  
-      Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
-    }
-  
     try {
       blogService.add(blog);
       content.put("status", "success");
@@ -83,18 +75,20 @@ public class BlogController {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
+    
     return content;
   }
 
   @PostMapping("update")
-  public Object update(Blog blog, MultipartFile[] files, HttpSession session, String[] filenames) throws IOException{
+  public Object update(Blog blog,@RequestParam(value="files", required=false)  MultipartFile[] files, HttpSession session,@RequestParam(value="filenames[]") String[] filenames) throws IOException{
+    
     HashMap<String,Object> content = new HashMap<>();
+    
     Member loginUser = (Member) session.getAttribute("loginUser");
     
     List<BlogFile> photoFiles = new ArrayList<>();
     
     for (String s : filenames) {
-      System.out.println(blog.getContent().contains(s));
       if (!blog.getContent().contains(s)) {
         String uploadDir = servletContext.getRealPath(
             "/upload/blogphoto");
@@ -128,6 +122,8 @@ public class BlogController {
   
       Thumbnails.of(new File(uploadDir + "/" + filename)).crop(Positions.CENTER).size(350,450).outputFormat("jpeg").toFile(new File(uploadDir + "/Thumbnail/" + filename));
     }
+    
+    System.out.println(blog);
     
     try {
       if (blogService.update(blog) == 0) 
@@ -142,21 +138,27 @@ public class BlogController {
   }
 
   @PostMapping("addfile")
-  public Object addFile(MultipartFile[] file) {
-    
+  public Object addFile(MultipartFile[] file, boolean isMain) {
     String uploadDir = servletContext.getRealPath(
         "/upload/blogphoto");
-  
     String filename = UUID.randomUUID().toString();
     File originFile = new File(uploadDir + "/" + filename);
-  
     for (MultipartFile f : file) {
-      
       if (!f.isEmpty()) {
         try {
           f.transferTo(originFile);
         } catch(Exception e) {
           e.printStackTrace();
+        }
+        if (isMain) {
+          try {
+            Thumbnails.of(originFile)
+              .crop(Positions.CENTER).size(350,450)
+              .outputFormat("jpeg")
+              .toFile(new File(uploadDir + "/Thumbnail/" + filename + "_tumbnail"));
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         }
       }
     }

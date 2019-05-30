@@ -25,6 +25,28 @@
     <result column="blike_check" property="blike"/>
   </resultMap>
   
+  <resultMap type="blog" id="blogPhotoMap">
+    <id column="board_id" property="no"/>
+    <result column="title" property="title"/>
+    <result column="conts" property="content"/>
+    <result column="main_photo" property="mainPhoto" />
+    <result column="cdt" property="createdDate"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="name" property="name"/>
+    <result column="rms_id" property="rmsNo"/>
+    <result column="grd" property="grade"/>
+    <result column="rm_name" property="rmsName"/>
+    <result column="addr" property="rmsAddr"/>
+    <result column="dtil_addr" property="rmsDetailAddr"/>
+    <result column="blike_check" property="blike"/>
+    
+    <collection property="photoFiles" ofType="blogFile"> 
+      <id column="pboard_id" property="no"/>
+      <result column="board_id"  property="blogNo"/>
+      <result column="photo" property="file"/>
+    </collection>
+  </resultMap>
+  
   <resultMap type="roomcheckout" id="roomcheckoutMap">
     <id column="rms_id" property="rmsNo"/>
     <result column="rm_name" property="rmsName"/>
@@ -82,7 +104,7 @@
   </insert>
   
   
-  <select id="findByNo" resultMap="blogMap" parameterType="int">
+  <select id="findByNo" resultMap="blogPhotoMap" parameterType="int">
     select
       b.board_id,
       b.title,
@@ -94,17 +116,20 @@
       r.grd,
       r.rm_name,
       r.addr,
-      r.dtil_addr
+      r.dtil_addr,
+      p.photo
     from
       board b
     left outer join
       usr u on b.usr_id=u.usr_id
     left outer join
       rms r on b.rms_id=r.rms_id
+    left outer join
+      photoboard p on b.board_id=p.board_id
     where
-      board_id = #{no}
+      b.board_id = #{no}
     order by
-      board_id desc
+      b.board_id desc
   </select>
   
   <update id="update" parameterType="blog">

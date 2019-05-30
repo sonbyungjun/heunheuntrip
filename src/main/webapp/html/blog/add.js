@@ -21,24 +21,24 @@ $(document).ready(function () {
     height: 400,
     focus: true,
     callbacks: {
+      // 섬머노트 에디터에서 파일을 업로드 할때마다 실행되는 함수이다. sendFile() 함수를 호출하여 파일정보를 넘겨준다.
       onImageUpload: function (files, editor, welEditable) {
         for (var i = files.length - 1; i >= 0; i--) {
-          sendFile(files[i], this);
+          sendFile(files[i], false, this);
         }
       }
     }
   });
 
-  if (imageCheck == false) {
-    $('#add-btn').hide();
-  }
 })
 
-function sendFile(file, el) {
+// 파일과 섬네일인지 아닌지 정보를 받아서 ajax 요청하여 파일정보를 넘겨준다.
+function sendFile(file, isMain, el) {
   var form_data = new FormData();
 
   form_data.append('file', file);
-
+  form_data.append('isMain', isMain);
+  
   $.ajax({
     data: form_data,
     type: "POST",
@@ -48,10 +48,15 @@ function sendFile(file, el) {
     enctype: 'multipart/form-data',
     processData: false,
     success: function(url) {
-      filenames.push(url);
-      var path = '/heunheuntrip/upload/blogphoto/' + url
-      $(el).summernote('editor.insertImage', path);
-      $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+      // el(태그) 가 파라미터로 넘어오면 true 값이 없으면 false
+      if (el) {
+        var path = '/heunheuntrip/upload/blogphoto/' + url
+        $(el).summernote('editor.insertImage', path);
+        $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
+        filenames.push(url);
+      } else {
+        filenames.push(url + '_tumbnail');
+      }
     }
   });
 }
@@ -108,7 +113,6 @@ $(document.body).on('loaded-checkout', function () {
   });
 })
 
-
 $('#error-btn').on('click', function () {
   Swal.fire({
     type: 'error',
@@ -118,65 +122,67 @@ $('#error-btn').on('click', function () {
 });
 
 
+$('#add-btn').click(function () {
 
-$('#fileupload').fileupload({
-  url: '../../app/json/blog/add',
-  dataType: 'json',
-  add: function (e, data) {
-
-    if (imageCheck = true) {
-      $('#add-btn').show();
-      $('#error-btn').hide();
-    }
-
-    console.log('add()...');
-
-    $.each(data.files, function (index, file) {
-      console.log('선택한 파일: ' + file.name);
-      $('.custom-file-label').html(file.name);
-    });
-
-    $('#add-btn').click(function () {
-
-      Swal.fire({
-        title: '잠깐!',
-        text: "후기를 등록하시겠어요?",
-        type: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '네, 등록하겠습니다!',
-        cancelButtonText: '아뇨, 다시 한번 볼게요!'
-      }).then((result) => {
-
-        console.log($('#summernote').summernote('code'));
-        data.formData = {
-          title: $('#title').val(),
-          content: $('#summernote').summernote('code'),
-          rmsNo: $('#title').attr('data-rno'),
-          filenames: filenames
-        };
-
-
-        if (check_input() == "error") {
-          return;
-        }
-
-        data.submit();
-
-        if (result.value) {
-
-          Swal.fire(
-            '성공!!',
-            '당신의 후기가 성공적으로 등록됐어요.',
-            'success'
-          ).then(() => {
-            location.href = "index.html";
-          })
-        }
-      })
-
-    });
+  if (check_input() == "error") {
+    return;
   }
-});
 
+  Swal.fire({
+    title: '잠깐!',
+    text: "후기를 등록하시겠어요?",
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '네, 등록하겠습니다!',
+    cancelButtonText: '아뇨, 다시 한번 볼게요!'
+  }).then((result) => {
+
+    if (result.value) {
+
+      $.ajax({
+        url: '../../app/json/blog/add',
+        type: 'POST',
+        data: {
+              title: $('#title').val(),
+              content: $('#summernote').summernote('code'),
+              rmsNo: $('#title').attr('data-rno'),
+              filenames: filenames
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            location.href = 'index.html';
+          } else {
+            // 테스트용
+            location.href = 'index.html';
+          }
+        },
+        fail: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
+
+      Swal.fire(
+        '성공!!',
+        '당신의 후기가 성공적으로 등록됐어요.',
+        'success'
+      ).then(() => {
+        location.href = "index.html";
+      })
+    }
+  })
+  
+})
+
+$('#fileupload').on('change', function (e) {
+
+  var files = e.target.files;
+
+  $.each(files, function (index, file) {
+    $('.custom-file-label').html(file.name);
+  });
+  
+  sendFile(files[0], true);
+})
