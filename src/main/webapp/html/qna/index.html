@@ -30,6 +30,7 @@
   <script src="../../lib/lib.js"></script>
   <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
   <script src="../js/handlebars-paginate.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
   
@@ -67,8 +68,9 @@
                     검색조건
                   </button>
                   <div class="dropdown-menu heun-search">
-                    <a class="dropdown-item droptitle" data-no="title">제목</a>
-                    <a class="dropdown-item dropname" data-no="name">작성자</a>
+                    <a class="dropdown-item droptitle" name="title" data-no="title">제목</a>
+                    <a class="dropdown-item dropname" name="name" data-no="name">작성자</a>
+                    <a class="dropdown-item droptitle" name="titlename" data-no="titlename">통합검색</a>
                   </div>
                   <div class="form-group mx-sm-3 mb-2">
                     <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
@@ -141,7 +143,40 @@
     </ul>
     </nav>
     </script>
-      
+    
+    
+    
+    
+    
+    
+    
+    <!--  
+    <script id="searchpage-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link heun-serchPage" href="#" data-no="{{no}}">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link heun-serchPage" href="#" data-no="{{no}}">&laquo;</a></li>
+        {{/searchpaginate}}
+    
+        {{#paginate pagination type="middle" limit="5"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link heun-serchPage" data-no='{{n}}' href="#" data-no="{{no}}">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link heun-serchPage" href="#" data-no="{{no}}">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link heun-serchPage" href="#" data-no="{{no}}">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+    </script>
+      -->
     <script src="index.js"></script>
     
 </body>

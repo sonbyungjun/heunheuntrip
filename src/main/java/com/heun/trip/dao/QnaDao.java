@@ -8,6 +8,10 @@ import com.heun.trip.domain.Qna;
 public interface QnaDao {
   int insert(Qna qna);
   List<Qna> findAll(Map<String,Object> params);
+  List<Qna> findbyname(Map<String,Object> params);
+  List<Qna> findbytitle(Map<String,Object> params);
+  List<Qna> findbytitlename(Map<String,Object> params);
+  List<Qna> findByKeyword(Map<String, Object> params);
   Qna findByNo(int no);
   int increaseCount(int no);  
   int delete(int no);   
@@ -19,7 +23,6 @@ public interface QnaDao {
   int maxOrder(int parent);
   int sorting(Map<String,Object> params);
   List<Qna> deleteList(Map<String,Object> params); 
-  List<Qna> findByKeyword(Map<String, Object> params);
   int password(Map<String, Object> params);
   int passwordCheck(int qnaNo);
 }
