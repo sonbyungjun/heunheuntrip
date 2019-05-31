@@ -18,6 +18,7 @@
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -32,7 +33,7 @@
   <script src="../js/handlebars-paginate.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
-  
+
 
 </head>
 
@@ -42,62 +43,57 @@
     <div id='heun-header'></div>
     <div id="content">
       <div class="container">
+
+        <div class="heun-btitle">
+          <h1>Q&A</h1>
+        </div>
+
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
-            <h1 class="main-title centered"><span>Q&A</span></h1>
+
+            <div class='col col-lg-5 main-btn'>
+              <a href='add.html' class="btn btn-primary btn-sm add-btn">
+              <span><i class="fas fa-pencil-alt"></i>   문의하기</span></a>
+            </div>
+
+            <div class="col col-lg-5 main-search">
+              <div class="btn-group search-choose">
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle searchselect" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  검색조건
+                </button>
+                <div class="dropdown-menu heun-search">
+                  <a class="dropdown-item droptitle" data-no="title">제목</a>
+                  <a class="dropdown-item dropname" data-no="name">작성자</a>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm mb-2 search-btn" value="">검색</button>
+              </div>
+            </div>
+
+            <table class="table table-striped product_comparison">
+              <thead>
+                <tr>
+                  <th scope="col">번호</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">카테고리</th>
+                  <th scope="col">제목</th>
+                  <th scope="col">등록일</th>
+                  <th scope="col">조회수</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
 
 
-        
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-12 col-xl-10">
 
-       
-            
+      </div>
 
-            <div class='col col-lg-5 main-btn'>
-              <a href='add.html' class="btn btn-warning btn-sm add-btn">새 글</a> 
-              <a href='../../' class="btn btn-warning btn-sm">메인화면</a>
-            </div>
-              
-            <div class="col col-lg-5 main-search">
-                <div class="btn-group search-choose">
-                  <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    검색조건
-                  </button>
-                  <div class="dropdown-menu heun-search">
-                    <a class="dropdown-item droptitle" data-no="title">제목</a>
-                    <a class="dropdown-item dropname" data-no="name">작성자</a>
-                  </div>
-                  <div class="form-group mx-sm-3 mb-2">
-                    <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오">
-                  </div>
-                  <button type="submit" class="btn btn-primary mb-2 search-btn" value="">검색</button>
-                </div>
-            </div>
-
-              <table class="table table-striped product_comparison">
-                  <thead>
-                      <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">이름</th>                    
-                        <th scope="col">카테고리</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">등록일</th>
-                        <th scope="col">조회수</th>
-                      </tr>
-                    </thead>
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-
-
-         
-          </div>
-
-       <div class="pagination-menu"></div>
+      <div class="pagination-menu"></div>
     </div>
     <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
     <div id="heun-footer"></div>
@@ -115,8 +111,8 @@
     </tr>
     {{/each}}
     </script>
-    
-    <script id="page-template" type="text/x-handlebars-template">
+
+  <script id="page-template" type="text/x-handlebars-template">
     <nav>
       <ul class="pagination pagination-centered">
         {{#paginate pagination type="first"}}
@@ -141,9 +137,9 @@
     </ul>
     </nav>
     </script>
-      
-    <script src="index.js"></script>
-    
+
+  <script src="index.js"></script>
+
 </body>
 
 </html>

@@ -283,6 +283,3 @@ $('#delete-btn').on('click', function () {
 
   })
 });
-
-
->>>>>>> refs/heads/minhee

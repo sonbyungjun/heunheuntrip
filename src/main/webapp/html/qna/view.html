@@ -16,7 +16,8 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
-   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link href="../../summernote/summernote-lite.css" rel="stylesheet">
   <link href="view.css" rel="stylesheet">
 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -43,71 +44,59 @@
 
     <div id="content">
       <div class="container">
-       
+
 
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
-            <div class="row has-sidebar">
-              <div class="col-md-12 col-lg-12 col-xl-12">
-                <div class="page-header v2 bordered col-lg-12">
-                  <div class="form-group-sm row">
-                    <div class="col-sm-8">
-
-                      <div class="dropdown form-inline">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          분류명
-                        </button>
-                        <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
-                        <input type = "hidden" id="no">
-                        <h4 class="heun-form update-title" id="title"></h4>
-                      </div>
-                    </div>
+            <div class="col-md-12 col-lg-12 col-xl-12">
+              <div class="page-header v2 bordered col-lg-12">
+                <div class="form-group-sm row">
+                  <div class="col-sm-2 col-lg-2 col-md-2">
+                    <button type="button" class="btn heun-catename" id="cateName"></button>
+                    <input type="hidden" id="no">
                   </div>
-                  
-
-       
-
-                <div class="item-meta-info"><span class="createdDate" id="createdDate">생성일</span><span class="userNo"
-                      id='userNo'>작성자</span></div>
+                  <div class="col-sm-9 col-lg-9 col-md-9">
+                    <h5 class="heun-form update-title" id="title"></h5>
+                  </div>
                 </div>
-                <div class="clearfix"></div>
-                <div class="item-detail">
-                  <div class="col-sm-12">
-                    <pre class="heun-form heun-content update-content" id='cont' ></pre>
-                  </div>
-                   <div class="col-sm-12">
-                    <input type = "hidden" class="form-control is-valid form-control heun-form update-password" id="password" name='password' placeholder="비밀번호 재설정(선택)">
-                  </div>
-
-                  <div class="buttons">
-                    <a href='index.html' class="btn btn-primary">목록</a>
-                    <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
-                    <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
-                    <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
-                  </div>
-
+                <div class="item-meta-info">
+	                <span class="createdDate" id="createdDate">생성일</span>
+	                <span class="userNo" id='userNo'>작성자</span>
                 </div>
               </div>
+
+
+
             </div>
-          </div>  
+            <div class="clearfix"></div>
+
+            <div class="item-detail">
+              <div class="col-sm-12">
+                <pre class="heun-form heun-content update-content" id='cont'></pre>
+              </div>
+              <div class="col-sm-12">
+                <input type="hidden" class="form-control is-valid form-control heun-form update-password" id="password"
+                  name='password' placeholder="비밀번호 재설정(선택)">
+              </div>
+
+              <div class="buttons">
+                <a href='index.html' class="btn btn-primary">목록</a>
+                <button type="button" id="delete-btn" class="btn btn-primary bit-view-item">삭제</button>
+                <button type="button" id="update-btn" class="btn btn-primary bit-view-item">변경</button>
+                <button type="button" id="re-btn" class="btn btn-primary bit-view-item">답글</button>
+              </div>
+
+            </div>
+          </div>
         </div>
-        <div id="reply-form"></div>
-        </div>
-        
       </div>
-      <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-      <div id="heun-footer"></div>
+      <div id="reply-form"></div>
     </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+    <div id="heun-footer"></div>
+  </div>
 
-
-
-
-
-
-
-
-    <script id="tr-template" type="text/x-handlebars-template">
+  <script id="tr-template" type="text/x-handlebars-template">
   {{#each list}}
   <tr>
     <th scope='row'>{{qnaNo}}</th>
@@ -120,7 +109,7 @@
   {{/each}}
   </script>
 
-    <script id="categorylist" type="text/x-handlebars-template">
+  <script id="categorylist" type="text/x-handlebars-template">
   {{#each category}}
     <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
   {{/each}}
@@ -152,7 +141,7 @@
     <button type="button" id="re-add-btn" class="btn btn-primary bit-view-item">답글 등록</button>
 </script>
 
-    <script src="view.js"></script>
+  <script src="view.js"></script>
 </body>
 
 </html>
