@@ -266,6 +266,9 @@
      blike l on l.board_id=b.board_id
     order by
       l.blike_check desc
+        <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if> 
   </select>
   
   <select id="orderbylist" resultMap="blogMap" parameterType="map">
@@ -289,6 +292,9 @@
       rms r on b.rms_id=r.rms_id
     order by
       b.board_id desc
+        <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if> 
   </select>
   
   <select id="deorderbylist" resultMap="blogMap" parameterType="map">
@@ -312,6 +318,9 @@
       rms r on b.rms_id=r.rms_id
     order by
       b.board_id asc
+        <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if> 
   </select>
   
 </mapper>  
