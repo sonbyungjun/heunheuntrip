@@ -20,16 +20,12 @@ $(document).ready(function () {
 })
 
 
+var isLoadingData = false;
 
 function loadList(pn, order, blike, dedorder) {
-
-  console.log(order);
-  console.log(blike);
-  console.log(dedorder);
-  
+	isLoading = true;
 	$.getJSON('../../app/json/blog/list?pageNo=' + pn + '&order=' + order + '&blike=' + blike + '&deorder=' + deorder,
 			function(obj) {
-	  
 
 		pageNo = obj.pageNo;
 		totalPage = obj.totalPage
@@ -41,10 +37,10 @@ function loadList(pn, order, blike, dedorder) {
 
 		$(trGenerator(obj)).appendTo(form);
 
-		++window.i;
+		window.i++;
 
 		$(document.body).trigger('loaded-list');
-
+		isLoading = false;
 	}); // Bitcamp.getJSON(
 
 } // loadList()
@@ -52,24 +48,35 @@ function loadList(pn, order, blike, dedorder) {
 
 
 //페이지를 출력한 후 1페이지 목록을 로딩한다.
-loadList(window.i, window.order, window.blike, window.deorder);
+loadList(window.i, 0, 0, 0);
 
+var jDocument = $(document);
+var jWindow = $(window);
+var jFooter = $('#heun-footer');
 
 $(document).scroll(function(event){
 
-	var maxHeight = $(document).height();
-	var currentScroll = $(window).scrollTop() + $(window).height();
+	var documentHeight = jDocument.height();
+	var windowHeight = jWindow.height();
+	var scrollTop = jDocument.scrollTop(); //스크롤바의 상단위치
+    var footerHeight = Math.floor(jFooter.height());
+    var currentScrollHeight = Math.floor(scrollTop + jWindow.height());
+    var bottomMarginHeight = footerHeight + 100;
 
-	// scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
-	if( maxHeight <= currentScroll + 20 ){
+	// scrollbar의 thumb가 바닥 전 20px까지 도달 하면 리스트를 가져온다.
+	if( (currentScrollHeight +  bottomMarginHeight >= documentHeight) && 
+			!isLoading &&
+			pageNo < totalPage){
+		
+		console.log("이벤트발생", totalPage, pageNo);
+		console.log(currentScrollHeight, bottomMarginHeight);
+		//console.log(window.i, window.order, window.blike, window.deorder);
+		loadList(window.i, window.order, window.blike, window.deorder);
+		var cut = window.i;
+		
+	  }
+   })	
 
-		if (totalPage <= pageNo) {
-			return;	
-		}
-	  
-		 loadList(window.i, window.order, window.blike, window.deorder);
-	}
-})
 
 
 //필터기능  
@@ -77,12 +84,14 @@ $('.heun-search > a').on('click', function() {
 
 	$('.searchselect').html($(this).html());
 
-	window.i = 1;
+
+	window.i= 1;
 	form.html('');
 
 
 	if($('.searchselect').html() == "최신순") {
-	  console.log("최신순")
+		console.log("최신순")
+
 		window.deorder = 0;
 		window.blike = 0;
 		window.order = 1;
@@ -91,7 +100,8 @@ $('.heun-search > a').on('click', function() {
 	} 
 
 	if($('.searchselect').html() == "인기순") {
-	  console.log("인기순")
+		console.log("인기순");
+
 		window.deorder = 0;
 		window.blike = 1;
 		window.order = 0;
@@ -100,11 +110,13 @@ $('.heun-search > a').on('click', function() {
 	} 
 
 	if($('.searchselect').html() == "오래된순") {
-	  console.log("오래된순")
+		console.log("오래된순");
+
 		window.deorder = 1;
 		window.blike = 0;
 		window.order = 0;
 
+		console.log(window.i);
 		loadList(window.i, window.order, window.blike, window.deorder);      
 	} 
 

@@ -201,13 +201,14 @@ public class BlogController {
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-    } else {
+    } else {      
       List<Blog> blogs = blogService.list(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     }
+
     return content;
   }
   
