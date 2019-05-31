@@ -300,6 +300,21 @@ public class BlogController {
     }
     return content;
   }
+  
+  @PostMapping("countLike")
+  public Object countLike(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+  
+    try {
+      int count = blogService.countLike(no);
+      content.put("count", count);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 
   @GetMapping("checkUser")
   public Object checkUser(HttpSession session) { // localhost:8080/heunheuntrip/app/json/blog/checkUser

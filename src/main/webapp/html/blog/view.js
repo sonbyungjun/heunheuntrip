@@ -17,11 +17,10 @@ $(document).ready(function () {
 
 function loadData(no) {
 
-	
-	$("#cont").on('keydown keyup', function () {
-		$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
-	});
-	
+  
+  $("#cont").on('keydown keyup', function () {
+    $(this).height(1).height( $(this).prop('scrollHeight')+12 );  
+  });
 
   $.getJSON("../../app/json/blog/detail?no=" + no, function (data) {
     $('#no').attr('data-no', data.blog.no);
@@ -33,12 +32,11 @@ function loadData(no) {
     $('#createdDate').html("작성일 : " + data.blog.createdDate);
     $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
     $('#grade').html("평점 : " + data.blog.grade);
+    var sp = '\u00A0\u00A0';
+    $('.likecount').html("좋아요" + sp + data.count);
+    
+    console.log('좋아요 갯수 === > ' + data.count);
 
-    
-    
-    
-    
-    
     if(data.loginNo != undefined){
       console.log('유저 로그인 한 상태임..');
       $('#no').attr('data-uno', data.loginNo);
@@ -95,7 +93,7 @@ function loadLike() {
       success: function(response) {
 
         if(response.blike == 0){
-          $('.heart-btn').css("color", "white");
+          $('.heart-btn').css("color", "#c0c0c0");
         } else if (response.blike == 1){
           $('.heart-btn').css("color", "red");
         }
@@ -105,13 +103,11 @@ function loadLike() {
       }
     });
 
-    $('.heart').on('click', function(){
-      $('.heart').css("background-position","-2800px 0");
-      $('.heart').css("transition", "background 1s steps(28)");
-    })
-
+  
     // like 버튼을 눌렀을 때 숫자 증가, 감소 + 하트 활성화, 비활성화
     $('.like-btn').on('click', function(){
+      
+      $('.fa-heart').attr('class', 'fas fa-heart');
 
       // 좋아요 수를 check한 후, 0이면 +1, 1이면 -1
       $.ajax({
@@ -136,7 +132,27 @@ function loadLike() {
               dataType: 'json',
               success: function(response) {
                 $('.heart-btn').css("color", "red");
-                console.log('make sure increaseLike')
+                console.log('make sure increaseLike');
+                
+                $('.fa-heart').attr('class', 'fas fa-heart animated heartBeat');
+                
+                $.ajax({
+                  url: '../../app/json/blog/countLike',
+                  type: 'POST',
+                  data: {   
+                    no: $('#no').attr('data-no')
+                  },
+                  dataType: 'json',
+                  success: function(response) {
+                    var sp = '\u00A0\u00A0';
+                    $('.likecount').html("좋아요" + sp + response.count);
+                    console.log(response);
+
+                  },
+                  fail: function(error) {
+                    alert('변경 실패!!');
+                  }
+                }); // countLike 
               },
               fail: function(error) {
                 alert('변경 실패!!');
@@ -154,13 +170,36 @@ function loadLike() {
               },
               dataType: 'json',
               success: function(response) {
-                $('.heart-btn').css("color", "white");
-                console.log('make sure decreaseLike')
+                $('.heart-btn').css("color", "#c0c0c0");
+                console.log('make sure decreaseLike');
+               
+                $('.fa-heart').attr('class', 'fas fa-heart animated heartBeat');
+                
+                $.ajax({
+                  url: '../../app/json/blog/countLike',
+                  type: 'POST',
+                  data: {   
+                    no: $('#no').attr('data-no')
+                  },
+                  dataType: 'json',
+                  success: function(response) {
+                    var sp = '\u00A0\u00A0';
+                    $('.likecount').html("좋아요" + sp + response.count);
+                    console.log(response);
+                    
+                    
+                  },
+                  fail: function(error) {
+                    alert('변경 실패!!');
+                  }
+                }); // countLike 
+                
               },
               fail: function(error) {
                 alert('변경 실패!!');
               }
             }); // decreaseLike
+
             
           }
         }, // success의 끝
@@ -218,19 +257,32 @@ $('#delete-btn').on('click', function () {
     confirmButtonText: '네, 삭제할게요!',
     cancelButtonText: '아니요!'
   }).then((result) => {
+    
+    if(result.value) {
+      
+      Swal.fire(
+          '삭제!',
+          '글이 삭제되었습니다!',
+          'success'
+      ).then(() => {
+        
+        $.ajax({
+          url: '../../app/json/blog/delete?no=' + $('#no').attr('data-no'),
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            location.href = 'index.html';
+          },
+          fail: function (error) {
+            alert('삭제 실패!!');
+          }
+        });
+        
+      })
+    }
 
-    $.ajax({
-      url: '../../app/json/blog/delete?no=' + $('#no').attr('data-no'),
-      type: 'GET',
-      dataType: 'json',
-      success: function (response) {
-        location.href = 'index.html';
-      },
-      fail: function (error) {
-        alert('삭제 실패!!');
-      }
-    });
   })
 });
 
 
+>>>>>>> refs/heads/minhee
