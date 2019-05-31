@@ -87,6 +87,7 @@ public class RoomController {
       content.put("status", "success");
       
     } catch (Exception e) {
+      e.printStackTrace();
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
