@@ -17,6 +17,11 @@ $(document).ready(function () {
 
 function loadData(no) {
 
+	
+	$("#cont").on('keydown keyup', function () {
+		$(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+	});
+	
 
   $.getJSON("../../app/json/blog/detail?no=" + no, function (data) {
     $('#no').attr('data-no', data.blog.no);
@@ -29,6 +34,11 @@ function loadData(no) {
     $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
     $('#grade').html("평점 : " + data.blog.grade);
 
+    
+    
+    
+    
+    
     if(data.loginNo != undefined){
       console.log('유저 로그인 한 상태임..');
       $('#no').attr('data-uno', data.loginNo);

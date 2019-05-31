@@ -26,7 +26,7 @@ h1 {
 }
 
 .heun-contents {
-    border: 1px dashed #d3d3d3;
+    border: 1px ;
     padding: 10px;
     font-size: 1.1em;
     height: auto;
@@ -55,4 +55,11 @@ h1 {
   margin-top: 50px;
   margin-left: 20px; 
   font-family: 'Nanum Myeongjo', serif;
+}
+
+
+
+#cont{
+    min-height: 330px;
+ 
 }
