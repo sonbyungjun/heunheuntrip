@@ -2,45 +2,6 @@ var latitude = '';
 var longitude = '';
 var prevCheck = false;
  
-var rule = [
-  {
-    id: 'area',
-    ele: $('#area'),
-    Pattern: /^[\s\S]{1,20}$/,
-    message: '1자 이상 20자 이하로 입력해주세요.'
-  },
-  {
-    id: 'address',
-    ele: $('#address'),
-    Pattern: /^[\s\S]{1,100}$/,
-    message: '주소를 입력해주세요.'
-  },
-  {
-    id: 'detailAddress',
-    ele: $('#detailAddress'),
-    Pattern: /^[\s\S]{1,100}$/,
-    message: '상세주소를 입력해주세요'
-  },
-  {
-    id: 'contents',
-    ele: $('#contents'),
-    Pattern: /^[\s\S]{10,1000}$/,
-    message: '10자 이상 500자 이하로 작성해주세요!'
-  },
-  {
-    id: 'heun-name',
-    ele: $('#heun-name'),
-    Pattern: /^[\s\S]{1,20}$/,
-    message: '1자 이상 20자 이하로 입력해주세요.'
-  },
-  {
-    id: 'heun-price',
-    ele: $('#heun-price'),
-    Pattern: /^([0-9,]){1,20}$/,
-    message: '숫자만 입력해주세요.'
-  }
-]
-
 // 모든 슬라이드의 유효성 검사 코드를 객체화
 var slideRule = [
   {
@@ -156,7 +117,29 @@ $('#contents').keyup(function (e) {
   validKeyup($(this), idAttr);
 });
 
+// 키업했을때 실행되는 함수
+function validKeyup(self, idAttr) {
+  var nowEle = {}
+  for (var r of slideRule) {
+    for (var ele of r.rule) {
+      if (ele.name === idAttr) {
+        nowEle = ele
+        break
+      }
+    }
+  }
 
+  if (!nowEle.InputEle.val() || !nowEle.Pattern.test(nowEle.InputEle.val())) {
+    self.removeClass('is-valid');
+    self.addClass('is-invalid');
+    return false
+  } else {
+    self.removeClass('is-invalid');
+    self.addClass('is-valid');
+    self.next('.invalid-feedback').html('')
+  }
+  return true
+}
 
 // 다음 버튼을 눌렀을때 실행
 $('.heun-form-next').click(function () {
@@ -174,7 +157,7 @@ $('.heun-form-next').click(function () {
       Swal.fire({
         type: 'error',
         title: '사진 등록 및 메인사진 지정!',
-        text: '숙소 사진은 반드시 한장 이상 또는 메인사진을 등록해야 합니다!!! 톱니모양을 누른 후 메인사진을 지정해주세요.'
+        text: '숙소 사진은 반드시 한장 이상 또는 메인사진을 등록해야 합니다!!! 이미지를 선택하여 메인사진을 지정해주세요.'
       })
       return;
     }
@@ -251,34 +234,11 @@ function validNext(idAttr) {
   return true;
 }
 
-
 // 폼 태그 밑에 모든 인풋 태그를 키업 했을때 유효성 검사 한다.
 $('#heun-submit input').on('keyup', function () {
   var idAttr = $(this).attr('id')
   validKeyup($(this), idAttr)
 })
-
-// 키업했을때 실행되는 함수
-function validKeyup(self, idAttr) {
-  var nowEle = {}
-  for (var ele of rule) {
-    if (ele.id === idAttr) {
-      nowEle = ele
-      break
-    }
-  }
-
-  if (!nowEle.ele.val() || !nowEle.Pattern.test(nowEle.ele.val())) {
-    self.removeClass('is-valid');
-    self.addClass('is-invalid');
-    return false
-  } else {
-    self.removeClass('is-invalid');
-    self.addClass('is-valid');
-    self.next('.invalid-feedback').html('')
-  }
-  return true
-}
 
 // 이 페이지가 시작될 때 실행되는 함수
 $(document).ready(function () {

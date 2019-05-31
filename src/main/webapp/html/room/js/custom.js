@@ -117,7 +117,16 @@ $(document).ready(function () {
 			},
 			onItemRemove: function (html) {
 				html.fadeOut(250);
-			}
+			},
+			popup: {
+        container: '.fileuploader-popup-preview',
+        arrows: true,
+        loop: true,
+        zoomer: true,
+        template: function(data) {
+					return '<span></span>';
+				}
+   	  }
 		},
 		dragDrop: {
 			container: '.fileuploader-theme-gallery .fileuploader-input'
@@ -188,47 +197,6 @@ $(document).ready(function () {
 				item.html.find('.fileuploader-action-popup, .fileuploader-item-image').hide();
 			}
 		},
-		editor: {
-			cropper: {
-				showGrid: true,
-				minWidth: 100,
-				minHeight: 100
-			},
-			onSave: function (dataURL, item) {
-				console.log('onSave()');
-				// if no editor
-				if (!item.editor || !item.reader.width)
-					return;
-
-				// if uploaded
-				// resend upload
-				if (item.upload && item.upload.resend)
-					item.upload.resend();
-
-				// if preloaded
-				// send request
-				if (item.appended && item.data.listProps) {
-					// hide current thumbnail
-					item.imU = true;
-					item.image.addClass('fileuploader-loading').find('img, canvas').hide();
-					item.html.find('.fileuploader-action-popup').hide();
-					
-					$.post('php/ajax.php?type=resize', { name: item.name, id: item.data.listProps.id, _editor: JSON.stringify(item.editor) }, function () {
-						// update the image
-						item.reader.read(function () {
-							delete item.imU;
-							
-							item.image.removeClass('fileuploader-loading').find('img, canvas').show();
-							
-							item.html.find('.fileuploader-action-popup').show();
-							item.editor.rotation = item.editor.crop = null;
-							item.popup = { open: item.popup.open };
-						}, null, true);
-					});
-				}
-			}
-		},
-
 		afterRender: function (listEl, parentEl, newInputEl, inputEl) {
 			console.log('afterRender()');
 			var api = $.fileuploader.getInstance(inputEl),
@@ -244,6 +212,7 @@ $(document).ready(function () {
 				var $target = $(e.target),
 					$item = $target.closest('.fileuploader-item'),
 					item = api.findFile($item);
+				console.log($target);
 
 				// toggle dropdown
 				$('.gallery-item-dropdown').hide();
@@ -286,7 +255,10 @@ $(document).ready(function () {
 				}
 
 				// set main
-				if ($target.is('.gallery-action-asmain')) {
+				
+				// if ($target.is('.gallery-action-asmain')) {
+				if ($target.is('.fileuploader-action-popup') || $target.is('.gallery-action-asmain')) {
+					e.preventDefault();
 					console.log('메인사진 지정 작업 - 섬네일 만들기작업');
 					api.getFiles().forEach(function (val) {
 						item.upload.data.isMain = false;
