@@ -21,32 +21,35 @@ h1 {
 	 float:right;
 }
 
-.item-meta-info2{
+.item-meta-info2{ 
     float: left;
 }
 
 .heun-contents {
-    border: 1px ;
     padding: 10px;
     font-size: 1.1em;
     height: auto;
 }
 
 .likecount {
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0px;
-  font-family: Arial;
+  font-family: BBTreeGL;
   color: #6275a6;
-  font-size: 15px;
   background: #ffffff;
-  padding: 7px 20px 7px 20px;
   border: solid #869eba 3px;
-  text-decoration: none;
+  float: left;
+  width: 95px;
+}
+
+.heart-btn {
+	color : #c0c0c0;
 }
 
 .buttons {
-    float: right;
+  float: right;
+}
+
+.fa-heart {
+	margin-left: 15px;
 }
 
 #update-title{
@@ -57,9 +60,6 @@ h1 {
   font-family: 'Nanum Myeongjo', serif;
 }
 
-
-
 #cont{
     min-height: 330px;
- 
 }

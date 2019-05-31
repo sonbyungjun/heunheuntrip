@@ -1,23 +1,47 @@
-.heun-title {
-  width: 800px;
-  height: 35px;
-  margin-left: 10px;
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src:
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-#dropdownMenuButton {
-  width: auto;
+h1 {
+	text-align: center;  
+    margin: 30px; 
+    font-family: 'S-CoreDream-3Light';  
 }
 
-.heun-title{
-  width: 500px;
-}
+ .page-header {	 
+    text-align: center;	
+    font-family: 'S-CoreDream-3Light';	
+}	
+
+
+ .dropdown-menu {	
+    width: 100% !important;	
+}	
+
+ .dropdown-item {	
+    text-align: center;	
+}	
+
+ .heun-cc {	
+    margin-bottom: 10px;	
+    border: 1px solid #d3d3d3;	
+}	
 
 .update-password{
-   margin-left: 15px;
+   margin-left: 15px; 
    width: auto;
 }
 
 .buttons{
-  
    float: right;
+   margin: 10px 10px 50px 10px;
+}
+
+#password {
+   margin: 10px 10px 50px 10px;
 }

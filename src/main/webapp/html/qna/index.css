@@ -1,11 +1,40 @@
+@font-face {
+	font-family: 'BBTreeGL';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'S-CoreDream-3Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.heun-btitle {
+	text-align: center;
+	font-family: 'S-CoreDream-3Light';
+	margin: 40px;
+	font-weight: blod;
+}
+ 
+.content {
+	font-family: 'S-CoreDream-3Light';
+}
+
 th:nth-child(1) {
 	text-align: center;
 	width: 100px;
 }
 
 th:nth-child(2) {
-  text-align: center;
-  width: 100px;
+	text-align: center;
+	width: 100px;
 }
 
 th:nth-child(3) {
@@ -28,63 +57,67 @@ th:nth-child(6) {
 	width: 150px;
 }
 
-
-
 td:nth-child(2) {
-  text-align: center;
+	text-align: center;
 }
 
 td:nth-child(3) {
-  text-align: center;
+	text-align: center;
 }
 
-
 td:nth-child(5) {
-  text-align: center;
+	text-align: center;
 }
 
 td:nth-child(6) {
-  text-align: center;
+	text-align: center;
 }
-
 
 .search-form {
-  margin: 0 auto; 
-  width: 400px;
-
+	font-family: 'S-CoreDream-3Light';
+	margin: 0 auto;
+	width: 400px;
 }
 
-
-.pagination-menu{
-  margin: 0 auto; 
-  width: 600px;
-
+.pagination-menu {
+	font-family: 'S-CoreDream-3Light';
+	margin: 0 auto;
+	width: 530px;
 }
 
-
-.search-choose{
-  margin-bottom: 8px;
+.search-choose {
+	font-family: 'S-CoreDream-3Light';
+	margin-bottom: 8px;
 }
 
 .main-btn {
-  margin: 10px;
-  display: inline-block;
+	font-family: 'S-CoreDream-3Light';
+	margin: 10px;
+	display: inline-block;
 }
 
 .searchselect {
-  margin-bottom: 10px;
+	font-family: 'S-CoreDream-3Light';
+	margin-bottom: 10px;
 }
 
 .main-search {
-  margin: 10px;
-  display: inline-block;
-  float: right;
+	font-family: 'S-CoreDream-3Light';
+	margin: 10px;
+	display: inline-block;
+	float: right;
 }
 
 .main-title {
-  margin-bottom: 0px;
+	font-family: 'S-CoreDream-3Light';
+	margin-bottom: 0px;
 }
 
 .pagination-centered {
-  width: 400;
+	font-family: 'S-CoreDream-3Light';
+	width: 400;
+}
+
+.product_comparison {
+	font-family: 'S-CoreDream-3Light';
 }

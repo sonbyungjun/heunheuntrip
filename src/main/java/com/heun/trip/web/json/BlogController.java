@@ -44,7 +44,7 @@ public class BlogController {
     
     for (String s : filenames) {
       
-      if (s.contains("tumbnail")) {
+      if (s.contains("tumbnail")) { 
         blog.setMainPhoto(s);
         continue;
       }
@@ -73,6 +73,7 @@ public class BlogController {
       blogService.add(blog);
       content.put("status", "success");
     } catch (Exception e) {
+      e.printStackTrace();
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
@@ -293,6 +294,21 @@ public class BlogController {
   
     try {
       blogService.decreaseLike(blike);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  @PostMapping("countLike")
+  public Object countLike(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+  
+    try {
+      int count = blogService.countLike(no);
+      content.put("count", count);
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");

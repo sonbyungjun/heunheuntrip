@@ -1,5 +1,6 @@
 package com.heun.trip.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -88,12 +89,22 @@ public class BlogServiceImpl implements BlogService {
     
     // 내용에 들어간 이미지 파일을 불러와서 photoboard db에 넣어준다.
     List<BlogFile> files = blog.getPhotoFiles();
-    for (BlogFile f : files) {
-      f.setBlogNo(blog.getNo());
-    }
-    blogFileDao.insert(files);
+    List<BlogFile> realfiles = new ArrayList<>();
     
-    return blogDao.update(blog);
+    for (BlogFile f : files) {
+      System.out.println(f.getFile());
+      if(f.getFile() == "") {
+        continue;
+      }
+      f.setBlogNo(blog.getNo());
+      realfiles.add(f);
+    }
+    
+    blogDao.update(blog);
+    
+    blogFileDao.insert(realfiles);
+    
+    return 1;
   }
 
   @Override
@@ -143,7 +154,7 @@ public class BlogServiceImpl implements BlogService {
     return blogDao.increaseLike(blike);
   }
 
-  @Override
+  @Override 
   public int decreaseLike(Blike blike) {
     return blogDao.decreaseLike(blike);
   }
