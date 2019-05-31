@@ -202,13 +202,14 @@ public class BlogController {
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-    } else {
+    } else {      
       List<Blog> blogs = blogService.list(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     }
+
     return content;
   }
   
@@ -293,6 +294,21 @@ public class BlogController {
   
     try {
       blogService.decreaseLike(blike);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  @PostMapping("countLike")
+  public Object countLike(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+  
+    try {
+      int count = blogService.countLike(no);
+      content.put("count", count);
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");

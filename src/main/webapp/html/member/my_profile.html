@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>마이 페이지</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../../lib/animate.css" rel="stylesheet">
+  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
+  <link href="../../lib/aos/aos.css" rel="stylesheet">
+  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
+
+  <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../lib/popper.min.js"></script>
+  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../../lib/selectric/jquery.selectric.js"></script>
+  <script src="../../lib/aos/aos.js"></script>
+  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+  <script src="../../lib/lib.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+</head>
+<body>
+  <div id="main">
+    <div id='heun-header'></div>
+    <div class="clearfix"></div>
+    <div id="content">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
+                <div id="sidebar" class="sidebar-left">
+                  <div class="sidebar_inner">
+                    <div class="list-group no-border list-unstyled">
+                      <span class="list-group-item heading">예약 관리</span>
+                      <a href="my_listing_add.html" class="list-group-item"><i class="fa fa-fw fa-plus-square-o"></i>
+                        Add Listing</a>
+                      <a href="my_bookmarked_listings.html"
+                        class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                            class="fa fa-fw fa-bookmark-o"></i>g Bookmarked Listin</span>
+                        <span class="badge badge-primary badge-pill">10</span>
+                      </a>
+                      <a href="my_listings.html"
+                        class="list-group-item d-flex justify-content-between align-items-center"><span><i
+                            class="fa fa-fw fa-bars"></i> My Listings</span>
+                        <span class="badge badge-primary badge-pill">7</span>
+                      </a>
+                      <span class="list-group-item heading">계정 관리</span>
+                      <a href="my_profile.html" class="list-group-item active"><i class="fa fa-fw fa-pencil"></i> My
+                        Profile</a>
+                      <a href="my_password.html" class="list-group-item"><i class="fa fa-fw fa-lock"></i> Change
+                        Password</a>
+                      <a href="my_notifications.html" class="list-group-item"><i class="fa fa-fw fa-bell-o"></i>
+                        Notifications</a>
+                      <a href="my_membership.html" class="list-group-item"><i class="fa fa-fw fa-cubes"></i>
+                        Membership</a>
+                      <a href="my_payments.html" class="list-group-item"><i class="fa fa-fw fa-credit-card"></i>
+                        Payments</a>
+                      <a href="my_account.html" class="list-group-item"><i class="fa fa-fw fa-cog"></i> Account</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-lg-8 col-xl-8">
+                <div class="page-header bordered">
+                  <h1>내 프로필</h1>
+                </div>
+                <form action="index.php">
+                  <h3 class="subheadline">기본 정보</h3>
+                  <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="" value="John">
+                  </div>
+                  <div class="form-group">
+                    <label>이메일</label>
+                    <input type="text" class="form-control form-control-lg" value="john.doe@email.com" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label>핸드폰 번호</label>
+                    <input type="text" class="form-control form-control-lg" placeholder="" value="+14155552671">
+                  </div>
+                  
+                  <div class="form-group has-feedback">
+                    <label class="control-label" for="photo">프로필 사진</label>
+                    <div class="input-group mb-3">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="fileupload" src='../../images/default.jpg'
+                          name="photo" method='post' autocomplete=off aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">파일을 선택하세요</label>
+                      </div>
+                    </div>
+                    <div id='images-div'>
+                    </div>
+                    <p style="color:red">이메일을 삭제하시려면 이미지를 클릭해주세요</p>
+                    <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                  </div>
+
+                  <div class="form-group action">
+                    <button type="submit" class="btn btn-lg btn-primary">Update Profile</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+
+  </div>
+  <div id='heun-footer'></div>
+  <script src='my_profile.js'></script>
+  <script>
+    var placeSearch, autocomplete;
+    var componentForm = {
+      //street_number: 'short_name',
+      //route: 'long_name',
+      locality: 'long_name',
+      administrative_area_level_1: 'long_name',
+      country: 'long_name',
+      postal_code: 'long_name'
+    };
+
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), { types: ['geocode'] });
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+      var place = autocomplete.getPlace();
+      for (var component in componentForm) {
+        document.getElementById(component).value = '';
+        document.getElementById(component).disabled = false;
+      }
+
+      for (var i = 0; i < place.address_components.length; i++) {
+        var addressType = place.address_components[i].types[0];
+        if (componentForm[addressType]) {
+          var val = place.address_components[i][componentForm[addressType]];
+          document.getElementById(addressType).value = val;
+        }
+      }
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
+  <script>
+    tinymce.init({
+      selector: '.text-editor',
+      height: 200,
+      menubar: false,
+      branding: false,
+      plugins: [
+        'lists link image preview',
+      ],
+      toolbar: 'undo redo | link | formatselect | bold italic underline  | alignleft aligncenter alignright alignjustify | bullist numlist'
+    });
+  </script>
+</body>
+
+</html>

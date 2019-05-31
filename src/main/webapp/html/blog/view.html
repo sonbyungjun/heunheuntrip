@@ -19,6 +19,7 @@
 	<link href="../../css/colors/blue.css" rel="stylesheet">
 	<link href="../../summernote/summernote-lite.css" rel="stylesheet">
 	<link href="view.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 	<link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
 
 	<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -76,16 +77,23 @@
 
 							<div class="col-sm-12">
 								<pre class="heun-form heun-contents update-content" id='cont'></pre>
-								<button type="button" class="likecount">좋아요</button>
-								<div class="buttons">
-									<a href="#" onclick="return false;" class="btn btn-primary save-item like-btn">
-										<span class='heart-btn' style='color: white'><i
-												class="fas fa-heart"></i></span></a> <a href='index.html'
-										class="btn btn-primary">목록</a>
-									<button type="button" id="delete-btn"
-										class="btn btn-primary bit-view-item">삭제</button>
-									<button type="button" id="update-btn"
-										class="btn btn-primary bit-view-item">변경</button>
+								<div class="row justify-content-between">
+									<div class="like-buttons col-sm-5 col-md-5 col-lg-4 col-xl-3">
+										<button type="button" class="btn likecount h-40"></button>
+										<a href="#" onclick="return false;" class="save-item like-btn h-40">
+											<span class='heart-btn' style="font-size: 2em;"><i
+													class="fas fa-heart"></i></span>
+										</a>
+									</div>
+									<div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
+										<div class="buttons">
+											<a href='index.html' class="btn btn-primary h-43">목록</a>
+											<button type="button" id="delete-btn"
+												class="btn btn-primary bit-view-item h-43">삭제</button>
+											<button type="button" id="update-btn"
+												class="btn btn-primary bit-view-item h-43">변경</button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
