@@ -7,9 +7,7 @@
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>로그인</title>
 
-<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700"
-  rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
 <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="../../lib/animate.css" rel="stylesheet">
@@ -19,7 +17,7 @@
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
 
-
+<!-- 네이버 연동에 필요한 스크립트 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
@@ -31,8 +29,6 @@
 <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
 <script src="../../lib/lib.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
-
 </head>
 <style>
   .a {
@@ -40,48 +36,48 @@
   }
 </style>
 
+<!-- 네이버 버튼 크기 조절 -->
 <style>
   .aa img {
- 
     height:35px;
     width:200px;
     
   }
 </style>
-
-
 <body>
   <div id="main">
     <div id='heun-header'></div>
       <div class="container">
-  </div>
+  </div> <!-- main div 종료-->
   <div id="content">
     <div class="container">
       <div class="row justify-content-md-center align-items-center">
         <div class="col col-md-6  col-lg-5 col-xl-4">
         <div class='a'>
             <h1>로그인</h1>
-          </div>
+        </div> <!-- a div 종료-->
           <ul class="nav nav-tabs tab-lg" role="tablist">
-            <li role="presentation" class="nav-item"><a class="nav-link active"
-              href="signin.html">로그인</a></li>
-            <li role="presentation" class="nav-item"><a class="nav-link" href="register.html">회원가입</a></li>
+            <li role="presentation" class="nav-item">
+              <a class="nav-link active" href="signin.html">로그인</a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a class="nav-link" href="register.html">회원가입</a>
+            </li>
           </ul>
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="login">
               <form>
                 <div class="form-group">
-                  <label for="email">이메일</label> <input type="email" id="email"
-                    class="form-control form-control-lg" placeholder="이메일을 입력해주세요">
+                  <label for="email">이메일</label> 
+                  <input type="email" id="email" class="form-control form-control-lg" placeholder="이메일을 입력해주세요">
                 </div>
                 <div class="form-group">
-                  <label for="password">비밀번호</label> <input type="password" id="password"
-                    class="form-control form-control-lg" placeholder="비밀번호를 입력해주세요">
+                  <label for="password">비밀번호</label> 
+                  <input type="password" id="password" class="form-control form-control-lg" placeholder="비밀번호를 입력해주세요">
                 </div>
                 <p class="text-lg-right">
                   <a href="forget-password.html">비밀번호를 잊으셨나요?</a>
                 </p>
-                
                 <div class="checkbox">
                   <input type="checkbox" id="remember_me" name="saveEmail"> 
                   <label for="remember_me">이메일 저장
@@ -89,28 +85,21 @@
                 </div>
                 <button type="button" class="btn btn-primary btn-lg" id='login-btn'>로그인</button>
               </form>
-            </div>
-          </div>
+            </div> <!-- tabpanel div 종료-->
+          </div> <!-- tab-content 종료-->
           <div></div>
-        </div>
-
+        </div> <!--  col div 종료-->
         <div class="col-md-6 col-lg-5 col-xl-4">
           <div class="socal-login-buttons">
-            <a href="#" class="btn btn-social btn-block btn-facebook"><i
-              class="icon fa fa-facebook"></i> Continue with Facebook</a> <a href="#"
-              class="btn btn-social btn-block btn-twitter"><i class="icon fa fa-twitter"></i>
-              Continue with Twitter</a> <a href="#" class="btn btn-social btn-block btn-google"><i
-              class="icon fa fa-google"></i> Continue with Google</a>
-              
-              <div id="naverIdLogin" class='aa'></div>
-              
-             
-             
+            <a href="#" class="btn btn-social btn-block btn-facebook"> <i class="icon fa fa-facebook"></i> Continue with Facebook</a> 
+            <a href="#" class="btn btn-social btn-block btn-twitter"><i class="icon fa fa-twitter"></i> Continue with Twitter</a> 
+            <a href="#" class="btn btn-social btn-block btn-google"><i class="icon fa fa-google"></i> Continue with Google</a>
+            <div id="naverIdLogin" class='aa'></div>
+           </div>
           </div>
-        </div>
-      </div>
-    </div>
-    </div>
+        </div> <!-- row div 종료-->
+      </div> <!-- container div 종료-->
+    </div> <!-- content div 종료-->
   </div>
   <button class="btn btn-primary btn-circle" id="to-top">
     <i class="fa fa-angle-up"></i>
@@ -118,17 +107,5 @@
   <div id='heun-footer'></div>
    <script src='../header.js'></script>
   <script src='signin.js'></script>
-
-
-
-
-  
-  
-
-
-
-
-
-
 </body>
 </html>
