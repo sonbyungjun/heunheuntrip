@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
 
   <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -16,9 +15,10 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/colors/blue.css" rel="stylesheet">
   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
   <link href="add.css" rel="stylesheet">
-
+ 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -30,7 +30,7 @@
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../summernote/summernote-lite.js"></script>
   <script src="../../lib/lib.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
 
@@ -43,69 +43,61 @@
 
 
     <div id="content">
-
       <div class="container">
-        <h1></h1>
+        <h1>문의하기</h1>
 
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
-            <div class="row has-sidebar">
-              <div class="col-md-12 col-lg-12 col-xl-12">
-
-                <div class="page-header v2 bordered col-lg-12">
-                  <div class="form-group-lg row">
-                    <div>
-                      <div class="dropdown form-inline">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분류명</button>
-                        
-                        <input type="text" class="heun-title" id="title" data-parent="0" data-step="0" data-order="0"  name='title' placeholder="  제목">
-                        <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
-                       </div>
+            <div class="page-header v2 bordered">
+                <div class="form-group-lg row">
+                    <div class="col-sm-12">
+                      <div class="form-group row drowroom">
+                        <div class="col-sm-12">
+                          <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle heun-cc form-control" type="button"
+                              id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">분류명
+                            </button>
+                            <div class="dropdown-menu heun-category" aria-labelledby="dropdownMenuButton"></div>
+                          </div>
+    
+                          <div class="heun-titles">
+                          <input class="form-control heun-title" id="title" type="text" data-parent="0" data-step="0" data-order="0"
+                            placeholder="제목을 입력해주세요.">
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <div class="item-detail">
-                  <div class="col-lg-12">
-                    <!--<textarea class="heun-content form-control" id='conts' name='content'></textarea> -->
-                    <div id="summernote">내용을 입력하세요.</div>
-                  </div>
-
-                  <div class="buttons">             
-                    <a href='index.html' class="btn btn-primary">목록</a>
-                    <button type="button" id="add-btn" class="btn btn-primary">등록</button>
-                  </div>
-
-                   <input type="password" class="form-control heun-form update-password" id="password" name='password' placeholder="  비밀번호">
-
-                </div>
-
               </div>
+
+          <div>
+            <div class="clearfix"></div>
+
+            <div id="summernote"></div>
+
+            <div class="buttons">
+              <a href='index.html' class="btn btn-primary">목록</a>
+              <button type="button" id="add-btn" class="btn btn-primary">등록</button>
             </div>
+
+            <input type="password" class="form-control heun-form update-password" id="password" name='password' placeholder=" 게시글 비밀번호">
+
           </div>
         </div>
 
       </div>
       <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-      <div id="heun-footer"></div>
-
     </div>
-
+    
+    <div id="heun-footer"></div>
   </div>
 
 
-
-
   <script id="categorylist" type="text/x-handlebars-template">
-  {{#each category}}
-    <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
-  {{/each}}
+    {{#each category}}
+      <a class="dropdown-item" href="#" data-no="{{no}}">{{ category }}</a>
+    {{/each}}
   </script>
-
-
 
   <script src="add.js"></script>
 </body>

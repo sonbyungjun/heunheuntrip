@@ -19,14 +19,64 @@ public class QnaServiceImpl implements QnaService {
   }
 
   @Override
-  public List<Qna> list(int pageNo, int pageSize) {
+  public List<Qna> list(int pageNo, int pageSize, int selector, String val) {
 
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
-    
+    params.put("val", val);
+    params.put("selector", selector);
     return qnaDao.findAll(params);
   }
+  
+  @Override
+  public List<Qna> namelist(int pageNo, int pageSize, int selector, String val) {
+
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("val", val);
+    params.put("selector", selector);
+    System.out.println("namelist호출");
+    return qnaDao.findbyname(params);
+  }
+  @Override
+  public List<Qna> titlelist(int pageNo, int pageSize, int selector, String val) {
+
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("val", val);
+    params.put("selector", selector);
+    System.out.println("namelist호출");
+    return qnaDao.findbytitle(params);
+  }
+  
+  @Override
+  public List<Qna> titlenamelist(int pageNo, int pageSize, int selector, String val) {
+
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("val", val);
+    params.put("selector", selector);
+    System.out.println("namelist호출");
+    return qnaDao.findbytitlename(params);
+  }
+  
+    
+  @Override
+  public List<Qna> search(int pageNo, int pageSize, String name, String title, String titlename) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("name", name);
+    params.put("title", title);
+    params.put("titlename", titlename);
+    return qnaDao.findByKeyword(params);
+  }
+  
+  
 
   @Override
   public int size() {
@@ -109,13 +159,7 @@ public class QnaServiceImpl implements QnaService {
     return count;
   }
 
-  @Override
-  public List<Qna> search(String name, String title) {
-    HashMap<String,Object> params = new HashMap<>();
-    params.put("name", name);
-    params.put("title", title);
-    return qnaDao.findByKeyword(params);
-  }
+  
 
   @Override
   public int password(int qnaNo, String pwd) {

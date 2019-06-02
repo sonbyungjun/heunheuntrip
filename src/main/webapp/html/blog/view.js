@@ -10,7 +10,7 @@ $(document).ready(function () {
   });
 
   if (param) {
-    loadData(param.split('=')[1])
+    loadData(param.split('=')[1]) 
   }
 
 });
@@ -283,6 +283,3 @@ $('#delete-btn').on('click', function () {
 
   })
 });
-
-
->>>>>>> refs/heads/minhee

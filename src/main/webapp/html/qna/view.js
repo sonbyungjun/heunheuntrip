@@ -13,7 +13,7 @@ function loadCategory() {
     $(document.body).trigger('loaded-cate');
   }); 
 };
-
+ 
 $(document.body).on('loaded-cate', function() {
   $('.heun-category > a').on('click', function() {
     $('#dropdownMenuButton').html($(this).html());
@@ -45,11 +45,16 @@ $(document).ready(function(){
   
 
   function loadData(no) {
+    
+    $("#cont").on('keydown keyup', function () {
+      $(this).height(1).height( $(this).prop('scrollHeight')+12 );  
+    });
+    
     $.getJSON("../../app/json/qna/detail?no=" + no, function(data) {
         $('#no').val(data.qna.qnaNo);
         $('#userNo').html(data.qna.name + '(' + data.qna.auth + ')');
-        $('#dropdownMenuButton').html(data.category);
-        $('#dropdownMenuButton').attr('data-no', data.qna.categoryNo);
+        $('#cateName').html(data.qna.category);
+        $('#cateName').attr('data-no', data.qna.categoryNo);
         $('#title').html(data.qna.title);
         $('#cont').html(data.qna.content);
         $('#createdDate').html(data.qna.createdDate);

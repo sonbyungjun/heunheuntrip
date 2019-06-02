@@ -3,7 +3,9 @@ var form = $('#room-list'),
 	listGenerator = Handlebars.compile(templateSrc),
 	paginateSrc = $('#page-template').html(),
 	markers = [],
-	img = {};
+	img = {},
+	points = [],
+	overlays = [];
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -27,6 +29,33 @@ $(document).ready(function () {
 
 	loadList(0);
 
+
+	$('#myModal').on('show.bs.modal', function (e) {
+
+		setTimeout(function () {
+
+			var mapContainer = document.getElementById('modal-map'), // 지도를 표시할 div 
+				mapOption = {
+					center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					level: 5 // 지도의 확대 레벨
+				};
+			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+			// // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+			// var mapTypeControl = new daum.maps.MapTypeControl();
+
+			// // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+			// // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+			// map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+			// // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+			// var zoomControl = new daum.maps.ZoomControl();
+			// map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+			pointsLoad(map);
+
+		}, 300)
+	})
 });
 
 function loadList(pn) {
@@ -36,8 +65,19 @@ function loadList(pn) {
 		dataType: 'json',
 		success: function (response) {
 
+			points = [];
+
 			for (r of response.list) {
-				r.price = comma(String(r.price).replace(/[^0-9]/g, ''));
+				var com = comma(String(r.price).replace(/[^0-9]/g, ''));
+				r.price = com;
+				points.push({
+					no: r.no,
+					point: new daum.maps.LatLng(r.latitude, r.longitude),
+					name: r.name,
+					area: r.area,
+					thumbnail: r.thumbnail,
+					price: com
+				});
 			}
 
 			response.pagination = {
@@ -106,8 +146,7 @@ function comma(x) {
 $('body').on('loaded-list', function () {
 
 	$('.heun-room').mouseenter(function () {
-		
-		
+
 		$(img).css('border', '');
 
 		img = $(this);
@@ -126,7 +165,7 @@ $('body').on('loaded-list', function () {
 		});
 
 		// 기존 마커를 지운다.
-		markers.forEach(function(e) {
+		markers.forEach(function (e) {
 			e.setMap(null);
 		})
 
@@ -140,3 +179,75 @@ $('body').on('loaded-list', function () {
 	})
 
 })
+
+
+function pointsLoad(map) {
+	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+	var bounds = new daum.maps.LatLngBounds();
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+	var imageSize = new daum.maps.Size(24, 35);
+
+	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+
+	var i, marker;
+
+	points.forEach(e => {
+		// 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+		marker = new daum.maps.Marker({
+			position: e.point,
+			image: markerImage,
+			map: map
+		});
+
+		var content = '<div class="wrap">' +
+			'    <div class="info">' +
+			'        <div class="title">' + e.name +
+			'            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+			'        </div>' +
+			'        <div class="body">' +
+			'            <div class="img">' +
+			'                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
+			'           </div>' +
+			'            <div class="desc">' +
+			'                <div class="ellipsis"> $ ' + e.price + '</div>' +
+			'                <div class="jibun ellipsis">' + e.area + '</div>' +
+			'                <div></div>' +
+			'            </div>' +
+			'        </div>' +
+			'    </div>' +
+			'</div>';
+
+		var overlay = new daum.maps.CustomOverlay({
+			content: content,
+			// map: map,
+			position: marker.getPosition()      
+		});
+		
+		overlays.push(overlay);
+
+		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+		daum.maps.event.addListener(marker, 'click', openOverlay(overlay, map));
+
+		// LatLngBounds 객체에 좌표를 추가합니다
+		bounds.extend(e.point);
+
+	});
+	map.setBounds(bounds);
+}
+
+function closeOverlay() {
+	overlays.forEach(e => {
+		e.setMap(null);
+	})
+}
+
+function openOverlay(overlay, map) {
+	return function() {
+		closeOverlay();
+		console.log("마커클릭!")
+		overlay.setMap(map);
+	}
+}

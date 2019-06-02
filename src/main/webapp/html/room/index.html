@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>숙소 리스트</title>
- 
+
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
 
   <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,7 +28,29 @@
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../lib/sidr/jquery.sidr.min.js"></script>
   <script src="../../lib/lib.js"></script>
-
+  <style>
+    .modal-full {
+      min-width: 100%;
+      margin: 0;
+    }
+    .modal-full .modal-content {
+        min-height: 100vh;
+    }
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+  </style>
 </head>
 
 <body>
@@ -82,7 +104,7 @@
                 <div class="sorting">
                   <div class="row justify-content-between">
                     <div class="col-sm-5 col-md-5 col-lg-4 col-xl-3">
-                      <div class="form-group">
+                      <div class="form-group float-left w-100">
                         <select class="form-control ui-select">
                           <option selected="selected">최신순</option>
                           <option>높은 가격순</option>
@@ -92,6 +114,9 @@
                       </div>
                     </div>
                     <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
+                      <div class="btn-group float-left">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">지도크게보기</button>
+                      </div>
                       <div class="btn-group float-right" role="group"> <a href="property_grid.html"
                           class="btn btn-light"><i class="fa fa-th"></i></a> <a href="property_listing.html"
                           class="btn btn-light active"><i class="fa fa-bars"></i></a> </div>
@@ -182,9 +207,18 @@
   </nav>
   </script>
 
-
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
   <script src="index.js"></script>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-full">
+      <div id="modal-map" class="modal-content" style="width:100%;height:100%;position:relative;overflow:hidden;">
+          <button type="button" class="close position-absolute fixed-top" data-dismiss="modal" aria-hidden="true" style="bottom: auto; left: 98.4%;" >&times;</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 

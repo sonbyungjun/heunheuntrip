@@ -154,7 +154,7 @@ public class BlogServiceImpl implements BlogService {
     return blogDao.increaseLike(blike);
   }
 
-  @Override
+  @Override 
   public int decreaseLike(Blike blike) {
     return blogDao.decreaseLike(blike);
   }
