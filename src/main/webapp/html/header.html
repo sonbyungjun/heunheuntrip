@@ -1,29 +1,43 @@
 <nav class="heun-header-nav navbar navbar-expand-lg navbar-dark navbar-over absolute-top" id="menu">
   <div class="container">
-    <a class="navbar-brand" href="/heunheuntrip/html/index.html"><span class="icon-uilove icon-uilove-realestate"></span></a>
+    <a class="navbar-brand" href="/heunheuntrip/html/index.html"><span
+        class="icon-uilove icon-uilove-realestate"></span></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-content"
       aria-controls="menu-content" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="menu-content">
+
+      <ul class="navbar-nav ml-auto row justify-content-md-center">
+        <div class="input-group input-group-lg">
+          <input id="search-header-value" type="text" class="form-control" placeholder="지역명이나 장소로 검색">
+          <span class="input-group-prepend">
+            <button id="heun-header-search" class="btn btn-primary btn-lg" type="button">검색</button>
+          </span>
+        </div>
+      </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown user-account">
-          <a id='login-username' class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-            <span id='login-userphoto'class="user-image"></span> 안녕하세요 
-          </a> 
+          <a id='login-username' class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <span id='login-userphoto' class="user-image"></span> 안녕하세요
+          </a>
           <div class="dropdown-menu">
             <a id='login-btn' href="/heunheuntrip/html/auth/signin.html" class="dropdown-item">로그인</a> 
             <a id='logout-btn' href="#" class="dropdown-item">로그아웃</a> 
             <a href="#" class="dropdown-item heun-myPage">마이페이지</a> 
             <a href="/heunheuntrip/html/member/my_password.html" class="dropdown-item">비밀번호 변경</a> 
+
             <a href="my_notifications.html" class="dropdown-item">Notifications</a>
-            <a href="my_membership.html" class="dropdown-item">Membership</a> 
+            <a href="my_membership.html" class="dropdown-item">Membership</a>
             <a href="my_payments.html" class="dropdown-item">결제정보</a>
             <a href="my_account.html" class="dropdown-item">Account</a>
           </div>
-        </li> 
+        </li>
       </ul>
+
     </div>
   </div>
-</nav> 
- <script src='/heunheuntrip/html/header.js'></script>
+  </div>
+</nav>
+<script src='/heunheuntrip/html/header.js'></script>

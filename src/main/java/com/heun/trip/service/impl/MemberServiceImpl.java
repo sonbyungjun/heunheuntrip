@@ -77,6 +77,15 @@ public class MemberServiceImpl implements MemberService {
     
     return memberDao.snsinsert(member);
   }
+
+  @Override
+  public Member get(String email) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("email", email);
+   
+    
+    return memberDao.findByEmail(paramMap);
+  }
   
 }
 

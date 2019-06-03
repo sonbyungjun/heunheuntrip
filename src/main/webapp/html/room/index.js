@@ -1,11 +1,12 @@
-var form = $('#room-list'),
-	templateSrc = $('#list-template').html(),
-	listGenerator = Handlebars.compile(templateSrc),
-	paginateSrc = $('#page-template').html(),
-	markers = [],
-	img = {},
-	points = [],
-	overlays = [];
+var param = location.href.split('?')[1],
+		form = $('#room-list'),
+		templateSrc = $('#list-template').html(),
+		listGenerator = Handlebars.compile(templateSrc),
+		paginateSrc = $('#page-template').html(),
+		markers = [],
+		img = {},
+		points = [],
+		overlays = [];
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -59,8 +60,20 @@ $(document).ready(function () {
 });
 
 function loadList(pn) {
+	var url = '../../app/json/room/list?pageNo=' + pn;
+	if (param) {
+		var query = param.split('&');
+		for (var q of query) {
+			if (q.indexOf('lati') != -1) {
+				url += '&' + q;
+			} else if (q.indexOf('longi') != -1) {
+				url += '&' + q;
+			}
+		}
+	}
+
 	$.ajax({
-		url: '../../app/json/room/list?pageNo=' + pn,
+		url: url,
 		type: 'GET',
 		dataType: 'json',
 		success: function (response) {

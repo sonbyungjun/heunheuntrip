@@ -135,26 +135,28 @@ public class RoomController {
 
   @GetMapping("list")
   public Object list(
-      @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="12") int pageSize
+      @RequestParam(defaultValue="0") int pageNo,
+      @RequestParam(defaultValue="12") int pageSize,
+      String lati,
+      String longi
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
 
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
 
-    int rowCount = roomSerive.size();
+    int rowCount = roomSerive.size(lati, longi);
 
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
-
+    
     if (pageNo < 1) 
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
 
-    List<Room> rooms = roomSerive.list(pageNo, pageSize);
-
+    List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
+    
     HashMap<String,Object> content = new HashMap<>();
     content.put("list", rooms);
     content.put("pageNo", pageNo);

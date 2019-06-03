@@ -14,6 +14,9 @@ public interface QnaService {
   List<Qna> reList(int parent, int step);
   int update(Qna qna);   
   int delete(int no, int parent, int order);
+  int namesize(String val);
+  int titlesize(String val);
+  int titlenamesize(String val);
   int size();
   List<Category> getCategory();
   int maxParent();

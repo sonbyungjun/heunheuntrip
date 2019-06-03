@@ -16,6 +16,9 @@ public interface QnaDao {
   int increaseCount(int no);  
   int delete(int no);   
   int update(Qna qna);   
+  int namecountAll(Map<String, Object> params);
+  int titlecountAll(Map<String, Object> params); 
+  int titlenamecountAll(Map<String, Object> params); 
   int countAll(); 
   List<Qna> findByReList(Map<String,Object> params);
   List<Category> getCategory();

@@ -69,12 +69,15 @@ public class MemberController {
     Member member = memberService.get(no);
     return member;
   }
+  
+  
 
   @PostMapping("snsadd")
   public Object snsadd(Member member, MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
     StringBuffer ranNo = EnRanNo.randomNo();
     String EnranNo = ranNo.toString();
+    
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
@@ -95,15 +98,34 @@ public class MemberController {
       member.setPhoto(deft);
     }
     try {
-      member.setPassword(EnranNo);
-      memberService.snsadd(member);
-      content.put("status", "success");
+      if(memberService.get(member.getEmail()) ==null) {
+        member.setPassword(EnranNo);
+        memberService.snsadd(member);
+        content.put("status", "success");
+        
+      } else if(memberService.get(member.getEmail()).getEmail().equals(member.getEmail())){
+        System.out.println("진입");
+        content.put("status", "overlap");
+        content.put("message", "이미 일반회원으로 가입했습니다");
+        return content;
+      }else {
+        content.put("status", "fail");
+        content.put("message", "오류");
+      }
+      
     } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
   }
+      
+      
+      
+      
+      
+      
+
   
   
   @PostMapping("add")

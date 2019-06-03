@@ -14,5 +14,6 @@ public interface MemberService {
   int Emailupdate(Member member); 
   int delete(int no); 
   int size(String search);
+  Member get(String email);
 }
 
