@@ -301,8 +301,28 @@
     where qna_id = #{value}
   </update>
  
-  <select id="countAll" resultType="int">
-    select count(*) from qna
+  <select id="countAll" resultType="int" >
+      select count(*) from qna;
+  </select>
+   
+   <select id="namecountAll" resultType="int" parameterType="map">
+      select count(*) 
+      from qna q
+        left outer join
+      usr u on q.usr_id=u.usr_id 
+        where u.name like CONCAT('%', #{val}, '%')  
+  </select>
+  
+  <select id="titlecountAll" resultType="int" parameterType="map">
+      select count(*) from qna where title like CONCAT('%', #{val}, '%');
+  </select>
+  
+  <select id="titlenamecountAll" resultType="int" parameterType="map">
+       select count(*) 
+      from qna q
+        left outer join
+      usr u on q.usr_id=u.usr_id 
+        where u.name like CONCAT('%', #{val}, '%') or q.title like CONCAT('%', #{val}, '%')
   </select>
    
    
