@@ -169,6 +169,17 @@
       and pwd = password(#{password})
   </select>
   
+  <select id="findByEmail" resultMap="memberMap" parameterType="map">
+    select
+    usr_id,
+      email
+  
+    from
+    usr
+    where
+    email = #{email}
+   
+  </select>
   <select id="findByEmailSns" resultMap="memberMap" parameterType="map">
     select 
       usr_id,
