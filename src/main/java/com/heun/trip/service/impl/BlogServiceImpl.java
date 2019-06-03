@@ -1,5 +1,5 @@
 package com.heun.trip.service.impl;
-
+ 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,11 +65,15 @@ public class BlogServiceImpl implements BlogService {
   @Override
   public int add(Blog blog) {
     blogDao.insert(blog);
-    List<BlogFile> files = blog.getPhotoFiles();
-    for (BlogFile f : files) {
-      f.setBlogNo(blog.getNo());
+    
+    if(blog.getPhotoFiles().size() > 0) {
+      List<BlogFile> files = blog.getPhotoFiles();
+      for (BlogFile f : files) {
+        f.setBlogNo(blog.getNo());
+      }
+      blogFileDao.insert(files);
     }
-    blogFileDao.insert(files);
+    
     System.out.println("서비스====> " + blog);
     return 1;
   }

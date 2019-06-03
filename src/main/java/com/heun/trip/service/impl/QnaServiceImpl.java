@@ -1,5 +1,5 @@
 package com.heun.trip.service.impl;
-
+ 
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -77,10 +77,32 @@ public class QnaServiceImpl implements QnaService {
   }
   
   
-
   @Override
   public int size() {
     return qnaDao.countAll();
+  }
+  
+  
+  @Override
+  public int namesize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return qnaDao.namecountAll(params);
+  }
+  @Override
+  public int titlesize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return qnaDao.titlecountAll(params);
+  }
+  @Override
+  public int titlenamesize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return qnaDao.titlenamecountAll(params);
   }
   
   @Override

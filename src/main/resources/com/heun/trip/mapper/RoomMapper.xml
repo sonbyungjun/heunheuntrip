@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+  
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -114,17 +114,48 @@
       thum,
       lati,
       longi
-    from
-      rms
-    order by
-      rms_id desc
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+        HAVING distance <= 3
+        ORDER BY distance 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+        order by
+          rms_id desc
+      </when>
+    </choose>
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
   </select>
   
-  <select id="countAll" resultType="int">
-    select count(*) from rms
+  <select id="countAll" resultType="int" parameterType="map">
+  <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          select 
+            count(a.distance) 
+          from (select (6371*acos(cos(radians(#{lati}))
+            *cos(radians(lati))*cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from rms
+        HAVING distance <= 3) as a
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        select count(*) from rms
+      </when>
+    </choose>
   </select>
   
  <!--

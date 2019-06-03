@@ -1,5 +1,5 @@
 package com.heun.trip.service.impl;
- 
+  
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -49,17 +49,22 @@ public class RoomServiceImpl implements RoomService {
   }
   
   @Override
-  public List<Room> list(int pageNo, int pageSize) {
+  public List<Room> list(int pageNo, int pageSize, String lati, String longi) {
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("lati", lati);
+    params.put("longi", longi);
     List<Room> rooms = roomDao.findAll(params);
     return rooms;
   }
   
   @Override
-  public int size() {
-    return roomDao.countAll();
+  public int size(String lati, String longi) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("lati", lati);
+    params.put("longi", longi);
+    return roomDao.countAll(params);
   }
   
   @Override

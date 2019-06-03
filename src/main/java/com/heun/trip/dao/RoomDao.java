@@ -1,5 +1,5 @@
 package com.heun.trip.dao;
-
+ 
 import java.util.List;
 import java.util.Map;
 import com.heun.trip.domain.Convenience;
@@ -16,5 +16,5 @@ public interface RoomDao {
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);
-  int countAll();
+  int countAll(Map<String,Object> paramMap);
 }

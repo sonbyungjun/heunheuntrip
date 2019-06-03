@@ -1,5 +1,5 @@
 package com.heun.trip.web.json;
- 
+  
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -328,7 +328,7 @@ public class BlogController {
         String userName = loginUser.getName();
         content.put("userNo", userNo);
         content.put("userName", userName);
-        if(blogService.checkRev(userNo) == 1) {
+        if(blogService.checkRev(userNo) > 0) {
           content.put("status", "success");
         } else {
           content.put("status", "fail");

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +16,7 @@
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link rel="stylesheet" href="my_profile.css"> 
  
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -40,43 +41,24 @@
             <div class="row has-sidebar">
               <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
                 <div id="sidebar" class="sidebar-left">
-                  <div class="sidebar_inner">
+                  <div class="sidebar_inner"> 
                     <div class="list-group no-border list-unstyled">
                       <span class="list-group-item heading">예약 관리</span>
-                      <a href="my_listing_add.html" class="list-group-item"><i class="fa fa-fw fa-plus-square-o"></i>
-                        Add Listing</a>
-                      <a href="my_bookmarked_listings.html"
-                        class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                            class="fa fa-fw fa-bookmark-o"></i>g Bookmarked Listin</span>
-                        <span class="badge badge-primary badge-pill">10</span>
-                      </a>
-                      <a href="my_listings.html"
-                        class="list-group-item d-flex justify-content-between align-items-center"><span><i
-                            class="fa fa-fw fa-bars"></i> My Listings</span>
-                        <span class="badge badge-primary badge-pill">7</span>
-                      </a>
-                      <span class="list-group-item heading">계정 관리</span>
-                      <a href="my_profile.html" class="list-group-item active"><i class="fa fa-fw fa-pencil"></i> My
-                        Profile</a>
-                      <a href="my_password.html" class="list-group-item"><i class="fa fa-fw fa-lock"></i> Change
-                        Password</a>
-                      <a href="my_notifications.html" class="list-group-item"><i class="fa fa-fw fa-bell-o"></i>
-                        Notifications</a>
-                      <a href="my_membership.html" class="list-group-item"><i class="fa fa-fw fa-cubes"></i>
-                        Membership</a>
-                      <a href="my_payments.html" class="list-group-item"><i class="fa fa-fw fa-credit-card"></i>
-                        Payments</a>
-                      <a href="my_account.html" class="list-group-item"><i class="fa fa-fw fa-cog"></i> Account</a>
+
+                      <span class="list-group-item heading">프로필</span>
+                      <a href="my_profile.html" class="list-group-item active"><i class="fa fa-fw fa-pencil"></i> 내 프로필</a>
+                      <a href="my_password.html" class="list-group-item"><i class="fa fa-fw fa-lock"></i> 비밀번호 변경</a>
+                      <a href="list.html" class="list-group-item"><i class="fa fa-fw fa-plus-square-o"></i> 예약</a>
+                      <a href="#" class="list-group-item"><i class="fa fa-fw fa-bookmark-o"></i> 찜 목록</a>
+                      <a href="#" class="list-group-item"><i class="fa fa-fw fa-cog"></i> 리뷰 관리</a>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-7 col-lg-8 col-xl-8">
                 <div class="page-header bordered">
-                  <h1>내 프로필</h1>
+                  <h1>내 프로필<small>기본 정보</small></h1>
                 </div>
-                <form action="index.php">
-                  <h3 class="subheadline">기본 정보</h3>
                   <div class="form-group">
                     <label>이름</label>
                     <input type="text" class="form-control form-control-lg" placeholder="" value="John">
@@ -101,14 +83,13 @@
                     </div>
                     <div id='images-div'>
                     </div>
-                    <p style="color:red">이메일을 삭제하시려면 이미지를 클릭해주세요</p>
+                    <p style="color:red">이미지를 삭제하시려면 이미지를 클릭해주세요</p>
                     <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                   </div>
 
-                  <div class="form-group action">
-                    <button type="submit" class="btn btn-lg btn-primary">Update Profile</button>
+                  <div class="form-group action update">
+                    <button type="submit" class="btn btn-lg btn-primary">변경</button>
                   </div>
-                </form>
               </div>
             </div>
           </div>
@@ -120,51 +101,5 @@
   </div>
   <div id='heun-footer'></div>
   <script src='my_profile.js'></script>
-  <script>
-    var placeSearch, autocomplete;
-    var componentForm = {
-      //street_number: 'short_name',
-      //route: 'long_name',
-      locality: 'long_name',
-      administrative_area_level_1: 'long_name',
-      country: 'long_name',
-      postal_code: 'long_name'
-    };
-
-    function initAutocomplete() {
-      autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')), { types: ['geocode'] });
-      autocomplete.addListener('place_changed', fillInAddress);
-    }
-
-    function fillInAddress() {
-      var place = autocomplete.getPlace();
-      for (var component in componentForm) {
-        document.getElementById(component).value = '';
-        document.getElementById(component).disabled = false;
-      }
-
-      for (var i = 0; i < place.address_components.length; i++) {
-        var addressType = place.address_components[i].types[0];
-        if (componentForm[addressType]) {
-          var val = place.address_components[i][componentForm[addressType]];
-          document.getElementById(addressType).value = val;
-        }
-      }
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete" async defer></script>
-  <script>
-    tinymce.init({
-      selector: '.text-editor',
-      height: 200,
-      menubar: false,
-      branding: false,
-      plugins: [
-        'lists link image preview',
-      ],
-      toolbar: 'undo redo | link | formatselect | bold italic underline  | alignleft aligncenter alignright alignjustify | bullist numlist'
-    });
-  </script>
 </body>
-
 </html>

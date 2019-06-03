@@ -1,5 +1,5 @@
 package com.heun.trip.web.json;
-
+ 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,64 +67,23 @@ public class QnaController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="10") int pageSize,
       int selector, String val
-      //      @RequestParam(value="name", required=false) String name,
-      //      @RequestParam(value="title", required=false) String title,
-      //      @RequestParam(value="titlename", required=false) String titlename
-
-
-
-
-
-
+    
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
 
-    System.out.println(selector);
-    System.out.println(val);
-    //    System.out.println(name);
-    //    System.out.println(title);
-    //    System.out.println(titlename);
-
-
-
+    HashMap<String,Object> content = new HashMap<>();
     if (pageSize < 1 || pageSize > 11) 
       pageSize = 10;
 
-    int rowCount = qnaService.size();
-
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-
-    HashMap<String,Object> content = new HashMap<>();
-
-    if(selector == 2) {
-      List<Qna> list = qnaService.namelist(pageNo, pageSize, selector, val);
-      content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage); 
-      System.out.println("작성자로 검색을하겠습니다");
-
-    } else if (selector == 3) {
-      List<Qna> list = qnaService.titlelist(pageNo, pageSize, selector, val);
-      content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
-
-    } else if (selector == 4) {
-      List<Qna> list = qnaService.titlenamelist(pageNo, pageSize, selector, val);
-      content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
-    } else {
+    
+    if(selector == 1) {
+      int rowCount = qnaService.size();
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
       List<Qna> list = qnaService.list(pageNo, pageSize, selector, val);
       content.put("list", list);
       content.put("pageNo", pageNo);
@@ -132,7 +91,53 @@ public class QnaController {
       content.put("totalPage", totalPage);
 
     }
-
+    if(selector == 2) {// 작성자
+      int rowCount = qnaService.namesize(val);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Qna> list = qnaService.namelist(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage); 
+    }
+    if(selector == 3) {// 제목
+      int rowCount = qnaService.titlesize(val);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Qna> list = qnaService.titlelist(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
+    if(selector == 4) {// 작성자 + 제목
+      int rowCount = qnaService.titlenamesize(val);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Qna> list = qnaService.titlenamelist(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    }
+    
+    
 
     return content;
   }
@@ -184,57 +189,7 @@ public class QnaController {
   }
 
 
-  @GetMapping("search")
-  public Object search(@RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="10") int pageSize,
-      @RequestParam(required=false)String name,
-      @RequestParam(required=false)String title,
-      @RequestParam(required=false)String titlename) {
-
-
-    HashMap<String,Object> content = new HashMap<>(); 
-
-
-    System.out.println(pageNo);
-    System.out.println(pageSize);
-    System.out.println(name);
-    System.out.println(title);
-    System.out.println(titlename);
-
-
-
-    if (pageSize < 1 || pageSize > 11) 
-      pageSize = 10;
-
-    int rowCount = qnaService.size();
-
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-    try {
-      List<Qna> list = qnaService.search(pageNo, pageSize, name, title, titlename);
-      for(Qna s : list) {
-        System.out.println(s);
-      }
-      content.put("list", list);
-      content.put("status", "success");
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
-
-    } catch (Exception e) {
-      content.put("status", "fail");
-      content.put("message", e.getMessage());
-    }
-    return content;
-  }
-
+ 
 
   @PostMapping("password")
   public Object password(int qnaNo, String pwd) {
