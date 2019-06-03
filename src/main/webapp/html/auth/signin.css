@@ -19,3 +19,10 @@
   div label{
   font-weight: bold;
   }
+  #kakao-login-btn{
+    height: 40px;
+    width: 185px;
+  }
+  #naverIdLogin{
+    padding-top: 10px;
+  }

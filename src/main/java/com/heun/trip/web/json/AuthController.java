@@ -108,7 +108,7 @@ public class AuthController {
     HashMap<String,Object> content = new HashMap<>();
 
    
-    if (accessToken(token) == false) {
+    if (accessToken(token) == false && sns_no == 1) {
       content.put("status", "accessTokenFail");
       content.put("message", "올바르지 않는 토큰입니다.");
       return content;
