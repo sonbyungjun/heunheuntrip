@@ -103,6 +103,7 @@
     select
       q.qna_id,
       u.name,
+      u.usr_id,
       q.parent,
       q.ordr,
       q.step,
@@ -224,6 +225,7 @@
     set
       title = #{title},
       content = #{content},
+      qna_cate_id = #{categoryNo},
       qna_pwd = password(#{password}) 
     where 
       qna_id = #{qnaNo}

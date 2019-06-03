@@ -2,6 +2,7 @@ var tbody = $('tbody'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html();
+    auth = false;
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -37,6 +38,11 @@ $(document).ready(function(){
         }
         l.re = re;
       } 
+      
+      if(obj.auth == "관리자"){
+        auth = true;
+      }
+      
   
       // handlebars-paginate 에서 사용할 값을 설정한다.
       obj.pagination = {
@@ -120,10 +126,12 @@ $(document.body).bind('loaded-list', (e) => {
             });
             
             }
-             
-            check();
             
-            // var pw = prompt('비밀번호는?');
+            if(auth == false){
+              check();
+            } else {
+              location.href = 'view.html?no=' + $(e.target).attr('data-no');  
+            }
             
           }
         },

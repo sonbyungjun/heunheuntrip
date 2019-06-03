@@ -150,25 +150,20 @@ $('#add-btn').click(function () {
         },
         dataType: 'json',
         success: function (response) {
-          if (response.status == 'success') {
-            location.href = 'index.html';
-          } else {
-            // 테스트용
-            location.href = 'index.html';
-          }
+        
+          Swal.fire(
+              'Success!',
+              '당신의 후기가 성공적으로 등록됐어요.',
+              'success'
+            ).then(() => {
+              location.href = "index.html";
+            })
+            
         },
         fail: function (error) {
           alert('시스템 오류가 발생했습니다.');
         }
       });
-
-      Swal.fire(
-        '성공!!',
-        '당신의 후기가 성공적으로 등록됐어요.',
-        'success'
-      ).then(() => {
-        location.href = "index.html";
-      })
     }
   })
   

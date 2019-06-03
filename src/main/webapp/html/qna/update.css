@@ -7,7 +7,6 @@
   font-style: normal;
 }
 
-
 h1 {
 	text-align: center;  
     margin: 30px; 
@@ -33,32 +32,16 @@ h1 {
     border: 1px solid #d3d3d3;	
 }	
 
- .buttons {	
-    float: right;	
-    margin: 10px;	
-}	
+.update-password{
+   margin-left: 15px;
+   width: auto;
+}
 
- .main-photo {	
-    float: right;	
-    margin: 10px;	
-}	
+.buttons{
+   float: right;
+   margin: 10px 10px 50px 10px;
+}
 
-
- .btn-file{	
-    position: relative;	
-    overflow: hidden;	
-    width: 40%;	
-    border: 1px dashed #d3d3d3;	
-    float: right !important;	
-}	
-.btn-file input[type=file] {	
-    position: absolute;	
-    font-size: 100px;	
-    text-align: right;	
-    filter: alpha(opacity=0);	
-    opacity: 0;	
-    outline: none;	
-    background: white;	
-    cursor: inherit;	
-    display: block;	
+#password {
+   margin: 10px 10px 50px 0px;
 }

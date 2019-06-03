@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap'); 
-
-@font-face { 
-  font-family: 'BBTreeGL'; 
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); 
-  font-weight: normal; 
-  font-style: normal; 
-  }
+@font-face {
+  font-family: 'S-CoreDream-3Light';
+  src:
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
 h1 {
     text-align: center;
     margin: 30px;
-    font-family: 'BBTreeGL';
+    font-family: 'S-CoreDream-3Light';
 }
 
 #content {
-    font-family: 'BBTreeGL';
+    font-family: 'S-CoreDream-3Light';
 }
  
 .item-meta-info {
@@ -32,7 +32,7 @@ h1 {
 }
 
 .likecount {
-  font-family: BBTreeGL;
+  font-family: S-CoreDream-3Light;
   color: #6275a6;
   background: #ffffff;
   border: solid #869eba 3px;
@@ -52,12 +52,13 @@ h1 {
 	margin-left: 15px;
 }
 
+
 #update-title{
   height: 40px;
   width: 900px;
   margin-top: 50px;
   margin-left: 20px; 
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'S-CoreDream-3Light';
 }
 
 #cont{

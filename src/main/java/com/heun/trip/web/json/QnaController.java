@@ -65,7 +65,8 @@ public class QnaController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="10") int pageSize
+      @RequestParam(defaultValue="10") int pageSize,
+      HttpSession session
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
     
     if (pageSize < 1 || pageSize > 11) 
@@ -85,6 +86,12 @@ public class QnaController {
     List<Qna> hostqnas = qnaService.list(pageNo, pageSize);
     
     HashMap<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    if(loginUser != null) {
+      content.put("auth", loginUser.getAuth());
+    }
+    
     content.put("list", hostqnas);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
@@ -100,6 +107,7 @@ public class QnaController {
    Member loginUser = (Member) session.getAttribute("loginUser");
    if(loginUser != null) {
      content.put("userNo", loginUser.getNo());
+     content.put("auth", loginUser.getAuth());
    }
    content.put("qna", qna);
    

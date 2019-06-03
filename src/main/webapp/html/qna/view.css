@@ -1,62 +1,69 @@
 @font-face {
-  font-family: 'S-CoreDream-3Light';
-  src:
-    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
+	font-family: 'S-CoreDream-3Light';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
+
 .content {
-    font-family: 'S-CoreDream-3Light';  
+	font-family: 'S-CoreDream-3Light';
 }
 
 .item-meta-info {
-    text-align: right;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-family: 'S-CoreDream-3Light';  
-    font-size: medium;
+	text-align: right;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-family: 'S-CoreDream-3Light';
+	font-size: medium;
 }
 
 h5 {
-    font-family: 'S-CoreDream-3Light';
+	font-family: 'S-CoreDream-3Light';
+}
+
+h3 {
+	text-align: center;  
+	font-family: 'S-CoreDream-3Light';
+	margin: 20px;
 }
 
 .heun-from {
-    font-size: medium;
+	font-size: medium;
 }
 
 .dropdown-toggle {
-    margin-right: 25px;
+	margin-right: 25px;
 }
 
 .buttons {
-    text-align: right;
-    margin: 10px;
-    padding: 10px;
+	text-align: right;
+	margin: 10px;
+	padding: 10px;
 }
 
 .heun-catename {
-    font-family: 'S-CoreDream-3Light';
-    font-size: medium;
-    color: #3b8ced;
-    background: #ffffff;
-    border-left: solid #3b8ced 3px;
-    border-right: solid #3b8ced 3px;
-    width: 95px;
-  }
+	font-family: 'S-CoreDream-3Light';
+	font-size: medium;
+	color: #3b8ced;
+	background: #ffffff;
+	border-left: solid #3b8ced 3px;
+	border-right: solid #3b8ced 3px;
+	width: 95px;
+}
 
 .heun-content {
-    width: auto;
-    height: auto;
-    font-size: medium;
-    white-space: pre-wrap;
-    padding: 10px;
+	width: auto;
+	height: auto;
+	font-size: medium;
+	white-space: pre-wrap;
+	padding: 10px;
 }
 
 #reply-form {
-    padding: 40px;
-    margin: auto;
+	padding: 40px;
+	margin: auto;
 }
 
 .update-title {
@@ -68,11 +75,20 @@ h5 {
 	width: auto;
 }
 
-.update-password {
-	width: 175px;
+#re-title {
+	margin: 10px 0px 10px 0px;
 }
 
-#cont{
-    min-height: 330px;
+#cont {
+	min-height: 330px;
 }
 
+#re-add-btn {
+   float: right;
+   margin: 10px 10px 50px 10px;
+}
+
+#re-password {
+   margin: 10px 10px 50px 0px;
+   width: auto;
+}
