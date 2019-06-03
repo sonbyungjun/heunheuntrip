@@ -16,6 +16,7 @@
 <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
+<link href="signin.css" rel="stylesheet">
 
 <!-- 네이버 연동에 필요한 스크립트 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
@@ -30,20 +31,7 @@
 <script src="../../lib/lib.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </head>
-<style>
-  .a {
-    padding: 40px;
-  }
-</style>
 
-<!-- 네이버 버튼 크기 조절 -->
-<style>
-  .aa img {
-    height:35px;
-    width:200px;
-    
-  }
-</style>
 <body>
   <div id="main">
     <div id='heun-header'></div>
@@ -75,21 +63,26 @@
                   <label for="password">비밀번호</label> 
                   <input type="password" id="password" class="form-control form-control-lg" placeholder="비밀번호를 입력해주세요">
                 </div>
-                <p class="text-lg-right">
-                  <a href="forget-password.html">비밀번호를 잊으셨나요?</a>
-                </p>
-                <div class="checkbox">
-                  <input type="checkbox" id="remember_me" name="saveEmail"> 
-                  <label for="remember_me">이메일 저장
-                    </label>
+                <div class="row">
+                  <div class='col col-lg-6 em'>
+                    <div class="checkbox">
+                      <input type="checkbox" id="remember_me" name="saveEmail"> 
+                      <label for="remember_me">이메일 저장 </label>
+                    </div>
+                  </div>
+                  <div class="col col-lg-6 pw">
+                    <p class="text-lg">
+                      <a href="forget-password.html">비밀번호를 잊으셨나요?</a>
+                    </p>
+                  </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-lg" id='login-btn'>로그인</button>
+                <button type="button" class="btn btn-primary btn-lg" id='login-btn' style='float:right;'>로그인</button>
               </form>
             </div> <!-- tabpanel div 종료-->
           </div> <!-- tab-content 종료-->
           <div></div>
         </div> <!--  col div 종료-->
-        <div class="col-md-6 col-lg-5 col-xl-4">
+        <div class="col-md-5 col-lg-4 col-xl-3 sns">
           <div class="socal-login-buttons">
             <a href="#" class="btn btn-social btn-block btn-facebook"> <i class="icon fa fa-facebook"></i> Continue with Facebook</a> 
             <a href="#" class="btn btn-social btn-block btn-twitter"><i class="icon fa fa-twitter"></i> Continue with Twitter</a> 
