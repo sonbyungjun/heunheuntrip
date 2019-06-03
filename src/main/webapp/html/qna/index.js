@@ -2,7 +2,12 @@ var tbody = $('tbody'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html();
-    auth = false;
+    auth = false,
+    selector = 1,
+    name="",
+    title="",
+    titlename="",
+    val = "";
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -20,10 +25,8 @@ $(document).ready(function(){
 
 //JSON 형식의 데이터 목록 가져오기
  function loadList(pn) {
-
   
-  
-    $.getJSON('../../app/json/qna/list?pageNo=' + pn, 
+    $.getJSON('../../app/json/qna/list?pageNo=' + pn + '&selector=' + selector + '&val=' + val , 
         function(obj) {
   
       pageNo = obj.pageNo;
@@ -64,7 +67,7 @@ $(document).ready(function(){
   
   
   //페이지를 출력한 후 1페이지 목록을 로딩한다.
-  loadList(1);
+  loadList(1,window.selector,window.val);
   
 
 $(document.body).bind('loaded-list', (e) => {
@@ -145,43 +148,26 @@ $(document.body).bind('loaded-list', (e) => {
 
 
 $('.heun-search > a').on('click', function() {
-  
+
   $('.searchselect').html($(this).text());
-  var selector = $(this).data('no');
-  
+
   $('.search-btn').on('click', function(e){
-    
-  e.preventDefault();
-  
-  var title = $('.search-box').val()
-  
-  $.getJSON("../../app/json/qna/search?" + selector + "=" + title, function(obj) {
-
-    tbody.html('');
-
-    for (l of obj.list) {
-      var re = '';
-      for (var i = 1; i < l.step; i++) {
-        re += '&nbsp;&nbsp;답변: ';
-      }
-      l.re = re;
+    e.preventDefault();
+// selector로 사용자가 입력한값이 작성자인지 제목인지 둘다인지를 선택한다.
+    if($('.searchselect').html() == "작성자") {
+      window.selector = 2;
+      window.val = $('.search-box').val();
+      loadList(1, window.selector, window.val);
     } 
-
-    obj.pagination = {
-      page: obj.pageNo,
-      pageCount: obj.totalPage
-    };
-
-
-    $('.pagination-menu').html('');
-    $(pageGenerator(obj)).appendTo('.pagination-menu');
-
-    $(trGenerator(obj)).appendTo(tbody);
-
-   
-    // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
-    $(document.body).trigger('loaded-list');
+    if($('.searchselect').html() == "제목") {
+      window.selector = 3;
+      window.val = $('.search-box').val();
+      loadList(1, window.selector, window.val);
+    } 
+    if($('.searchselect').html() == "통합검색") {
+      window.selector = 4;
+      window.val = $('.search-box').val();
+      loadList(1, window.selector, window.val);
+    } 
   });
-});
-})
-
+})  

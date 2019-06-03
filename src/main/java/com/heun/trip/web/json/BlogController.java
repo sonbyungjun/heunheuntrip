@@ -44,7 +44,7 @@ public class BlogController {
     
     for (String s : filenames) {
       
-      if (s.contains("tumbnail")) {
+      if (s.contains("tumbnail")) { 
         blog.setMainPhoto(s);
         continue;
       }

@@ -27,15 +27,11 @@
     <id column="qna_cate_id" property="no"/>
     <result column="cate" property="category"/>
   </resultMap>
-    
+   
   
-  <select id="findByKeyword" resultMap="qnaMap" parameterType="map">
-    <if test="name != null">
-      <bind name="pattern1" value="'%' + name + '%'"/>
-    </if>
-    <if test="title != null">
-      <bind name="pattern2" value="'%' + title + '%'"/>
-    </if>
+  
+   <select id="findbyname" resultMap="qnaMap" parameterType="map">
+    
     select
       q.qna_id,
       u.name,
@@ -53,14 +49,73 @@
       usr u on q.usr_id=u.usr_id
     left outer join
       qna_cate c on q.qna_cate_id=c.qna_cate_id
-    <where>
-      <if test="pattern1 != null">or name like #{pattern1}</if>
-      <if test="pattern2 != null">or title like #{pattern2}</if>
-    </where>
+    where
+       u.name like CONCAT('%', #{val}, '%')
+  
     order by 
       qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
+     <select id="findbytitle" resultMap="qnaMap" parameterType="map">
+    
+    select
+      q.qna_id,
+      u.name,
+      q.parent, 
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+       q.title like CONCAT('%', #{val}, '%')
+  
+    order by 
+      qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+     <select id="findbytitlename" resultMap="qnaMap" parameterType="map">
+    
+    select
+      q.qna_id,
+      u.name,
+      q.parent,
+      q.ordr,
+      q.step,
+      c.cate,
+      q.title,
+      q.content,
+      q.cdt,
+      q.vw_cnt
+    from
+      qna q
+    left outer join
+      usr u on q.usr_id=u.usr_id
+    left outer join
+      qna_cate c on q.qna_cate_id=c.qna_cate_id
+    where
+       u.name like CONCAT('%', #{val}, '%') or q.title like CONCAT('%', #{val}, '%')
+  
+    order by 
+      qna_id desc
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
   
   <select id="deleteList" resultMap="qnaMap" parameterType="map">
    <![CDATA[

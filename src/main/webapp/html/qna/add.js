@@ -13,7 +13,7 @@ $(document).ready(function () {
     placeholder: '문의사항 분류를 선택하고, 문의하실 내용을 작성해주세요.',
     tabsize: 2,
     height: 400
-  });
+  }); 
 
   loadCategory();
 })

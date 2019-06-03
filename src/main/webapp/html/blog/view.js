@@ -10,7 +10,7 @@ $(document).ready(function () {
   });
 
   if (param) {
-    loadData(param.split('=')[1])
+    loadData(param.split('=')[1]) 
   }
   
   $(function () {

@@ -1,0 +1,21 @@
+  .a {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+  }
+  .em {
+  padding-left: 12px;
+  }
+  .pw {
+  padding-left: 31px;
+  }
+  .sns{
+  padding-top: 100px;
+  }
+  .text-lg a{
+  font-weight: bold;
+  }
+  div label{
+  font-weight: bold;
+  }
