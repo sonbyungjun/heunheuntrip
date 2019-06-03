@@ -12,6 +12,10 @@ $(document).ready(function () {
   if (param) {
     loadData(param.split('=')[1]) 
   }
+  
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 
 });
 

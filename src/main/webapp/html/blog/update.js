@@ -108,12 +108,12 @@ $('#update-btn').click(function () {
 
   Swal.fire({
     title: '잠깐!',
-    text: "후기를 등록하시겠어요?",
+    text: "후기를 이대로 변경하시겠어요?",
     type: 'question',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
-    confirmButtonText: '네, 등록하겠습니다!',
+    confirmButtonText: '네, 변경하겠습니다!',
     cancelButtonText: '아뇨, 다시 한번 볼게요!'
   }).then((result) => {
 
@@ -130,25 +130,20 @@ $('#update-btn').click(function () {
         },
         dataType: 'json',
         success: function (response) {
-          if (response.status == 'success') {
-            location.href = 'index.html';
-          } else {
-            // 테스트용
-            location.href = 'index.html';
-          }
+          
+          Swal.fire(
+              'Success!',
+              '당신의 후기가 성공적으로 변경됐어요.',
+              'success'
+          ).then(() => {
+            location.href = "index.html";
+          })
+          
         },
         fail: function (error) {
           alert('시스템 오류가 발생했습니다.');
         }
       });
-
-      Swal.fire(
-          '성공!!',
-          '당신의 후기가 성공적으로 등록됐어요.',
-          'success'
-      ).then(() => {
-        location.href = "index.html";
-      })
     }
   })
 
