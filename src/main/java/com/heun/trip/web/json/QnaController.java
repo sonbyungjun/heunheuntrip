@@ -287,7 +287,5 @@ public class QnaController {
     return content;
   }
 
-
-
-
 }
+

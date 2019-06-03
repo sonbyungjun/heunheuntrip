@@ -17,7 +17,7 @@
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link href="../../summernote/summernote-lite.css" rel="stylesheet">
-  <link href="add.css" rel="stylesheet">
+  <link href="update.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
 
   <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -45,7 +45,6 @@
 
     <div id="content">
       <div class="container">
-        <h1>문의하기</h1>
 
         <div class="row justify-content-md-center">
           <div class="col col-lg-12 col-xl-10">
@@ -78,21 +77,19 @@
 
             <div class="buttons">
               <a href='index.html' class="btn btn-primary">목록</a>
-              <button type="button" id="add-btn" class="btn btn-primary">등록</button>
+              <button type="button" id="update-btn" class="btn btn-primary">수정</button>
             </div>
 
-	            <input type="password" class="form-control heun-form" id="password" name='password' placeholder=" 게시글 비밀번호">
+	            <input type="password" class="form-control heun-form update-password" id="password" name='password' placeholder=" 게시글 비밀번호">
           </div>
         </div>
 
       </div>
       <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
     </div>
-    
     <div id="heun-footer"></div>
   </div>
-  </div>
-
+</div>
 
   <script id="categorylist" type="text/x-handlebars-template">
     {{#each category}}
@@ -100,7 +97,7 @@
     {{/each}}
   </script>
 
-  <script src="add.js"></script>
+  <script src="update.js"></script>
 </body>
 
 </html>

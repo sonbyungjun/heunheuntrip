@@ -13,7 +13,7 @@ h1 {
     font-family: 'S-CoreDream-3Light';  
 }
 
- .page-header {	 
+ .page-header {	
     text-align: center;	
     font-family: 'S-CoreDream-3Light';	
 }	
@@ -32,6 +32,11 @@ h1 {
     border: 1px solid #d3d3d3;	
 }	
 
+.update-password{
+   margin-left: 15px;
+   width: auto;
+}
+
 .buttons{
    float: right;
    margin: 10px 10px 50px 10px;
@@ -39,5 +44,4 @@ h1 {
 
 #password {
    margin: 10px 10px 50px 0px;
-   width: auto;
 }

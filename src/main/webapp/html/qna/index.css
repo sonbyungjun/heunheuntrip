@@ -1,20 +1,12 @@
 @font-face {
-	font-family: 'BBTreeGL';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+  font-family: 'S-CoreDream-3Light';
+  src:
+    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@font-face {
-	font-family: 'S-CoreDream-3Light';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 .heun-btitle {
 	text-align: center;
