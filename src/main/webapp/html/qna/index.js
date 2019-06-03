@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 //JSON 형식의 데이터 목록 가져오기
 function loadList(pn) {
-
+console.log(val)
 	$.getJSON('../../app/json/qna/list?pageNo=' + pn + '&selector=' + selector + '&val=' + val , 
 			function(obj) {
 		console.log(obj)

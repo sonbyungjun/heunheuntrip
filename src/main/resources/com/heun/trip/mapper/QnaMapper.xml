@@ -64,7 +64,7 @@
     select
       q.qna_id,
       u.name,
-      q.parent,
+      q.parent, 
       q.ordr,
       q.step,
       c.cate,
