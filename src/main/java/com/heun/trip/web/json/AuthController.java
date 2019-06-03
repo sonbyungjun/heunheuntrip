@@ -114,6 +114,23 @@ public class AuthController {
     return content;
   }
   
+  @GetMapping("authCheck")
+  public Object authCheck(HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+    
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    if(loginUser != null) {
+      content.put("status", "success");
+      content.put("auth", loginUser.getAuth());
+    } else {
+      content.put("status", "fail");
+      
+    }
+    return content;
+  }
+  
 }
 
 
