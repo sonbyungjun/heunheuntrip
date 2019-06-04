@@ -15,6 +15,7 @@ naverLogin.init();
 window.addEventListener('load', function () {
 	naverLogin.getLoginStatus(function (status) {
 		if (status) {
+		  console.log(status)
 			/* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
 			var email = naverLogin.user.getEmail();
 			var name = naverLogin.user.getName();

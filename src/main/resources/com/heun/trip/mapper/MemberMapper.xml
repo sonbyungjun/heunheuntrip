@@ -101,7 +101,7 @@
       #{photo},
       #{auth})
   </insert>
-   <insert id="snsinsert" parameterType="member">
+   <insert id="snsinsert" parameterType="member" useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into usr(
       email,
       name,
@@ -169,15 +169,18 @@
       and pwd = password(#{password})
   </select>
   
-  <select id="findByEmail" resultMap="memberMap" parameterType="map">
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
     select
     usr_id,
-      email
-  
+      email,
+      name,
+      tel,
+      usr_photo,
+      cdt
     from
     usr
     where
-    email = #{email}
+    email = #{value}
    
   </select>
   <select id="findByEmailSns" resultMap="memberMap" parameterType="map">
