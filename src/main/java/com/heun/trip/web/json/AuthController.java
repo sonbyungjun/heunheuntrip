@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
-
+ 
 @RestController("json/AuthController")
 @RequestMapping("/json/auth")
 public class AuthController {
@@ -107,8 +107,9 @@ public class AuthController {
       HttpServletResponse response) {
     HashMap<String,Object> content = new HashMap<>();
 
+   
+    if (accessToken(token) == false && sns_no == 1) {
 
-    if (accessToken(token) == false) {
       content.put("status", "accessTokenFail");
       content.put("message", "올바르지 않는 토큰입니다.");
       return content;

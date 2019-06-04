@@ -20,6 +20,9 @@
 
 <!-- 네이버 연동에 필요한 스크립트 -->
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<!-- 카카오 연동에 필요한 스크립트-->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.3&appId=419289318661740&autoLogAppEvents=1"></script>
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
@@ -84,20 +87,26 @@
         </div> <!--  col div 종료-->
         <div class="col-md-5 col-lg-4 col-xl-3 sns">
           <div class="socal-login-buttons">
-            <a href="#" class="btn btn-social btn-block btn-facebook"> <i class="icon fa fa-facebook"></i> Continue with Facebook</a> 
-            <a href="#" class="btn btn-social btn-block btn-twitter"><i class="icon fa fa-twitter"></i> Continue with Twitter</a> 
-            <a href="#" class="btn btn-social btn-block btn-google"><i class="icon fa fa-google"></i> Continue with Google</a>
+            <a id="kakao-login-btn"></a>
             <div id="naverIdLogin" class='aa'></div>
-           </div>
+            <div id="fb-root"></div>
+            
+           
+            <div class="fb-login-button" id='asd' data-width="" data-size="large" data-button-type="login_with"data-use-continue-as="false"></div>
+            
+
           </div>
-        </div> <!-- row div 종료-->
-      </div> <!-- container div 종료-->
-    </div> <!-- content div 종료-->
-  </div>
-  <button class="btn btn-primary btn-circle" id="to-top">
-    <i class="fa fa-angle-up"></i>
-  </button>
-  <div id='heun-footer'></div>
+        </div>
+      </div> <!-- row div 종료-->
+    </div> <!-- container div 종료-->
+  </div> <!-- content div 종료-->
+</div>
+<button class="btn btn-primary btn-circle" id="to-top">
+  <i class="fa fa-angle-up"></i>
+</button>
+<div id='heun-footer'></div>
+<script src="kakao.js"></script>
+<script src="facebook.js"></script>
    <script src='../header.js'></script>
   <script src='signin.js'></script>
 </body>

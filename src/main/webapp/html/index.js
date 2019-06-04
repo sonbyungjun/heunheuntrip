@@ -4,7 +4,7 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 });
-
+ 
 $('#heun-search').click(function (e) {
 
   var places = new daum.maps.services.Places();
