@@ -2,7 +2,7 @@ a, a:hover, a:active, a:focus, .item-actions a {
   color: #555; }
 
 #menu {
-  background-color: #f5f5f5;
+  background-color: white;
   box-shadow: none;
   border-bottom: 1px solid #eee; }
   #menu.home {

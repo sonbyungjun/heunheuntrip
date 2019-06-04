@@ -7,18 +7,15 @@
 <nav class="heun-header-nav navbar navbar-expand-lg navbar-dark navbar-over absolute-top" id="menu">
   <div class="container">
   
+    <div class="heun-title form-inline">
          <a class="heun-logo" style="margin-bottom:10px" href="/heunheuntrip/html/index.html">
          <img src="/heunheuntrip/img/heunheun1.png" width="60" height="50"></a>
          
      <h4 style="font-family: 'TmonMonsori'; font-size: 35px; color: #3b8ced">흔흔여행</h4>
-    <div class="collapse navbar-collapse" id="menu-content">
+    </div>
+    <div class="collapse navbar-collapse d-flex flex-row-reverse" id="menu-content">
 
-     <div class="heun-search-box">
-       <input type="text" name="" class="heun-search-txt" placeholder="검색어를 입력하세요..."/>
-       <a class="heun-search-btn" href="#"><i class="fas fa-search"></i></a>
-     </div>
-
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav p-2">
         <li class="nav-item dropdown user-account">
           <a id='login-username' class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -37,6 +34,15 @@
           </div>
         </li>
       </ul>
+      
+     <form class="heun-search-form p-2">
+      <fieldset>
+        <input class="heun-hsearch" type="search" />
+        <button class="heun-hsearch-btn" type="submit">
+        <i class="fa fa-search"></i>
+        </button>
+      </fieldset>
+    </form>
     </div>
   </div>
 </nav>
