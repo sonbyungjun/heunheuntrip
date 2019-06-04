@@ -13,6 +13,7 @@ $(document).ready(function () {
 
     })
   });
+
 })
 
 $('.heun-myPage').on('click', function(e){
@@ -43,6 +44,8 @@ $('.heun-myPage').on('click', function(e){
 
 
 loadLoginUser();
+
+
 
 ////header.html을 로딩하고 초기화시킨다.
 ////헤더 가져오기

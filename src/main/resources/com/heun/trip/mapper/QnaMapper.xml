@@ -88,8 +88,7 @@
     </if>
   </select>
   
-     <select id="findbytitlename" resultMap="qnaMap" parameterType="map">
-    
+  <select id="findbytitlename" resultMap="qnaMap" parameterType="map">
     select
       q.qna_id,
       u.name,

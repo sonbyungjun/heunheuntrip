@@ -69,18 +69,23 @@ $(window).ready(function(e) {
 				var scrollTop = $(this).scrollTop(),
 				topDistance = $('#content').offset().top;		
 					
-					
 				if ( (topDistance) < scrollTop ) {
 					if((menu.hasClass('navbar-over')) || (menu.hasClass('absolute-top'))) {
+						// console.log("스크롤다운1");
 						menu.addClass('fixed-top animated fadeInDown').removeClass('absolute-top');
 					} else {
-						$('body').css({'margin-top':menuHeight}).find(menu).addClass('fixed-top animated fadeInDown');
+						// console.log("스크롤다운2");
+						// $('body').css({'margin-top':menuHeight}).find(menu).addClass('fixed-top animated fadeInDown');
+						// $('body').css({'margin-top':menuHeight}).find(menu).removeClass('fixed-top animated fadeInDown');
 					}
 				} else if ( scrollTop == 0 ) {
 					if(menu.hasClass('navbar-over')) {
+						// console.log("스크롤업3");
 						menu.addClass('absolute-top').removeClass('fixed-top animated fadeInDown');
 					} else {
-						$('body').css({'margin-top':0}).find(menu).removeClass('fixed-top animated fadeInDown');
+						// console.log("스크롤업4");
+						// $('body').css({'margin-top':0}).find(menu).removeClass('fixed-top animated fadeInDown');
+						// $(menu).addClass('fixed-top animated fadeInDown');
 					}
 				}
 			}
