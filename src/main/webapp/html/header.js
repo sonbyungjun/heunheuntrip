@@ -8,7 +8,7 @@ $(document).ready(function () {
         location.href='/heunheuntrip/html/auth/signin.html'
       },
       error: function (error) {
-
+ 
       }
 
     })
