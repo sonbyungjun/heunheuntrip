@@ -7,7 +7,7 @@ var param = location.href.split('?')[1],
 		img = {},
 		points = [],
 		overlays = [];
-
+ 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);

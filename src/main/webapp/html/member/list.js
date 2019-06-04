@@ -4,7 +4,7 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
-
+ 
 
 $('.riw-write').on('click', function(){
   

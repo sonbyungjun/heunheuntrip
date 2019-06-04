@@ -98,6 +98,7 @@ public class MemberController {
 
   @PostMapping("snsadd")
   public Object snsadd(Member member, MultipartFile photo) {
+    System.out.println(photo);
     HashMap<String,Object> content = new HashMap<>();
     StringBuffer ranNo = EnRanNo.randomNo();
     String EnranNo = ranNo.toString();

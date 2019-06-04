@@ -1,10 +1,10 @@
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function() {
-    $('#heun-search-input').hide();
+    $("#heun-search-input").hide();
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 });
-
+ 
 $('#heun-search').click(function (e) {
 
   var places = new daum.maps.services.Places();

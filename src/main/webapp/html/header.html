@@ -1,21 +1,23 @@
+<style>
+@font-face { font-family: 'TmonMonsori'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/TmonMonsori.woff') format('woff'); font-weight: normal; font-style: normal; }
+</style>
+<link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
 <nav class="heun-header-nav navbar navbar-expand-lg navbar-dark navbar-over absolute-top" id="menu">
   <div class="container">
-    <a class="navbar-brand" href="/heunheuntrip/html/index.html"><span
-        class="icon-uilove icon-uilove-realestate"></span></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-content"
-      aria-controls="menu-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  
+         <a class="heun-logo" style="margin-bottom:10px" href="/heunheuntrip/html/index.html">
+         <img src="/heunheuntrip/img/heunheun1.png" width="60" height="50"></a>
+         
+     <h4 style="font-family: 'TmonMonsori'; font-size: 35px; color: #3b8ced">흔흔여행</h4>
     <div class="collapse navbar-collapse" id="menu-content">
 
-      <ul id="heun-search-input" class="navbar-nav ml-auto row justify-content-md-center">
-        <div class="input-group input-group">
-          <input id="search-header-value" type="text" class="form-control" placeholder="지역명이나 장소로 검색">
-          <span class="input-group-prepend">
-            <button id="heun-header-search" class="btn btn-primary btn" type="button">검색</button>
-          </span>
-        </div>
-      </ul>
+     <div class="heun-search-box">
+       <input type="text" name="" class="heun-search-txt" placeholder="검색어를 입력하세요..."/>
+       <a class="heun-search-btn" href="#"><i class="fas fa-search"></i></a>
+     </div>
+
       <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown user-account">
           <a id='login-username' class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
@@ -35,9 +37,8 @@
           </div>
         </li>
       </ul>
-
     </div>
   </div>
-  </div>
 </nav>
+
 <script src='/heunheuntrip/html/header.js'></script>
