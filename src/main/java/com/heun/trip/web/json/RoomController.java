@@ -169,6 +169,7 @@ public class RoomController {
   @GetMapping("detail")
   public Object detail(int no) {
     Room room = roomSerive.get(no);
+    System.out.println(room);
     return room;
   }
 

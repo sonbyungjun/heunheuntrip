@@ -58,7 +58,7 @@
     <collection property="photos" ofType="roomFile"> 
       <id column="r_photo_id" property="no"/>
       <result column="rms_id"  property="RoomNo"/>
-      <result column="rm_photo" property="path"/>
+      <result column="rm_photo" property="name"/>
     </collection>
     
     <collection property="conveniences" ofType="convenience"> 
@@ -80,7 +80,7 @@
     VALUES(
       #{hostNo}, #{area}, #{type}, #{bed}, #{bath}, #{content}, #{details}, #{reservation}, 
       #{welcome}, #{traffic}, #{name}, #{price}, #{maxPerson}, #{postcode}, #{address}, #{detailAddress}, #{latitude}, 
-      #{longitude}, #{grade}, #{thumbnail});
+      #{longitude}, #{grade}, #{thumbnail})
   </insert>
   
   <insert id="insertConvenience" parameterType="list">
@@ -158,42 +158,51 @@
     </choose>
   </select>
   
- <!--
-  
   <select id="findByNo" resultMap="roomPhotoMap" parameterType="int">
-    select
-        r.rms_id,
-        r.rm_name,
-        r.rm_chge,
-        r.max_ple,
-        r.post_code,
-        r.addr,
-        r.dtil_addr,
-        r.lati,
-        r.longi,
-        r.rule,
-        r.map,
-        r.cacl_gde,
-        r.cdt,
-        r.plty_gde,
-        r.grd,
-        u.usr_id,
-        u.tel,
-        u.name,
-        u.usr_photo,
-        p.r_photo_id,
-        p.rms_id,
-        p.rm_photo,
-        a.amn_id,
-        a.amn
-    from rms r
-        left outer join usr u on r.usr_id=u.usr_id
-        left outer join rm_photo p on r.rms_id=p.rms_id
-        left outer join rms_amn ra on r.rms_id=ra.rms_id
-        left outer join amn a on ra.amn_id=a.amn_id
+    select DISTINCT
+      r.rms_id,
+      r.usr_id,
+      r.area,
+      r.type,
+      r.bed,
+      r.bath,
+      r.cont,
+      r.dets,
+      r.reva,
+      r.come,
+      r.traf,
+      r.rm_name,
+      r.rm_chge,
+      r.max_ple,
+      r.post_code,
+      r.addr,
+      r.dtil_addr,
+      r.lati,
+      r.longi,
+      r.cdt,
+      r.grd,
+      r.thum,
+      a.amn,
+      a.amn_id,
+      s.safety,
+      s.safety_id,
+      p.r_photo_id,
+      p.rm_photo
+    from
+      rms r
+    left outer join
+      rms_amn ra on r.rms_id=ra.rms_id
+    left outer join
+      amn a on a.amn_id=ra.amn_id
+    left outer join
+      rms_safety rs on r.rms_id=rs.rms_id
+    left outer join
+      safety s on s.safety_id=rs.safety_id
+    left outer join
+      rm_photo p on r.rms_id=p.rms_id
     where
-        r.rms_id=#{value}
-  </select> -->
+      r.rms_id=#{value}
+  </select>
   
 </mapper>     
 
