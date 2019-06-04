@@ -15,6 +15,7 @@ public interface MemberDao {
   Member findByEmailSns(HashMap<String, Object> paramMap);
   Member findByEmail(HashMap<String, Object> paramMap);
   int update(Member member);
+  int profileupdate(Member member);
   int Emailupdate(Member member); 
   int delete(int no);
   int countAll(String search);

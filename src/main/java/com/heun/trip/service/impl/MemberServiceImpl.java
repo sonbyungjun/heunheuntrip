@@ -40,6 +40,19 @@ public class MemberServiceImpl implements MemberService {
     return memberDao.update(member);
   }
   
+  
+  @Override
+  public int profileupdate(Member member) {
+    return memberDao.profileupdate(member);
+  }
+  
+  @Override
+  public int pwdupdate(Member member) {
+    return memberDao.profileupdate(member);
+  }
+  
+  
+  
   @Override
   public int Emailupdate(Member member) {
     return memberDao.Emailupdate(member);
