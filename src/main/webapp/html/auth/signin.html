@@ -22,6 +22,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 카카오 연동에 필요한 스크립트-->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.3&appId=419289318661740&autoLogAppEvents=1"></script>
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
@@ -88,6 +89,12 @@
           <div class="socal-login-buttons">
             <a id="kakao-login-btn"></a>
             <div id="naverIdLogin" class='aa'></div>
+            <div id="fb-root"></div>
+            
+           
+            <div class="fb-login-button" id='asd' data-width="" data-size="large" data-button-type="login_with"data-use-continue-as="false"></div>
+            
+
           </div>
         </div>
       </div> <!-- row div 종료-->
@@ -99,6 +106,7 @@
 </button>
 <div id='heun-footer'></div>
 <script src="kakao.js"></script>
+<script src="facebook.js"></script>
    <script src='../header.js'></script>
   <script src='signin.js'></script>
 </body>
