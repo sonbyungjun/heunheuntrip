@@ -146,5 +146,36 @@ function errorState(sel) {
 
 
 
+$('.udatepwd-btn').on('click', function(e) {
+	
+	e.preventDefault();
+	
+	$.ajax({
+		url: '../../app/json/member/updatepwd',
+		type: 'POST',
+		 data: {
+	          password: $('.pwd').val()
+	          },
+		dataType: 'json',
+		success: function (response) {
+			if (response.status == 'success') {
+
+				location.href = 'my_profile.html';
+
+			} else {
+				Swal.fire({
+					type: 'error',
+					title: '변경실패!',
+					text: '프로필을 변경하지 못했습니다.'
+				})
+			}
+		},
+		fail: function (error) {
+			alert('비밀번호가 일치하지 않습니다.');
+		}
+	});
+	
+})
+
 
 

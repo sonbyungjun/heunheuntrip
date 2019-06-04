@@ -2,6 +2,8 @@ package com.heun.trip.web.json;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Member;
+import com.heun.trip.service.FacebookService;
 import com.heun.trip.service.MemberService;
  
 @RestController("json/AuthController")
@@ -21,10 +24,12 @@ public class AuthController {
 
   MemberService memberService;
   ServletContext servletContext;
+  FacebookService facebookService;
 
-  public AuthController(MemberService memberService, ServletContext servletContext) {
+  public AuthController(MemberService memberService, ServletContext servletContext,FacebookService facebookService) {
     this.memberService = memberService;
     this.servletContext = servletContext;
+    this.facebookService = facebookService;
   }
 
   final static Logger logger = LogManager.getLogger(AuthController.class);
@@ -46,9 +51,6 @@ public class AuthController {
       session.setAttribute("loginUser", member);
       content.put("status", "success");
     }
-
-
-
     return content;
   }
 
@@ -94,10 +96,6 @@ public class AuthController {
     return "user/loginPostNaver";
   }
 
-
-
-
-
   @PostMapping("snslogin")
   public Object snsLogin(
       String email,
@@ -106,17 +104,14 @@ public class AuthController {
       HttpSession session,
       HttpServletResponse response) {
     HashMap<String,Object> content = new HashMap<>();
-
    
     if (accessToken(token) == false && sns_no == 1) {
-
       content.put("status", "accessTokenFail");
       content.put("message", "올바르지 않는 토큰입니다.");
       return content;
     } 
 
     Member member = memberService.snsget(email, sns_no);
-
 
     if (member == null) {
       content.put("status", "fail");
@@ -125,6 +120,43 @@ public class AuthController {
       session.setAttribute("loginUser", member);
       content.put("status", "success");
     }
+
+    return content;
+  }
+  
+  @SuppressWarnings("rawtypes")
+  @GetMapping("fblogin")
+  public Object fblogin(
+      String accessToken,
+      HttpSession session,
+      HttpServletResponse response) throws Exception {
+    // accessToken을 가지고 페이스북 서버에 로그인 사용자의 정보를 요청한다.
+    Map fbLoginUser = facebookService.getLoginUser(accessToken);
+
+    // 페이스북에서 받은 사용자 정보  중에서 이메일을 가지고 회원 정보를 찾는다.
+    Member member = memberService.get((String)fbLoginUser.get("email"));
+
+    // 만약 소셜 사용자가 현재 사이트에 가입된 상태가 아니라면 자동으로 가입시킨다.
+    // 소셜 사용자 정보를 가지고 필수 회원 정보를 준비한다.
+    if (member == null) {
+      member = new Member();
+      member.setEmail((String)fbLoginUser.get("email"));
+      member.setName((String)fbLoginUser.get("name"));
+      member.setPassword(UUID.randomUUID().toString());
+      member.setAuth("1");
+      member.setSns_no(3);
+      String deft ="default.jpeg";
+      member.setPhoto(deft);
+
+      // 소셜 사용자 정보를 DBMS에 등록한다.
+      memberService.snsadd(member);
+    }
+
+    session.setAttribute("loginUser", member);
+
+    HashMap<String, Object> content = new HashMap<>();
+    content.put("status", "success");
+    content.put("member", member);
 
     return content;
   }
@@ -147,9 +179,7 @@ public class AuthController {
     return content;
   }
 
-
   public boolean accessToken(String token) {
-
     String header = "Bearer " + token; // Bearer 다음에 공백 추가
     try {
       String apiURL = "https://openapi.naver.com/v1/nid/me";
@@ -163,14 +193,11 @@ public class AuthController {
       } else {  // 토큰 비정상           
         return false;
       }
-
     } catch (Exception e) {
       System.out.println(e);// 예외 호출
       return false;
     }
-
   }
-
 }
 
 

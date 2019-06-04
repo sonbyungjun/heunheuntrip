@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Member;
+import com.heun.trip.domain.Qna;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.EnRanNo;
 import com.heun.trip.web.Gmail;
@@ -34,6 +36,28 @@ public class MemberController {
     this.servletContext= servletContext;
   }
 
+  
+  
+  @GetMapping("profile")
+  public Object profile(HttpSession session) { 
+
+    HashMap<String,Object> content = new HashMap<>();
+  
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    content.put("name", loginUser.getName());
+    content.put("email", loginUser.getEmail());
+    content.put("tel", loginUser.getTel());
+    content.put("photo", loginUser.getPhoto());
+    content.put("no", loginUser.getNo());
+    return content;
+  }
+  
+  
+  
+  
+  
+  
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -74,6 +98,7 @@ public class MemberController {
 
   @PostMapping("snsadd")
   public Object snsadd(Member member, MultipartFile photo) {
+    System.out.println(photo);
     HashMap<String,Object> content = new HashMap<>();
     StringBuffer ranNo = EnRanNo.randomNo();
     String EnranNo = ranNo.toString();
@@ -174,6 +199,46 @@ public class MemberController {
     }
     return content;
   }
+  
+  
+  
+  @PostMapping("updateprofile")
+  public Object profileupdate(Member member) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      if (memberService.profileupdate(member) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  
+  @PostMapping("updatepwd")
+  public Object updatepwd(Member member, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+   
+    
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+     member.setNo(loginUser.getNo());
+    
+    try {
+      if (memberService.pwdupdate(member) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
   
   @PostMapping("Emailupdate")
   public Object Emailupdate(Member member) {

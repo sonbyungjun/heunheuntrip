@@ -22,7 +22,7 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 카카오 연동에 필요한 스크립트-->
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.3&appId=419289318661740&autoLogAppEvents=1"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.3&appId=428957764565592&autoLogAppEvents=1"></script>
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
 <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
@@ -92,7 +92,7 @@
             <div id="fb-root"></div>
             
            
-            <div class="fb-login-button" id='asd' data-width="" data-size="large" data-button-type="login_with"data-use-continue-as="false"></div>
+            <div class="fb-login-button" scope="public_profile,email"id='asd'data-size="medium" data-button-type="login_with" onlogin="checkLoginState();"></div>
             
 
           </div>

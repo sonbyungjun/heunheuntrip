@@ -101,7 +101,7 @@
       #{photo},
       #{auth})
   </insert>
-   <insert id="snsinsert" parameterType="member">
+   <insert id="snsinsert" parameterType="member" useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into usr(
       email,
       name,
@@ -134,6 +134,23 @@
     where 
       usr_id = #{no}
   </update>
+  
+  
+  <update id="profileupdate" parameterType="member">
+    update usr
+    <set>
+      <if test="name != null">name = #{name},</if>
+      <if test="email != null">email = #{email},</if>
+      <if test="password != null">pwd = password(#{password}),</if>
+      <if test="tel != null">tel = #{tel},</if>
+       <if test="auth != null">auth_id = #{auth},</if>
+       <if test="photo != null">usr_photo = #{photo}</if>
+    </set>  
+    where 
+      usr_id = #{no}
+  </update>
+  
+  
   
   <update id="Emailupdate" parameterType="member">
     update usr
@@ -169,15 +186,18 @@
       and pwd = password(#{password})
   </select>
   
-  <select id="findByEmail" resultMap="memberMap" parameterType="map">
+  <select id="findByEmail" resultMap="memberMap" parameterType="string">
     select
     usr_id,
-      email
-  
+      email,
+      name,
+      tel,
+      usr_photo,
+      cdt
     from
     usr
     where
-    email = #{email}
+    email = #{value}
    
   </select>
   <select id="findByEmailSns" resultMap="memberMap" parameterType="map">
