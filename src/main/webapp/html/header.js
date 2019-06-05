@@ -53,6 +53,33 @@ function search(val) {
   });
 }
 
+function loadLoginUser() {
+  var logoutState = $('#logout-btn'),
+  LoginState = $('#login-btn');
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/user',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      if (response.status == 'success'){
+        $('#register-btn').hide();
+        $('#login-btn').hide();
+        $('#login-username').append(response.user.name +"님");
+        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
+      } else {
+        $('#login-btn').show();
+        $('#logout-btn').hide();
+        $('#register-btn').show();
+        $('#mypage-btn').hide();
+        $('#password-btn').hide();
+      }
+    },
+    error: function (error) {
+    }
+  });
+
+}
+
 ////header.html을 로딩하고 초기화시킨다.
 ////헤더 가져오기
 ////(function () {
@@ -101,28 +128,7 @@ function search(val) {
 
 
 
-function loadLoginUser() {
-  var logoutState = $('#logout-btn'),
-  LoginState = $('#login-btn');
-  $.ajax({
-    url: '/heunheuntrip/app/json/auth/user',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-      if (response.status == 'success'){
-        $('#login-btn').hide();
-        $('#login-username').append(response.user.name +"님");
-        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
-      } else {
-        $('#login-btn').show();
-        $('#logout-btn').hide();
-      }
-    },
-    error: function (error) {
-    }
-  });
 
-}
 
 
 
