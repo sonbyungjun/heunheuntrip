@@ -22,22 +22,18 @@
             <span id='login-userphoto' class="user-image"></span> 안녕하세요
           </a>
           <div class="dropdown-menu">
-            <a id='login-btn' href="/heunheuntrip/html/auth/signin.html" class="dropdown-item">로그인</a> 
+            <a id='login-btn' href="/heunheuntrip/html/auth/signin.html" class="dropdown-item">로그인</a>
+            <a id='register-btn' href="/heunheuntrip/html/auth/register.html" class="dropdown-item">회원가입</a> 
             <a id='logout-btn' href="#" class="dropdown-item">로그아웃</a> 
-            <a href="#" class="dropdown-item heun-myPage">마이페이지</a> 
-            <a href="/heunheuntrip/html/member/my_password.html" class="dropdown-item">비밀번호 변경</a> 
-
-            <a href="my_notifications.html" class="dropdown-item">Notifications</a>
-            <a href="my_membership.html" class="dropdown-item">Membership</a>
-            <a href="my_payments.html" class="dropdown-item">결제정보</a>
-            <a href="my_account.html" class="dropdown-item">Account</a>
+            <a id='mypage-btn' href="#" class="dropdown-item heun-myPage">마이페이지</a> 
+            <a id='password-btn'href="/heunheuntrip/html/member/my_password.html" class="dropdown-item">비밀번호 변경</a> 
           </div>
         </li>
       </ul>
       
-     <form class="heun-search-form p-2">
+     <form id="heun-header-search" class="heun-search-form p-2">
       <fieldset>
-        <input class="heun-hsearch" type="search" />
+        <input id="heun-search-val" class="heun-hsearch" type="search" />
         <button class="heun-hsearch-btn" type="submit">
         <i class="fa fa-search"></i>
         </button>
@@ -46,5 +42,6 @@
     </div>
   </div>
 </nav>
-
+<script type="text/javascript"
+src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
 <script src='/heunheuntrip/html/header.js'></script>

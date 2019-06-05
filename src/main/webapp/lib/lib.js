@@ -2,13 +2,11 @@ $(document).ready(function() {
 	var menuHeight = $('#menu').outerHeight();
 
 	// Fixed Sidebar
-
 	$('.has-sidebar>*').theiaStickySidebar({
 		additionalMarginTop: menuHeight + 30,
 		additionalMarginBottom:30,
 		minWidth: 767,
 	});
-
 	
    
    // Initiate select2 plugin

@@ -8,12 +8,9 @@ $(document).ready(function () {
         location.href='/heunheuntrip/html/auth/signin.html'
       },
       error: function (error) {
- 
       }
-
     })
   });
-
 })
 
 $('.heun-myPage').on('click', function(e){
@@ -38,14 +35,50 @@ $('.heun-myPage').on('click', function(e){
     error: function (error) {
     }
   })
-
-
 })
 
+$('#heun-header-search').submit(function() {
+  search($('#heun-search-val').val());
+  return false;
+});
 
 loadLoginUser();
 
+function search(val) {
+  var places = new daum.maps.services.Places();
+  places.keywordSearch(val, function(result, status) {
+    if (status === daum.maps.services.Status.OK) {
+      location.href = '/heunheuntrip/html/room/index.html?lati=' + result[0].y + '&longi=' + result[0].x;
+    }
+  });
+}
 
+function loadLoginUser() {
+  var logoutState = $('#logout-btn'),
+  LoginState = $('#login-btn');
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/user',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      if (response.status == 'success'){
+        $('#register-btn').hide();
+        $('#login-btn').hide();
+        $('#login-username').append(response.user.name +"님");
+        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
+      } else {
+        $('#login-btn').show();
+        $('#logout-btn').hide();
+        $('#register-btn').show();
+        $('#mypage-btn').hide();
+        $('#password-btn').hide();
+      }
+    },
+    error: function (error) {
+    }
+  });
+
+}
 
 ////header.html을 로딩하고 초기화시킨다.
 ////헤더 가져오기
@@ -95,28 +128,7 @@ loadLoginUser();
 
 
 
-function loadLoginUser() {
-  var logoutState = $('#logout-btn'),
-  LoginState = $('#login-btn');
-  $.ajax({
-    url: '/heunheuntrip/app/json/auth/user',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-      if (response.status == 'success'){
-        $('#login-btn').hide();
-        $('#login-username').append(response.user.name +"님");
-        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
-      } else {
-        $('#login-btn').show();
-        $('#logout-btn').hide();
-      }
-    },
-    error: function (error) {
-    }
-  });
 
-}
 
 
 

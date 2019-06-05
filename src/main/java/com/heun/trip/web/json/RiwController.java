@@ -24,8 +24,9 @@ public class RiwController {
   @PostMapping("add")
   public Object add(Riw riw) {
     HashMap<String,Object> content = new HashMap<>();
+    System.out.println(riw);
     try {
-      riwService.add(riw);
+      // riwService.add(riw);
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
