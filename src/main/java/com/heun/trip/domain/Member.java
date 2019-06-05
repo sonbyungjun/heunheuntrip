@@ -12,6 +12,8 @@ public class Member {
   private String tel;
   private String photo;
   private String auth;
+  private String bank;
+  private String bnk_no;
   private int sns_no;
   
   
@@ -19,12 +21,16 @@ public class Member {
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   
-  
   @Override
   public String toString() {
     return "Member [no=" + no + ", email=" + email + ", password=" + password + ", name=" + name
-        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + ", sns_no=" + sns_no
-        + ", createdDate=" + createdDate + "]";
+        + ", tel=" + tel + ", photo=" + photo + ", auth=" + auth + ", bank=" + bank + ", bnk_no="
+        + bnk_no + ", sns_no=" + sns_no + ", createdDate=" + createdDate + ", getCreatedDate()="
+        + getCreatedDate() + ", getNo()=" + getNo() + ", getEmail()=" + getEmail()
+        + ", getPassword()=" + getPassword() + ", getName()=" + getName() + ", getTel()=" + getTel()
+        + ", getPhoto()=" + getPhoto() + ", getAuth()=" + getAuth() + ", getSns_no()=" + getSns_no()
+        + ", getBank()=" + getBank() + ", getBnk_no()=" + getBnk_no() + ", getClass()=" + getClass()
+        + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
   }
   public Date getCreatedDate() {
     return createdDate;
@@ -80,7 +86,21 @@ public class Member {
   public void setSns_no(int sns_no) {
     this.sns_no = sns_no;
   }
-  
+  public String getBank() {
+    return bank;
+  }
+  public void setBank(String bank) {
+    this.bank = bank;
+  }
+
+  public String getBnk_no() {
+    return bnk_no;
+  }
+
+  public void setBnk_no(String bnk_no) {
+    this.bnk_no = bnk_no;
+  }
+ 
   
   
 }

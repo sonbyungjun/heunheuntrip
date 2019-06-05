@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Member;
-import com.heun.trip.domain.Qna;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.EnRanNo;
 import com.heun.trip.web.Gmail;
@@ -179,6 +178,7 @@ public class MemberController {
     
     try {
       memberService.add(member);
+      
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
@@ -186,7 +186,6 @@ public class MemberController {
     }
     return content;
   }
-  // localhost:8080/.../../update
   @PostMapping("update")
   public Object update(Member member) {
     HashMap<String,Object> content = new HashMap<>();

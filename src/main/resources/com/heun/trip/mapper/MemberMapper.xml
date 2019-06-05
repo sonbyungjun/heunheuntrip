@@ -16,6 +16,8 @@
     <result column="sns_no"    property="sns_no"/>
     <result column="usr_photo"  property="photo"/>
     <result column="cdt"  property="createdDate"/>
+    <result column="bank"    property="bank"/>
+    <result column="bank_id"    property="bnk_no"/>
   </resultMap>
   
   <select id="findAll" resultMap="memberMap" parameterType="map">
@@ -82,7 +84,8 @@
       usr_id = #{value}
   </select>
   
-   <insert id="insert" parameterType="member">
+   <insert id="insert" parameterType="member"
+      useGeneratedKeys="true" keyColumn="usr_id" keyProperty="no">
     insert into usr(
       email,
       name,
@@ -101,6 +104,20 @@
       #{photo},
       #{auth})
   </insert>
+  
+     <insert id="bankinsert" parameterType="map">
+    insert into host(
+    usr_id,
+    bank,
+    bank_id)      
+    values(
+      #{no},
+      #{bank},
+      #{bnkno})
+  </insert>
+  
+  
+  
    <insert id="snsinsert" parameterType="member" useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
     insert into usr(
       email,
