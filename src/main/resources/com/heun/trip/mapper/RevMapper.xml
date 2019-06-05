@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.RevDao">
+  
+  <resultMap type="rev" id="revMap">
+    <id column="rev_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="stus_id" property="stusNo"/>
+    <result column="rms_id" property="rmsNo"/>
+    <result column="cck_in" property="checkIn"/>
+    <result column="cck_out" property="checkOut"/>
+    <result column="rev_stus" property="revStus"/>
+    <result column="stby_stus" property="stanBy"/>
+    <result column="rev_persn" property="revPerson"/>
+    <result column="rev_cdt" property="createdDate"/>
+    
+    <result column="rm_name" property="rmsName"/>
+    <result column="addr" property="address"/>
+    <result column="thum" property="thumbnail"/>
+    <result column="stus" property="status"/>
+  </resultMap>
+  
+  <select id="findAll" resultMap="revMap" parameterType="map">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.cck_in,
+     e.cck_out,
+     e.stby_stus,
+     e.rev_persn,
+     s.stus
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    order by 
+      e.rev_id desc 
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
