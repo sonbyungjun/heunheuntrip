@@ -243,6 +243,8 @@ function filechkValue() {
 		}
 	});
 }
+
+
 $('body').on('loaded-file', function () {
 	$('#images-div').on('click', function () {
 		$(this).find('img').remove();
@@ -252,6 +254,8 @@ $('body').on('loaded-file', function () {
 		$('#file-btn1').hide();
 	})
 })
+
+
 
 $('#fileupload').fileupload({
 	url: '../../app/json/member/add',        // 서버에 요청할 URL
@@ -338,7 +342,7 @@ function errorState(sel) {
 	$("#myForm button[type=submit]")
 		.attr("disabled", "disabled");
 };
-"use strict"
+
 
 
 

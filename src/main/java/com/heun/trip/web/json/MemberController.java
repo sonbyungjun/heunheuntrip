@@ -44,13 +44,10 @@ public class MemberController {
     HashMap<String,Object> content = new HashMap<>();
   
     Member loginUser = (Member) session.getAttribute("loginUser");
+    Member member = memberService.get(loginUser.getNo());
     
-    content.put("name", loginUser.getName());
-    content.put("email", loginUser.getEmail());
-    content.put("tel", loginUser.getTel());
-    content.put("photo", loginUser.getPhoto());
-    content.put("no", loginUser.getNo());
-    return content;
+    
+    return member;
   }
   
   
@@ -203,13 +200,32 @@ public class MemberController {
   
   
   @PostMapping("updateprofile")
-  public Object profileupdate(Member member) {
+  public Object profileupdate(Member member,  MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
+    
+    if (photo != null) {
+      String filename = UUID.randomUUID().toString();
+      String uploadDir = servletContext.getRealPath(
+          "/html/memberupload");
+      File orginFile= new File(uploadDir + "/" + filename); 
+      File thumFile=new File(uploadDir+"/" + filename);
+      try {
+        photo.transferTo(orginFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+      } catch (IllegalStateException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      member.setPhoto(filename+".jpeg");
+    } else {
+      String deft ="default.jpeg";
+      member.setPhoto(deft);
+    }
+    
     try {
-      if (memberService.profileupdate(member) == 0) 
-        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      memberService.update(member);
       content.put("status", "success");
-
     } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());
