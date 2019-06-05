@@ -15,8 +15,8 @@
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../star/star-rating-svg.css"> 
   <link rel="stylesheet" href="list.css">
+  <link rel="stylesheet" href="../../star/star-rating-svg.css"> 
  
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -26,9 +26,10 @@
   <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
   <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
-  <script src="../../star/jquery.star-rating-svg.js"></script>
   <script src="../../lib/lib.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="../../star/jquery.star-rating-svg.js"></script>
 
 </head>
 <body>
@@ -58,22 +59,40 @@
                 <div class="page-header bordered">
                   <h1>예약<small>reservation</small></h1>
                   <div class="clearfix"></div>
-            <div class="item-listing list">
-            <!-- 리스트 한 개 -->
+                  
+                    <!-- 핸들바스 적용지점 -->
+                    <div class="item-listing list"></div>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
+
+  </div>
+  <div id='heun-footer'></div>
+ 
+   <!-- 핸들바스 -->
+  <script id="tr-template" type="text/x-handlebars-template">
+
+    {{#each list}}
               <div class="item">
                 <div class="row">
                   <div class="col-lg-5">
                     <div class="item-image"> 
                       <a href="property_single.html">
-                        <img src="../../img/demo/property/1.jpg" class="img-fluid" alt="">
+                        <img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" class="img-fluid" alt="">
                       </a>
                       <div class="rev-state">
-                      <button style="font-size: 15px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   예약완료</i>
+                      <button style="font-size: 15px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   {{status}}</i>
                        </button>
-                       
+                      {{#if isBtn}}
                       <button type="button" class="btn btn-sm btn-secondary riw-write" data-toggle="modal" data-backdrop="static" data-target="#exampleModal">후기 작성</button>
-                                             
-                        <div class="modal fade riw-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                       {{/if}}
+                      <div class="modal fade riw-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div class="modal-dialog" role="document">
                             <div class="modal-content">
                               <div class="modal-header">
@@ -92,45 +111,36 @@
                                 </form>
                               </div>
                               <div class="modal-footer">
+
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                                <button type="button" class="btn btn-primary">등록</button>
+                                <button type="button" class="btn btn-primary insert-riw">등록</button>
                               </div>
                             </div>
                           </div>
                         </div>
-                        
+
                         </div>
                     </div>
                   </div>
                   <div class="col-lg-7">
                   <div class="item-info">
-                    <h3 class="item-title"><a href="property_single.html">강남역 비트캠프</a></h3>
-                    <div class="item-location"><i class="fas fa-map-marker-alt"></i>   강남역 12번 출구</div>
+                    <h3 class="item-title"><a href="property_single.html">{{rmsName}}</a></h3>
+                    <div class="item-location"><i class="fas fa-map-marker-alt"></i>   {{address}}</div>
                     <div class="item-details">
                       <ul>
-                        <li>체크인<span>2019-05-03</span></li>
-                        <li>체크아웃<span>2019-05-05</span></li> 
-                        <li>예약 인원 <span>2명</span></li>
-                        <li>승인 여부 <span>미승인</span></li>
+                        <li>체크인<span>{{checkIn}}</span></li>
+                        <li>체크아웃<span>{{checkOut}}</span></li> 
+                        <li>예약 인원 <span>{{revPerson}}</span></li>
+                        <li>승인 여부 <span>{{stanBy}}</span></li>
                       </ul>
                     </div>
                  </div>
                   </div>
                 </div>
               </div>
+   {{/each}}
 
-            </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-
-  </div>
-  <div id='heun-footer'></div>
+  </script>
   <script src='list.js'></script>
 </body>
 </html>
