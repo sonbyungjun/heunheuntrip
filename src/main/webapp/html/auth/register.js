@@ -5,6 +5,22 @@ $(document).ready(function () {
 	$('#file-btn1').hide();
 	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+	Swal.fire({
+		title: '잠깐!',
+		text: "어느 회원으로 가입하실건가요?",
+		type: 'question',
+		allowOutsideClick: false,
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: '일반회원',
+		cancelButtonText: '호스트'
+	  }).then((result) => {
+	
+		if (result.value) {
+			
+		}
+	  })
 })
 
 $("#name").keyup(function () {

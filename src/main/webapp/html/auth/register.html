@@ -85,17 +85,6 @@
           <div class='tab-content'>
             <div role='tabpanel' class='tab-pane active' id='login'>
               <form action='' id='signupForm' enctype='multipart/form-data'>
-                <div class="custom-control custom-radio custom-control-inline check">
-                  <input type="radio" id="customRadioInline1" name="customRadioInline1" data-name='회원 선택'
-                    class="custom-control-input" value='1' checked="checked">
-                  <label class="custom-control-label" for="customRadioInline1">일반회원</label>
-                </div>
-
-                <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="customRadioInline2" name="customRadioInline1" data-name='회원 선택'
-                    class="custom-control-input" value='2'>
-                  <label class="custom-control-label" for="customRadioInline2">호스트</label>
-                </div>
 
                 <div class="form-group has-feedback">
                   <label class="control-label" for="name">이름</label> <input class="form-control required" type="text"
@@ -158,8 +147,17 @@
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
+                <div class="btn-group search-choose">
+                  <button type="button" class="btn btn-secondary dropdown-toggle searchselect" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    은행
+                  </button>
+                  <div class="dropdown-menu heun-search">
+                  <a class="dropdown-item new" data-no="createdDate" name ="order">신한은행</a>
+                    <a class="dropdown-item old" name="deorder">우리은행</a>
+                    <a class="dropdown-item like" name="blike" >농협</a>
+                  </div>
+         </div>
                 <div id='images-div'></div>
-
                 <div id='all-btn'>
                   <button type='button' class='btn btn-primary btn-lg' id='btn1'>가입</button>
                   <button type='button' class='btn btn-primary btn-lg' id='file-btn1'>가입</button>
