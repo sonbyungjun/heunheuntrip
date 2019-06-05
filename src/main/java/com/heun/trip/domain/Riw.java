@@ -11,14 +11,27 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   private String reply;
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date replyDate;
-  private int roomNo;
   private String name;
   private String photo;
-  
-  
-  
-  
+  private int roomNo;
+  private String roomPhoto;
+  private String roomName;
+
+
+  public String getRoomPhoto() {
+    return roomPhoto;
+  }
+  public void setRoomPhoto(String roomPhoto) {
+    this.roomPhoto = roomPhoto;
+  }
+  public String getRoomName() {
+    return roomName;
+  }
+  public void setRoomName(String roomName) {
+    this.roomName = roomName;
+  }
   public String getName() {
     return name;
   }
@@ -79,15 +92,13 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setRoomNo(int roomNo) {
     this.roomNo = roomNo;
   }
+  
   @Override
   public String toString() {
     return "Riw [no=" + no + ", userNo=" + userNo + ", contents=" + contents + ", grd=" + grd
         + ", createdDate=" + createdDate + ", reply=" + reply + ", replyDate=" + replyDate
-        + ", roomNo=" + roomNo + ", name=" + name + ", photo=" + photo + "]";
+        + ", name=" + name + ", photo=" + photo + ", roomNo=" + roomNo + ", roomPhoto=" + roomPhoto
+        + ", roomName=" + roomName + "]";
   }
- 
- 
-  
-  
-  
+
 }

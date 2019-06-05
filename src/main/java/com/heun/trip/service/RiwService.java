@@ -6,6 +6,7 @@ import com.heun.trip.domain.Riw;
 
 public interface RiwService {
   List<Riw> list(int pageNo, int pageSize);
+  List<Riw> listMypage(int pageNo, int pageSize, int userNo);
   int add(Riw riw);
   Riw get(int no);
   int update(Riw riw);   

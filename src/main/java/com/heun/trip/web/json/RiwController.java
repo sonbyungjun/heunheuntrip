@@ -73,8 +73,42 @@ public class RiwController {
 
     return content;
   }
+  
+  @GetMapping("listMypage")
+  public Object listMypage(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="5") int pageSize,
+      HttpSession session
+      ) { // localhost:8080/heunheuntrip/app/json/qna/listMypage
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    int userNo = member.getNo();
+    
+    if (pageSize < 1 || pageSize > 6) 
+      pageSize = 5;
 
-  @GetMapping("delete")
+    int rowCount = riwService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+
+    List<Riw> list = riwService.listMypage(pageNo, pageSize, userNo);
+
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", list);
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
+
+    return content;
+  }
+
+  @PostMapping("delete")
   public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
     try {
@@ -98,6 +132,12 @@ public class RiwController {
 @PostMapping("update")
    public Object update(Riw riw) {
      HashMap<String,Object> content = new HashMap<>();
+     
+     if(Integer.parseInt(riw.getGrd()) == 0) {
+       Riw riw2 = riwService.get(riw.getNo());
+       riw.setGrd(riw2.getGrd());
+     }
+     
      try {
        if (riwService.update(riw) == 0) 
          throw new RuntimeException("해당 번호의 게시물이 없습니다.");
