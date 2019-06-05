@@ -17,12 +17,23 @@ $(document).ready(function () {
 
 });
 
+
 function pageload(no) {
   $.ajax({
     url: '../../app/json/room/detail?no=' + no,
     type: 'GET',
     dataType: 'json',
     success: function (response) {
+
+      var places = new daum.maps.services.Places();
+      places.keywordSearch(response.address + '명소', function(result, status) {
+        if (status === daum.maps.services.Status.OK) {
+          for (var r of result) {
+            console.log(r)
+            console.log(r.x, r.y);
+          }
+        }
+      });
       
       var com = comma(String(response.price).replace(/[^0-9]/g, ''));
       response.price = com;
@@ -56,8 +67,6 @@ function pageload(no) {
       } else {
         response.isTraffic = false;
       }
-      
-      console.log(response);
 
       form.html('');
       
