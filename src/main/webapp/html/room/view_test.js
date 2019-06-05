@@ -1,16 +1,9 @@
 $('body').on('loaded-list', function () {
-
-  var menuHeight = $('#menu').outerHeight();
-  $('.has-sidebar>*').theiaStickySidebar({
-		additionalMarginTop: menuHeight + 30,
-		additionalMarginBottom:30,
-		minWidth: 767,
-	});
-  
   // Photoswipe
 
   var initPhotoSwipeFromDOM = function (gallerySelector) {
     var parseThumbnailElements = function (el) {
+      console.log(el);
       var thumbElements = $(el).closest(main_gallery).find('figure'),
         numNodes = thumbElements.length,
         items = [],
@@ -159,9 +152,11 @@ $('body').on('loaded-list', function () {
 
       var totalItems = gallery.options.getNumItemsFn();
 
-      function syncPhotoSwipeWithOwl() {
+      function syncPhotoSwipeWithSlider() {
         var currentIndex = gallery.getCurrentIndex();
         galleryTop.slideTo(currentIndex);
+        //galleryTop.activeIndex();
+        //main_image.trigger('owl.jumpTo', currentIndex);
         if (currentIndex == (totalItems - 1)) {
           $('.pswp__button--arrow--right').attr('disabled', 'disabled').addClass('disabled');
         } else {
@@ -174,9 +169,9 @@ $('body').on('loaded-list', function () {
         }
       };
       gallery.listen('afterChange', function () {
-        syncPhotoSwipeWithOwl();
+        syncPhotoSwipeWithSlider();
       });
-      syncPhotoSwipeWithOwl();
+      syncPhotoSwipeWithSlider();
     };
 
     // loop through all gallery elements and bind events
@@ -187,33 +182,43 @@ $('body').on('loaded-list', function () {
       galleryElements[i].onclick = onThumbnailsClick;
     }
   };
+
   var main_gallery = '.gallery-top';
   var galleryTop = new Swiper(main_gallery, {
-    spaceBetween: 10,
-    lazy: {
-      loadPrevNext: true,
-    },
+    slidesPerView: 2,
+    centeredSlides: true,
+    spaceBetween: 0,
+    loop: true,
+    //autoplay: {
+    //delay: 5000,
+    //disableOnInteraction: false,
+    //},
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
-    }
-    , on: {
+    },
+    on: {
       init: function () {
         initPhotoSwipeFromDOM(main_gallery);
       },
+    },
+    breakpoints: {
+      991: {
+        slidesPerView: 2,
+        centeredSlides: false,
+      },
+      768: {
+        slidesPerView: 1,
+        centeredSlides: false,
+      },
+      640: {
+        slidesPerView: 1,
+        centeredSlides: false,
+      },
+      320: {
+        slidesPerView: 1,
+        centeredSlides: false,
+      }
     }
   });
-  var galleryThumbs = new Swiper('.gallery-thumbs', {
-    spaceBetween: 10,
-    centeredSlides: true,
-    slidesPerView: 5,
-    touchRatio: 0.2,
-    slideToClickedSlide: true,
-  });
-  galleryTop.controller.control = galleryThumbs;
-  galleryThumbs.controller.control = galleryTop;
-
-
-
-  
 })

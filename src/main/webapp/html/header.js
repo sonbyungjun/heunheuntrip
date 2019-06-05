@@ -8,12 +8,9 @@ $(document).ready(function () {
         location.href='/heunheuntrip/html/auth/signin.html'
       },
       error: function (error) {
- 
       }
-
     })
   });
-
 })
 
 $('.heun-myPage').on('click', function(e){
@@ -38,14 +35,23 @@ $('.heun-myPage').on('click', function(e){
     error: function (error) {
     }
   })
-
-
 })
 
+$('#heun-header-search').submit(function() {
+  search($('#heun-search-val').val());
+  return false;
+});
 
 loadLoginUser();
 
-
+function search(val) {
+  var places = new daum.maps.services.Places();
+  places.keywordSearch(val, function(result, status) {
+    if (status === daum.maps.services.Status.OK) {
+      location.href = '/heunheuntrip/html/room/index.html?lati=' + result[0].y + '&longi=' + result[0].x;
+    }
+  });
+}
 
 ////header.html을 로딩하고 초기화시킨다.
 ////헤더 가져오기
