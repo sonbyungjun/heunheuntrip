@@ -27,8 +27,22 @@ public class MemberServiceImpl implements MemberService {
   
   @Override
   public int add(Member member) {
-    return memberDao.insert(member);
+  
+     if(member.getAuth().equals("2")) {
+       HashMap<String,Object> params = new HashMap<>();
+       try {
+         memberDao.insert(member);
+         params.put("no", member.getNo());
+         params.put("bank", member.getBank());
+         params.put("bnkno", member.getBnk_no());
+       } catch (Exception e) {
+         e.printStackTrace();
+       }
+        return memberDao.bankinsert(params);     
+     }
+     return memberDao.insert(member);
   }
+  
   
   @Override
   public Member get(int no) {

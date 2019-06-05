@@ -183,6 +183,7 @@ public class MemberController {
     
     try {
       memberService.add(member);
+      
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
@@ -190,7 +191,6 @@ public class MemberController {
     }
     return content;
   }
-  // localhost:8080/.../../update
   @PostMapping("update")
   public Object update(Member member) {
     HashMap<String,Object> content = new HashMap<>();

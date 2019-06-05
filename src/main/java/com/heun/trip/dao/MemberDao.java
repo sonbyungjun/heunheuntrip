@@ -7,6 +7,7 @@ import com.heun.trip.domain.Member;
 
 public interface MemberDao {
   int insert(Member member);
+  int bankinsert(Map<String,Object> paramMap);
   int snsinsert(Member member);
   List<Member> findAll(Map<String,Object> paramMap);
   Member findByNo(int no);
