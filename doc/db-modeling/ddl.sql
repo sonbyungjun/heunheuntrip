@@ -42,7 +42,9 @@ CREATE TABLE rms (
   longi     VARCHAR(50)  NOT NULL, -- 경도
   cdt       DATETIME     NOT NULL DEFAULT current_timestamp(), -- 등록일
   grd       VARCHAR(5)   NULL,     -- 평균평점
-  thum      VARCHAR(255) NULL      -- 섬네일
+  thum      VARCHAR(255) NULL,     -- 섬네일
+  activation  INTEGER    NULL     DEFAULT 0, -- 승인/거절
+  reject_memo TEXT       NULL      -- 거절메세지
 );
 
 -- 숙소

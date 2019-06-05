@@ -26,7 +26,7 @@ function pageload(no) {
     success: function (response) {
 
       var places = new daum.maps.services.Places();
-      places.keywordSearch(response.address + '명소', function(result, status) {
+      places.keywordSearch(response.address + '맛집', function(result, status) {
         if (status === daum.maps.services.Status.OK) {
           for (var r of result) {
             console.log(r)
