@@ -30,7 +30,7 @@ function loadList() {
 		
 		} else {
 		$("<img>").attr('src',
-					'/heunheuntrip/html/memberupload/defualt.jpeg')
+					'/heunheuntrip/html/memberupload/default.jpeg')
 					.css('width', '255px')
 					.appendTo($('#profileimg'));
 		}

@@ -213,7 +213,11 @@ $('body').on('loaded-list', function () {
   galleryTop.controller.control = galleryThumbs;
   galleryThumbs.controller.control = galleryTop;
 
-
-
+  $(document).dateRangePicker({
+    inline: true,
+    container: '#date-range12-container', 
+    alwaysOpen: true,
+    language: 'ko'
+  });
   
 })

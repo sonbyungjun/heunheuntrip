@@ -2,11 +2,13 @@ package com.heun.trip.web.json;
 
 import java.util.HashMap;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Riw;
 import com.heun.trip.service.RiwService;
 
@@ -22,11 +24,18 @@ public class RiwController {
   }
 
   @PostMapping("add")
-  public Object add(Riw riw) {
+  public Object add(Riw riw, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
+    Member member = (Member)session.getAttribute("loginUser");
+    
     System.out.println(riw);
+    
+    int no = member.getNo();
+    riw.setUserNo(no);
+    
     try {
-      // riwService.add(riw);
+      riwService.add(riw);
+      
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");

@@ -16,7 +16,7 @@
     <result column="reply_dt" property="replyDate"/>
     <result column="name" property="name"/>
     <result column="usr_photo" property="photo"/>
-    <result column="rms_id" property="rommNo"/>
+    <result column="rms_id" property="roomNo"/>
   </resultMap>
   
   <select id="findAll" resultMap="riwMap" parameterType="map">
@@ -45,12 +45,14 @@
   <insert id="insert" parameterType="riw">
     insert into riw(
       usr_id,
+      rms_id,
       riw_conts,
       grd,
       riw_reply,
       reply_dt)
     values(
       #{userNo},
+      #{roomNo},
       #{contents},
       #{grd},
       #{reply},
@@ -95,6 +97,15 @@
     where 
       riw_id = #{no}
   </update>
+  
+  <select id="count" parameterType="map">
+    select 
+     count(*) 
+    from 
+     riw 
+    where 
+     usr_id=#{userNo} and rms_id=#{roomNo}
+  </select>
   
   
   

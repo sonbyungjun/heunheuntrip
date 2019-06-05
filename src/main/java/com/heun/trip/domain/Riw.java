@@ -7,12 +7,12 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   private int no;
   private int userNo;
   private String  contents;
-  private int grd;
+  private String grd;
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
   private Date createdDate;
   private String reply;
   private Date replyDate;
-  private int rommNo;
+  private int roomNo;
   private String name;
   private String photo;
   
@@ -49,10 +49,10 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setContents(String contents) {
     this.contents = contents;
   }
-  public int getGrd() {
+  public String getGrd() {
     return grd;
   }
-  public void setGrd(int grd) {
+  public void setGrd(String grd) {
     this.grd = grd;
   }
   public Date getCreatedDate() {
@@ -73,17 +73,17 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setReplyDate(Date replyDate) {
     this.replyDate = replyDate;
   }
-  public int getRommNo() {
-    return rommNo;
+  public int getRoomNo() {
+    return roomNo;
   }
-  public void setRommNo(int rommNo) {
-    this.rommNo = rommNo;
+  public void setRoomNo(int roomNo) {
+    this.roomNo = roomNo;
   }
   @Override
   public String toString() {
     return "Riw [no=" + no + ", userNo=" + userNo + ", contents=" + contents + ", grd=" + grd
         + ", createdDate=" + createdDate + ", reply=" + reply + ", replyDate=" + replyDate
-        + ", rommNo=" + rommNo + ", name=" + name + ", photo=" + photo + "]";
+        + ", roomNo=" + roomNo + ", name=" + name + ", photo=" + photo + "]";
   }
  
  

@@ -24,6 +24,16 @@ public class Rev {
   private String thumbnail;
   private String status;
   
+  private boolean count;
+  
+  
+  
+  public boolean isCount() {
+    return count;
+  }
+  public void setCount(boolean count) {
+    this.count = count;
+  }
   public String getRmsName() {
     return rmsName;
   }
@@ -108,14 +118,13 @@ public class Rev {
   public void setRevPerson(int revPerson) {
     this.revPerson = revPerson;
   }
-  
   @Override
   public String toString() {
     return "Rev [no=" + no + ", userNo=" + userNo + ", stusNo=" + stusNo + ", rmsNo=" + rmsNo
         + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", createdDate=" + createdDate
         + ", revStus=" + revStus + ", stanBy=" + stanBy + ", revPerson=" + revPerson + ", rmsName="
         + rmsName + ", address=" + address + ", thumbnail=" + thumbnail + ", status=" + status
-        + "]";
+        + ", count=" + count + "]";
   }
   
 }

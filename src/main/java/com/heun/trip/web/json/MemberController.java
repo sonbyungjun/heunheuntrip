@@ -38,8 +38,7 @@ public class MemberController {
   
   
   @GetMapping("profile")
-  public Object profile(HttpSession session) { 
-    HashMap<String,Object> content = new HashMap<>();
+  public Object profile(HttpSession session) {   
     Member loginUser = (Member) session.getAttribute("loginUser");
     Member member = memberService.get(loginUser.getNo());
     return member;
@@ -137,14 +136,24 @@ public class MemberController {
     HashMap<String,Object> content = new HashMap<>();
     
     if (photo != null) {
+      // 헤더용 썸네일 제작
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
           "/html/memberupload");
       File orginFile= new File(uploadDir + "/" + filename); 
       File thumFile=new File(uploadDir+"/" + filename);
+      // 프로필용 썸네일제작
+      
+      String profileuploadDir = servletContext.getRealPath(
+          "/html/memberprofileupload");
+      File profileorginFile= new File(profileuploadDir + "/" + filename); 
+      File profilethumFile=new File(profileuploadDir+"/" + filename);
+      
       try {
         photo.transferTo(orginFile);
         Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+        photo.transferTo(profileorginFile);
+        Thumbnails.of(profileorginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -191,9 +200,17 @@ public class MemberController {
           "/html/memberprofileupload");
       File orginFile= new File(uploadDir + "/" + filename); 
       File thumFile=new File(uploadDir+"/" + filename);
+      // 프로필용 썸네일제작
+      
+      String profileuploadDir = servletContext.getRealPath(
+          "/html/memberprofileupload");
+      File profileorginFile= new File(profileuploadDir + "/" + filename); 
+      File profilethumFile=new File(profileuploadDir+"/" + filename);
       try {
         photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(thumFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+        photo.transferTo(profileorginFile);
+        Thumbnails.of(profileorginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
