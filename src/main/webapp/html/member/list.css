@@ -20,6 +20,11 @@ h4 {
 	line-height: 1.2;
 }
 
+.riw-complete{
+  float: right;
+  line-height: 1.2;
+}
+
 #message-text {
 	margin-top: 20px;
 }

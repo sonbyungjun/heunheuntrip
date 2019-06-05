@@ -1,6 +1,7 @@
 package com.heun.trip.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
 import com.heun.trip.dao.RevDao;
 import com.heun.trip.domain.Rev;
@@ -19,7 +20,13 @@ public class RevServiceImpl implements RevService {
   public List<Rev> list() {
     return revDao.findAll();
   }
-  
+
+  @Override
+  public int count(Map<String, Object> params) {
+    return revDao.count(params);
+  }
+
+
 }
 
 

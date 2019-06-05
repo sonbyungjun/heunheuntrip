@@ -18,12 +18,14 @@ function loadList() {
   $.getJSON('../../app/json/rev/list', function(obj) {
     
     for(l of obj.list){
+      
       if(l.status === "체크아웃"){
         l.isBtn = true;
       } else {
         l.isBtn = false;
       }
     }
+    
     $(trGenerator(obj)).appendTo(form);
     
     $(document.body).trigger('loaded-list');
@@ -35,13 +37,14 @@ function loadList() {
 $(document.body).bind('loaded-list', (e) => {
   $('.riw-write').on('click', function(){
     
+    var no = $(this).next().data('no');
+
     $('#exampleModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) 
       var recipient = button.data('whatever') 
       var modal = $(this)
       modal.find('.modal-title').text('Review')
       modal.find('.modal-body input').val(recipient)
-      console.log(event);
     });
     
 
@@ -60,12 +63,13 @@ $(document.body).bind('loaded-list', (e) => {
       }
     });
     
-    $('.insert-riw').on('click', function(){
+    $('.insert-riw').on('click', function(e){
       
       $.ajax({
         url: '../../app/json/riw/add',
         type: 'POST',
         data: {
+          roomNo: no,
           grd: window.rating,
           contents: $('#message-text').val()
         },

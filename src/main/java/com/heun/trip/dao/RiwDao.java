@@ -9,8 +9,9 @@ public interface RiwDao {
   List<Riw> findAll(Map<String,Object> params);
   Riw findByNo(int no);
   int delete(int no);   
- int update(Riw riw);   
- int countAll(); 
+  int update(Riw riw);   
+  int countAll();
+  int count(Map<String, Object> params);
 }
 
 

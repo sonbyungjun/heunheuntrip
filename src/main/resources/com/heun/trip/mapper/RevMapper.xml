@@ -24,11 +24,19 @@
     <result column="stus" property="status"/>
   </resultMap>
   
+  <resultMap type="riw" id="riwMap">
+    <id column="riw_id" property="no"/>
+    <result column="usr_id" property="userNo"/>
+    <result column="rms_id" property="roomNo"/>
+  </resultMap>
+  
   <select id="findAll" resultMap="revMap" parameterType="map">
     select
      r.rm_name,
      r.addr,
      r.thum,
+     e.usr_id,
+     e.rms_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
@@ -40,6 +48,16 @@
     order by 
       e.rev_id desc 
   </select>
+  
+  <select id="count" parameterType="map" resultType="int">
+    select 
+     count(*) 
+    from 
+     riw 
+    where 
+     usr_id=#{userNo} and rms_id=#{roomNo}
+  </select>
+  
 </mapper>
 
 
