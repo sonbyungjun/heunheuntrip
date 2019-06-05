@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Member;
-import com.heun.trip.domain.Qna;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.EnRanNo;
 import com.heun.trip.web.Gmail;
@@ -39,9 +38,7 @@ public class MemberController {
   
   
   @GetMapping("profile")
-  public Object profile(HttpSession session) { 
-
-    HashMap<String,Object> content = new HashMap<>();
+  public Object profile(HttpSession session) {   
   
     Member loginUser = (Member) session.getAttribute("loginUser");
     Member member = memberService.get(loginUser.getNo());
@@ -155,14 +152,24 @@ public class MemberController {
     HashMap<String,Object> content = new HashMap<>();
     
     if (photo != null) {
+      // 헤더용 썸네일 제작
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
           "/html/memberupload");
       File orginFile= new File(uploadDir + "/" + filename); 
       File thumFile=new File(uploadDir+"/" + filename);
+      // 프로필용 썸네일제작
+      
+      String profileuploadDir = servletContext.getRealPath(
+          "/html/memberprofileupload");
+      File profileorginFile= new File(profileuploadDir + "/" + filename); 
+      File profilethumFile=new File(profileuploadDir+"/" + filename);
+      
       try {
         photo.transferTo(orginFile);
         Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+        photo.transferTo(profileorginFile);
+        Thumbnails.of(profileorginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -206,12 +213,20 @@ public class MemberController {
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
-          "/html/memberprofileupload");
+          "/html/memberupload");
       File orginFile= new File(uploadDir + "/" + filename); 
       File thumFile=new File(uploadDir+"/" + filename);
+      // 프로필용 썸네일제작
+      
+      String profileuploadDir = servletContext.getRealPath(
+          "/html/memberprofileupload");
+      File profileorginFile= new File(profileuploadDir + "/" + filename); 
+      File profilethumFile=new File(profileuploadDir+"/" + filename);
       try {
         photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(thumFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+        photo.transferTo(profileorginFile);
+        Thumbnails.of(profileorginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
