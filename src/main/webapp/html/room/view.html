@@ -42,6 +42,13 @@
 
   <script type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+  <style>
+  .customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+  .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+  .customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+  .customoverlay .title {display:block;text-align:center;background:#fff;margin-top:0px;margin-bottom:0px;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+  .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+  </style>
 </head>
 
 <body>
@@ -153,23 +160,25 @@
 
                         <ul class="nav nav-tabs v2" role="tablist">
                           <li role="presentation"><a href="#map" aria-controls="map" role="tab" data-toggle="tab"
-                              class="active"><i class="fa fa-map"></i> <span class="hidden-xs">지도</span></a>
+                              class="active"><i class="fa fa-map"></i> <span class="hidden-xs">맛집</span></a>
                           </li>
                           <li role="presentation"><a href="#streetview" aria-controls="streetview" role="tab"
-                              data-toggle="tab"><i class="fa fa-road"></i> <span class="hidden-xs">Street View</span></a>
+                              data-toggle="tab"><i class="fa fa-road"></i> <span class="hidden-xs">관광명소</span></a>
                           </li>
                         </ul>
 
                         <div class="tab-content">
                           <div role="tabpanel" class="tab-pane active" id="map">
-                            <iframe id="jmt"
+                            <div id="daum-map1" width="600" height="450" style="border:0; height:450px;" allowfullscreen></div>
+                            <!-- <iframe id="jmt"
                               src="https://m.map.kakao.com/actions/searchView?q={{address}}+맛집#!/all/map/place"
-                              width="600" height="450" style="border:0;" allowfullscreen></iframe>
+                              width="600" height="450" style="border:0;" allowfullscreen></iframe> -->
                           </div>
                           <div role="tabpanel" class="tab-pane" id="streetview">
-                            <iframe
+                            <div id="daum-map2" width="600" height="450" style="border:0; height:450px;" allowfullscreen></div>
+                            <!-- <iframe
                               src="https://m.map.kakao.com/actions/searchView?q=%EA%B0%95%EB%82%A8%EC%97%AD%20%EB%A7%9B%EC%A7%91&wxEnc=MOPQSM&wyEnc=QNOLMQS&lvl=4&rcode=I10000901#!/all/map/place"
-                              width="600" height="450" style="border:0" allowfullscreen></iframe>
+                              width="600" height="450" style="border:0" allowfullscreen></iframe> -->
                           </div>
                         </div>
 

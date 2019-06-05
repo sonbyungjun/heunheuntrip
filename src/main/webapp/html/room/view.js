@@ -219,5 +219,6 @@ $('body').on('loaded-list', function () {
     alwaysOpen: true,
     language: 'ko'
   });
+
   
 })
