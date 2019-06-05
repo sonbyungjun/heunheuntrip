@@ -1,3 +1,4 @@
+var auth=0;
 $(document).ready(function () {
 	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
@@ -5,6 +6,8 @@ $(document).ready(function () {
 	$('#file-btn1').hide();
 	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+	$(document.body).trigger('bankcheck');
+	$('#host').hide();
 	Swal.fire({
 		title: '잠깐!',
 		text: "어느 회원으로 가입하실건가요?",
@@ -18,11 +21,14 @@ $(document).ready(function () {
 	  }).then((result) => {
 	
 		if (result.value) {
-			
+			window.auth=1;
+			$('#host').hide();
+		}else{
+			window.auth=2;
+			$('#host').show();
 		}
 	  })
 })
-
 $("#name").keyup(function () {
 	var name = $(this).val();
 	var reg = /^([가-힣]{1,5}|[a-zA-Z]{1,30})$/;
@@ -193,13 +199,18 @@ function chkValue() {
 			return false;
 		}
 	});
-
+if(window.auth == '2' && $('#bnk_no').val()==''){
+	Swal.fire({
+		type: 'error',
+		title: "계좌번호는 필수 입력 사항입니다."
+	})
 	// 모든 값이 정상적으로 다들어 왔다면 서버에 요청을 보냄
-	if ($('#name').hasClass("is-valid") &
+}else if ($('#name').hasClass("is-valid") &
 		$('#email').hasClass("is-valid") &
 		$('#play').hasClass("is-valid") &
 		$('#pwd').hasClass("is-valid") &
 		$('#rePwd').hasClass("is-valid") &
+		window.auth=='1'&
 		$('#fileupload').val() == "") {
 		$.ajax({
 			url: '../../app/json/member/add',
@@ -209,7 +220,7 @@ function chkValue() {
 				email: $("#email").val(),
 				password: $("#pwd").val(),
 				name: $("#name").val(),
-				auth: $("input[type=radio][name=customRadioInline1]:checked").val(),
+				auth: window.auth,
 				sns_no: 0
 			},
 			dataType: 'json',
@@ -231,7 +242,48 @@ function chkValue() {
 				alert('시스템 오류가 발생했습니다.');
 			}
 		});
-	}
+	}else if ($('#name').hasClass("is-valid") &
+			$('#email').hasClass("is-valid") &
+			$('#play').hasClass("is-valid") &
+			$('#pwd').hasClass("is-valid") &
+			$('#rePwd').hasClass("is-valid") &
+			window.auth=='2'&
+			$('#fileupload').val() == "") {
+		
+		
+			$.ajax({
+				url: '../../app/json/member/add',
+				type: 'POST',
+
+				data: {
+					email: $("#email").val(),
+					password: $("#pwd").val(),
+					name: $("#name").val(),
+					bank: $('.dropdown-toggle').html(),
+					bnk_no: $('#bnk_no').val(),
+					auth: window.auth,
+					sns_no: 0
+			},
+				dataType: 'json',
+				success: function (response) {
+
+					if (response.status == 'success') {
+
+						Swal.fire({
+							type: 'success',
+							title: "회원 가입을 환영 합니다!"
+						}).then((result) => {
+							if (result.value) {
+								location.href = 'signin.html'
+							}
+						})
+					}
+				},
+				error: function (error) {
+					alert('시스템 오류가 발생했습니다.');
+				}
+			});
+		}
 }
 
 
@@ -257,8 +309,16 @@ function filechkValue() {
 			})
 			return false;
 		}
+		if(window.auth == '2' && $('#bnk_no').val()==''){
+			Swal.fire({
+				type: 'error',
+				title: "계좌번호는 필수 입력 사항입니다."
+			})
+		}
 	});
 }
+
+
 $('body').on('loaded-file', function () {
 	$('#images-div').on('click', function () {
 		$(this).find('img').remove();
@@ -268,6 +328,8 @@ $('body').on('loaded-file', function () {
 		$('#file-btn1').hide();
 	})
 })
+
+
 
 $('#fileupload').fileupload({
 	url: '../../app/json/member/add',        // 서버에 요청할 URL
@@ -303,7 +365,17 @@ $('#fileupload').fileupload({
 				$('#play').hasClass("is-valid") &
 				$('#pwd').hasClass("is-valid") &
 				$('#rePwd').hasClass("is-valid") &
+				$('#bnk_no').val()!='' &
+				window.auth == '2' &
 				typeof $('img').attr('src') == 'string') {
+				data.submit();
+			} else if($('#name').hasClass("is-valid") &
+				$('#email').hasClass("is-valid") &
+				$('#play').hasClass("is-valid") &
+				$('#pwd').hasClass("is-valid") &
+				$('#rePwd').hasClass("is-valid") &
+				window.auth == '1' &
+				typeof $('img').attr('src') == 'string'){
 				data.submit();
 			} else {
 				return filechkValue();
@@ -326,10 +398,14 @@ $('#fileupload').fileupload({
 	submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
 		// data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
 		data.formData = {
-			email: $("#email").val(),
-			password: $("#pwd").val(),
-			name: $("#name").val(),
-			auth: $("input[type=radio][name=customRadioInline1]:checked").val()
+				email: $("#email").val(),
+				password: $("#pwd").val(),
+				name: $("#name").val(),
+				bank: $('.dropdown-toggle').html(),
+				bnk_no: $('#bnk_no').val(),
+				auth: window.auth,
+				sns_no: 0
+			
 		};
 	}
 }); //fileupload
@@ -354,7 +430,26 @@ function errorState(sel) {
 	$("#myForm button[type=submit]")
 		.attr("disabled", "disabled");
 };
-"use strict"
+
+
+
+$(document.body).on('bankcheck', function () {
+	  $('.dropdown-menu > a').on('click', function () {
+	    $('.dropdown-toggle').html($(this).html());
+	  });
+	})
+
+	
+function banknumber(event){
+	  if( event.keyCode>47 && event.keyCode<58 || event.keyCode === 8 ){
+		  event.returnValue=true;
+	  } else {
+		  event.returnValue=false;
+	  }
+	}
+
+
+
 
 
 
