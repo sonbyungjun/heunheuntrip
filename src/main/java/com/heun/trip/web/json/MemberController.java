@@ -39,20 +39,11 @@ public class MemberController {
   
   @GetMapping("profile")
   public Object profile(HttpSession session) { 
-
     HashMap<String,Object> content = new HashMap<>();
-  
     Member loginUser = (Member) session.getAttribute("loginUser");
     Member member = memberService.get(loginUser.getNo());
-    
-    
     return member;
   }
-  
-  
-  
-  
-  
   
   @GetMapping("list")
   public Object list(
@@ -140,14 +131,6 @@ public class MemberController {
     }
     return content;
   }
-      
-      
-      
-      
-      
-      
-
-  
   
   @PostMapping("add")
   public Object add(Member member, MultipartFile photo) {

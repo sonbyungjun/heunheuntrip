@@ -10,7 +10,7 @@ $(document).ready(function () {
 	$('#host').hide();
 	Swal.fire({
 		title: '잠깐!',
-		text: "어느 회원으로 가입하실건가요?",
+		text: "회원을 선택해주세요",
 		type: 'question',
 		allowOutsideClick: false,
 		showCancelButton: true,
