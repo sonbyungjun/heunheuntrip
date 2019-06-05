@@ -206,12 +206,12 @@ public class MemberController {
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
-          "/html/memberupload");
+          "/html/memberprofileupload");
       File orginFile= new File(uploadDir + "/" + filename); 
       File thumFile=new File(uploadDir+"/" + filename);
       try {
         photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(thumFile);
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {

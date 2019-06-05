@@ -22,14 +22,14 @@ function loadList() {
 		
 		if (obj.photo != null) {
 		$("<img>").attr('src',
-				'/heunheuntrip/html/memberupload/' + obj.photo)
-				.css('width', '100px')
+				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
+				.css('width', '255px')
 				.appendTo($('#profileimg'));
 	
 		
 		} else {
 		$("<img>").attr('src',
-					'/heunheuntrip/html/memberupload/default.jpeg')
+					'/heunheuntrip/html/memberupload/defualt.jpeg')
 					.css('width', '255px')
 					.appendTo($('#profileimg'));
 		}
