@@ -159,11 +159,8 @@ function comma(x) {
 $('body').on('loaded-list', function () {
 
 	$('.heun-room').mouseenter(function () {
-
 		$(img).css('border', '');
-
 		img = $(this);
-
 		img.css('border', '2px solid #eee');
 
 		var latitude = $(this).data('latitude');
@@ -171,24 +168,24 @@ $('body').on('loaded-list', function () {
 
 		// 마커가 표시될 위치입니다 
 		var markerPosition = new daum.maps.LatLng(latitude, longitude);
-
 		// 마커를 생성합니다
 		var marker = new daum.maps.Marker({
 			position: markerPosition
 		});
-
 		// 기존 마커를 지운다.
 		markers.forEach(function (e) {
 			e.setMap(null);
 		})
-
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);
-
 		// 마커를 배열에 저장한다.		
 		markers.push(marker);
-
 		panTo(latitude, longitude);
+	})
+
+	$('.heun-room').click(function() {
+		var no = $(this).data('no');
+		location.href = '/heunheuntrip/html/room/view.html?no=' + no;
 	})
 
 })
@@ -216,22 +213,24 @@ function pointsLoad(map) {
 		});
 
 		var content = '<div class="wrap">' +
-			'    <div class="info">' +
-			'        <div class="title">' + e.name +
-			'            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-			'        </div>' +
-			'        <div class="body">' +
-			'            <div class="img">' +
-			'                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
-			'           </div>' +
-			'            <div class="desc">' +
-			'                <div class="ellipsis"> $ ' + e.price + '</div>' +
-			'                <div class="jibun ellipsis">' + e.area + '</div>' +
-			'                <div></div>' +
-			'            </div>' +
-			'        </div>' +
-			'    </div>' +
-			'</div>';
+									'    <div class="info">' +
+									'        <div class="title">' + e.name +
+									'            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+									'        </div>' +
+									'        <div class="body">' +
+									'            <div class="img">' +
+									'              <a href="/heunheuntrip/html/room/view.html?no=' + e.no + '">' +
+									'                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
+									'              </a>' +
+									'           </div>' +
+									'            <div class="desc">' +
+									'                <div class="ellipsis"> $ ' + e.price + '</div>' +
+									'                <div class="jibun ellipsis">' + e.area + '</div>' +
+									'                <div></div>' +
+									'            </div>' +
+									'        </div>' +
+									'    </div>' +
+									'</div>';
 
 		var overlay = new daum.maps.CustomOverlay({
 			content: content,

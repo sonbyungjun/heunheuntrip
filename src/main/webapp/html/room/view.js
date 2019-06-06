@@ -220,5 +220,17 @@ $('body').on('loaded-list', function () {
     language: 'ko'
   });
 
+ 
+
+  $('.map-btn').click(function() {
+    var no = $(this).data('no');
+    if (no === 0) {
+      hideMarkers();
+      setMarkers(map, jmt);
+    } else if (no === 1) {
+      hideMarkers();
+      setMarkers(map, myung);
+    }
+  })
   
 })

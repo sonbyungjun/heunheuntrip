@@ -4,7 +4,10 @@ var param = location.href.split('?')[1],
   listGenerator = Handlebars.compile(templateSrc),
   no = '',
   overlays = [],
-  markers = [];
+  markers = [],
+  map,
+  jmt,
+  myung;
 
 if (param) {
   pageload(param.split('=')[1]);
@@ -15,10 +18,7 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-
-
 });
-
 
 function pageload(no) {
   $.ajax({
@@ -28,12 +28,12 @@ function pageload(no) {
     success: function (response) {
 
       infoLoad(response.address + ' 맛집', function(result) {
-        console.log(result);
-        maploaded(response, result, 'daum-map1');
+        map = maploaded(response, 'daum-map1');
+        jmt = result;
+        setMarkers(map, jmt);
       });
       infoLoad(response.address + ' 명소', function(result) {
-        console.log(result);
-        maploaded(response, result, 'daum-map2');
+        myung = result;
       });
 
       var com = comma(String(response.price).replace(/[^0-9]/g, ''));
@@ -75,10 +75,6 @@ function pageload(no) {
 
       $('body').trigger('loaded-list');
 
-      setTimeout(function () {
-        
-      }, 1000);
-
     },
     fail: function (error) {
       alert('시스템 오류가 발생했습니다.');
@@ -86,29 +82,26 @@ function pageload(no) {
   });
 }
 
-
-function maploaded(data, infoArr, mapId) {
+function maploaded(data, mapId) {
   var mapContainer = document.getElementById(mapId), // 지도를 표시할 div 
-
-    mapOption = {
-      center: new daum.maps.LatLng(data.latitude, data.longitude), // 지도의 중심좌표
-      level: 3 // 지도의 확대 레벨
-    };
-
+      mapOption = {
+        center: new daum.maps.LatLng(data.latitude, data.longitude), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+      };
   // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
   var map = new daum.maps.Map(mapContainer, mapOption);
-
   // 마커가 표시될 위치입니다 
   var markerPosition = new daum.maps.LatLng(data.latitude, data.longitude);
-
   // 마커를 생성합니다
   var marker = new daum.maps.Marker({
     position: markerPosition
   });
-
   // 마커가 지도 위에 표시되도록 설정합니다
   marker.setMap(map);
+  return map;
+}
 
+function setMarkers(map, infoArr) {
   // 마커 이미지의 이미지 주소입니다
   var imageSrc = "/heunheuntrip/images/marker_place_off.png";
 
@@ -152,8 +145,13 @@ function maploaded(data, infoArr, mapId) {
 
     bounds.extend(j.latlng);
   }
-  map.relayout();
   map.setBounds(bounds);
+}
+
+function hideMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+  }            
 }
 
 function closeOverlay() {
@@ -182,7 +180,6 @@ function openOverlay(marker, overlay, map) {
 
 function infoLoad(addr, cb) {
   var places = new daum.maps.services.Places();
-  var arr = {};
   places.keywordSearch(addr, function (result, status) {
     if (status === daum.maps.services.Status.OK) {
       for (var r of result) {
@@ -229,3 +226,4 @@ function comma(x) {
   // 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
   return temp.substr(1);
 }
+

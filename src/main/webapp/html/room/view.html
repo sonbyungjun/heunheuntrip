@@ -63,7 +63,7 @@
           <div class="col col-md-12 col-lg-12 col-xl-10">
             <div class="page-header bordered mb0">
               <div class="row">
-                <div class="col-md-8"> <a href="../" class="btn-return" title="Back"><i class="fa fa-angle-left"></i></a>
+                <div class="col-md-8"> <a href="#" onClick="history.back()" class="btn-return" title="Back"><i class="fa fa-angle-left"></i></a>
                   <h1>{{name}}
                     <small><i class="fa fa-map-marker"></i> {{area}}</small>
                   </h1>
@@ -159,11 +159,17 @@
                       <div class="item-navigation">
 
                         <ul class="nav nav-tabs v2" role="tablist">
-                          <li role="presentation"><a href="#map" aria-controls="map" role="tab" data-toggle="tab"
-                              class="active"><i class="fa fa-map"></i> <span class="hidden-xs">맛집</span></a>
+                          <li role="presentation">
+                            <a href="#map" aria-controls="map" role="tab" data-no="0" data-toggle="tab" class="active map-btn">
+                              <i class="fa fa-map"></i> 
+                              <span class="hidden-xs">맛집</span>
+                            </a>
                           </li>
-                          <li role="presentation"><a href="#streetview" aria-controls="streetview" role="tab"
-                              data-toggle="tab"><i class="fa fa-road"></i> <span class="hidden-xs">관광명소</span></a>
+                          <li role="presentation">
+                            <a href="#" aria-controls="streetview" role="tab" data-no="1" data-toggle="tab" class="map-btn">
+                              <i class="fa fa-road"></i>
+                              <span class="hidden-xs">명소</span>
+                            </a>
                           </li>
                         </ul>
 
@@ -175,7 +181,6 @@
                               width="600" height="450" style="border:0;" allowfullscreen></iframe> -->
                           </div>
                           <div role="tabpanel" class="tab-pane" id="streetview">
-                            <div id="daum-map2" width="600" height="450" style="border:0; height:450px;" allowfullscreen></div>
                             <!-- <iframe
                               src="https://m.map.kakao.com/actions/searchView?q=%EA%B0%95%EB%82%A8%EC%97%AD%20%EB%A7%9B%EC%A7%91&wxEnc=MOPQSM&wyEnc=QNOLMQS&lvl=4&rcode=I10000901#!/all/map/place"
                               width="600" height="450" style="border:0" allowfullscreen></iframe> -->
