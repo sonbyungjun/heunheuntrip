@@ -1,41 +1,28 @@
 "use strict"
 var no = 0;
 
-
-
 $(document).ready(function () {
 	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
+	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
-
-
-
 
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
 			function(obj) {
-
-		$('#file-btn1').hide();
-		
-		
 		if (obj.photo != null) {
 		$("<img>").attr('src',
 				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
-	
-		
 		} else {
 		$("<img>").attr('src',
 					'/heunheuntrip/html/memberupload/defualt.jpeg')
 					.css('width', '255px')
 					.appendTo($('#profileimg'));
 		}
-		
-		console.log(obj);
-
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 		$('.name').val(obj.name);
@@ -44,21 +31,12 @@ function loadList() {
 		$('.custom-file').find('label').html(obj.photo);
 		no = obj.no;
 	}); // Bitcamp.getJSON(
-
-	
-	
 } // loadList()
-
-
 //사용자의 프로필을 꺼낸다.
 loadList();
 
-
-
 $('#btn1').on('click', function(e) {
-	
 	e.preventDefault();
-	
 	$.ajax({
 		url: '../../app/json/member/update',
 		type: 'POST',
@@ -70,9 +48,7 @@ $('#btn1').on('click', function(e) {
 		dataType: 'json',
 		success: function (response) {
 			if (response.status == 'success') {
-
-				location.href = 'my_profile.html';
-
+				location.href = 'host_profile.html';
 			} else {
 				Swal.fire({
 					type: 'error',
@@ -85,20 +61,7 @@ $('#btn1').on('click', function(e) {
 			alert('시스템 오류가 발생했습니다.');
 		}
 	});
-	
 })
-
-
-
-
-
-
-
-
-
-
-
-
 
 $('#fileupload').fileupload({
 	url: '../../app/json/member/updateprofile',        // 서버에 요청할 URL
@@ -111,7 +74,6 @@ $('#fileupload').fileupload({
 	processalways: function (e, data) {
 		var imagesDiv = $('#images-div');
 		imagesDiv.html("");
-	
 		for (var i = 0; i < data.files.length; i++) {
 			try {
 				if (data.files[i].preview.toDataURL) {
@@ -126,16 +88,12 @@ $('#fileupload').fileupload({
 				}
 			} catch (err) { }
 		}
-		
 		$(document.body).trigger('loaded-file');
 		//$('#file-btn1').unbind("click");
 
 		$('#file-btn1').click(function () {
 			// 파일버튼을 클릭했을때 필수값들의 다 들어오면 submit을 호출한다.
-				
 				data.submit();
-				
-							
 		});
 	},
 	done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
@@ -147,7 +105,7 @@ $('#fileupload').fileupload({
 			title: " 변경  !"
 		}).then((result) => {
 			if (result.value) {
-				location.href = 'my_profile.html'
+				location.href = 'host_profile.html'
 			}
 		})
 	},
@@ -163,15 +121,11 @@ $('#fileupload').fileupload({
 }); //fileupload
 
 $("#fileupload").change(function (e) {
-
 	// 기본 버튼을 숨김
 	$('#btn1').hide();
 	// 파일 전용 버튼을 나오게만듬 
 	$('#file-btn1').show();
 })
-
-
-
 
 $('body').on('loaded-file', function () {
 	$('#images-div').on('click', function () {
