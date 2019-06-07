@@ -17,6 +17,7 @@
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -99,20 +100,13 @@
                         </div>
                       </div>
                       
-                      <div class="card">
+                      <div class="card bookmark-card">
                         <div class="card-header">
                           <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
                               href="#b_type" aria-expanded="true" aria-controls="p_type"> 찜 <small>BOOKMAKR</small> <i
-                                class="fa fa-caret-down float-right"></i> </a> </h4>
+                              class="fa fa-caret-down float-right"></i> </a> </h4>
                         </div>
-                        <div id="b_type" class="panel-collapse collapse show" role="tabpanel">
-                          <div class="card-body">
-                            <div class="checkbox ">
-                              <input type="checkbox" value="1" id="house">
-                              <label for="house">집전체</label>
-                            </div>
-                          </div>
-                        </div>
+                        <div class='bookmark-list panel-collapse collapse show' id='b_type' role="tabpanel"></div>
                       </div>
                       
                     </div>
@@ -152,7 +146,6 @@
                 </div>
 
                 <div class="pagination-menu"></div>
-
 
 
               </div>
@@ -203,6 +196,18 @@
       </div>
     </div>
 
+    {{/each}}
+  </script>
+  
+  <script id="bookmark-template" type="text/x-handlebars-template">
+    {{#each list}}
+      <div class="card-body heun-bmbody" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px;">
+        <div>
+         <h7 class="heun-BMname" style="font-weight: bold; color: #3b8ced;"> <i class="fas fa-check" style="color: #3b8ced;"></i>   {{roomName}} </h7>
+         <p class="heun-BMprice" style="font-size: 10px"> {{roomPrice}}won </p>
+         <div class="heun-memo"><i class="fas fa-angle-double-right"></i>   {{memo}}</div>
+        </div>
+      </div>
     {{/each}}
   </script>
 

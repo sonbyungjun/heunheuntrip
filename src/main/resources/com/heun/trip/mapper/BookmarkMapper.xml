@@ -13,6 +13,7 @@
     <result column="thum" property="roomPhoto"/>
     <result column="rm_name" property="roomName"/>
     <result column="addr" property="roomAddr"/>
+    <result column="rm_chge" property="roomPrice"/>
   </resultMap>
   
   <select id="findAll" resultMap="bookmarkMap" parameterType="map">
@@ -22,7 +23,8 @@
       b.memo,
       r.thum,
       r.rm_name,
-      r.addr
+      r.addr,
+      r.rm_chge
     from
       bookmark b
     left outer join

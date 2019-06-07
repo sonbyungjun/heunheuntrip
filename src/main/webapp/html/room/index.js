@@ -1,5 +1,8 @@
 var param = location.href.split('?')[1],
 form = $('#room-list'),
+bookmarks = $('.bookmark-list'),
+templateSrc2 = $('#bookmark-template').html(),
+listGenerator2 = Handlebars.compile(templateSrc2),
 templateSrc = $('#list-template').html(),
 listGenerator = Handlebars.compile(templateSrc),
 paginateSrc = $('#page-template').html(),
@@ -30,6 +33,12 @@ $(document).ready(function () {
   $('#heun-footer').load('../footer.html')
 
   loadList(0);
+  
+  loadBmark(1);
+  
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 
 
   $('#myModal').on('show.bs.modal', function (e) {
@@ -59,6 +68,20 @@ $(document).ready(function () {
     }, 300)
   })
 });
+
+
+function loadBmark (pn) {
+  $.getJSON('../../app/json/bookmark/list',
+      function(obj) {
+    
+    bookmarks.html('');
+    
+    $(listGenerator2(obj)).appendTo(bookmarks);
+    
+    $(document.body).trigger('loaded-list');
+
+  }); // Bitcamp.getJSON(
+}
 
 function loadList(pn) {
   var url = '../../app/json/room/list?pageNo=' + pn;
@@ -268,6 +291,8 @@ $('body').on('loaded-list', function () {
               $(e.target).parent().parent().children(".bM-full").css("display","");
               $(e.target).parent().parent().children(".bM-empty").css("display","none");
               
+              loadBmark(1);
+              
             },
             fail: function(error) {
               alert('등록 실패!!');
@@ -319,6 +344,8 @@ $('body').on('loaded-list', function () {
               
             $(e.target).parent().parent().children(".bM-full").css("display","none");
             $(e.target).parent().parent().children(".bM-empty").css("display","");
+            
+            loadBmark(1);
             
           },
           fail: function(error) {

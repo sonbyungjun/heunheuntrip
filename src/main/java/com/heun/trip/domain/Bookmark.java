@@ -8,8 +8,15 @@ public class Bookmark {
   private String roomPhoto;
   private String roomName;
   private String roomAddr;
+  private String roomPrice;
   
   
+  public String getRoomPrice() {
+    return roomPrice;
+  }
+  public void setRoomPrice(String roomPrice) {
+    this.roomPrice = roomPrice;
+  }
   public int getUserNo() {
     return userNo;
   }
@@ -46,10 +53,11 @@ public class Bookmark {
   public void setRoomAddr(String roomAddr) {
     this.roomAddr = roomAddr;
   }
-  
   @Override
   public String toString() {
     return "Bookmark [userNo=" + userNo + ", roomNo=" + roomNo + ", memo=" + memo + ", roomPhoto="
-        + roomPhoto + ", roomName=" + roomName + ", roomAddr=" + roomAddr + "]";
+        + roomPhoto + ", roomName=" + roomName + ", roomAddr=" + roomAddr + ", roomPrice="
+        + roomPrice + "]";
   }
+
 }
