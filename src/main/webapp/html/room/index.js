@@ -1,265 +1,408 @@
 var param = location.href.split('?')[1],
-		form = $('#room-list'),
-		templateSrc = $('#list-template').html(),
-		listGenerator = Handlebars.compile(templateSrc),
-		paginateSrc = $('#page-template').html(),
-		markers = [],
-		img = {},
-		points = [],
-		overlays = [];
- 
+form = $('#room-list'),
+templateSrc = $('#list-template').html(),
+listGenerator = Handlebars.compile(templateSrc),
+paginateSrc = $('#page-template').html(),
+markers = [],
+img = {},
+points = [],
+overlays = [],
+memo = undefined;
+
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 
 $(document).ready(function () {
-	$('#toggle-filters').sidr({
-		side: 'left',
-		displace: false,
-		renaming: false,
-		name: 'sidebar',
-		source: function () {
-			AOS.refresh();
-		},
-	});
+  $('#toggle-filters').sidr({
+    side: 'left',
+    displace: false,
+    renaming: false,
+    name: 'sidebar',
+    source: function () {
+      AOS.refresh();
+    },
+  });
 
-	$('#heun-header').load('../header.html', function () {
-		$('.heun-header-nav').removeClass('navbar-over absolute-top');
-	})
-	$('#heun-footer').load('../footer.html')
+  $('#heun-header').load('../header.html', function () {
+    $('.heun-header-nav').removeClass('navbar-over absolute-top');
+  })
+  $('#heun-footer').load('../footer.html')
 
-	loadList(0);
+  loadList(0);
 
 
-	$('#myModal').on('show.bs.modal', function (e) {
+  $('#myModal').on('show.bs.modal', function (e) {
 
-		setTimeout(function () {
+    setTimeout(function () {
 
-			var mapContainer = document.getElementById('modal-map'), // 지도를 표시할 div 
-				mapOption = {
-					center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-					level: 5 // 지도의 확대 레벨
-				};
-			var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+      var mapContainer = document.getElementById('modal-map'), // 지도를 표시할 div 
+      mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 5 // 지도의 확대 레벨
+      };
+      var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-			// // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-			// var mapTypeControl = new daum.maps.MapTypeControl();
+      // // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+      // var mapTypeControl = new daum.maps.MapTypeControl();
 
-			// // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-			// // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-			// map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+      // // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+      // // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+      // map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
 
-			// // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-			// var zoomControl = new daum.maps.ZoomControl();
-			// map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+      // // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+      // var zoomControl = new daum.maps.ZoomControl();
+      // map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
-			pointsLoad(map);
+      pointsLoad(map);
 
-		}, 300)
-	})
+    }, 300)
+  })
 });
 
 function loadList(pn) {
-	var url = '../../app/json/room/list?pageNo=' + pn;
-	if (param) {
-		var query = param.split('&');
-		for (var q of query) {
-			if (q.indexOf('lati') != -1) {
-				url += '&' + q;
-			} else if (q.indexOf('longi') != -1) {
-				url += '&' + q;
-			}
-		}
-	}
+  var url = '../../app/json/room/list?pageNo=' + pn;
+  if (param) {
+    var query = param.split('&');
+    for (var q of query) {
+      if (q.indexOf('lati') != -1) {
+        url += '&' + q;
+      } else if (q.indexOf('longi') != -1) {
+        url += '&' + q;
+      }
+    }
+  }
 
-	$.ajax({
-		url: url,
-		type: 'GET',
-		dataType: 'json',
-		success: function (response) {
+  $.ajax({
+    url: url,
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      
+      // 북마크 여부
+      for(r of response.list) {
+        
+        var roomNo = r.no;
+        var countBM = false;
+        
+        $.ajax({
+          url: '../../app/json/bookmark/count',
+          type: 'POST',
+          async: false,
+          data: {
+            roomNo: roomNo
+          },
+          dataType: 'json',
+          success: function(response) {
+            if(response.countNo == 1){
+              countBM = true;
+            }
+          },
+          fail: function(error) {
+            alert('등록 실패!!');
+          }
+        });
+        r.bookmarkC = countBM;
+      }
+      console.log(response.list);
 
-			points = [];
+      points = [];
 
-			for (r of response.list) {
-				var com = comma(String(r.price).replace(/[^0-9]/g, ''));
-				r.price = com;
-				points.push({
-					no: r.no,
-					point: new daum.maps.LatLng(r.latitude, r.longitude),
-					name: r.name,
-					area: r.area,
-					thumbnail: r.thumbnail,
-					price: com
-				});
-			}
+      for (r of response.list) {
+        var com = comma(String(r.price).replace(/[^0-9]/g, ''));
+        r.price = com;
+        points.push({
+          no: r.no,
+          point: new daum.maps.LatLng(r.latitude, r.longitude),
+          name: r.name,
+          area: r.area,
+          thumbnail: r.thumbnail,
+          price: com
+        });
+      }
 
-			response.pagination = {
-				page: response.pageNo,
-				pageCount: response.totalPage
-			};
+      response.pagination = {
+          page: response.pageNo,
+          pageCount: response.totalPage
+      };
 
-			form.html('');
+      form.html('');
 
-			$(listGenerator(response)).appendTo(form);
+      $(listGenerator(response)).appendTo(form);
+      
+      $('.pagination-menu').html('');
 
-			$('.pagination-menu').html('');
+      $(pageGenerator(response)).appendTo('.pagination-menu');
 
-			$(pageGenerator(response)).appendTo('.pagination-menu');
+      $(document.body).trigger('loaded-list');
 
-			$(document.body).trigger('loaded-list');
-
-		},
-		fail: function (error) {
-			alert('시스템 오류가 발생했습니다.');
-		}
-	});
+    },
+    fail: function (error) {
+      alert('시스템 오류가 발생했습니다.');
+    }
+  });
 }
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-		center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level: 5 // 지도의 확대 레벨
-	};
+mapOption = {
+  center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+  level: 5 // 지도의 확대 레벨
+};
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 function panTo(latitude, longitude) {
-	// 이동할 위도 경도 위치를 생성합니다 
-	var moveLatLon = new daum.maps.LatLng(latitude, longitude);
-	// 지도 중심을 부드럽게 이동시킵니다
-	// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-	map.panTo(moveLatLon);
+  // 이동할 위도 경도 위치를 생성합니다 
+  var moveLatLon = new daum.maps.LatLng(latitude, longitude);
+  // 지도 중심을 부드럽게 이동시킵니다
+  // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+  map.panTo(moveLatLon);
 }
 
 //콤마찍기
 function comma(x) {
-	var temp = "";
+  var temp = "";
 
-	num_len = x.length;
-	// 콤마 찍을 자릿수 설정
-	co = 3;
-	// 받은 숫자 길이가 0개 이상일때 까지 반복. 즉 한번씩
-	while (num_len > 0) {
-		// 받은 숫자 길이에 콤마 찍을 자릿수 뺀다 
-		num_len = num_len - co;
-		// 뺀 길이가 음수면 
-		if (num_len < 0) {
-			// 콤마 찍을 자릿수 + 받은 자릿수
-			co = num_len + co;
-			// 받은 자릿수 0 으로 초기화
-			num_len = 0;
-		}
-		// 자릿수 계산하여 temp의 담는다
-		temp = "," + x.substr(num_len, co) + temp;
-	}
-	// 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
-	return temp.substr(1);
+  num_len = x.length;
+  // 콤마 찍을 자릿수 설정
+  co = 3;
+  // 받은 숫자 길이가 0개 이상일때 까지 반복. 즉 한번씩
+  while (num_len > 0) {
+    // 받은 숫자 길이에 콤마 찍을 자릿수 뺀다 
+    num_len = num_len - co;
+    // 뺀 길이가 음수면 
+    if (num_len < 0) {
+      // 콤마 찍을 자릿수 + 받은 자릿수
+      co = num_len + co;
+      // 받은 자릿수 0 으로 초기화
+      num_len = 0;
+    }
+    // 자릿수 계산하여 temp의 담는다
+    temp = "," + x.substr(num_len, co) + temp;
+  }
+  // 리턴 하기전에 맨 앞 ","를 뺀 나머지 리턴
+  return temp.substr(1);
 }
 
 $('body').on('loaded-list', function () {
 
-	$('.heun-room').mouseenter(function () {
-		$(img).css('border', '');
-		img = $(this);
-		img.css('border', '2px solid #eee');
+  $('.heun-room').mouseenter(function () {
+    $(img).css('border', '');
+    img = $(this);
+    img.css('border', '2px solid #eee');
 
-		var latitude = $(this).data('latitude');
-		var longitude = $(this).data('longitude');
+    var latitude = $(this).data('latitude');
+    var longitude = $(this).data('longitude');
 
-		// 마커가 표시될 위치입니다 
-		var markerPosition = new daum.maps.LatLng(latitude, longitude);
-		// 마커를 생성합니다
-		var marker = new daum.maps.Marker({
-			position: markerPosition
-		});
-		// 기존 마커를 지운다.
-		markers.forEach(function (e) {
-			e.setMap(null);
-		})
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);
-		// 마커를 배열에 저장한다.		
-		markers.push(marker);
-		panTo(latitude, longitude);
-	})
+    // 마커가 표시될 위치입니다 
+    var markerPosition = new daum.maps.LatLng(latitude, longitude);
+    // 마커를 생성합니다
+    var marker = new daum.maps.Marker({
+      position: markerPosition
+    });
+    // 기존 마커를 지운다.
+    markers.forEach(function (e) {
+      e.setMap(null);
+    })
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    // 마커를 배열에 저장한다.		
+    markers.push(marker);
+    panTo(latitude, longitude);
+  })
 
-	$('.heun-room').click(function() {
-		var no = $(this).data('no');
-		location.href = '/heunheuntrip/html/room/view.html?no=' + no;
-	})
+  $('.heun-room').click(function() {
+    var no = $(this).data('no');
+    location.href = '/heunheuntrip/html/room/view.html?no=' + no;
+  })
+  
+  
+//  if($('.save-item').data('no') == 1) {
+//    $('.fa-star').css("color", "#ffe449");
+//  } else if ($('.save-item').data('no') == 0){
+//    $('.fa-star').css("color", "gray");
+//  }
+  
 
+  // 찜 기능
+  $('.bM-empty').click(function(e){
+    
+    var no = $(this).parent().children('.heun-room').data('no');
+    
+    bookmark();
+    window.memo = undefined;
+    
+    async function bookmark(){
+      
+      Swal.mixin({
+        confirmButtonText: '입력',
+        showCancelButton: true,
+        cancelButtonText: '취소'
+      }).queue([
+        {
+          title: '해당 숙소를 찜 했습니다!',
+          type: 'success',
+          text: '메모를 추가하시겠습니까?'
+        },
+        {
+          title: '메모',
+          input: 'textarea'
+        }
+        ]).then((result) => {
+          if (result.value) {
+            memo = result.value[1];
+          }
+          
+          $.ajax({
+            url: '../../app/json/bookmark/add',
+            type: 'POST',
+            data: {
+              roomNo: no,
+              memo: window.memo
+            },
+            dataType: 'json',
+            success: function(response) {
+              
+              $(e.target).parent().parent().children(".bM-full").children().addClass('fa fa-star animated flash');
+              
+              $(e.target).parent().parent().children(".bM-full").css("display","");
+              $(e.target).parent().parent().children(".bM-empty").css("display","none");
+              
+            },
+            fail: function(error) {
+              alert('등록 실패!!');
+            }
+          });
+          
+        })
+    }; // bookmark
+    
+    
+  }) // save-item function
+
+    // 찜 삭제기능
+  $('.bM-full').click(function(e){
+    e.preventDefault();
+    
+    var no = $(this).parent().children('.heun-room').data('no');
+    
+    console.log(no);
+    
+    Swal.fire({
+      title: '찜 목록에서 제거하시겠습니까?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '삭제',
+      cancelButtonText: '취소'
+    }).then((result) => {
+      if (result.value) {
+
+        $.ajax({
+          url: '../../app/json/bookmark/delete',
+          type: 'POST',
+          data: {
+            roomNo: no
+          },
+          dataType: 'json',
+          
+          success: function(response) {
+            
+            Swal.fire(
+                'Success!',
+                '삭제되었습니다!',
+                'success'
+              )
+              
+            $(e.target).parent().parent().children(".bM-empty").children().addClass('fa fa-star animated flash');
+              
+            $(e.target).parent().parent().children(".bM-full").css("display","none");
+            $(e.target).parent().parent().children(".bM-empty").css("display","");
+            
+          },
+          fail: function(error) {
+            alert('등록 실패!!');
+          }
+        });
+        
+      }
+    })
+    
+  }) // save-item function
+  
 })
 
 
 function pointsLoad(map) {
-	// 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
-	var bounds = new daum.maps.LatLngBounds();
+  // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+  var bounds = new daum.maps.LatLngBounds();
 
-	// 마커 이미지의 이미지 주소입니다
-	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-	var imageSize = new daum.maps.Size(24, 35);
+  // 마커 이미지의 이미지 주소입니다
+  var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+  var imageSize = new daum.maps.Size(24, 35);
 
-	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+  // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+  var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
 
-	var i, marker;
+  var i, marker;
 
-	points.forEach(e => {
-		// 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
-		marker = new daum.maps.Marker({
-			position: e.point,
-			image: markerImage,
-			map: map
-		});
+  points.forEach(e => {
+    // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+    marker = new daum.maps.Marker({
+      position: e.point,
+      image: markerImage,
+      map: map
+    });
 
-		var content = '<div class="wrap">' +
-									'    <div class="info">' +
-									'        <div class="title">' + e.name +
-									'            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-									'        </div>' +
-									'        <div class="body">' +
-									'            <div class="img">' +
-									'              <a href="/heunheuntrip/html/room/view.html?no=' + e.no + '">' +
-									'                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
-									'              </a>' +
-									'           </div>' +
-									'            <div class="desc">' +
-									'                <div class="ellipsis"> $ ' + e.price + '</div>' +
-									'                <div class="jibun ellipsis">' + e.area + '</div>' +
-									'                <div></div>' +
-									'            </div>' +
-									'        </div>' +
-									'    </div>' +
-									'</div>';
+    var content = '<div class="wrap">' +
+    '    <div class="info">' +
+    '        <div class="title">' + e.name +
+    '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+    '        </div>' +
+    '        <div class="body">' +
+    '            <div class="img">' +
+    '              <a href="/heunheuntrip/html/room/view.html?no=' + e.no + '">' +
+    '                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
+    '              </a>' +
+    '           </div>' +
+    '            <div class="desc">' +
+    '                <div class="ellipsis"> $ ' + e.price + '</div>' +
+    '                <div class="jibun ellipsis">' + e.area + '</div>' +
+    '                <div></div>' +
+    '            </div>' +
+    '        </div>' +
+    '    </div>' +
+    '</div>';
 
-		var overlay = new daum.maps.CustomOverlay({
-			content: content,
-			// map: map,
-			position: marker.getPosition()      
-		});
-		
-		overlays.push(overlay);
+    var overlay = new daum.maps.CustomOverlay({
+      content: content,
+      // map: map,
+      position: marker.getPosition()      
+    });
 
-		// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-		daum.maps.event.addListener(marker, 'click', openOverlay(overlay, map));
+    overlays.push(overlay);
 
-		// LatLngBounds 객체에 좌표를 추가합니다
-		bounds.extend(e.point);
+    // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+    daum.maps.event.addListener(marker, 'click', openOverlay(overlay, map));
 
-	});
-	map.setBounds(bounds);
+    // LatLngBounds 객체에 좌표를 추가합니다
+    bounds.extend(e.point);
+
+  });
+  map.setBounds(bounds);
 }
 
 function closeOverlay() {
-	overlays.forEach(e => {
-		e.setMap(null);
-	})
+  overlays.forEach(e => {
+    e.setMap(null);
+  })
 }
 
 function openOverlay(overlay, map) {
-	return function() {
-		closeOverlay();
-		console.log("마커클릭!")
-		overlay.setMap(map);
-	}
+  return function() {
+    closeOverlay();
+    console.log("마커클릭!")
+    overlay.setMap(map);
+  }
 }
