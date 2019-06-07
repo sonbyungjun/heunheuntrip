@@ -35,19 +35,64 @@
   <script src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
   <!-- <script src="../../lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
     <script src="../../lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.ko.min.js"></script> -->
-    
+
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
-  <script type="text/javascript" src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
+  <script type="text/javascript"
+    src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
 
   <script type="text/javascript"
-  src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
   <style>
-  .customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
-  .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-  .customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-  .customoverlay .title {display:block;text-align:center;background:#fff;margin-top:0px;margin-bottom:0px;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
-  .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .customoverlay {
+      position: relative;
+      bottom: 85px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      border-bottom: 2px solid #ddd;
+      float: left;
+    }
+
+    .customoverlay:nth-of-type(n) {
+      border: 0;
+      box-shadow: 0px 1px 2px #888;
+    }
+
+    .customoverlay a {
+      display: block;
+      text-decoration: none;
+      color: #000;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      overflow: hidden;
+      background: #d95050;
+      background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+    }
+
+    .customoverlay .title {
+      display: block;
+      text-align: center;
+      background: #fff;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      margin-right: 35px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .customoverlay:after {
+      content: '';
+      position: absolute;
+      margin-left: -12px;
+      left: 50%;
+      bottom: -12px;
+      width: 22px;
+      height: 12px;
+      background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+    }
   </style>
 </head>
 
@@ -80,10 +125,10 @@
       <div id="content" class="item-single">
         <div class="container">
           <div class="row justify-content-md-center">
-            <div class="col col-md-12 col-lg-12 col-xl-10">
+            <div class="col col-md-12 col-lg-12 col-xl-11">
               <div class="row row justify-content-md-center has-sidebar">
 
-                <div class="col-md-7 col-lg-8">
+                <div class="col-md-6 col-lg-7">
                   <div>
                     <div class="item-gallery">
                       <div class="swiper-container gallery-top" data-pswp-uid="1">
@@ -151,10 +196,36 @@
                           <li><strong>{{safety}}</strong></li>
                         {{/each}}
                       </ul>
+                    
+                      <h3 class="headline">후기</h3>
+                      <div class="comments">
+                        <div class="media">
+                          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+                          <div class="media-body">
+                            <a href="#post-comment" class="btn-reply"><i class="fa fa-reply"></i> 답글</a>
+                            <h5 class="media-heading author">손병준</h5>
+                            <div class="date">2019년 6월</div>
+                            <div class="comment">깨끗해요 좋아요!!</div>
+
+                            <div class="media">
+                              <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+                              <div class="media-body">
+                            <a href="#post-comment" class="btn-reply"><i class="fa fa-reply"></i> 답글</a>
+                                <h5 class="media-heading author">호스트</h5>
+                                <div class="date">2019년 6월</div>
+                                <div class="comment">감사합니다.</div></div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
                       <h3 class="headline">예약 가능 여부</h3>
                       <div class="row">
-                          <div id="date-range12-container"></div>
+                        <div id="date-range12-container"></div>
                       </div>
+
+
 
                       <div class="item-navigation">
 
@@ -189,80 +260,85 @@
 
                       </div>
 
-                      <div class="item-attachments">
-                        <h3 class="headline">Download Documents</h3>
-                        <a href="#" class="btn btn-lg btn-inverse"><i class="fa fa-cloud-download" aria-hidden="true"></i>
-                          Brochure</a> <a href="#" class="btn btn-lg btn-inverse"><i class="fa fa-cloud-download"
-                            aria-hidden="true"></i> Floor Plan</a> <a href="#" class="btn  btn-lg btn-inverse"><i
-                            class="fa fa-cloud-download" aria-hidden="true"></i> Layout Plan</a>
+                      <div class="item-description">
+                        <h3 class="headline">환불 정책</h3>
+                        <p><strong>숙소 이용규칙</strong></p>
+                        <p>반려동물 동반 불가</p>
+                        <p>흡연, 파티 또는 이벤트 금지</p>
+                        <p>체크인 시간: 16:00 이후 언제나, 체크아웃 시간: 11:00까지</p>
+                        <hr>
+                        <p><strong>예약 취소</strong></p>
+                        <p>체크인 30일 전까지 예약을 취소하면 모든 수수료를 포함한 요금 전액이 환불됩니다.</p>
+                        <p>체크인까지 30일이 남지 않은 시점에 예약을 취소하면 수수료를 포함한 총 숙박 요금의 50%가 환불됩니다.</p>
+                        <p>숙박 중 예약을 취소하면 일부 환불을 요청할 수 있습니다.</p>
                       </div>
 
                     </div>
                   </div>
                 </div>
 
-                <div class="col-md-5 col-lg-4">
+                <div class="col-md-6 col-lg-5">
                   <div id="sidebar" class="sidebar-right">
                     <div class="sidebar_inner">
+
                       <div id="feature-list" role="tablist">
                         <div class="card">
                           <div class="card-header" role="tab" id="headingOne">
-                            <h4 class="panel-title"> <a role="button" data-toggle="collapse" href="#specification"
-                                aria-expanded="true" aria-controls="specification"> Specifications <i
-                                  class="fa fa-caret-down float-right"></i> </a> </h4>
+                            <h4 class="panel-title"> 
+                              요금을 확인하려면 날짜를 입력하세요.
+                            </h4>
                           </div>
                           <div id="specification" class="panel-collapse collapse show" role="tabpanel">
                             <div class="card-body">
-                              <table class="table v1">
-                                <tr>
-                                  <td>Bedrooms</td>
-                                  <td>3</td>
-                                </tr>
-                                <tr>
-                                  <td>Bathrooms</td>
-                                  <td>2</td>
-                                </tr>
-                                <tr>
-                                  <td>Covered area</td>
-                                  <td>4590 sqft</td>
-                                </tr>
-                                <tr>
-                                  <td>Total Area</td>
-                                  <td>5600 sqft</td>
-                                </tr>
-                                <tr>
-                                  <td>Floor</td>
-                                  <td>Ground Floor</td>
-                                </tr>
+
+
+                              <div class="form-group" id="input-date">
+                                <label for="input-date"><span class="align-bottom">날짜</span></label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
+                                  <div class="input-group-text" style="background-color: white;">
+                                    <svg  style="height: 24px; width: 24px; display: block; fill: currentcolor;">
+                                      <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fill-rule="evenodd"></path>
+                                    </svg>
+                                  </div>
+                                  <input type="text" class="form-control heun-h2 heun-datein" placeholder="체크아웃">
+                                </div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="input-m"><span class="align-bottom">인원</span></label>
+                                <button class="form-control dropdown-toggle" type="text">게스트 1명</button>
+                              </div>
+
+                              <table id="price-table" class="table v1">
                               </table>
+
                             </div>
+                            <a href="#" id="heun-rev" class="btn btn-lg btn-primary btn-block" data-price="{{originprice}}">날짜 입력</a>
                           </div>
                         </div>
                       </div>
+
                       <div class="card shadow">
-                        <h5 class="subheadline mt-0  mb-0">For Sale by Agent</h5>
+                        <h5 class="subheadline mt-0  mb-0">호스트</h5>
                         <div class="media">
-                          <div class="media-left"> <a href="agent.html"> <img class="media-object rounded-circle"
-                                src="img/demo/profile.jpg" width="64" height="64" alt=""> </a> </div>
+                          <div class="media-left"> 
+                            <a href="../../images/default.jpg"> 
+                              <img class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64" alt=""> 
+                            </a> 
+                          </div>
                           <div class="media-body">
-                            <h4 class="media-heading"><a href="agent.html">John Doe</a></h4>
-                            <p><a href="tel:01502392905"><i class="fa fa-phone" aria-hidden="true"></i> Call: 01502
-                                392905</a></p>
-                            <p><a href="agent.html" class="btn btn-sm btn-light">View Profile</a></p>
+                            <h4 class="media-heading">
+                              <a href="../../images/default.jpg">손병준님</a>
+                            </h4>
+                            <p>회원 가입: 2014년 8월</p>
+                            <p><i class="fa fa-star" aria-hidden="true"></i></i>후기: 500개</a></p>
+                            <p><a href="../../images/default.jpg" class="btn btn-sm btn-light">호스트에게 연락하기</a></p>
                           </div>
                         </div>
-                        <a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal"
-                          data-target="#leadform">Request Details</a>
                       </div>
-                      <div class="btn-group btn-group-justified" role="group"> <a href="#" class="btn btn-light"
-                          data-toggle="tooltip" title="Save to favorites"><i class="fa fa-star"
-                            aria-hidden="true"></i></a> <a href="#" class="btn btn-light" data-toggle="tooltip"
-                          title="Print this page"><i class="fa fa-print" aria-hidden="true"></i></a> <a href="#"
-                          class="btn btn-light" data-toggle="modal" data-target="#email-to-friend"><span
-                            data-toggle="tooltip" title="Email to Friend"><i class="fa fa-envelope-o"
-                              aria-hidden="true"></i></span></a> <a href="#" class="btn btn-light" data-toggle="modal"
-                          data-target="#report-listing"><span data-toggle="tooltip" title="Report Listing"><i
-                              class="fa fa-exclamation-circle" aria-hidden="true"></i></span></a> </div>
+
+
                     </div>
                   </div>
                 </div>

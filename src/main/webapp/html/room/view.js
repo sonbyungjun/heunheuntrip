@@ -213,14 +213,138 @@ $('body').on('loaded-list', function () {
   galleryTop.controller.control = galleryThumbs;
   galleryThumbs.controller.control = galleryTop;
 
-  $(document).dateRangePicker({
-    inline: true,
-    container: '#date-range12-container', 
-    alwaysOpen: true,
-    language: 'ko'
+  $(document).click(function(e) {
+    var $target = $(e.target);
+    if (!$target.is('.heun-h1') && !$target.is('.heun-h2')) {
+      $('.heun-h1, .heun-h2').css('background-color', '');
+    } 
+  })
+
+  $('.heun-datein').on('click', function() {
+    $('.heun-h1, .heun-h2').blur();
+    $('.heun-h1, .heun-h2').css('background-color', 'rgb(210, 253, 255)');
+  })
+
+  $('.heun-h1').click(function(e) {
+    e.stopPropagation();
+    $('.heun-h2').data('dateRangePicker').open();
+  })
+
+  $('.heun-h2').dateRangePicker({
+    format: 'YYYY-MM-DD',
+    autoClose: true,
+    startDate : '2019-06-07',
+    language: 'ko',
+    separator : ' ~ ',
+    selectForward: true,
+    showShortcuts: true,
+    customShortcuts: [
+      {
+        name: '날짜 지우기',
+        dates : function() {
+          $('.heun-h2').data('dateRangePicker').clear();
+          $('#date-range12-container').data('dateRangePicker').clear();
+          $('#heun-rev').trigger('date-clear');
+        }
+      }
+    ],
+    getValue: function() {
+      if ($('.heun-h1').val() && $('.heun-h2').val())
+        return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
+      else
+        return '';
+    },
+    setValue: function(s, s1, s2) {
+      $('.heun-h1').val(s1);
+      $('.heun-h2').val(s2);
+    }
+  }).bind('datepicker-change',function(event,obj) {
+    var date = obj.value.split(" ~ ");
+    $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
+    $('.heun-h1, .heun-h2').css('background-color', '');
+    $('#heun-rev').trigger('date-input');
   });
 
- 
+  $('#date-range12-container').dateRangePicker({
+    format: 'YYYY-MM-DD',
+    inline: true,
+    startDate : '2019-06-07',
+    container: '#date-range12-container', 
+    alwaysOpen: true,
+    separator : ' ~ ',
+    language: 'ko',
+    selectForward: true,
+    setValue: function(s, s1, s2) {
+      $('.heun-h1').val(s1);
+      $('.heun-h2').val(s2);
+    },
+    showShortcuts: true,
+    customShortcuts: [
+      {
+        name: '날짜 지우기',
+        dates : function() {
+          $('#date-range12-container').data('dateRangePicker').clear();
+          $('#heun-rev').trigger('date-clear');
+          $('.heun-h2').data('dateRangePicker').close();
+        }
+      }
+    ]
+  }).bind('datepicker-change',function(event,obj) {
+    $('.heun-h1, .heun-h2').css('background-color', '');
+    var date = obj.value.split(' ~ ');
+    var start = moment(date[0]);
+    var end = moment(date[1]);
+    var day = moment.duration(end.diff(start)).asDays();
+    $('#heun-rev').data('day', day);
+    $('#heun-rev').trigger('date-input');
+  });;
+
+  $('#heun-rev').on('date-input', function() {
+    $('#price-table').html('');
+
+    var price = parseInt($('#heun-rev').data('price'));
+    var day = parseInt($('#heun-rev').data('day'));
+
+    var priceDay = price * day;
+    var tax = Math.floor(priceDay * 0.1);
+    var sum = priceDay + tax;
+
+    var priceComma = comma(String(price).replace(/[^0-9]/g, ''));
+    var priceDayComma = comma(String(priceDay).replace(/[^0-9]/g, ''));
+    var taxComma = comma(String(tax).replace(/[^0-9]/g, ''));
+    var sumComma = comma(String(sum).replace(/[^0-9]/g, ''));
+
+    var table = '<tbody>' +
+                '  <tr>' +
+                '    <td>￦ ' + priceComma + ' X ' + day + '박</td>' +
+                '    <td>￦ ' + priceDayComma + '</td>' +
+                '  </tr>' +
+                '  <tr>' +
+                '    <td>부가세</td>' +
+                '    <td>￦ ' + taxComma + '</td>' +
+                '  </tr>' +
+                '  <tr>' +
+                '    <td class="font-weight-bold">합계</td>' +
+                '    <td class="font-weight-bold">￦ ' + sumComma + '</td>' +
+                '  </tr>' +
+                '</tbody>';
+    
+    $('#price-table').append(table);
+    $('#heun-rev').html('예약 요청');
+  })
+
+  $('#heun-rev').on('date-clear', function() {
+    $('#price-table').html('');
+    $('#heun-rev').html('날짜 입력');
+  })
+
+  $('#heun-rev').click(function(e) {
+    e.preventDefault();
+    if ($(this).html() === '날짜 입력') {
+      e.stopPropagation();
+      $('.heun-h2').data('dateRangePicker').open();
+    }
+  })
 
   $('.map-btn').click(function() {
     var no = $(this).data('no');
