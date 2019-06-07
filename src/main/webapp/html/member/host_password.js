@@ -3,11 +3,9 @@ $(document).ready(function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+	loadList();
 })
-
-
 "use strict"
-
 
 $("#n-pwd").keyup(function(){
 	var pwd=$(this).val();
@@ -23,7 +21,6 @@ $("#n-pwd").keyup(function(){
 			$("#rePwdErr").hide();
 			successState("#n-pwd-ck");
 		}
-		
 	} else if(!reg.test(pwd) & pwd != rePwd){
 		errorState("#n-pwd-ck");
 		errorState("#n-pwd");
@@ -49,10 +46,7 @@ $("#n-pwd-ck").keyup(function () {
 	}
 });
 
-
-
 function chkValue() {
-	
 	// 공통입력폼내의 모든 입력오브젝트
 	var inputObjs = $("#signupForm .required");
 	var focus;
@@ -142,9 +136,27 @@ function errorState(sel) {
 	.attr("disabled", "disabled");
 };
 
-
-
-
+function loadList() {
+	$.getJSON('../../app/json/member/profile',
+			  function(obj) {
+		  if (obj.photo != null) {
+		  $("<img>").attr('src',
+				  '/heunheuntrip/html/memberprofileupload/' + obj.photo)
+				  .css('width', '255px')
+				  .appendTo($('#profileimg'));
+	  
+		  
+		  } else {
+		  $("<img>").attr('src',
+					  '/heunheuntrip/html/memberupload/defualt.jpeg')
+					  .css('width', '255px')
+					  .appendTo($('#profileimg'));
+		  }
+		  //	$(--------).appendTo(-------);
+		  // 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
+	  }); // Bitcamp.getJSON(
+  
+  } // loadList()
 
 $('.udatepwd-btn').on('click', function(e) {
 	
@@ -159,9 +171,7 @@ $('.udatepwd-btn').on('click', function(e) {
 		dataType: 'json',
 		success: function (response) {
 			if (response.status == 'success') {
-
 				location.href = 'host_profile.html';
-
 			} else {
 				Swal.fire({
 					type: 'error',
@@ -174,7 +184,6 @@ $('.udatepwd-btn').on('click', function(e) {
 			alert('비밀번호가 일치하지 않습니다.');
 		}
 	});
-	
 })
 
 
