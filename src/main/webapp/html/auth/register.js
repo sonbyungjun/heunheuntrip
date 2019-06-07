@@ -51,23 +51,30 @@ $("#pwd").keyup(function () {
 	// 비밀번호 검증할 정규 표현식
 	var reg = /^([0-9a-zA-Z_~!@#$%^&*()_+|<>?:{}]){8,16}$/;
 	if (reg.test(pwd)) {//정규표현식을 통과 한다면
+		console.log("첫번째 조건")
 		$("#pwdRegErr").hide();
 		successState("#pwd");
 		if (pwd == rePwd) {
+			console.log("첫번째 조건의 if")
 			$("#rePwdErr").hide();
 			successState("#rePwd");
 		} else {
+			console.log("첫번째 조건 else")
 			errorState("#rePwd");
 		}
 	} else if (pwd != rePwd &
 		!reg.test(pwd)) {
+			console.log("두번째 조건")
 		errorState("#rePwd");
 		errorState("#pwd");
+		$("#rePwdErr").show();
 		$("#pwdRegErr").show();
 	} else if (pwd == rePwd &
 		reg.test(pwd)) {
+			console.log("세번째 조건")
 		successState("#rePwd");
 	} else if (!reg.test(pwd)) {//정규표현식을 통과하지 못하면
+		console.log("네번째 조건")
 		$("#pwdRegErr").show();
 		errorState("#pwd");
 	} // 조건문 종료
