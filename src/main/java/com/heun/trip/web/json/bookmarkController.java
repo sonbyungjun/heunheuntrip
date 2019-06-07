@@ -43,15 +43,19 @@ public class bookmarkController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-
-    List<Bookmark> list = bookmarkService.list(pageNo, pageSize);
-
+    
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", list);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
 
+    try {
+      List<Bookmark> list = bookmarkService.list(pageNo, pageSize);
+  
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } catch (Exception e) {
+      content.put("fail", "찜 목록이 없습니다.");
+    }
     return content;
   }
   
@@ -72,6 +76,24 @@ public class bookmarkController {
     try {
       bookmarkService.add(bookmark);
       content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
+  @PostMapping("update")
+  public Object update(String contents, int no, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+    Member member = (Member)session.getAttribute("loginUser");
+    
+    int userNo = member.getNo();
+
+    try {
+      bookmarkService.update(contents, userNo, no);
+      content.put("status", "success");
+      
     } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());

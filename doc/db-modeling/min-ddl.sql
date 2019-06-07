@@ -1,5 +1,6 @@
 
 DROP TABLE IF EXISTS riw RESTRICT;
+DROP TABLE IF EXISTS bookmark RESTRICT;
 
 -- 리뷰
 CREATE TABLE riw (
@@ -44,3 +45,39 @@ ALTER TABLE riw
       rms_id -- 숙소번호
     );
 
+    
+-- 즐겨찾기
+CREATE TABLE bookmark (
+  usr_id INTEGER  NOT NULL, -- 회원번호
+  rms_id INTEGER  NOT NULL, -- 숙소번호
+  memo   TEXT     NULL,     -- 찜메모
+  cdt    DATETIME NOT NULL DEFAULT current_timestamp() -- 작성일
+);
+
+-- 즐겨찾기
+ALTER TABLE bookmark
+  ADD CONSTRAINT PK_bookmark -- 즐겨찾기 기본키
+    PRIMARY KEY (
+      usr_id, -- 회원번호
+      rms_id  -- 숙소번호
+    );
+
+-- 즐겨찾기
+ALTER TABLE bookmark
+  ADD CONSTRAINT FK_usr_TO_bookmark -- 회원 -> 즐겨찾기
+    FOREIGN KEY (
+      usr_id -- 회원번호
+    )
+    REFERENCES usr ( -- 회원
+      usr_id -- 회원번호
+    );
+
+-- 즐겨찾기
+ALTER TABLE bookmark
+  ADD CONSTRAINT FK_rms_TO_bookmark -- 숙소 -> 즐겨찾기
+    FOREIGN KEY (
+      rms_id -- 숙소번호
+    )
+    REFERENCES rms ( -- 숙소
+      rms_id -- 숙소번호
+    );

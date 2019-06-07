@@ -11,6 +11,7 @@ public interface BookmarkDao {
   int countAll(int no);
   int countBookmark(Map<String, Object> params);
   int delete(Map<String, Object> params);
+  int update(Map<String, Object> params);
   
 }
 

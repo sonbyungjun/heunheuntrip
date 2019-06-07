@@ -133,7 +133,7 @@ public class RiwController {
    public Object update(Riw riw) {
      HashMap<String,Object> content = new HashMap<>();
      
-     if(Integer.parseInt(riw.getGrd()) == 0) {
+     if(Float.parseFloat(riw.getGrd()) == 0) {
        Riw riw2 = riwService.get(riw.getNo());
        riw.setGrd(riw2.getGrd());
      }

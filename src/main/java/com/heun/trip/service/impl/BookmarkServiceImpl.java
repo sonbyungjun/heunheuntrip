@@ -44,6 +44,17 @@ public class BookmarkServiceImpl implements BookmarkService {
   }
   
   @Override
+  public int update(String memo, int userNo, int roomNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    params.put("roomNo", roomNo);
+    params.put("memo", memo);
+    
+    return bookmarkDao.update(params);
+  }
+  
+  @Override
   public int size(int no) {
     
     return bookmarkDao.countAll(no);

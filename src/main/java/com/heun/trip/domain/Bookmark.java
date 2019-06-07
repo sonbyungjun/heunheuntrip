@@ -1,9 +1,14 @@
 package com.heun.trip.domain;
 
+import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Bookmark {
   private int userNo;
   private int roomNo;
   private String memo;
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  private Date createdDate;
   
   private String roomPhoto;
   private String roomName;
@@ -11,6 +16,13 @@ public class Bookmark {
   private String roomPrice;
   
   
+  
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
+  }
   public String getRoomPrice() {
     return roomPrice;
   }
@@ -55,9 +67,9 @@ public class Bookmark {
   }
   @Override
   public String toString() {
-    return "Bookmark [userNo=" + userNo + ", roomNo=" + roomNo + ", memo=" + memo + ", roomPhoto="
-        + roomPhoto + ", roomName=" + roomName + ", roomAddr=" + roomAddr + ", roomPrice="
-        + roomPrice + "]";
+    return "Bookmark [userNo=" + userNo + ", roomNo=" + roomNo + ", memo=" + memo + ", createdDate="
+        + createdDate + ", roomPhoto=" + roomPhoto + ", roomName=" + roomName + ", roomAddr="
+        + roomAddr + ", roomPrice=" + roomPrice + "]";
   }
 
 }

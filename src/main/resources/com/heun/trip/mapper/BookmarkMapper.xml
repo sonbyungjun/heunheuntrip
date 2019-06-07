@@ -14,6 +14,7 @@
     <result column="rm_name" property="roomName"/>
     <result column="addr" property="roomAddr"/>
     <result column="rm_chge" property="roomPrice"/>
+    <result column="cdt" property="createdDate"/>
   </resultMap>
   
   <select id="findAll" resultMap="bookmarkMap" parameterType="map">
@@ -29,8 +30,8 @@
       bookmark b
     left outer join
       rms r on b.rms_id=r.rms_id
-    order by 
-      cdt desc
+    order by
+      b.cdt desc
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
@@ -46,6 +47,15 @@
       #{roomNo},
       #{memo})
   </insert>
+  
+  <update id="update" parameterType="map">
+    update
+      bookmark
+    set
+      memo = #{memo} 
+    where 
+      usr_id = #{userNo} and rms_id= #{roomNo}
+  </update>
   
   <delete id="delete" parameterType="map">
     delete from 

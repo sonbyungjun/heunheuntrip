@@ -74,11 +74,20 @@ function loadBmark (pn) {
   $.getJSON('../../app/json/bookmark/list',
       function(obj) {
     
-    bookmarks.html('');
-    
-    $(listGenerator2(obj)).appendTo(bookmarks);
-    
-    $(document.body).trigger('loaded-list');
+    if(obj.list == undefined){
+      bookmarks.html('');
+      
+      $(document.body).trigger('loaded-list');
+      
+    } else {
+      
+      bookmarks.html('');
+      
+      $(listGenerator2(obj)).appendTo(bookmarks);
+      
+      $(document.body).trigger('loaded-list');
+      
+    }
 
   }); // Bitcamp.getJSON(
 }
@@ -248,7 +257,7 @@ $('body').on('loaded-list', function () {
   
 
   // 찜 기능
-  $('.bM-empty').click(function(e){
+  $('.bM-empty').off('click').on('click', function(e){
     
     var no = $(this).parent().children('.heun-room').data('no');
     
@@ -306,12 +315,10 @@ $('body').on('loaded-list', function () {
   }) // save-item function
 
     // 찜 삭제기능
-  $('.bM-full').click(function(e){
+  $('.bM-full').off('click').on('click', function(e){
     e.preventDefault();
     
     var no = $(this).parent().children('.heun-room').data('no');
-    
-    console.log(no);
     
     Swal.fire({
       title: '찜 목록에서 제거하시겠습니까?',
