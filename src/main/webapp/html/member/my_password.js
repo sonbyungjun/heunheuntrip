@@ -27,6 +27,7 @@ $("#n-pwd").keyup(function(){
 	} else if(!reg.test(pwd) & pwd != rePwd){
 		errorState("#n-pwd-ck");
 		errorState("#n-pwd");
+		$("#rePwdErr").show()
 		$("#pwdRegErr").show();
 	}else if (rePwd != pwd) {
 		errorState("#n-pwd-ck");

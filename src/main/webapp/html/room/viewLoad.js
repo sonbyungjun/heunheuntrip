@@ -36,6 +36,7 @@ function pageload(no) {
         myung = result;
       });
 
+      response.originprice = response.price;
       var com = comma(String(response.price).replace(/[^0-9]/g, ''));
       response.price = com;
 

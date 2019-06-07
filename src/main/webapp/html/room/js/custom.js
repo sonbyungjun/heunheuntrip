@@ -212,7 +212,6 @@ $(document).ready(function () {
 				var $target = $(e.target),
 					$item = $target.closest('.fileuploader-item'),
 					item = api.findFile($item);
-				console.log($target);
 
 				// toggle dropdown
 				$('.gallery-item-dropdown').hide();
