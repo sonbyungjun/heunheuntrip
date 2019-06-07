@@ -1,5 +1,6 @@
 "use strict"
-var no = 0;
+var no = 0,
+	reheader = 0;
 
 $(document).ready(function () {
 	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
@@ -7,7 +8,13 @@ $(document).ready(function () {
 	});
 	$('p').hide();
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+	rephoto();
 })
+
+function rephoto() {
+	//$('#login-userphoto').css('background-image', '');
+	setTimeout(function() {$('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + reheader + "')");}, 100)
+}
 
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
@@ -17,6 +24,7 @@ function loadList() {
 				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
+				reheader = obj.photo;		
 		} else {
 		$("<img>").attr('src',
 					'/heunheuntrip/html/memberupload/defualt.jpeg')
