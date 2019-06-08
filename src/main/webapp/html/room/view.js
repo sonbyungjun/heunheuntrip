@@ -230,10 +230,12 @@ $('body').on('loaded-list', function () {
     $('.heun-h2').data('dateRangePicker').open();
   })
 
+  var now = moment().format('YYYY-MM-DD');
+
   $('.heun-h2').dateRangePicker({
     format: 'YYYY-MM-DD',
     autoClose: true,
-    startDate : '2019-06-07',
+    startDate : now,
     language: 'ko',
     separator : ' ~ ',
     selectForward: true,
@@ -249,10 +251,13 @@ $('body').on('loaded-list', function () {
       }
     ],
     getValue: function() {
-      if ($('.heun-h1').val() && $('.heun-h2').val())
+      if ($('.heun-h1').val() && $('.heun-h2').val()) {
         return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
-      else
+
+      } else {
+        $('.heun-h2').data('dateRangePicker').clear();
         return '';
+      }
     },
     setValue: function(s, s1, s2) {
       $('.heun-h1').val(s1);
@@ -265,10 +270,11 @@ $('body').on('loaded-list', function () {
     $('#heun-rev').trigger('date-input');
   });
 
+
   $('#date-range12-container').dateRangePicker({
     format: 'YYYY-MM-DD',
     inline: true,
-    startDate : '2019-06-07',
+    startDate : now,
     container: '#date-range12-container', 
     alwaysOpen: true,
     separator : ' ~ ',
@@ -331,12 +337,12 @@ $('body').on('loaded-list', function () {
     
     $('#price-table').append(table);
     $('#heun-rev').html('예약 요청');
-  })
+  });
 
   $('#heun-rev').on('date-clear', function() {
     $('#price-table').html('');
     $('#heun-rev').html('날짜 입력');
-  })
+  });
 
   $('#heun-rev').click(function(e) {
     e.preventDefault();
@@ -344,7 +350,7 @@ $('body').on('loaded-list', function () {
       e.stopPropagation();
       $('.heun-h2').data('dateRangePicker').open();
     }
-  })
+  });
 
   $('.map-btn').click(function() {
     var no = $(this).data('no');
@@ -355,6 +361,12 @@ $('body').on('loaded-list', function () {
       hideMarkers();
       setMarkers(map, myung);
     }
-  })
+  });
+
+  $('.heun-drop').click(function() {
+    var no = $(this).data('p');
+    $('#input-m').html('인원 ' + no + '명');
+    $('#input-m').data('p', no);
+  });
   
 })
