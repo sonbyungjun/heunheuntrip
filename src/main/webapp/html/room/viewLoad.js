@@ -70,6 +70,14 @@ function pageload(no) {
         response.isTraffic = false;
       }
 
+      var persons = []; 
+      for (var i = 1; i <= response.maxPerson; i++) {
+        var m = {i: i};
+        persons.push(m);
+      };
+
+      response.persons = persons;
+
       form.html('');
 
       $(listGenerator(response)).appendTo(form);

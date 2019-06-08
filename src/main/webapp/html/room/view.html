@@ -225,8 +225,6 @@
                         <div id="date-range12-container"></div>
                       </div>
 
-
-
                       <div class="item-navigation">
 
                         <ul class="nav nav-tabs v2" role="tablist">
@@ -307,7 +305,18 @@
 
                               <div class="form-group">
                                 <label for="input-m"><span class="align-bottom">인원</span></label>
-                                <button class="form-control dropdown-toggle" type="text">게스트 1명</button>
+                                
+                                <button id="input-m" type="button" class="form-control dropdown-toggle" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                  인원 1명
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                  {{#each persons}}
+                                  <button class="dropdown-item heun-drop" type="button" data-p="{{i}}">인원 {{i}}명</button>
+                                  {{/each}}
+                                </div>
+
+
+
                               </div>
 
                               <table id="price-table" class="table v1">
