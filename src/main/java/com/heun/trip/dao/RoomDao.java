@@ -13,6 +13,7 @@ public interface RoomDao {
   
   List<Room> findAll(Map<String,Object> paramMap);
   Room findByNo(int no);
+  List<Room> findByHostRoomList(int hostNo);
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);

@@ -7,5 +7,6 @@ public interface RoomService {
   List<Room> list(int pageNo, int pageSize, String lati, String longi);
   int size(String lati, String longi);
   Room get(int no);
+  List<Room> hostroomlist(int hostNo);
   int add(Room room);
 }

@@ -172,5 +172,14 @@ public class RoomController {
     System.out.println(room);
     return room;
   }
+  
+  @GetMapping("hostroom")
+  public Object hostroom(int no) {
+    HashMap<String, Object> contents = new HashMap<>();
+    List<Room> list = roomSerive.hostroomlist(no);
+    
+    contents.put("list", list);
+    return contents;
+  }
 
 }
