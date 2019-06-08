@@ -48,6 +48,9 @@
      left outer join stus s on e.stus_id = s.stus_id
     order by 
       e.rev_id desc 
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
   
   <select id="count" parameterType="map" resultType="int">
@@ -57,6 +60,10 @@
      riw 
     where 
      usr_id=#{userNo} and rms_id=#{roomNo}
+  </select>
+  
+  <select id="countAll" resultType="int" parameterType="int">
+    select count(*) from rev where usr_id=#{no}
   </select>
   
 </mapper>

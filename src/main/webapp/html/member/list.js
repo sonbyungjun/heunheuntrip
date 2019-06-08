@@ -1,7 +1,11 @@
 var form = $('.item-listing'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
-    rating = 0;
+    rating = 0,
+    paginateSrc = $('#page-template').html();
+
+Handlebars.registerHelper('paginate', paginate);
+var pageGenerator = Handlebars.compile(paginateSrc);
 
 
 $(document).ready(function () {
@@ -10,12 +14,14 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
   
-  loadList();
+  loadList(1);
   
 })
 
-function loadList() {
-  $.getJSON('../../app/json/rev/list', function(obj) {
+function loadList(pn) {
+  $.getJSON('../../app/json/rev/list?pageNo=' + pn, function(obj) {
+    
+    form.html('');
     
     for(l of obj.list){
       
@@ -26,7 +32,17 @@ function loadList() {
       }
     }
     
+    pageNo = obj.pageNo;
+    
+    obj.pagination = {
+        page: obj.pageNo,
+        pageCount: obj.totalPage
+    };
+    
     $(trGenerator(obj)).appendTo(form);
+    
+    $('.pagination-menu').html('');
+    $(pageGenerator(obj)).appendTo('.pagination-menu');
     
     $(document.body).trigger('loaded-list');
     
@@ -40,9 +56,10 @@ $(document.body).bind('loaded-list', (e) => {
     
   })
   
-  $('.riw-write').on('click', function(){
+  $('.riw-write').off('click').on('click', function(e){
     
     var no = $(this).next().data('no');
+    var pn = $(e.target).parent().parent().parent().parent().parent().parent().children('.rev-page').attr('data-page');
 
     $('#exampleModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) 
@@ -59,7 +76,6 @@ $(document.body).bind('loaded-list', (e) => {
       emptyColor: 'lightgray',
       hoverColor: 'gold',
       activeColor: 'gold',
-      initialRating: 4,
       strokeWidth: 0,
       disableAfterRate: false,
       useGradient: false,
@@ -68,7 +84,7 @@ $(document.body).bind('loaded-list', (e) => {
       }
     });
     
-    $('.insert-riw').on('click', function(e){
+    $('.insert-riw').off('click').on('click', function(e){
       
       $.ajax({
         url: '../../app/json/riw/add',
@@ -80,15 +96,15 @@ $(document.body).bind('loaded-list', (e) => {
         },
         dataType: 'json',
         success: function(response) {
-          location.href = 'list.html';
+          loadList(pn);
+          $('#message-text').val("");
+          $('#exampleModal').modal("hide");
         },
         fail: function(error) {
           alert('등록 실패!!');
         }
       });
       
-      console.log($('#message-text').val())
-      console.log(window.rating);
     })
 
   })

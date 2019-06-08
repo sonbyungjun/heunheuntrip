@@ -5,8 +5,9 @@ import java.util.Map;
 import com.heun.trip.domain.Rev;
 
 public interface RevDao {
-  List<Rev> findAll();
+  List<Rev> findAll(Map<String, Object> params);
   int count(Map<String, Object> params);
+  int countAll(int no);
 }
 
 

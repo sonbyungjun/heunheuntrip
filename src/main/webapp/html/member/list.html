@@ -29,6 +29,7 @@
   <script src="../../lib/lib.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
   <script src="../../star/jquery.star-rating-svg.js"></script>
 
 </head>
@@ -63,7 +64,7 @@
 
                   <!-- 핸들바스 적용지점 -->
                   <div class="item-listing list"></div>
-
+                  <div class="pagination-menu"></div>
                 </div>
               </div>
             </div>
@@ -78,7 +79,7 @@
 
   <!-- 핸들바스 -->
   <script id="tr-template" type="text/x-handlebars-template">
-
+    <input type="hidden" class="rev-page" data-page={{pageNo}}>
     {{#each list}}
               <div class="item">
                 <div class="row">
@@ -120,6 +121,33 @@
    {{/each}}
 
   </script>
+  
+  <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="5"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="loadList({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+  </script>
+  
   <div class="modal fade riw-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
