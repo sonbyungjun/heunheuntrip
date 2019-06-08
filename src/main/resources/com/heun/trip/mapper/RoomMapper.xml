@@ -204,6 +204,20 @@
       r.rms_id=#{value}
   </select>
   
+  <select id="findByHostRoomList" resultMap="roomMap" parameterType="int">
+    select
+      usr_id,
+      rms_id,
+      area,
+      cont,
+      thum,
+      rm_name
+    from
+      rms
+    where
+      usr_id=#{value}
+  </select>
+  
 </mapper>     
 
 

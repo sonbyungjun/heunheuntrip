@@ -3,13 +3,31 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
+
 })
 
 if (window.localStorage.getItem('email')) {
   document.querySelector('#email').value = localStorage.email;
 }
 
-document.querySelector('#login-btn').onclick = () => {
+$("#password").keydown(function(key) {
+  if (key.keyCode == 13) {
+    HeLogin();
+  }
+});
+
+$("#email").keydown(function(key) {
+  if (key.keyCode == 13) {
+    HeLogin();
+  }
+});
+
+  
+  document.querySelector('#login-btn').onclick = () => {
+    HeLogin();
+  };
+
+function HeLogin() {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '../../app/json/auth/login', true);
   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -29,7 +47,6 @@ document.querySelector('#login-btn').onclick = () => {
     var data = JSON.parse(xhr.responseText);
     if (data.status == 'success') {
       location.href = '../index.html';
-
     } else {
       Swal.fire({
         type: 'error',
@@ -37,15 +54,15 @@ document.querySelector('#login-btn').onclick = () => {
       });
     }
   };
-};
+}
 
 var naverLogin = new naver.LoginWithNaverId(
-  {
-    clientId: "9GsCl1_fOwukSDhiTmng",
-    callbackUrl: "http://localhost:8080/heunheuntrip/html/auth/callback.html",
-    isPopup: false, /* 팝업을 통한 연동처리 여부 */
-    loginButton: { color: "grean", type: 3, height: 40 } /* 로그인 버튼의 타입을 지정 */
-  }
+    {
+      clientId: "9GsCl1_fOwukSDhiTmng",
+      callbackUrl: "http://localhost:8080/heunheuntrip/html/auth/callback.html",
+      isPopup: false, /* 팝업을 통한 연동처리 여부 */
+      loginButton: { color: "grean", type: 3, height: 40 } /* 로그인 버튼의 타입을 지정 */
+    }
 );
 /* 설정정보를 초기화하고 연동을 준비 */
 naverLogin.init();

@@ -28,6 +28,20 @@ function loadList() {
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 	}); // Bitcamp.getJSON(
+  $.ajax({
+    url: '../../app/json/room/hostroom',
+    type: 'GET',
+    data: {
+      no: 36
+    },
+    dataType: 'json',
+    success: function (response) {
+  $(trGenerator(response)).appendTo(form);
+    },
+    error: function (error) {
+      alert('시스템 오류가 발생했습니다.');
+    }
+  });
     $(document.body).trigger('loaded-list');
 } // loadList()
 

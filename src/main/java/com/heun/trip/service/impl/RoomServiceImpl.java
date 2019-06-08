@@ -71,4 +71,9 @@ public class RoomServiceImpl implements RoomService {
   public Room get(int no) {
     return roomDao.findByNo(no);
   }
+  
+  @Override
+  public List<Room> hostroomlist(int hostNo) {
+    return roomDao.findByHostRoomList(hostNo);
+  }
 }
