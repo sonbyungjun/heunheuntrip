@@ -47,21 +47,42 @@ $(document.body).bind('loaded-list', (e) => {
     var no = $(this).parent().data('no');
     var pn = $(e.target).parent().parent().parent().parent().parent().children('.riw-page').attr('data-page');
     
-    $.ajax({
-      url: '../../app/json/riw/delete',
-      type: 'POST',
-      data: {
-        no: no
-      },
-      dataType: 'json',
-      success: function(response) {
-        loadList(pn);
-        $('#exampleModal').modal("hide");
-      },
-      fail: function(error) {
-        alert('등록 실패!!');
+    Swal.fire({
+      title: '삭제하시겠어요?',
+      text: "찜 해두었던 숙소를 삭제합니다.",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '네, 삭제할게요!',
+      cancelButtonText: '아니요!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+            '삭제!',
+            '찜을 삭제하였습니다.',
+            'success'
+        ).then(() => {
+          
+          $.ajax({
+            url: '../../app/json/riw/delete',
+            type: 'POST',
+            data: {
+              no: no
+            },
+            dataType: 'json',
+            success: function(response) {
+              loadList(pn);
+              $('#exampleModal').modal("hide");
+            },
+            fail: function(error) {
+              alert('등록 실패!!');
+            }
+          });
+        })
       }
-    });
+      })
+
   })
   
   $('.riw-update').off('click').on('click', function(e){

@@ -35,6 +35,7 @@
      r.rm_name,
      r.addr,
      r.thum,
+     e.rev_id,
      e.usr_id,
      e.rms_id,
      e.cck_in,

@@ -35,6 +35,11 @@ function loadList() {
 } // loadList()
 
 $(document.body).bind('loaded-list', (e) => {
+  
+  $('.heun-rev').on('click', function(){
+    
+  })
+  
   $('.riw-write').on('click', function(){
     
     var no = $(this).next().data('no');
