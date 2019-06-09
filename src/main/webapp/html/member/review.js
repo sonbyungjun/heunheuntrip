@@ -13,8 +13,36 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
+  loadProfile();
 })
 
+
+function loadProfile() {
+  $.getJSON('../../app/json/member/profile',
+      function(obj) {
+
+    if (obj.photo != null) {
+    $("<img class='rounded-circle'>").attr('src',
+        '/heunheuntrip/html/memberprofileupload/' + obj.photo)
+        .css('width', '255px')
+        .appendTo($('#profileimg'));
+  
+    
+    } else {
+    $("<img>").attr('src',
+          '/heunheuntrip/html/memberupload/default.jpeg')
+          .css('width', '255px')
+          .appendTo($('#profileimg'));
+    }
+    
+
+    $('.main-name').text(obj.name);
+    $('.main-email').text(" E-MAIL : " + obj.email);
+    $('.main-tel').text(" PHONE : " + obj.tel);
+    $('.custom-file').find('label').html(obj.photo);
+    no = obj.no;
+  }); // Bitcamp.getJSON(
+} // loadList()
 
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {

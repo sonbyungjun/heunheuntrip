@@ -3,10 +3,43 @@ $(document).ready(function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+	
+	loadProfile();
 })
 
 
 "use strict"
+
+
+function loadProfile() {
+  $.getJSON('../../app/json/member/profile',
+      function(obj) {
+
+    if (obj.photo != null) {
+    $("<img class='rounded-circle'>").attr('src',
+        '/heunheuntrip/html/memberprofileupload/' + obj.photo)
+        .css('width', '255px')
+        .appendTo($('#profileimg'));
+  
+    
+    } else {
+    $("<img>").attr('src',
+          '/heunheuntrip/html/memberupload/default.jpeg')
+          .css('width', '255px')
+          .appendTo($('#profileimg'));
+    }
+    
+
+    $('.main-name').text(obj.name);
+    $('.main-email').text(" E-MAIL : " + obj.email);
+    $('.main-tel').text(" PHONE : " + obj.tel);
+    $('.custom-file').find('label').html(obj.photo);
+    no = obj.no;
+  }); // Bitcamp.getJSON(
+} // loadList()
+
+
+//사용자의 프로필을 꺼낸다.
 
 
 $("#n-pwd").keyup(function(){

@@ -22,7 +22,7 @@ function loadList() {
 		
 		
 		if (obj.photo != null) {
-		$("<img>").attr('src',
+		$("<img class='rounded-circle'>").attr('src',
 				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
@@ -39,8 +39,11 @@ function loadList() {
 
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
+		$('.main-name').text(obj.name);
 		$('.name').val(obj.name);
+		$('.main-email').text(" E-MAIL : " + obj.email);
 		$('.email').val(obj.email);
+		$('.main-tel').text(" PHONE : " + obj.tel);
 		$('.tel').val(obj.tel);
 		$('.custom-file').find('label').html(obj.photo);
 		no = obj.no;
