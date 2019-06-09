@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  
   $('#logout-btn').on('click', function(e){
     $.ajax({
       url: '/heunheuntrip/app/json/auth/logout',
@@ -11,6 +12,9 @@ $(document).ready(function () {
       }
     })
   });
+  
+  loadLoginUser();
+  
 })
 
 $('.heun-myPage').on('click', function(e){
@@ -42,7 +46,7 @@ $('#heun-header-search').submit(function() {
   return false;
 });
 
-loadLoginUser();
+
 
 function search(val) {
   var places = new daum.maps.services.Places();
@@ -57,15 +61,15 @@ function loadLoginUser() {
   var logoutState = $('#logout-btn'),
   LoginState = $('#login-btn');
   $.ajax({
-    url: '/heunheuntrip/app/json/auth/user',
+    url: '/heunheuntrip/app/json/member/profile',
     type: 'GET',
     dataType: 'json',
     success: function (response) {
       if (response.status == 'success'){
         $('#register-btn').hide();
         $('#login-btn').hide();
-        $('#login-username').append(response.user.name +"님");
-        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + response.user.photo + "')");
+        $('#login-username').append(response.member.name +"님");
+        $('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberprofileupload/" + response.member.photo + "')");
       } else {
         $('#login-btn').show();
         $('#logout-btn').hide();

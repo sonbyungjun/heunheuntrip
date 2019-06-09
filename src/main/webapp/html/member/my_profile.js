@@ -2,16 +2,16 @@
 var no = 0;
 
 
-
 $(document).ready(function () {
+  
 	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
+	
 	$('p').hide();
+	
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
-
-
 
 
 function loadList() {
@@ -21,9 +21,9 @@ function loadList() {
 		$('#file-btn1').hide();
 		
 		
-		if (obj.photo != null) {
+		if (obj.member.photo != null) {
 		$("<img class='rounded-circle'>").attr('src',
-				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
+				'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
 	
@@ -39,14 +39,14 @@ function loadList() {
 
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
-		$('.main-name').text(obj.name);
-		$('.name').val(obj.name);
-		$('.main-email').text(" E-MAIL : " + obj.email);
-		$('.email').val(obj.email);
-		$('.main-tel').text(" PHONE : " + obj.tel);
-		$('.tel').val(obj.tel);
-		$('.custom-file').find('label').html(obj.photo);
-		no = obj.no;
+		$('.main-name').text(obj.member.name);
+		$('.name').val(obj.member.name);
+		$('.main-email').text(" E-MAIL : " + obj.member.email);
+		$('.email').val(obj.member.email);
+		$('.main-tel').text(" PHONE : " + obj.member.tel);
+		$('.tel').val(obj.member.tel);
+		$('.custom-file').find('label').html(obj.member.photo);
+		no = obj.member.no;
 	}); // Bitcamp.getJSON(
 
 	
@@ -91,18 +91,6 @@ $('#btn1').on('click', function(e) {
 	});
 	
 })
-
-
-
-
-
-
-
-
-
-
-
-
 
 $('#fileupload').fileupload({
 	url: '../../app/json/member/updateprofile',        // 서버에 요청할 URL

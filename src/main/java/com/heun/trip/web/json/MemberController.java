@@ -39,9 +39,18 @@ public class MemberController {
   
   @GetMapping("profile")
   public Object profile(HttpSession session) {   
+    HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
-    Member member = memberService.get(loginUser.getNo());
-    return member;
+    
+    if (loginUser != null) {
+      Member member = memberService.get(loginUser.getNo());
+      content.put("status", "success");
+      content.put("member", member);
+    } else {
+      content.put("fail", "유저 정보가 없습니다.");
+    }
+    
+    return content;
   }
   
   @GetMapping("list")

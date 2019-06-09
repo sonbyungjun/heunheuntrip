@@ -23,10 +23,10 @@ $(document).ready(function () {
 function loadProfile() {
   $.getJSON('../../app/json/member/profile',
       function(obj) {
-
-    if (obj.photo != null) {
+    
+    if (obj.member.photo != null) {
     $("<img class='rounded-circle'>").attr('src',
-        '/heunheuntrip/html/memberprofileupload/' + obj.photo)
+        '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
         .css('width', '255px')
         .appendTo($('#profileimg'));
   
@@ -37,13 +37,11 @@ function loadProfile() {
           .css('width', '255px')
           .appendTo($('#profileimg'));
     }
-    
 
-    $('.main-name').text(obj.name);
-    $('.main-email').text(" E-MAIL : " + obj.email);
-    $('.main-tel').text(" PHONE : " + obj.tel);
-    $('.custom-file').find('label').html(obj.photo);
-    no = obj.no;
+    $('.main-name').text(obj.member.name);
+    $('.main-email').text(" E-MAIL : " + obj.member.email);
+    $('.main-tel').text(" PHONE : " + obj.member.tel);
+    no = obj.member.no;
   }); // Bitcamp.getJSON(
 } // loadList()
 
