@@ -10,6 +10,9 @@ public interface RoomDao {
   int insert(Room room);
   int insertConvenience(List<Convenience> Conveniences);
   int insertSafety(List<Safety> safeties);
+  int delete(int no);
+  int amnDelete(int no);
+  int safetyDelete(int no);
   
   List<Room> findAll(Map<String,Object> paramMap);
   Room findByNo(int no);
@@ -17,5 +20,5 @@ public interface RoomDao {
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);
-  int countAll(Map<String,Object> paramMap);
-}
+  int countAll(Map<String,Object> paramMap); 
+} 

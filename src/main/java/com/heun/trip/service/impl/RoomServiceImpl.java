@@ -3,6 +3,8 @@ package com.heun.trip.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.stereotype.Service;
+import com.heun.trip.dao.BookmarkDao;
+import com.heun.trip.dao.RevDao;
 import com.heun.trip.dao.RoomDao;
 import com.heun.trip.dao.RoomFileDao;
 import com.heun.trip.domain.Convenience;
@@ -16,10 +18,14 @@ public class RoomServiceImpl implements RoomService {
   
   RoomDao roomDao;
   RoomFileDao roomFileDao;
+  BookmarkDao bookmarkDao;
+  RevDao revDao;
   
-  public RoomServiceImpl(RoomDao roomDao, RoomFileDao roomFileDao) {
+  public RoomServiceImpl(RoomDao roomDao, RoomFileDao roomFileDao, BookmarkDao bookmarkDao,RevDao revDao) {
     this.roomDao = roomDao;
     this.roomFileDao = roomFileDao;
+    this.bookmarkDao = bookmarkDao;
+    this.revDao=revDao;
   }
   
   @Override
@@ -76,4 +82,14 @@ public class RoomServiceImpl implements RoomService {
   public List<Room> hostroomlist(int hostNo) {
     return roomDao.findByHostRoomList(hostNo);
   }
+  @Override
+  public int delete(int no) {
+    roomFileDao.delete(no);
+    roomDao.amnDelete(no);
+    roomDao.safetyDelete(no);
+    bookmarkDao.roomdelete(no);
+    revDao.delete(no);
+    
+     return roomDao.delete(no);
+  } 
 }

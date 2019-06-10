@@ -130,12 +130,9 @@ public class RoomController {
         }
       }
     }
-    System.out.println(filename);
-    System.out.println(content.get("photo"));
-    System.out.println(content.get("thumbnail"));
     return content;
-  }
-
+  } 
+ 
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="0") int pageNo,
@@ -183,6 +180,18 @@ public class RoomController {
     
     contents.put("list", list);
     return contents;
+  }
+  @GetMapping("delete")
+  public Object delete(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      roomSerive.delete(no);
+     content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
 
 }

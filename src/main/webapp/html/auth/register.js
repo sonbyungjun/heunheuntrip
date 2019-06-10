@@ -60,6 +60,7 @@ $("#pwd").keyup(function () {
 			successState("#rePwd");
 		} else {
 			console.log("첫번째 조건 else")
+			$('#rePwdErr').show();
 			errorState("#rePwd");
 		}
 	} else if (pwd != rePwd &
@@ -484,4 +485,4 @@ function banknumber(event){
 //});
 //});
 
-
+ 

@@ -10,6 +10,7 @@ public interface RoomFileDao {
 //  Room findByNo(int no);
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
-//  int delete(int no);
+  int delete(int no);
   int countAll();
 }
+ 

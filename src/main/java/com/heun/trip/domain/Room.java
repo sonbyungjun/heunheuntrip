@@ -25,6 +25,8 @@ public class Room {
   private String welcome;
   private String traffic;
   private String grade;
+  private String state;
+  
   
   private String thumbnail;
   
@@ -187,6 +189,15 @@ public class Room {
   public void setGrade(String grade) {
     this.grade = grade;
   }
+  
+  
+  
+  public String getState() {
+    return state;
+  }
+  public void setState(String state) {
+    this.state = state;
+  }
   @Override
   public String toString() {
     return "Room [no=" + no + ", name=" + name + ", price=" + price + ", bed=" + bed + ", bath="
@@ -194,9 +205,10 @@ public class Room {
         + ", address=" + address + ", detailAddress=" + detailAddress + ", latitude=" + latitude
         + ", longitude=" + longitude + ", content=" + content + ", type=" + type + ", details="
         + details + ", reservation=" + reservation + ", welcome=" + welcome + ", traffic=" + traffic
-        + ", grade=" + grade + ", thumbnail=" + thumbnail + ", createdDate=" + createdDate
-        + ", hostNo=" + hostNo + ", conveniences=" + conveniences + ", safeties=" + safeties
-        + ", photos=" + photos + "]";
+        + ", grade=" + grade + ", state=" + state + ", thumbnail=" + thumbnail + ", createdDate="
+        + createdDate + ", hostNo=" + hostNo + ", conveniences=" + conveniences + ", safeties="
+        + safeties + ", photos=" + photos + "]";
   }
+ 
   
-}
+} 

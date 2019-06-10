@@ -63,6 +63,13 @@
     where 
       usr_id = #{userNo} and rms_id= #{roomNo};
   </delete>
+  
+    <delete id="roomdelete" parameterType="int">
+    delete from 
+      bookmark 
+    where 
+     rms_id= #{value};
+  </delete>
 
   <select id="countAll" resultType="int" parameterType="int">
     select count(*) from bookmark where usr_id=#{no}
@@ -77,7 +84,7 @@
 
 
 
-
+ 
 
 
 

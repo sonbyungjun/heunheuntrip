@@ -66,10 +66,16 @@
     select count(*) from rev where usr_id=#{no}
   </select>
   
+      <delete id="delete" parameterType="int">
+    delete from rev 
+    where rms_id = #{value}
+  </delete>
+  
+  
 </mapper>
 
 
-
+ 
 
 
 

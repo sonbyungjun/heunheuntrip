@@ -21,7 +21,7 @@ h4 {
 }
 
 .riw-complete{
-  float: right;
+  float: right; 
   line-height: 1.2;
 }
 
@@ -31,4 +31,16 @@ h4 {
 
 #message-text {
   margin-top: 20px;
+
 }
+.del{
+	margin-right:5px;
+}
+.dd{
+  margin-left:870px;
+  font-size:20px;
+  padding:5px;
+  
+}
+
+
