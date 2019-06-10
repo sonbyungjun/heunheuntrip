@@ -14,7 +14,7 @@ public interface BookmarkDao {
   int roomdelete(int no);
   int update(Map<String, Object> params);
   
-}
+} 
 
 
 

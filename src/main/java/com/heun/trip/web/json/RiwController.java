@@ -107,6 +107,45 @@ public class RiwController {
 
     return content;
   }
+  
+  @GetMapping("listhostMypage")
+  public Object hostlistMypage(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="5") int pageSize,
+      HttpSession session
+      ) { // localhost:8080/heunheuntrip/app/json/riw/listhostMypage
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    int userNo = member.getNo();
+    String uname = member.getName();
+    
+    // 유저 번호로 방번호를 알아온다.     
+    
+    if (pageSize < 1 || pageSize > 6) 
+      pageSize = 5;
+
+    int rowCount = riwService.size();
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+
+    List<Riw> list = riwService.hostlistMypage(pageNo, pageSize, userNo);
+
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", list);
+    content.put("uname", uname);
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
+
+    return content;
+  }
+
 
   @PostMapping("delete")
   public Object delete(int no) {
@@ -150,9 +189,44 @@ public class RiwController {
      return content;
    }
   
+
+@PostMapping("reply")
+public Object reply(Riw riw, HttpSession session) {
+  HashMap<String,Object> content = new HashMap<>();
+  Member member = (Member)session.getAttribute("loginUser");
   
+  System.out.println(riw);
   
-  
+   
+  try {
+    riwService.replyupdate(riw);   // reply부분만 추
+    
+    content.put("status", "success");
+  } catch (Exception e) {
+    content.put("status", "fail");
+    content.put("message", e.getMessage());
+  }
+  return content;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
   //  @GetMapping("detail")

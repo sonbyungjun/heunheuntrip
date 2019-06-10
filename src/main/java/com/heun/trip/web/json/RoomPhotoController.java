@@ -62,5 +62,5 @@ public class RoomPhotoController {
     return content;
   }
  
-  
+   
 }

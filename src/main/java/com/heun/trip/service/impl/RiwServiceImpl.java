@@ -37,6 +37,17 @@ public class RiwServiceImpl implements RiwService {
     
     return riwDao.findAllMypage(params);
   }
+  
+  @Override
+  public List<Riw> hostlistMypage(int pageNo, int pageSize, int userNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("userNo", userNo);
+    
+    return riwDao.findAllhostMypage(params);
+  }
 
   @Override
   public int size() {
@@ -61,6 +72,11 @@ public class RiwServiceImpl implements RiwService {
   @Override
   public int update(Riw riw) {
     return riwDao.update(riw);
+  }
+  
+  @Override
+  public int replyupdate(Riw riw) {
+    return riwDao.replyupdate(riw);
   }
   
   @Override

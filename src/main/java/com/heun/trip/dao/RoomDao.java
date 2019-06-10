@@ -20,5 +20,5 @@ public interface RoomDao {
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);
-  int countAll(Map<String,Object> paramMap);
-}
+  int countAll(Map<String,Object> paramMap); 
+} 

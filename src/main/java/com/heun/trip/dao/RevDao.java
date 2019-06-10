@@ -11,7 +11,7 @@ public interface RevDao {
   Rev findByNo(int no);
   int delete(int no);
 }
-
+ 
 
 
 

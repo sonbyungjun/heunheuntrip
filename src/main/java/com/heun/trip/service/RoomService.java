@@ -11,3 +11,4 @@ public interface RoomService {
   List<Room> hostroomlist(int hostNo);
   int add(Room room);
 }
+ 
