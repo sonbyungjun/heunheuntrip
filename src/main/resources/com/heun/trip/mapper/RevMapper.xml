@@ -46,11 +46,32 @@
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
      left outer join stus s on e.stus_id = s.stus_id
+    where
+      e.usr_id = 1
     order by 
       e.rev_id desc 
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
+  </select>
+  
+  <select id="findByNo" resultMap="revMap" parameterType="int">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.cck_in,
+     e.cck_out,
+     e.stby_stus,
+     e.rev_persn,
+     s.stus
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    where e.rev_id=#{no}
   </select>
   
   <select id="count" parameterType="map" resultType="int">
@@ -75,7 +96,7 @@
 </mapper>
 
 
-
+ 
 
 
 

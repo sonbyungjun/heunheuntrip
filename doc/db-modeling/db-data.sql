@@ -209,35 +209,6 @@ insert into stus(stus_id, stus) values(2, '체크인' );
 insert into stus(stus_id, stus) values(3, '체크아웃');
 insert into stus(stus_id, stus) values(4, '결제취소');
 
--- 예약
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(1,3,10,'2019-05-08','2020-05-10','대기중', '승인', 2);
-
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(2,4,2,'2019-05-02','2020-05-10', '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(3,3,3,'2019-06-08','2020-05-10', '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(4,2,4,'2019-11-08','2020-05-10', '승인', 1);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(5,4,5,'2019-12-28','2020-05-10','대기중', '거절', 3);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(1,4,1,'2019-01-08','2020-05-10', '승인', 5);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(2,3,2,'2019-02-08','2020-05-10','대기중', '승인', 1);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(3,4,3,'2019-04-08','2020-05-10','대기중', '거절', 4);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(4,4,4,'2019-06-18','2020-05-10', '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(5,2,5,'2019-07-11','2020-05-10','대기중', '승인', 3);
-
-
-
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, rev_stus, stby_stus, rev_persn) 
-values(69,3,1,'2019-05-08','2020-05-10','대기중', '승인', 2);
-
-
 -- 블로그
 insert into board (board_id, usr_id, rms_id, main_photo, title, conts)
   values(21, 1, 10, 'a.gif',
@@ -331,4 +302,4 @@ insert into board (board_id, usr_id, rms_id, main_photo, title, conts)
 우리나라와 북한은 적대국이므로 임의방북은 심각한 법률위반으로 간주, 처벌의 대상이 됩니다.
 즉 자신의 혐의를 잘 설명하지 못하면 그대로 징역형을 갈 수도 있고 이렇게 국가보안법 위반으로 징역을 가게 되면 속칭 빨간줄이 그어지게 되어서 평생 공직, 대기업에는 취업 못합니다.');
 
-
+   

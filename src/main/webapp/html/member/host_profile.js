@@ -147,4 +147,4 @@ $('body').on('loaded-file', function () {
 		$('#file-btn1').hide();
 	})
 })
-
+ 

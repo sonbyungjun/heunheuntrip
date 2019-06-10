@@ -8,9 +8,10 @@ public interface RevDao {
   List<Rev> findAll(Map<String, Object> params);
   int count(Map<String, Object> params);
   int countAll(int no);
+  Rev findByNo(int no);
   int delete(int no);
 }
-
+ 
 
 
 

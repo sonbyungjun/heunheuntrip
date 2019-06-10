@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
  
 <head>
   <meta charset="utf-8">
@@ -203,7 +203,7 @@
     {{#each list}}
       <div class="card-body heun-bmbody" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px;">
         <div>
-         <h7 class="heun-BMname" style="font-weight: bold; color: #3b8ced;"> <i class="fas fa-check" style="color: #3b8ced;"></i>   {{roomName}} </h7>
+         <a href="#"><h7 class="heun-BMname" data-no={{roomNo}} style="font-weight: bold; color: #3b8ced;"> <i class="fas fa-check" style="color: #3b8ced;"></i>   {{roomName}} </h7></a>
          <p class="heun-BMprice" style="font-size: 10px"> {{roomPrice}}won </p>
          <div class="heun-memo"><i class="fas fa-angle-double-right"></i>   {{memo}}</div>
         </div>

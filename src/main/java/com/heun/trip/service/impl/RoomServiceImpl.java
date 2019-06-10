@@ -91,5 +91,5 @@ public class RoomServiceImpl implements RoomService {
     revDao.delete(no);
     
      return roomDao.delete(no);
-  }
+  } 
 }

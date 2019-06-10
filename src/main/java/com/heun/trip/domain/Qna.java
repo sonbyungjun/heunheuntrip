@@ -19,7 +19,7 @@ public class Qna { // 일반회원이나 호스트가 관리자에게 문의하�
   private String content;
   private String password;
   
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
   
   private int viewCount;

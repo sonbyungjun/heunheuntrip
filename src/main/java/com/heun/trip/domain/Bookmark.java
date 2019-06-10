@@ -7,7 +7,7 @@ public class Bookmark {
   private int userNo;
   private int roomNo;
   private String memo;
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
   
   private String roomPhoto;
