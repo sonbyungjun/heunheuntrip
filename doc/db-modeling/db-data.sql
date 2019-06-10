@@ -209,28 +209,6 @@ insert into stus(stus_id, stus) values(2, '체크인' );
 insert into stus(stus_id, stus) values(3, '체크아웃');
 insert into stus(stus_id, stus) values(4, '결제취소');
 
--- 예약
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(1,3,11,'2019-05-08','2020-05-10', '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(2,4,12,'2019-05-02','2020-05-10', '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(3,3,13,'2019-06-08','2020-05-10', '승인', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(4,2,14,'2019-11-08','2020-05-10', '승인', 1);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(5,4,15,'2019-12-28','2020-05-10','거절', 3);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(1,4,11,'2019-01-08','2020-05-10', '승인', 5);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(2,3,12,'2019-02-08','2020-05-10','승인', 1);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(3,4,13,'2019-04-08','2020-05-10','거절', 4);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(4,4,14,'2019-06-18','2020-05-10', '거절', 2);
-insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn) 
-values(5,2,15,'2019-07-11','2020-05-10','승인', 3);
-
 -- 블로그
 insert into board (board_id, usr_id, rms_id, main_photo, title, conts)
   values(21, 1, 10, 'a.gif',

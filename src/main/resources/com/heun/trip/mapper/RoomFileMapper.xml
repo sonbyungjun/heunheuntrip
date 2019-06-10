@@ -23,6 +23,11 @@
   </insert>
   
   
+  
+  <delete id='delete' parameterType="int">
+  delete from rm_photo
+  where rms_id =#{value}
+  </delete>
   <!-- <select id="findAll" resultMap="roomMap" parameterType="map">
     select
       r.rms_id,
@@ -80,6 +85,9 @@
     where
         r.rms_id=#{value}
   </select> -->
+  
+  
+  
   
 </mapper>     
 

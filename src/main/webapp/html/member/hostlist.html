@@ -2,34 +2,35 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>마이 페이지</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>마이 페이지</title>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../../lib/animate.css" rel="stylesheet">
-  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
-  <link href="../../lib/aos/aos.css" rel="stylesheet">
-  <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
-  <link href="../../css/style.css" rel="stylesheet">
-  <link href="../../css/colors/blue.css" rel="stylesheet">
-  <link rel="stylesheet" href="list.css">
-  <link rel="stylesheet" href="../../star/star-rating-svg.css">
+<link rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="../../lib/animate.css" rel="stylesheet">
+<link href="../../lib/selectric/selectric.css" rel="stylesheet">
+<link href="../../lib/aos/aos.css" rel="stylesheet">
+<link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
+<link href="../../css/style.css" rel="stylesheet">
+<link href="../../css/colors/blue.css" rel="stylesheet">
+<link rel="stylesheet" href="hostlist.css">
+<link rel="stylesheet" href="../../star/star-rating-svg.css">
 
-  <script src="../../lib/jquery-3.2.1.min.js"></script>
-  <script src="../../lib/popper.min.js"></script>
-  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../lib/selectric/jquery.selectric.js"></script>
-  <script src="../../lib/aos/aos.js"></script>
-  <script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
-  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
-  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
-  <script src="../../lib/lib.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-  <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
-  <script src="../../star/jquery.star-rating-svg.js"></script>
+<script src="../../lib/jquery-3.2.1.min.js"></script>
+<script src="../../lib/popper.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../lib/selectric/jquery.selectric.js"></script>
+<script src="../../lib/aos/aos.js"></script>
+<script src="../../lib/Magnific-Popup/jquery.magnific-popup.min.js"></script>
+<script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+<script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+<script src="../../lib/lib.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+<script src="../../star/jquery.star-rating-svg.js"></script>
 
 </head>
 
@@ -45,38 +46,51 @@
               <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
                 <div id="sidebar" class="sidebar-left">
                   <div class="sidebar_inner">
+                   <div class="agent-detail"> 
+                    <div class="text-center">
+                      <div id='profileimg'></div>
+                    <h4 class="main-name" style=" color: #869E9E;"></h4>
+                    </div>
+                    <ul class="list-unstyled main-infomation" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
+                      <li><span class="main-tel"></span></li>
+                      <li><span class="main-email"></span></li>
+                    </ul>
+                   </div>
                     <div class="list-group no-border list-unstyled">
-                      <div id='profileimg'>
-                      </div>
-                      <a href="host_profile.html" class="list-group-item">
-                        <i class="far fa-id-card"></i> 내 프로필
+                      <div id='profileimg'></div>
+                      <a href="host_profile.html" class="list-group-item"> <i
+                        class="far fa-id-card"></i> 내 프로필
+                      </a> <a href="host_password.html" class="list-group-item "> <i
+                        class="fas fa-unlock-alt"></i> 비밀번호 변경
+                      </a> <a href="hostlist.html" class="list-group-item active"> <i
+                        class="fas fa-h-square"></i> 등록한 숙소
+                      </a> <a href="#" class="list-group-item"> <i class="fas fa-sliders-h"></i> 리뷰
+                        관리
                       </a>
-                      <a href="host_password.html" class="list-group-item ">
-                        <i class="fas fa-unlock-alt"></i> 비밀번호 변경
-                      </a>
-                      <a href="hostlist.html" class="list-group-item active">
-                        <i class="fas fa-h-square"></i> 등록한 숙소
-                      </a>
-                      <a href="#" class="list-group-item">
-                        <i class="fas fa-sliders-h"></i> 리뷰 관리
-                      </a>
+                      
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-7 col-lg-8 col-xl-8">
                 <div class="page-header bordered">
-                  <h1>내 숙소<small>My room</small></h1>
+                  <h1>
+                    내 숙소<small>My room</small>
+                  </h1>
                   <div class="clearfix"></div>
+                  
                   <!-- 핸들바스 적용지점 -->
                   <div class="item-listing list"></div>
+                  
                 </div>
               </div>
             </div>
+            <button type='button'class='btn btn-primary btn-lg dd' id='btn1' onclick="location.href='../room/form.html'">등록</button>
           </div>
         </div>
       </div>
     </div>
+     
     <button class="btn btn-primary btn-circle" id="to-top">
       <i class="fa fa-angle-up"></i>
     </button>
@@ -89,26 +103,38 @@
                 <div class="row">
                   <div class="col-lg-5">
                     <div class="item-image"> 
+    
                       <a href="property_single.html">
                         <img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" class="img-fluid" alt="">
                       </a>
                       <div class="rev-state">
-                      <button style="font-size: 15px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   {{status}}</i>
-                       </button>
+                     
+                                           
                         </div>
                     </div>
                   </div>
-                  <div class="col-lg-7">
+                  <div class="col-lg-7 heun-css">
+               
                   <div class="item-info">
-                    <h3 class="item-title"><a href="property_single.html">{{rmsName}}</a></h3>
-                    <div class="item-location"><i class="fas fa-map-marker-alt"></i>   {{address}}</div>
                     <div class="item-details">
                       <ul>
-                        <li>체크인<span>{{checkIn}}</span></li>
-                        <li>체크아웃<span>{{checkOut}}</span></li> 
-                        <li>예약 인원 <span>{{revPerson}}</span></li>
-                        <li>승인 여부 <span>{{stanBy}}</span></li>
+                        <li>지역명<span>{{area}}</span></li>
+                        <li>숙소명<span>{{name}}</span></li> 
+                        <li>숙소 가격<span>{{price}}</span></li>
+                        <li>숙소 설명<span>{{content}}</span></li>
+                        {{#if state.one}}
+                             state
+                        <li>승인 여부<span>미승인</span></li>
+                            {{#else if state=1}}
+                        <li>승인 여부<span>승인</span></li>
+                          {{#else}}
+                        <li>승인 여부<span>승인 거절</span></li>
+                        {{/if}}
                       </ul>
+                       
+                    <button type="button" class="btn btn-sm btn-secondary riw-write">수정</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write del" data-no="{{no}}">삭제</button>
+                          
                     </div>
                  </div>
                   </div>

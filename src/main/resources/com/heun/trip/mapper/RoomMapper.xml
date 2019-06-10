@@ -29,6 +29,7 @@
     <result column="cdt" property="createdDate"/>
     <result column="usr_id" property="hostNo"/>
     <result column="grd" property="grade"/>
+     <result column="activation" property="state"/>
   </resultMap>
  
   <resultMap type="room" id="roomPhotoMap">
@@ -211,12 +212,31 @@
       area,
       cont,
       thum,
-      rm_name
+      rm_chge,
+      rm_name,
+      activation
+      
+      
     from
       rms
     where
       usr_id=#{value}
   </select>
+  
+    <delete id="delete" parameterType="int">
+    delete from rms 
+    where rms_id = #{value}
+  </delete>
+    <delete id='amnDelete' parameterType="int">
+  delete from rms_amn
+  where rms_id =#{value}
+  </delete>
+    <delete id='safetyDelete' parameterType="int">
+  delete from rms_safety
+  where rms_id= #{value}
+  </delete>
+  
+  
   
 </mapper>     
 
