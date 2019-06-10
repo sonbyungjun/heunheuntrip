@@ -130,6 +130,9 @@ public class RoomController {
         }
       }
     }
+    System.out.println(filename);
+    System.out.println(content.get("photo"));
+    System.out.println(content.get("thumbnail"));
     return content;
   }
 
