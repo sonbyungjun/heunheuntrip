@@ -18,13 +18,20 @@ public class RevServiceImpl implements RevService {
   }
 
   @Override
-  public List<Rev> list(int pageNo, int pageSize) {
+  public List<Rev> list(int pageNo, int pageSize, int userNo) {
     
     HashMap<String,Object> params = new HashMap<>();
+    params.put("userNo", userNo);
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
     
     return revDao.findAll(params);
+  }
+  
+  @Override
+  public Rev detail(int no) {
+    
+    return revDao.findByNo(no);
   }
 
   @Override
