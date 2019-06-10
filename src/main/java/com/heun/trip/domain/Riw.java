@@ -8,10 +8,10 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   private int userNo;
   private String  contents;
   private String grd;
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
   private String reply;
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date replyDate;
   private String name;
   private String photo;

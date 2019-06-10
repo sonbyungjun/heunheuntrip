@@ -9,7 +9,7 @@ public class Blog { // 일반 회원이 작성하는 블로그 게시판
   private String title;
   private String content;
   private String mainPhoto;
-  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
   private int blike;
   
