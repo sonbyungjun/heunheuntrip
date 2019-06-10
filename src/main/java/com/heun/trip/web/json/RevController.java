@@ -30,11 +30,13 @@ public class RevController {
       ) { 
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
+    
+    int userNo = member.getNo();
 
     if (pageSize < 1 || pageSize > 6) 
       pageSize = 5;
 
-    int rowCount = revService.size(member.getNo());
+    int rowCount = revService.size(userNo);
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
@@ -46,7 +48,7 @@ public class RevController {
 
 
     try {
-      List<Rev> reservation = revService.list(pageNo, pageSize);
+      List<Rev> reservation = revService.list(pageNo, pageSize, userNo);
 
       for(Rev r : reservation) {
         HashMap<String,Object> params = new HashMap<>();
@@ -70,6 +72,15 @@ public class RevController {
       content.put("fail", "예약 목록이 없습니다.");
     }
 
+    return content;
+  }
+  
+  @GetMapping("detail")
+  public Object detail(int no) {
+    Rev rev = revService.detail(no);
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("rev", rev);
+  
     return content;
   }
 

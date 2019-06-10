@@ -57,6 +57,12 @@ function loadList(pn) {
       } else {
         l.isBtn = false;
       }
+      
+      if(l.status === "결제완료"){
+        l.isCheck = true;
+      } else {
+        l.isCheck = false;
+      }
     }
     
     pageNo = obj.pageNo;
@@ -79,9 +85,59 @@ function loadList(pn) {
 
 $(document.body).bind('loaded-list', (e) => {
   
-  $('.heun-rev').on('click', function(){
+  var now = moment().format('YYYY-MM-DD');
+  
+  $('#main-data').dateRangePicker({
+    format: 'YYYY-MM-DD',
+    autoClose: true,
+    inline: true,
+    startDate : now,
+    container: '#main-calendar', 
+    language: 'ko',
+    separator : ' ~ ',
+    selectForward: true,
+    showShortcuts: true,
+    customShortcuts: [
+      {
+        name: '날짜 지우기',
+        dates : function() {
+//          $('.heun-h2').data('dateRangePicker').clear();
+//          $('#date-range12-container').data('dateRangePicker').clear();
+//          $('#heun-rev').trigger('date-clear');
+        }
+      }
+    ],
+    getValue: function() {
+      if ($('.heun-h1').val() && $('.heun-h2').val()) 
+        return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
+       else 
+        return '';
+    },
+    setValue: function(s, s1, s2) {
+      $('.heun-h1').val(s1);
+      $('.heun-h2').val(s2);
+    }
+  }).bind('datepicker-change',function(event,obj) {
+//    var date = obj.value.split(" ~ ");
+//    $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
+//    $('.heun-h1, .heun-h2').css('background-color', '');
+//    $('#heun-rev').trigger('date-input');
+  });
+  
+  $('.riw-check').off('click').on('click', function(e){
     
+    $('.heun-h1').val($(e.target).attr('data-ci'))
+    $('.heun-h2').val($(e.target).attr('data-co'))
+    
+  });
+  
+  $('.dropdown-menu > button').on('click', function(e){
+    person = $(this).attr('data-p');
+    $('.check-person').html($(this).html());
+    $('.check-person').removeAttr('data-p');
+    $('.check-person').attr('data-p', person);
   })
+  
   
   $('.riw-write').off('click').on('click', function(e){
     

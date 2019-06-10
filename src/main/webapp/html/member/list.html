@@ -17,6 +17,7 @@
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link rel="stylesheet" href="list.css">
   <link rel="stylesheet" href="../../star/star-rating-svg.css">
+  <link rel="stylesheet" href="../../lib/jquery-date-range-picker-master/dist/daterangepicker.css" />
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -32,6 +33,11 @@
   <script src="../js/handlebars-paginate.js"></script>
   <script src="../../star/jquery.star-rating-svg.js"></script>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+  <script type="text/javascript"
+    src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
+
 </head>
 
 <body>
@@ -46,16 +52,17 @@
               <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
                 <div id="sidebar" class="sidebar-left">
                   <div class="sidebar_inner">
-                   <div class="agent-detail"> 
-                    <div class="text-center">
-                      <div id='profileimg'></div>
-                    <h4 class="main-name" style=" color: #869E9E;"></h4>
+                    <div class="agent-detail">
+                      <div class="text-center">
+                        <div id='profileimg'></div>
+                        <h4 class="main-name" style=" color: #869E9E;"></h4>
+                      </div>
+                      <ul class="list-unstyled main-infomation"
+                        style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
+                        <li><span class="main-tel"></span></li>
+                        <li><span class="main-email"></span></li>
+                      </ul>
                     </div>
-                    <ul class="list-unstyled main-infomation" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
-                      <li><span class="main-tel"></span></li>
-                      <li><span class="main-email"></span></li>
-                    </ul>
-                   </div>
                     <div class="list-group no-border list-unstyled">
 
                       <a href="my_profile.html" class="list-group-item"><i class="far fa-id-card"></i> 내 프로필</a>
@@ -107,14 +114,18 @@
                        <button type="button" class="btn btn-sm btn-secondary riw-write" data-toggle="modal" data-backdrop="static" data-target="#exampleModal">후기 작성</button>
                        <input type="hidden" class="form-control input-room" data-no={{rmsNo}}>
                        {{/if}}
-                      
+
+                      {{#if isCheck}}
+                      <button type="button" class="btn btn-sm btn-link riw-check" data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
+                      {{/if}}
 
                         </div>
                     </div>
                   </div>
                   <div class="col-lg-7">
                   <div class="item-info">
-                    <h3 class="item-title heun-rev" data-no={{no}}><a href="#">{{rmsName}}</a></h3>
+                    <h3 class="item-title" data-no={{no}}><a href="#">{{rmsName}}</a></h3>
                     <div class="item-location"><i class="fas fa-map-marker-alt"></i>   {{address}}</div>
                     <div class="item-details">
                       <ul>
@@ -131,7 +142,7 @@
    {{/each}}
 
   </script>
-  
+
   <script id="page-template" type="text/x-handlebars-template">
     <nav>
       <ul class="pagination pagination-centered">
@@ -157,7 +168,72 @@
     </ul>
     </nav>
   </script>
-  
+
+  <!-- 예약 변경 취소 모달 -->
+  <div class="modal fade item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 480px; height: auto;">
+        <div class="modal-header">
+          <div class="media">
+            <div class="media-left"> <img src="img/demo/property/thumb/1.jpg" width="60" class="img-rounded mt5" alt="">
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">예약 변경/취소</h4>
+            </div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>날짜</label>
+              <div class="input-group" id="main-data">
+                <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
+                <div class="input-group-text" style="background-color: white;">
+                  <svg style="height: 24px; width: 24px; display: block; fill: currentcolor;">
+                    <path
+                      d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <input type="text" class="form-control heun-h2 heun-datein" placeholder="체크아웃">
+              </div>
+              <div id="main-calendar"></div>
+              <br>
+              <div class="form-group">
+                <label for="input-m"><span class="align-bottom">인원</span></label>
+                <button id="input-m" type="button" class="form-control dropdown-toggle check-person" data-p="1"
+                  data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                  인원 1명
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg-right">
+                  <button class="dropdown-item heun-drop" type="button" data-p="1">인원 1명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="2">인원 2명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="3">인원 3명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="4">인원 4명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="5">인원 5명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="6">인원 6명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="7">인원 7명</button>
+                  <button class="dropdown-item heun-drop" type="button" data-p="8">인원 8명</button>
+                </div>
+
+
+
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">예약취소</button>
+          <button type="button" class="btn btn-link" data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary">예약변경</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 리뷰 작성 모달 -->
   <div class="modal fade riw-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -185,6 +261,8 @@
       </div>
     </div>
   </div>
+
+
   <script src='list.js'></script>
 </body>
 
