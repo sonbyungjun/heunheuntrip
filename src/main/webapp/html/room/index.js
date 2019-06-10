@@ -248,6 +248,12 @@ $('body').on('loaded-list', function () {
     location.href = '/heunheuntrip/html/room/view.html?no=' + no;
   })
   
+  $('.heun-BMname').click(function() {
+    var no = $(this).data('no');
+    console.log(no);
+    location.href = '/heunheuntrip/html/room/view.html?no=' + no;
+  })
+  
   
 //  if($('.save-item').data('no') == 1) {
 //    $('.fa-star').css("color", "#ffe449");

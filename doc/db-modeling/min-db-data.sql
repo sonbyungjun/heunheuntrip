@@ -9,3 +9,26 @@ insert into riw(usr_id, riw_conts, grd) values(7,'알바생이 음식을 자주 
 insert into riw(usr_id, riw_conts, grd) values(8,'직원분들이 친절하셔서 불편함없이 잘 지냈습니다', 2 );
 insert into riw(usr_id, riw_conts, grd) values(9,'항상 데미안만 이용하고 있어요', 5 );
 insert into riw(usr_id, riw_conts, grd) values(10,'공주공주풍 한 느낌도 괜찮구 깨끗하고 조용하고 좋아요! 대실시간 엄청길어서 가성비 개굿 프런트직원분도 친절하셔서 기분좋게 갑니당 뿅', 2 );
+
+
+-- 예약
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(1,3,11,'2019-05-08','2020-05-10', '승인', 2, 60000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(1,4,12,'2019-05-02','2020-05-10', '거절', 2, 50000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(1,3,13,'2019-06-08','2020-05-10', '승인', 2, 234000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(4,2,14,'2019-11-08','2020-05-10', '승인', 1, 55000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(5,4,15,'2019-12-28','2020-05-10','거절', 3, 53400);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(1,4,11,'2019-01-08','2020-05-10', '승인', 5, 234000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(2,3,12,'2019-02-08','2020-05-10','승인', 1, 3453000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(3,4,13,'2019-04-08','2020-05-10','거절', 4, 5235000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(4,4,14,'2019-06-18','2020-05-10', '거절', 2, 150000);
+insert into rev(usr_id, stus_id, rms_id, cck_in, cck_out, stby_stus, rev_persn, rev_char) 
+values(5,2,15,'2019-07-11','2020-05-10','승인', 3, 250000);

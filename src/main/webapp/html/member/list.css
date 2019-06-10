@@ -5,6 +5,11 @@
 	text-align: center;  
 }
 
+.dropdown-menu > button {
+	width: 446px;
+	text-align: center; 
+}
+ 
 h4 {
 	font-family: NanumBarunGothic;
 	color: #696969;
@@ -18,6 +23,11 @@ h4 {
 .riw-write{
 	float: right;
 	line-height: 1.2;
+}
+
+.riw-check {
+  float: right;
+  line-height: 1.2;
 }
 
 .riw-complete{
