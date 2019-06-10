@@ -122,13 +122,12 @@
                         <li>숙소명<span>{{name}}</span></li> 
                         <li>숙소 가격<span>{{price}}</span></li>
                         <li>숙소 설명<span>{{content}}</span></li>
-                        {{#if state.one}}
-                             state
+                        {{#if state}}
                         <li>승인 여부<span>미승인</span></li>
-                            {{#else if state=1}}
-                        <li>승인 여부<span>승인</span></li>
-                          {{#else}}
+                           {{else if restate}}
                         <li>승인 여부<span>승인 거절</span></li>
+{{else}}
+<li>승인 여부<span>승인</span></li>
                         {{/if}}
                       </ul>
                        

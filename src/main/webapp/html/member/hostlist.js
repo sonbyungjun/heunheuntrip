@@ -43,10 +43,21 @@ function loadList() {
     url: '../../app/json/room/hostroom',
     type: 'GET',
     data: {
-      no: 69
+      no: 36
     },
     dataType: 'json',
     success: function (response) {
+      for(l of response.list){
+        
+        if(l.state === "0"){
+          l.state = true;
+        } else if(l.state === "1"){
+          l.state = false;
+        } else if(l.state === "2"){
+          l.state = false;
+          l.restate = true;
+        }
+      }
       console.log(response)
       $(trGenerator(response)).appendTo(form);
       $(document.body).trigger('loaded-list');
