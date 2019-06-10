@@ -25,6 +25,7 @@ function loadList(pn) {
       $('.faq-add').find('div').css('display', 'none')
     }); // Bitcamp.getJSON()
 } // loadList()
+
 $('body').on('loaded-list', function () {
   $('.delete-btn').on('click', function (e) {
     var no = $(e.target).attr('data-no')
@@ -63,6 +64,11 @@ $('body').on('loaded-list', function () {
 
 $('body').on('loaded-list', function () {
   $('.faq-list').on('click', function (e) {
+	  $('.faq-list').each(function(i, e) {
+		  $(e).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black');
+	  })
+
+	  
     //1) ".faq-detail > div" 없으면 서버에서 가져온다..
     //2) ".faq-detail > div" 를 모두 감춘다.
     //3) 현재 이벤트가 발생한 객체의 div 만 보인다.
@@ -74,9 +80,13 @@ $('body').on('loaded-list', function () {
       //$(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none')
       $('.faq-view').find('div').css('display', 'none');
       $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', '')
-      $('.faq-add').find('div').css('display', 'none')
+       $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'blue')
+      
+      
     } else {
-      $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
+    	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
+        $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+        $(this).val('');
     }
   }); // Bitcamp.getJSON()
 })
