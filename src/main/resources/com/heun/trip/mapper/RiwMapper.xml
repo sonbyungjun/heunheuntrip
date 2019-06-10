@@ -55,11 +55,11 @@
       r.reply_dt,
       m.rms_id,
       m.rm_name,
-      m.thum
+      m.thum    
     from
       riw r
     left outer join
-      rms m on r.rms_id=m.rms_id
+      rms m on r.rms_id=m.rms_id    
     where
       r.usr_id = #{userNo}
     order by 
@@ -69,6 +69,42 @@
     </if>
   </select>
   
+
+
+
+  <select id="findAllhostMypage" resultMap="riwMap" parameterType="map">
+    select
+      r.riw_id,
+      r.usr_id,
+      r.riw_conts,
+      r.grd,
+      r.cdt,
+      r.riw_reply,
+      r.reply_dt,
+      m.rms_id,
+      m.rm_name,
+      m.thum,
+      u.name
+    from
+      riw r
+    left outer join
+      rms m on r.rms_id=m.rms_id
+      left outer join 
+     usr u on u.usr_id=r.usr_id
+    where
+      m.usr_id = #{userNo}
+    order by 
+      cdt desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+
+
+
+
+
+
   <insert id="insert" parameterType="riw">
     insert into riw(
       usr_id,
@@ -125,6 +161,18 @@
     where 
       riw_id = #{no}
   </update>
+  
+  
+  <update id="replyupdate" parameterType="riw">
+    update
+      riw
+    set
+      riw_reply = #{reply},
+      reply_dt = #{replyDate} 
+    where 
+      riw_id = #{no}
+  </update>
+  
   
   <select id="count" parameterType="map">
     select 

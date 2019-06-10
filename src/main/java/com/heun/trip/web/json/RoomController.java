@@ -131,8 +131,8 @@ public class RoomController {
       }
     }
     return content;
-  }
-
+  } 
+ 
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="0") int pageNo,
