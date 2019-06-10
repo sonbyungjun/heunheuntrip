@@ -181,5 +181,17 @@ public class RoomController {
     contents.put("list", list);
     return contents;
   }
+  @GetMapping("delete")
+  public Object delete(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      roomSerive.delete(no);
+     content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 
 }
