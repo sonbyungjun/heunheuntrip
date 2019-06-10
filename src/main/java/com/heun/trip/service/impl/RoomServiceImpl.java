@@ -79,8 +79,12 @@ public class RoomServiceImpl implements RoomService {
   }
   
   @Override
-  public List<Room> hostroomlist(int hostNo) {
-    return roomDao.findByHostRoomList(hostNo);
+  public List<Room> hostroomlist(int pageNo, int pageSize,int hostNo) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("no", hostNo);
+    params.put("size",pageSize );
+    params.put("rowNo",(pageNo -1) *pageNo );
+    return roomDao.findByHostRoomList(params);
   }
   @Override
   public int delete(int no) {
@@ -92,4 +96,9 @@ public class RoomServiceImpl implements RoomService {
     
      return roomDao.delete(no);
   } 
+  
+  @Override
+  public int hostsize(int no) {
+    return roomDao.hostcountAll(no);
+  }
 }

@@ -2,7 +2,13 @@ var form = $('.item-listing'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
     rating = 0,
-    no = 0;
+    no = 0,
+paginateSrc = $('#page-template').html();
+
+Handlebars.registerHelper('paginate', paginate);
+var pageGenerator = Handlebars.compile(paginateSrc);
+
+
 
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
@@ -40,13 +46,16 @@ function loadList() {
   
   
   $.ajax({
-    url: '../../app/json/room/hostroom',
+    url: '../../app/json/room/hostroom?pageNo=' + 1,
     type: 'GET',
     data: {
-      no: 36
+      no: 69
     },
     dataType: 'json',
     success: function (response) {
+    	pageNo = response.pageNo;
+    	
+    	
       for(l of response.list){
         
         if(l.state === "0"){
@@ -58,8 +67,16 @@ function loadList() {
           l.restate = true;
         }
       }
+      
+      response.pagination = {
+          page: response.pageNo,
+          pageCount: response.totalPage
+      };
+      
       console.log(response)
       $(trGenerator(response)).appendTo(form);
+      $('.pagination-menu').html('');
+      $(pageGenerator(response)).appendTo('.pagination-menu');
       $(document.body).trigger('loaded-list');
     },
     error: function (error) {

@@ -16,9 +16,10 @@ public interface RoomDao {
   
   List<Room> findAll(Map<String,Object> paramMap);
   Room findByNo(int no);
-  List<Room> findByHostRoomList(int hostNo);
+  List<Room> findByHostRoomList(Map<String,Object> paramMap);
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);
   int countAll(Map<String,Object> paramMap); 
+  int hostcountAll(int no); 
 } 
