@@ -94,7 +94,7 @@ CREATE TABLE rev (
   stby_stus CHAR(2)  NOT NULL, -- 승인/거절/대기 상태
   rev_persn INTEGER  NOT NULL, -- 예약인원
   rev_cdt   DATETIME NOT NULL DEFAULT current_timestamp(), -- 예약생성일
-  rev_char  INTEGER  NULL,     -- 가격
+  rev_char  INTEGER  NOT NULL,     -- 가격
   rev_updt  INTEGER  NULL      -- 변경승인여부
 );
 
