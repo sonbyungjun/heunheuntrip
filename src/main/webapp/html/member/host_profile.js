@@ -37,7 +37,7 @@ function loadList() {
 		$('.email').val(obj.member.email);
 		$('.tel').val(obj.member.tel);
 		$('.custom-file').find('label').html(obj.member.photo);
-		no = obj.no;
+		no = obj.member.no;
 	}); // Bitcamp.getJSON(
 } // loadList()
 //사용자의 프로필을 꺼낸다.
