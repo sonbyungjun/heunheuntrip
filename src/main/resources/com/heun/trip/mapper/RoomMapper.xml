@@ -211,6 +211,7 @@
       area,
       cont,
       thum,
+      rm_chge,
       rm_name
     from
       rms

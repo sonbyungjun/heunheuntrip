@@ -14,9 +14,9 @@ $(document).ready(function () {
 function loadList() {
   $.getJSON('../../app/json/member/profile',
 			function(obj) {
-		if (obj.photo != null) {
+		if (obj.member.photo != null) {
 		$("<img>").attr('src',
-				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
+				'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
 		} else {
@@ -36,6 +36,7 @@ function loadList() {
     },
     dataType: 'json',
     success: function (response) {
+      console.log(response)
   $(trGenerator(response)).appendTo(form);
     },
     error: function (error) {

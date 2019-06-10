@@ -19,12 +19,12 @@ function rephoto() {
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
 			function(obj) {
-		if (obj.photo != null) {
+		if (obj.member.photo != null) {
 		$("<img>").attr('src',
-				'/heunheuntrip/html/memberprofileupload/' + obj.photo)
+				'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
-				reheader = obj.photo;		
+				reheader = obj.member.photo;		
 		} else {
 		$("<img>").attr('src',
 					'/heunheuntrip/html/memberupload/defualt.jpeg')
@@ -33,10 +33,10 @@ function loadList() {
 		}
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
-		$('.name').val(obj.name);
-		$('.email').val(obj.email);
-		$('.tel').val(obj.tel);
-		$('.custom-file').find('label').html(obj.photo);
+		$('.name').val(obj.member.name);
+		$('.email').val(obj.member.email);
+		$('.tel').val(obj.member.tel);
+		$('.custom-file').find('label').html(obj.member.photo);
 		no = obj.no;
 	}); // Bitcamp.getJSON(
 } // loadList()
