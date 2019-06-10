@@ -181,7 +181,7 @@ public class RoomController {
   
   @GetMapping("hostroom")
   public Object hostroom(
-      @RequestParam(defaultValue="0") int pageNo,
+      @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="4") int pageSize,
       int no) {
     if (pageSize < 1 || pageSize > 5) 

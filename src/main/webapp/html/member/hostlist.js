@@ -15,7 +15,8 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-  loadList();
+  loadList()
+  
 })
 
 function loadList() {
@@ -45,15 +46,18 @@ function loadList() {
   
   
   
+  
+
   $.ajax({
     url: '../../app/json/room/hostroom?pageNo=' + 1,
     type: 'GET',
     data: {
-      no: 69
+      no: 5
     },
     dataType: 'json',
     success: function (response) {
     	pageNo = response.pageNo;
+    	  form.html('');
     	
     	
       for(l of response.list){
@@ -62,7 +66,7 @@ function loadList() {
           l.state = true;
         } else if(l.state === "1"){
           l.state = false;
-        } else if(l.state === "2"){
+        } else{
           l.state = false;
           l.restate = true;
         }
