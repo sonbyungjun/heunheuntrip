@@ -45,6 +45,9 @@ function loadProfile() {
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {
     
+	 
+	console.log(obj)
+	  
     pageNo = obj.pageNo;
     
     form.html('');
@@ -55,9 +58,25 @@ function loadList(pn) {
     };
     
     $(trGenerator(obj)).appendTo(form);
-    
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
+    
+    //핸들바스에서 reply가 빈문자열이 아닌 놈을 찾아서 버튼을 없앰
+    for(var i = 0; i < obj.list.length; i++) {
+//    console.log(obj.list[i].no);
+    
+    var a = obj.list[i].no;
+    	
+//    	console.log($('#aaa-' + a).attr('data-reply'));
+//    	console.log($('#no-reply-' + a).html());
+    	if($('#aaa-' + a).attr('data-reply') == '') {
+    		$('#no-reply-' + a).hide();
+    	}
+    }
+    
+    
+    
+    
     
     $(document.body).trigger('loaded-list');
     
@@ -66,12 +85,17 @@ function loadList(pn) {
 
 loadList(1);
 
+
+
+
+
 $(document.body).bind('loaded-list', (e) => {
   
   $('.riw-delete').off('click').on('click', function(e){
     
     var no = $(this).parent().data('no');
     var pn = $(e.target).parent().parent().parent().parent().parent().children('.riw-page').attr('data-page');
+   
     
     Swal.fire({
       title: '삭제하시겠어요?',
@@ -111,9 +135,13 @@ $(document.body).bind('loaded-list', (e) => {
 
   })
   
+  
+  // 
   $('.riw-update').off('click').on('click', function(e){
     
+	  
     var no = $(this).parent().data('no');
+    var reply = $(this).attr('data-reply');
     var grd = $(this).parent().data('grd');
     var content = $(this).parent().prev().children().html();
     var pn = $(e.target).parent().parent().parent().parent().parent().children('.riw-page').attr('data-page');
@@ -126,6 +154,7 @@ $(document.body).bind('loaded-list', (e) => {
       modal.find('.modal-title').text('Review')
       modal.find('.modal-body input').val(recipient)
       modal.find('#message-text').val(content);
+      modal.find('#remessage-text').val(reply);
     });
     
 

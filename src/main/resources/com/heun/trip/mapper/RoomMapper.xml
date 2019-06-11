@@ -205,7 +205,7 @@
       r.rms_id=#{value}
   </select>
   
-  <select id="findByHostRoomList" resultMap="roomMap" parameterType="int">
+  <select id="findByHostRoomList" resultMap="roomMap" parameterType="map">
     select
       usr_id,
       rms_id,
@@ -220,8 +220,16 @@
     from
       rms
     where
-      usr_id=#{value}
+      usr_id=#{no}
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
   </select>
+  
+  <select id="hostcountAll" resultType="int" parameterType="int">
+    select count(*) from rms where usr_id=#{no}
+  </select>
+  
   
     <delete id="delete" parameterType="int">
     delete from rms 

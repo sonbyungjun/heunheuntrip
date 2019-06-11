@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig; 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,14 +173,59 @@ public class RoomController {
     return room;
   }
   
+  
+  
+  
+  
+  
+  
   @GetMapping("hostroom")
-  public Object hostroom(int no) {
+  public Object hostroom(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="4") int pageSize,
+      int no) {
     HashMap<String, Object> contents = new HashMap<>();
-    List<Room> list = roomSerive.hostroomlist(no);
+    if (pageSize < 1 || pageSize > 5) 
+      pageSize = 4;
+
+      int rowCount = roomSerive.hostsize(no);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Room> list = roomSerive.hostroomlist(pageNo, pageSize,no);
+      contents.put("list", list);
+      contents.put("pageNo", pageNo);
+      contents.put("pageSize", pageSize);
+      contents.put("totalPage", totalPage);
     
-    contents.put("list", list);
     return contents;
   }
+  
+  
+  
+  
+    
+    
+
+   
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   @GetMapping("delete")
   public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
