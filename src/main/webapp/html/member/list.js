@@ -46,7 +46,7 @@ function loadProfile() {
 } // loadList()
 
 function loadList(pn) {
-  $.getJSON('../../app/json/rev/list?pageNo=' + pn, function(obj) {
+  $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
     
     form.html('');
     
@@ -59,13 +59,20 @@ function loadList(pn) {
       }
       
       if(l.status === "결제완료"){
-        l.isCheck = true;
-      } else {
-        l.isCheck = false;
+        
+        if(l.revUpdate === 0) {
+          l.isCheck = true;
+          l.isupdate = false;
+        } else {
+          l.isupdate = true;
+          l.isCheck = false;
+        }
       }
       
       l.revCharge = AddComma(l.revCharge);
     }
+    
+    console.log(obj.list)
     
     pageNo = obj.pageNo;
     
@@ -219,7 +226,7 @@ $(document.body).bind('loaded-list', (e) => {
   
   $('.rev-update').off('click').on('click', function(e){
     
-    var no = $(e.target).parent().parent()
+    var no = $(e.target).parent().parent().parent().parent().children()
         .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
     
     var pn = $(e.target).parent().parent().parent().parent().parent().parent().children('.rev-page').attr('data-page');
@@ -243,7 +250,7 @@ $(document.body).bind('loaded-list', (e) => {
       dataType: 'json',
       success: function(response) {
         loadList(1);
-        $('#exampleModal').modal("hide");
+        $('#leadform').modal("hide");
       },
       fail: function(error) {
         alert('등록 실패!!');

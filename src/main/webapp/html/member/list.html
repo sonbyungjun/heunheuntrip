@@ -118,6 +118,9 @@
                       {{#if isCheck}}
                       <button type="button" class="btn btn-sm btn-link riw-check" data-revNo={{no}} data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
+                      {{else if isupdate}}
+                      <button type="button" class="btn btn-sm btn-danger update-check">변경대기중</button>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{/if}}
 
                         </div>
@@ -225,9 +228,13 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" style="float: left">예약취소</button>
-          <button type="button" class="btn btn-link cancle-update" data-dismiss="modal" >취소</button>
+          <div class="rev-cc">
+            <button type="button" class="btn btn-danger rev-cancle" data-dismiss="modal">예약취소</button>
+          </div>
+          <div class="rev-up">
           <button type="button" class="btn btn-primary rev-update">예약변경</button>
+          <button type="button" class="btn btn-link cancle-update" data-dismiss="modal" >취소</button>
+          </div>
         </div>
       </div>
     </div>

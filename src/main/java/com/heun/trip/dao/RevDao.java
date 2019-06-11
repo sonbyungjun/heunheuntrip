@@ -11,6 +11,7 @@ public interface RevDao {
   Rev findByNo(int no);
   int delete(int no);
   int inupdate(Rev rev);
+  List<Rev> getupdtData(Map<String, Object> params);
 }
  
 

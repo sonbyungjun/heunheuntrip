@@ -49,6 +49,17 @@ public class RevServiceImpl implements RevService {
   public int size(int no) {
     return revDao.countAll(no);
   }
+  
+  @Override
+  public List<Rev> getupdtData(int pageNo, int pageSize, int userNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return revDao.getupdtData(params);
+  }
 
 
 }

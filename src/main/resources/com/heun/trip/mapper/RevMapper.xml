@@ -80,7 +80,7 @@
      left outer join rms r on e.rms_id = r.rms_id
      left outer join stus s on e.stus_id = s.stus_id
     where
-      e.usr_id = 1
+      e.usr_id = #{userNo}
     order by 
       e.rev_id desc 
     <if test="size != null and rowNo != null">
@@ -102,6 +102,7 @@
      e.stby_stus,
      e.rev_persn,
      e.rev_char,
+     e.rev_updt,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -119,13 +120,58 @@
   </select>
   
   <select id="countAll" resultType="int" parameterType="int">
-    select count(*) from rev where usr_id=#{no}
+    select 
+      count(*) 
+    from 
+      rev
+    where
+      rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and usr_id = #{no}
   </select>
   
-      <delete id="delete" parameterType="int">
+  <delete id="delete" parameterType="int">
     delete from rev 
     where rms_id = #{value}
   </delete>
+  
+  <select id="getupdtData" resultMap="revMap">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.stus_id,
+     e.cck_in,
+     e.cck_out,
+     e.stby_stus,
+     e.rev_persn,
+     e.rev_char,
+     e.rev_updt,
+     s.stus 
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    where 
+      e.rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and e.usr_id = #{userNo}
+    order by 
+      e.rev_id desc 
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
   
   
 </mapper>
