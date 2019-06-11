@@ -30,6 +30,7 @@
 <script src="../../lib/lib.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
+  <script src="../js/handlebars-paginate.js"></script>
 <script src="../../star/jquery.star-rating-svg.js"></script>
 
 </head>
@@ -81,6 +82,7 @@
                   
                   <!-- 핸들바스 적용지점 -->
                   <div class="item-listing list"></div>
+                  <div class="pagination-menu"></div>
                   
                 </div>
               </div>
@@ -122,13 +124,12 @@
                         <li>숙소명<span>{{name}}</span></li> 
                         <li>숙소 가격<span>{{price}}</span></li>
                         <li>숙소 설명<span>{{content}}</span></li>
-                        {{#if state.one}}
-                             state
+                        {{#if state}}
                         <li>승인 여부<span>미승인</span></li>
-                            {{#else if state=1}}
-                        <li>승인 여부<span>승인</span></li>
-                          {{#else}}
+                           {{else if restate}}
                         <li>승인 여부<span>승인 거절</span></li>
+{{else}}
+<li>승인 여부<span>승인</span></li>
                         {{/if}}
                       </ul>
                        
@@ -143,6 +144,35 @@
    {{/each}}
 
   </script>
+  
+    <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="4"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="Loadroomlist({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="Loadroomlist({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadroomlist({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+  </script>
+  
+  
+  
   <script src='hostlist.js'></script>
 </body>
 

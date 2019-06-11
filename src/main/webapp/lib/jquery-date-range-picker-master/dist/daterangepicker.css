@@ -35,6 +35,8 @@
 }
 
 .date-picker-wrapper.inline-wrapper {
+  padding-left: 77px;
+  width: 100%;
   position: relative;
   -webkit-box-shadow: none;
           box-shadow: none;

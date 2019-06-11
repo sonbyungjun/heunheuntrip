@@ -9,6 +9,8 @@ var param = location.href.split('?')[1],
   jmt,
   myung;
 
+IMP.init('imp74040300');
+
 if (param) {
   pageload(param.split('=')[1]);
 }

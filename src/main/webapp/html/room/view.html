@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -40,7 +40,7 @@
   <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
   <script type="text/javascript"
     src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
-
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
   <style>
@@ -289,7 +289,6 @@
                           <div id="specification" class="panel-collapse collapse show" role="tabpanel">
                             <div class="card-body">
 
-
                               <div class="form-group" id="input-date">
                                 <label for="input-date"><span class="align-bottom">날짜</span></label>
                                 <div class="input-group">
@@ -314,9 +313,6 @@
                                   <button class="dropdown-item heun-drop" type="button" data-p="{{i}}">인원 {{i}}명</button>
                                   {{/each}}
                                 </div>
-
-
-
                               </div>
 
                               <table id="price-table" class="table v1">
@@ -357,153 +353,57 @@
           </div>
         </div>
       </div>
-    </script>
 
-
-
-    <!-- Lead Form Modal -->
+          <!-- Lead Form Modal -->
     <div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
+          <div class="page-header v2 bordered text-center" style="margin-bottom: 0px;">
+            <h1>확인 및 결제</h1>
+          </div>
           <div class="modal-header">
             <div class="media">
-              <div class="media-left"><img src="" width="60" class="img-rounded mt5" alt=""></div>
+              <div class="media-left"><img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" width="60" class="img-rounded mt5" alt=""></div>
               <div class="media-body">
-                <h4 class="media-heading">Request details for 2 bed semi-detached bungalow for sale</h4>
-                Kents Lane, Bungay NR35
+                <h4 class="media-heading">{{name}}</h4>
+                {{area}}
               </div>
             </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" class="form-control" placeholder="Your Name">
-              </div>
-              <div class="form-group">
-                <label>Your Email</label>
-                <input type="email" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group">
-                <label>Your Telephone</label>
-                <input type="tel" class="form-control" placeholder="Your Telephone">
-              </div>
-              <div class="form-group">
-                <label>Message</label>
-                <textarea rows="4" class="form-control"
-                  placeholder="Please include any useful details, i.e. current status, availability for viewings, etc."></textarea>
-              </div>
-            </form>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p><i class="fas fa-user-friends"></i><span id="heun-modal-person"></span></p>
+                  <p><i class="fas fa-calendar-week"></i><span id="heun-modal-day"></span></p>
+                </li>
+                <li class="list-group-item">
+                    <dl class="row" style="padding-bottom: 0px; margin-bottom: -10px;">
+                      <dt id="heun-modal-cal" class="col-sm-6"></dt>
+                      <dd id="heun-modal-sum" class="col-sm-6"></dd>
+                      <dt class="col-sm-6">부가세</dt>
+                      <dd id="heun-modal-tex" class="col-sm-6"></dd>
+                    </dl>                      
+                </li>
+                <li class="list-group-item">
+                    <dl class="row h5 h6 font-weight-bold">
+                      <dt class="col-sm-6">총 합계(원)</dt>
+                      <dd id="heun-modal-texsum" class="col-sm-6"></dd>
+                    </dl>
+                </li>
+                <li class="list-group-item">
+                  숙소 이용규칙, 환불 정책, 및 게스트 환불 정책에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.
+                </li>
+              </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Request Details</button>
+            <button type="button" class="btn btn-link" data-dismiss="modal">취소</button>
+            <button type="button" id="heun-pay" class="btn btn-primary">결제하기</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Email to friend Modal -->
-    <div class="modal fade item-badge-rightm" id="email-to-friend" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="media">
-              <div class="media-left"> <img src="" width="60" class="img-rounded mt5" alt=""> </div>
-              <div class="media-body">
-                <h4 class="media-heading">Email friend about 2 bed semi-detached bungalow for sale</h4>
-                Kents Lane, Bungay NR35
-              </div>
-            </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" class="form-control" placeholder="Your Name">
-              </div>
-              <div class="form-group">
-                <label>Your Email</label>
-                <input type="email" class="form-control" placeholder="Your Email">
-              </div>
-              <div class="form-group">
-                <label>Friends Email</label>
-                <input type="email" class="form-control" placeholder="Friends Email">
-              </div>
-              <div class="form-group">
-                <label>Message</label>
-                <textarea rows="4" class="form-control"
-                  placeholder="">I thought you might want to take a look at this property for sale.</textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Request Details</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Report Listing Modal -->
-    <div class="modal fade item-badge-rightm" id="report-listing" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="media">
-              <div class="media-left"> <i class="fa fa-3x fa-exclamation-circle" aria-hidden="true"></i> </div>
-              <div class="media-body">
-                <h4 class="media-heading">Report Listing for 2 bed semi-detached bungalow for sale</h4>
-                Kents Lane, Bungay NR35
-              </div>
-            </div>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label>Contact Name</label>
-                <input type="text" class="form-control" placeholder="Contact Name">
-              </div>
-              <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" class="form-control" placeholder="Email Address">
-              </div>
-              <div class="form-group">
-                <label>Nature of report</label>
-                <select class="form-control">
-                  <option value="">Please Select</option>
-                  <option value="no_longer_available">Property is no longer available</option>
-                  <option value="incorrect_price">Price listed is incorrect</option>
-                  <option value="incorrect_last_sold_price">Last sold price incorrect</option>
-                  <option value="incorrect_description">Property description is inaccurate</option>
-                  <option value="incorrect_location">Property location is incorrect</option>
-                  <option value="incorrect_content">Problem with photos, floorplans, etc.</option>
-                  <option value="inappropriate_video">Problem with the video</option>
-                  <option value="agent_not_contactable">Agent is not contactable</option>
-                  <option value="incorrect_running_costs">Running costs is displaying inaccurate values</option>
-                  <option value="other">Other (please specify)</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Description of content issue </label>
-                <textarea rows="4" class="form-control"
-                  placeholder="Please provide as much information as possible..."></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Report Error</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    </script>
 
 
 
