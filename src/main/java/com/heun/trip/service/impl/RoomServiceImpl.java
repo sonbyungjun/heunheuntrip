@@ -83,7 +83,9 @@ public class RoomServiceImpl implements RoomService {
     HashMap<String,Object> params = new HashMap<>();
     params.put("no", hostNo);
     params.put("size",pageSize );
-    params.put("rowNo",(pageNo -1) *pageNo );
+    System.out.println(pageNo);
+    params.put("rowNo",(pageNo -1) * pageSize );
+    System.out.println(pageNo);
     return roomDao.findByHostRoomList(params);
   }
   @Override
