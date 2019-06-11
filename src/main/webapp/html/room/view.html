@@ -43,6 +43,7 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <style>
     .customoverlay {
       position: relative;
@@ -291,7 +292,7 @@
 
                               <div class="form-group" id="input-date">
                                 <label for="input-date"><span class="align-bottom">날짜</span></label>
-                                <div class="input-group">
+                                <div id="heun-datetime" class="input-group">
                                   <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
                                   <div class="input-group-text" style="background-color: white;">
                                     <svg  style="height: 24px; width: 24px; display: block; fill: currentcolor;">
