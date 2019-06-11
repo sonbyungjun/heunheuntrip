@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,33 @@ public class RevController {
   public RevController(RevService revService) {
     this.revService = revService;
   }
+  
+  @PostMapping("add")
+  public Object add(Rev rev, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    int userNo = loginUser.getNo();
+    rev.setUserNo(userNo);
+    
+    Rev revs = revService.detail(rev.getRevUpdate());
+    System.out.println(revs);
+    rev.setStusNo(revs.getStusNo());
+    rev.setRmsNo(revs.getRmsNo());
+    rev.setRevStus(revs.getRevStus());
+    rev.setStanBy(revs.getStanBy());
+    rev.setRevCharge(revs.getRevCharge());
+    
+    System.out.println(" 결론 ------>  " + rev);
+    try {
+      revService.inupdate(rev);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  } 
 
   @GetMapping("list")
   public Object list(

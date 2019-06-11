@@ -17,6 +17,12 @@ public class RevServiceImpl implements RevService {
     this.revDao = revDao;
   }
 
+  
+  @Override
+  public int inupdate(Rev rev) {
+    return revDao.inupdate(rev);
+  }
+  
   @Override
   public List<Rev> list(int pageNo, int pageSize, int userNo) {
     

@@ -29,5 +29,3 @@ function loadRoom(pn) {
     $('.main-people').text(obj.rev.revPerson + "명");
   }); // Bitcamp.getJSON(
 } // loadList()
-
-loadRoom

@@ -63,6 +63,8 @@ function loadList(pn) {
       } else {
         l.isCheck = false;
       }
+      
+      l.revCharge = AddComma(l.revCharge);
     }
     
     pageNo = obj.pageNo;
@@ -83,7 +85,20 @@ function loadList(pn) {
 
 } // loadList()
 
+function AddComma(data_value) {
+  return Number(data_value).toLocaleString('en');
+  }
+
 $(document.body).bind('loaded-list', (e) => {
+  
+  // 타이틀을 눌렀을 때 해당 숙소 디테일 화면으로 넘어간다.
+  $('.item-title').off('click').on('click', function(e){
+    
+    var rmsNo = $(this).attr('data-rmsNo');
+    
+    location.href="../room/view.html?no=" + rmsNo;
+    
+  })
   
   var now = moment().format('YYYY-MM-DD');
   
@@ -126,10 +141,21 @@ $(document.body).bind('loaded-list', (e) => {
   
   $('.riw-check').off('click').on('click', function(e){
     
+    var pd = $(e.target).parent().parent().parent().next()
+        .children().children('.item-details').children().children('.people-data').children().html();
+    
+    $('rev-reas').val(' ');
     $('.heun-h1').val($(e.target).attr('data-ci'))
     $('.heun-h2').val($(e.target).attr('data-co'))
     
-  });
+    $('.check-person').attr('data-p', pd);
+    $('.check-person').html('인원 ' + pd + '명');
+    
+    var no = $(e.target).attr('data-revNo');
+    
+    $('.check-person').attr('data-revNo', no);
+    
+    });
   
   $('.dropdown-menu > button').on('click', function(e){
     person = $(this).attr('data-p');
@@ -189,9 +215,50 @@ $(document.body).bind('loaded-list', (e) => {
       });
       
     })
-
   })
+  
+  $('.rev-update').off('click').on('click', function(e){
+    
+    var no = $(e.target).parent().parent()
+        .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
+    
+    var pn = $(e.target).parent().parent().parent().parent().parent().parent().children('.rev-page').attr('data-page');
+    var revNo = $(e.target).attr('data-revNo');
+    var checkIn = $('.heun-h1').val();
+    var checkOut = $('.heun-h2').val();
+    
+    var content = $('.rev-reas').val();
+    var pers = $('.check-person').attr('data-p');
+    
+    $.ajax({
+      url: '../../app/json/rev/add',
+      type: 'POST',
+      data: {
+        revUpdate: no,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        revReason: content,
+        revPerson: pers
+      },
+      dataType: 'json',
+      success: function(response) {
+        loadList(1);
+        $('#exampleModal').modal("hide");
+      },
+      fail: function(error) {
+        alert('등록 실패!!');
+      }
+    });
+    
+    
+  })
+  
+  $('.cancle-update').off('click').on('click', function(e){
+    
+    $('.rev-reas').val('');
+    
+  })
+  
 });
-
 
 

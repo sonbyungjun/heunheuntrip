@@ -22,16 +22,19 @@ h4 {
 
 .riw-write{
 	float: right;
+	margin-top: 10px;
 	line-height: 1.2;
 }
 
 .riw-check {
   float: right;
+  margin-top: 10px;
   line-height: 1.2;
 }
 
 .riw-complete{
   float: right;
+  margin-top: 10px;
   line-height: 1.2;
 }
 
