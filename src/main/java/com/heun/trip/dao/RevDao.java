@@ -10,6 +10,7 @@ public interface RevDao {
   int countAll(int no);
   Rev findByNo(int no);
   int delete(int no);
+  int inupdate(Rev rev);
 }
  
 

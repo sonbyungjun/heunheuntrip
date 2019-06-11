@@ -17,6 +17,9 @@
     <result column="stby_stus" property="stanBy"/>
     <result column="rev_persn" property="revPerson"/>
     <result column="rev_cdt" property="createdDate"/>
+    <result column="rev_char" property="revCharge"/>
+    <result column="rev_updt" property="revUpdate"/>
+    <result column="rev_reas" property="revReason"/>
     
     <result column="rm_name" property="rmsName"/>
     <result column="addr" property="address"/>
@@ -30,6 +33,34 @@
     <result column="rms_id" property="roomNo"/>
   </resultMap>
   
+  <insert id="inupdate" parameterType="Rev">
+    insert into rev(
+      usr_id,
+      stus_id,
+      rms_id,
+      cck_in,
+      cck_out,
+      stby_stus,
+      rev_persn,
+      rev_char,
+      rev_updt,
+      rev_reas)
+      
+    values (
+      #{userNo},
+      #{stusNo},
+      #{rmsNo},
+      #{checkIn},
+      #{checkOut},
+      #{stanBy},
+      #{revPerson},
+      #{revCharge},
+      #{revUpdate},
+      #{revReason}
+    )
+  
+  </insert>
+  
   <select id="findAll" resultMap="revMap" parameterType="map">
     select
      r.rm_name,
@@ -38,10 +69,12 @@
      e.rev_id,
      e.usr_id,
      e.rms_id,
+     e.stus_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
      e.rev_persn,
+     e.rev_char,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -63,10 +96,12 @@
      e.rev_id,
      e.usr_id,
      e.rms_id,
+     e.stus_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
      e.rev_persn,
+     e.rev_char,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
