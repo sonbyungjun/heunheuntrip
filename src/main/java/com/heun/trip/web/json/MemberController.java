@@ -25,8 +25,8 @@ import net.coobird.thumbnailator.geometry.Positions;
 @RequestMapping("/json/member")
 public class MemberController {
 
-  
- 
+
+
   MemberService memberService;
   ServletContext servletContext;
 
@@ -35,13 +35,13 @@ public class MemberController {
     this.servletContext= servletContext;
   }
 
-  
-  
+
+
   @GetMapping("profile")
   public Object profile(HttpSession session) {   
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
-    
+
     if (loginUser != null) {
       Member member = memberService.get(loginUser.getNo());
       content.put("status", "success");
@@ -49,10 +49,10 @@ public class MemberController {
     } else {
       content.put("fail", "유저 정보가 없습니다.");
     }
-    
+
     return content;
   }
-  
+
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
@@ -88,8 +88,8 @@ public class MemberController {
     Member member = memberService.get(no);
     return member;
   }
-  
-  
+
+
 
   @PostMapping("snsadd")
   public Object snsadd(Member member, MultipartFile photo) {
@@ -97,7 +97,7 @@ public class MemberController {
     HashMap<String,Object> content = new HashMap<>();
     StringBuffer ranNo = EnRanNo.randomNo();
     String EnranNo = ranNo.toString();
-    
+
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
@@ -122,7 +122,7 @@ public class MemberController {
         member.setPassword(EnranNo);
         memberService.snsadd(member);
         content.put("status", "success");
-        
+
       } else if(memberService.get(member.getEmail()).getEmail().equals(member.getEmail())){
         System.out.println("진입");
         content.put("status", "overlap");
@@ -132,52 +132,59 @@ public class MemberController {
         content.put("status", "fail");
         content.put("message", "오류");
       }
-      
+
     } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
   }
-  
+
   @PostMapping("add")
-  public Object add(Member member, MultipartFile photo) {
+  public Object add(Member member,
+      int ranNo,
+      HttpSession session,
+      MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
-    
-    if (photo != null) {
-      // 헤더용 썸네일 제작
-      String filename = UUID.randomUUID().toString();
-      String uploadDir = servletContext.getRealPath(
-          "/html/memberupload");
-      File orginFile= new File(uploadDir + "/" + filename); 
-      File thumFile=new File(uploadDir+"/" + filename);
-      
-      // 프로필용 썸네일제작
-      String profileuploadDir = servletContext.getRealPath(
-          "/html/memberprofileupload");
-      File profilethumFile=new File(profileuploadDir+"/" + filename);
-      
-      try {
-        photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
-      } catch (IllegalStateException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      member.setPhoto(filename+".jpeg");
-    } else {
-      String deft ="default.jpeg";
-      member.setPhoto(deft);
-    }
-    
+    int checkNo = (int)session.getAttribute("ranNo");
     try {
-      memberService.add(member);
-      
-      content.put("status", "success");
+
+      if (checkNo == ranNo){
+
+        if (photo != null) {
+          // 헤더용 썸네일 제작
+          String filename = UUID.randomUUID().toString();
+          String uploadDir = servletContext.getRealPath(
+              "/html/memberupload");
+          File orginFile= new File(uploadDir + "/" + filename); 
+          File thumFile=new File(uploadDir+"/" + filename);
+
+          // 프로필용 썸네일제작
+          String profileuploadDir = servletContext.getRealPath(
+              "/html/memberprofileupload");
+          File profilethumFile=new File(profileuploadDir+"/" + filename);
+
+          try {
+            photo.transferTo(orginFile);
+            Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+            Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
+          } catch (IllegalStateException e) {
+            e.printStackTrace();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          member.setPhoto(filename+".jpeg");
+        } else {
+          String deft ="default.jpeg";
+          member.setPhoto(deft);
+        }
+        memberService.add(member);
+        content.put("status", "success");
+      } else {
+        content.put("status", "fail");
+      }
+
     } catch (Exception e) {
-      content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
@@ -194,13 +201,13 @@ public class MemberController {
     }
     return content;
   }
-  
-  
-  
+
+
+
   @PostMapping("updateprofile")
   public Object profileupdate(Member member,  MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
-    
+
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       String uploadDir = servletContext.getRealPath(
@@ -225,7 +232,7 @@ public class MemberController {
       String deft ="default.jpeg";
       member.setPhoto(deft);
     }
-    
+
     try {
       memberService.update(member);
       content.put("status", "success");
@@ -235,17 +242,17 @@ public class MemberController {
     }
     return content;
   }
-  
-  
+
+
   @PostMapping("updatepwd")
   public Object updatepwd(Member member, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
-   
-    
+
+
     Member loginUser = (Member) session.getAttribute("loginUser");
-    
-     member.setNo(loginUser.getNo());
-    
+
+    member.setNo(loginUser.getNo());
+
     try {
       if (memberService.pwdupdate(member) == 0) 
         throw new RuntimeException("해당 번호의 게시물이 없습니다.");
@@ -258,7 +265,7 @@ public class MemberController {
     return content;
   }
 
-  
+
   @PostMapping("Emailupdate")
   public Object Emailupdate(Member member) {
     HashMap<String,Object> content = new HashMap<>();
@@ -271,29 +278,30 @@ public class MemberController {
     }
     return content;
   }
-  
+
   @GetMapping("delete")
   public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
     try {
-     memberService.delete(no);
-     content.put("status", "success");
+      memberService.delete(no);
+      content.put("status", "success");
     }catch (Exception e){
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
   }
-  
+
   @GetMapping("email")
-  public Object email(String email) {
+  public Object email(String email,
+      HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     try {
       int ranNo = RanNo.randomNo();
       Gmail.gmailSend(email, ranNo);
-      
+
       content.put("status", "success");
-      content.put("ranNo", ranNo);
+      session.setAttribute("ranNo", ranNo);
     }catch (Exception e){
       content.put("status", "fail");
       content.put("message", e.getMessage());
@@ -306,7 +314,7 @@ public class MemberController {
     try {
       StringBuffer EnranNo = EnRanNo.randomNo();
       Gmail.gmailSend(email, EnranNo);
-      
+
       content.put("status", "success");
       content.put("EnranNo", EnranNo);
 
@@ -316,5 +324,26 @@ public class MemberController {
     }
     return content;
   }
-  
+
+  @GetMapping("checkEmail")
+  public Object checkEmail(int ranNo,
+      HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+    int checkNo = (int)session.getAttribute("ranNo");
+
+    try {
+      if(checkNo == ranNo) {
+        content.put("status", "success");
+      } else {
+        content.put("status", "fail");
+      }
+
+    }catch (Exception e){
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+
+
 }
