@@ -140,43 +140,50 @@ public class MemberController {
   }
 
   @PostMapping("add")
-  public Object add(Member member, MultipartFile photo) {
+  public Object add(Member member,
+      int ranNo,
+      HttpSession session,
+      MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
-
-    if (photo != null) {
-      // 헤더용 썸네일 제작
-      String filename = UUID.randomUUID().toString();
-      String uploadDir = servletContext.getRealPath(
-          "/html/memberupload");
-      File orginFile= new File(uploadDir + "/" + filename); 
-      File thumFile=new File(uploadDir+"/" + filename);
-
-      // 프로필용 썸네일제작
-      String profileuploadDir = servletContext.getRealPath(
-          "/html/memberprofileupload");
-      File profilethumFile=new File(profileuploadDir+"/" + filename);
-
-      try {
-        photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
-      } catch (IllegalStateException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      member.setPhoto(filename+".jpeg");
-    } else {
-      String deft ="default.jpeg";
-      member.setPhoto(deft);
-    }
-
+    int checkNo = (int)session.getAttribute("ranNo");
     try {
-      memberService.add(member);
 
-      content.put("status", "success");
+      if (checkNo == ranNo){
+
+        if (photo != null) {
+          // 헤더용 썸네일 제작
+          String filename = UUID.randomUUID().toString();
+          String uploadDir = servletContext.getRealPath(
+              "/html/memberupload");
+          File orginFile= new File(uploadDir + "/" + filename); 
+          File thumFile=new File(uploadDir+"/" + filename);
+
+          // 프로필용 썸네일제작
+          String profileuploadDir = servletContext.getRealPath(
+              "/html/memberprofileupload");
+          File profilethumFile=new File(profileuploadDir+"/" + filename);
+
+          try {
+            photo.transferTo(orginFile);
+            Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
+            Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
+          } catch (IllegalStateException e) {
+            e.printStackTrace();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          member.setPhoto(filename+".jpeg");
+        } else {
+          String deft ="default.jpeg";
+          member.setPhoto(deft);
+        }
+        memberService.add(member);
+        content.put("status", "success");
+      } else {
+        content.put("status", "fail");
+      }
+
     } catch (Exception e) {
-      content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
@@ -285,14 +292,15 @@ public class MemberController {
   }
 
   @GetMapping("email")
-  public Object email(String email) {
+  public Object email(String email,
+      HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     try {
       int ranNo = RanNo.randomNo();
       Gmail.gmailSend(email, ranNo);
 
       content.put("status", "success");
-      content.put("ranNo", ranNo);
+      session.setAttribute("ranNo", ranNo);
     }catch (Exception e){
       content.put("status", "fail");
       content.put("message", e.getMessage());
@@ -343,5 +351,26 @@ public class MemberController {
     //    }
     return content;
   }
+
+  @GetMapping("checkEmail")
+  public Object checkEmail(int ranNo,
+      HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+    int checkNo = (int)session.getAttribute("ranNo");
+
+    try {
+      if(checkNo == ranNo) {
+        content.put("status", "success");
+      } else {
+        content.put("status", "fail");
+      }
+
+    }catch (Exception e){
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+
+
 
 }
