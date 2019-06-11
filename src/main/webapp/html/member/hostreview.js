@@ -79,7 +79,6 @@ function loadList(pn) {
     	if($('#aaa-' + a).attr('data-reply') != '') {
     		$('#no-reply-' + a).hide();
     	}
-    	
     }
   
     $(document.body).trigger('loaded-list');
