@@ -227,12 +227,12 @@ $('body').on('loaded-list', function () {
 
   $('.heun-h1').click(function(e) {
     e.stopPropagation();
-    $('.heun-h2').data('dateRangePicker').open();
+    $('#heun-datetime').data('dateRangePicker').open();
   })
 
   var now = moment().format('YYYY-MM-DD');
 
-  $('.heun-h2').dateRangePicker({
+  $('#heun-datetime').dateRangePicker({
     format: 'YYYY-MM-DD',
     autoClose: true,
     startDate : now,
@@ -244,7 +244,7 @@ $('body').on('loaded-list', function () {
       {
         name: '날짜 지우기',
         dates : function() {
-          $('.heun-h2').data('dateRangePicker').clear();
+          $('#heun-datetime').data('dateRangePicker').clear();
           $('#date-range12-container').data('dateRangePicker').clear();
           $('#heun-rev').trigger('date-clear');
         }
@@ -255,7 +255,7 @@ $('body').on('loaded-list', function () {
         return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
 
       } else {
-        $('.heun-h2').data('dateRangePicker').clear();
+        $('#heun-datetime').data('dateRangePicker').clear();
         return '';
       }
     },
@@ -357,12 +357,122 @@ $('body').on('loaded-list', function () {
     $('#heun-rev').attr('data-target', '');
   });
 
+  $(document).on('show.bs.modal', function(e) {
+    e.preventDefault();
+    getUser(function(res) {
+      if (res.status === "success") {
+        if (res.user.tel === "" || res.user.tel) {
+          
+          Swal.fire({
+            title: '핸드폰 인증',
+            input: 'text',
+            inputAttributes: {
+              autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: '인증번호 받기',
+            showLoaderOnConfirm: true,
+            preConfirm: (tel) => {
+              return fetch(`/heunheuntrip/app/json/member/sms?tel=${tel}`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error(response.statusText)
+                  }
+                  return response.json()
+                })
+                .catch(error => {
+                  Swal.showValidationMessage(
+                    `Request failed: ${error}`
+                  )
+                })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+          }).then((result) => {
+            if (result.value) {
+              Swal.fire({
+                title: `${result.value}'s avatar`,
+                imageUrl: result.value.avatar_url
+              })
+            }
+          })
+
+
+
+          
+          // let timerInterval
+          // Swal.fire({
+          //   title: 'Auto close alert!',
+          //   html:
+          //   <div class="input-group mb-3">
+          //     <input type="text" class="form-control" placeholder="핸드폰번호를 입력해주세요." aria-label="핸드폰번호를 입력해주세요." aria-describedby="button-addon2">
+          //     <div class="input-group-append">
+          //       <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
+          //     </div>
+          //   </div>
+          //     ,
+          //   timer: 60000,
+          //   onBeforeOpen: () => {
+
+          //     const content = Swal.getContent()
+          //     const $ = content.querySelector.bind(content)
+          
+          //     const stop = $('#stop')
+          //     const resume = $('#resume')
+          //     const toggle = $('#toggle')
+          //     const increase = $('#increase')
+          
+          //     Swal.showLoading()
+          
+          //     function toggleButtons () {
+          //       stop.disabled = !Swal.isTimerRunning()
+          //       resume.disabled = Swal.isTimerRunning()
+          //     }
+          
+          //     increase.addEventListener('click', () => {
+          //       Swal.increaseTimer(5000)
+          //     })
+          
+          //     timerInterval = setInterval(() => {
+          //       Swal.getContent().querySelector('strong')
+          //         .textContent = (Swal.getTimerLeft() / 1000)
+          //           .toFixed(0)
+          //     }, 100)
+          //   },
+          //   onClose: () => {
+          //     clearInterval(timerInterval)
+          //   }
+          // })
+
+
+          
+        } 
+
+
+
+      } else {
+        Swal.fire({
+          type: 'error',
+          title: '로그인 해주세요!'
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html/auth/signin.html';
+          }
+        })
+        return;
+      }
+    });
+
+    
+  })
+
   $('#heun-rev').click(function(e) {
     e.preventDefault();
     if ($(this).html() === '날짜 입력') {
       e.stopPropagation();
-      $('.heun-h2').data('dateRangePicker').open();
+      $('#heun-datetime').data('dateRangePicker').open();
+      return;
     }
+
   });
 
   $('.map-btn').click(function() {
@@ -383,40 +493,182 @@ $('body').on('loaded-list', function () {
     $('#heun-rev').trigger('date-input');
   });
 
-  $(document).on('show.bs.modal', function(e) {
-  });
-
   $('#heun-pay').click(function() {
 
-    
+    getUser(function(res) {
+      if (res.status === "success") {
+        if (res.user.tel === "" || res.user.tel) {
 
-    IMP.request_pay({
-      pg : 'inicis', // version 1.1.0부터 지원.
-      pay_method : 'card',
-      merchant_uid : 'merchant_' + new Date().getTime(),
-      name : '주문명:결제테스트',
-      amount : 14000,
-      buyer_email : 'iamport@siot.do',
-      buyer_name : '구매자이름',
-      buyer_tel : '010-1234-5678',
-      buyer_addr : '서울특별시 강남구 삼성동',
-      buyer_postcode : '123-456',
-      m_redirect_url : 'http://http://team5.bitcamp.co.kr:8080/heunheuntrip/html/room'
-    }, function(rsp) {
-      if ( rsp.success ) {
-          var msg = '결제가 완료되었습니다.';
-          msg += '고유ID : ' + rsp.imp_uid;
-          msg += '상점 거래ID : ' + rsp.merchant_uid;
-          msg += '결제 금액 : ' + rsp.paid_amount;
-          msg += '카드 승인번호 : ' + rsp.apply_num;
-          console.log(rsp);
+
+          Swal.mixin({
+            input: 'text',
+            confirmButtonText: 'Next &rarr;',
+            showCancelButton: true,
+            progressSteps: ['1', '2', '3']
+          }).queue([
+            {
+              title: 'Question 1',
+              text: 'Chaining swal2 modals is easy'
+            },
+            'Question 2',
+            'Question 3'
+          ]).then((result) => {
+            if (result.value) {
+              Swal.fire({
+                title: 'All done!',
+                html:
+                  'Your answers: <pre><code>' +
+                    JSON.stringify(result.value) +
+                  '</code></pre>',
+                confirmButtonText: 'Lovely!'
+              })
+            }
+          })
+
+
+          
+          // Swal.fire({
+          //   title: '핸드폰 인증',
+          //   input: 'text',
+          //   inputAttributes: {
+          //     autocapitalize: 'off'
+          //   },
+          //   showCancelButton: true,
+          //   confirmButtonText: '인증번호 받기',
+          //   showLoaderOnConfirm: true,
+          //   preConfirm: (tel) => {
+          //     return fetch(`/heunheuntrip/app/json/member/sms?tel=${tel}`)
+          //       .then(response => {
+          //         if (!response.ok) {
+          //           throw new Error(response.statusText)
+          //         }
+          //         return response.json()
+          //       })
+          //       .catch(error => {
+          //         Swal.showValidationMessage(
+          //           `Request failed: ${error}`
+          //         )
+          //       })
+          //   },
+          //   allowOutsideClick: () => !Swal.isLoading()
+          // }).then((result) => {
+          //   if (result.value) {
+          //     Swal.fire({
+          //       title: `${result.value}'s avatar`,
+          //       imageUrl: result.value.avatar_url
+          //     })
+          //   }
+          // })
+
+
+
+          
+          // let timerInterval
+          // Swal.fire({
+          //   title: 'Auto close alert!',
+          //   html:
+          //   <div class="input-group mb-3">
+          //     <input type="text" class="form-control" placeholder="핸드폰번호를 입력해주세요." aria-label="핸드폰번호를 입력해주세요." aria-describedby="button-addon2">
+          //     <div class="input-group-append">
+          //       <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
+          //     </div>
+          //   </div>
+          //     ,
+          //   timer: 60000,
+          //   onBeforeOpen: () => {
+
+          //     const content = Swal.getContent()
+          //     const $ = content.querySelector.bind(content)
+          
+          //     const stop = $('#stop')
+          //     const resume = $('#resume')
+          //     const toggle = $('#toggle')
+          //     const increase = $('#increase')
+          
+          //     Swal.showLoading()
+          
+          //     function toggleButtons () {
+          //       stop.disabled = !Swal.isTimerRunning()
+          //       resume.disabled = Swal.isTimerRunning()
+          //     }
+          
+          //     increase.addEventListener('click', () => {
+          //       Swal.increaseTimer(5000)
+          //     })
+          
+          //     timerInterval = setInterval(() => {
+          //       Swal.getContent().querySelector('strong')
+          //         .textContent = (Swal.getTimerLeft() / 1000)
+          //           .toFixed(0)
+          //     }, 100)
+          //   },
+          //   onClose: () => {
+          //     clearInterval(timerInterval)
+          //   }
+          // })
+
+
+          
+        } 
+
+
+
       } else {
-          var msg = '결제에 실패하였습니다.';
-          msg += '에러내용 : ' + rsp.error_msg;
+        Swal.fire({
+          type: 'error',
+          title: '로그인 해주세요!'
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html/auth/signin.html';
+          }
+        })
+        return;
       }
-      alert(msg);
     });
+      
+
+    // IMP.request_pay({
+    //   pg : 'inicis', // version 1.1.0부터 지원.
+    //   pay_method : 'card',
+    //   merchant_uid : 'merchant_' + new Date().getTime(),
+    //   name : '주문명:결제테스트',
+    //   amount : 14000,
+    //   buyer_email : 'iamport@siot.do',
+    //   buyer_name : '구매자이름',
+    //   buyer_tel : '010-1234-5678',
+    //   buyer_addr : '서울특별시 강남구 삼성동',
+    //   buyer_postcode : '123-456',
+    //   m_redirect_url : 'http://http://team5.bitcamp.co.kr:8080/heunheuntrip/html/room'
+    // }, function(rsp) {
+    //   if ( rsp.success ) {
+    //       var msg = '결제가 완료되었습니다.';
+    //       msg += '고유ID : ' + rsp.imp_uid;
+    //       msg += '상점 거래ID : ' + rsp.merchant_uid;
+    //       msg += '결제 금액 : ' + rsp.paid_amount;
+    //       msg += '카드 승인번호 : ' + rsp.apply_num;
+    //       console.log(rsp);
+    //   } else {
+    //       var msg = '결제에 실패하였습니다.';
+    //       msg += '에러내용 : ' + rsp.error_msg;
+    //   }
+    //   alert(msg);
+    // });
 
   })
+
+
+  function getUser(cb) {
+    $.ajax({
+      url: '../../app/json/auth/user',
+      type: 'GET',
+      dataType: 'json',
+      success: function (res) {
+        cb(res);
+      },
+      fail: function (error) {
+        alert('시스템 오류가 발생했습니다.');
+      }
+    });
+  }
   
 })
