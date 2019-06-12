@@ -136,8 +136,7 @@ function loadList(pn) {
         });
         r.bookmarkC = countBM;
       }
-      console.log(response.list);
-
+      
       points = [];
 
       for (r of response.list) {
@@ -161,6 +160,11 @@ function loadList(pn) {
       form.html('');
 
       $(listGenerator(response)).appendTo(form);
+      
+      if(response.loginNo == undefined) {
+        $('.save-item').hide();
+        $('.bookmark-card').hide();
+      }
       
       $('.pagination-menu').html('');
 

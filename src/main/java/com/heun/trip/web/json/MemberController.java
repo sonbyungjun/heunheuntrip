@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import com.heun.trip.conf.Gmail;
+import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.EnRanNo;
-import com.heun.trip.web.Gmail;
 import com.heun.trip.web.RanNo;
-import com.heun.trip.web.Sms;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
@@ -28,10 +28,14 @@ public class MemberController {
 
   MemberService memberService;
   ServletContext servletContext;
+  Sms sms;
+  Gmail gmail;
 
-  public MemberController(MemberService memberService, ServletContext servletContext) {
+  public MemberController(MemberService memberService, ServletContext servletContext, Sms sms, Gmail gmail) {
     this.memberService = memberService;
     this.servletContext= servletContext;
+    this.sms = sms;
+    this.gmail = gmail;
   }
 
   @GetMapping("profile")
@@ -296,7 +300,10 @@ public class MemberController {
     HashMap<String,Object> content = new HashMap<>();
     try {
       int ranNo = RanNo.randomNo();
-      Gmail.gmailSend(email, ranNo);
+      String title = "이메일 인증";
+      String text = "인증번호는 [" + ranNo + "] 입니다.";
+      
+      gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
       session.setAttribute("ranNo", ranNo);
@@ -306,12 +313,16 @@ public class MemberController {
     }
     return content;
   }
+  
   @GetMapping("resetemail")
   public Object resetemail(String email) {
     HashMap<String,Object> content = new HashMap<>();
     try {
       StringBuffer EnranNo = EnRanNo.randomNo();
-      Gmail.gmailSend(email, EnranNo);
+      String title = "임시 비밀번호 발급";
+      String text = "임시 비밀번호는 [" + EnranNo + "] 입니다.";
+      
+      gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
       content.put("EnranNo", EnranNo);
@@ -326,12 +337,8 @@ public class MemberController {
   @GetMapping("sms")
   public Object sms(String tel, HttpSession session) {
 
-    Sms sms = new Sms();
-
     int ranNo = RanNo.randomNo();
-
     String messageText = "인증번호 [" + String.valueOf(ranNo) + "] 입니다.\n";
-    
     sms.smsSend(tel, messageText);
 
     HashMap<String,Object> content = new HashMap<>();

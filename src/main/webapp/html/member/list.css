@@ -26,6 +26,12 @@ h4 {
   line-height: 1.2;
 }
 
+.delete-check {
+  float: right;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
 .riw-write{
 	float: right;
 	margin-top: 10px;

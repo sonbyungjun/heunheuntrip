@@ -138,8 +138,11 @@ public class RoomController {
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
       String lati,
-      String longi
+      String longi,
+      HttpSession session
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
+    
+    Member loginUser = (Member)session.getAttribute("loginUser");
 
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
@@ -158,6 +161,11 @@ public class RoomController {
     List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
     
     HashMap<String,Object> content = new HashMap<>();
+    
+    if(loginUser != null) {
+      content.put("loginNo", loginUser.getNo());
+    }
+    
     content.put("list", rooms);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);

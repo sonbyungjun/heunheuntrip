@@ -29,26 +29,26 @@ public class bookmarkController {
       @RequestParam(defaultValue="5") int pageSize, 
       HttpSession session
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
+
     Member member = (Member)session.getAttribute("loginUser");
-    
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
-
-    int rowCount = bookmarkService.size(member.getNo());
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-    
     HashMap<String,Object> content = new HashMap<>();
 
     try {
+      if (pageSize < 1 || pageSize > 6) 
+        pageSize = 5;
+
+      int rowCount = bookmarkService.size(member.getNo());
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+
       List<Bookmark> list = bookmarkService.list(pageNo, pageSize);
-  
+
       content.put("list", list);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
@@ -58,22 +58,19 @@ public class bookmarkController {
     }
     return content;
   }
-  
+
   @PostMapping("add")
   public Object add(Bookmark bookmark, HttpSession session) { 
     HashMap<String,Object> content = new HashMap<>();
     Member member = (Member)session.getAttribute("loginUser");
-      
-    System.out.println(bookmark);
-    
-    if(bookmark.getMemo() == null) {
-      bookmark.setMemo("");
-    }
-    
-    int no = member.getNo();
-    bookmark.setUserNo(no);
-    
     try {
+      if(bookmark.getMemo() == null) {
+        bookmark.setMemo("");
+      }
+
+      int no = member.getNo();
+      bookmark.setUserNo(no);
+
       bookmarkService.add(bookmark);
       content.put("status", "success");
     } catch (Exception e) {
@@ -82,32 +79,32 @@ public class bookmarkController {
     }
     return content;
   }
-  
+
   @PostMapping("update")
   public Object update(String contents, int no, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     Member member = (Member)session.getAttribute("loginUser");
-    
+
     int userNo = member.getNo();
 
     try {
       bookmarkService.update(contents, userNo, no);
       content.put("status", "success");
-      
+
     } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
   }
-  
+
   @PostMapping("delete")
   public Object delete(int roomNo, HttpSession session) { 
     HashMap<String,Object> content = new HashMap<>();
     Member member = (Member)session.getAttribute("loginUser");
-      
+
     int userNo = member.getNo();
-    
+
     try {
       bookmarkService.delete(userNo, roomNo);
       content.put("status", "success");
@@ -117,15 +114,14 @@ public class bookmarkController {
     }
     return content;
   }
-  
+
   @PostMapping("count")
   public Object count(int roomNo, HttpSession session) { 
     HashMap<String,Object> content = new HashMap<>();
     Member member = (Member)session.getAttribute("loginUser");
-    
-    int userNo = member.getNo();
-    
+
     try {
+      int userNo = member.getNo();
       int countNo = bookmarkService.count(userNo, roomNo);
       content.put("status", "success");
       content.put("countNo", countNo);
