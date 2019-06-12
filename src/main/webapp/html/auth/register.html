@@ -19,6 +19,7 @@
   <link href='../../lib/Magnific-Popup/magnific-popup.css' rel='stylesheet'>
   <link href='../../css/style.css' rel='stylesheet'>
   <link href="../../css/colors/blue.css" rel="stylesheet">
+  <link href='register.css' rel='stylesheet'>
 
   <script src='../../lib/jquery-3.2.1.min.js'></script>
   <script src='../../lib/popper.min.js'></script>
@@ -40,32 +41,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 </head>
-<style>
-  /* .help-block 을 일단 보이지 않게 설정 */
-  #signupForm .help-block {
-    display: none;
-  }
 
-  /* glyphicon 을 일단 보이지 않게 설정 */
-  #signupForm .glyphicon {
-    display: none;
-  }
-</style>
-<style>
-  .a {
-    padding: 40px;
-  }
-</style>
-<style>
-  .check {
-    padding-bottom: 20px;
-  }
-</style>
-<style>
-  #nn {
-    border-color: #ced4da;
-  }
-</style>
 
 
 <body>
@@ -106,10 +82,15 @@
                     </div>
                   </div>
                 </div>
+                
                 <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-                <div class="form-group has-feedback">
+                <div class="row form-group has-feedback in-line">
+                <div class="col col-lg-8">
                   <input class="form-control required" id='play' type="text" placeholder='인증번호를 입력해주세요' data-name='이메일확인' readonly />
-                  <button type="button" id="check-btn">인증 확인</button>
+                  </div>
+                  <div class="col col-lg-4">
+                  <button type="button" class='btn btn-primary btn-lg'style='font-size: small' disabled="disabled"id="check-btn">인증 확인</button>
+                  </div>
                   <span id="emailErr" class="help-block">인증번호가 올바르지 않습니다. </span>
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
@@ -127,6 +108,36 @@
                   <span id="rePwdErr" style="color: red" class="help-block">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</span> 
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
+                
+                <div>
+                  <label class="control-label" for="email">전화번호</label>
+                  <div class="row form-group has-feedback in-line">
+                    <div class="col col-lg-8">
+                      <input class="form-control required" type="text" data-name='전화번호' name="tel" id="tel" /> 
+                    </div>
+                    <div class="col col-lg-4">
+                      <button type='button' class='btn btn-primary btn-lg' id='tel-btn' style='font-size: small' disabled="disabled">인증번호 받기</button>
+                    </div>
+                  </div>
+                </div>
+                
+                <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                <div class="row form-group has-feedback in-line">
+                <div class="col col-lg-8">
+                  <input class="form-control required" id='play' type="text" placeholder='인증번호를 입력해주세요' data-name='전화번호확인' readonly />
+                  </div>
+                  <div class="col col-lg-4">
+                  <button type="button" class='btn btn-primary btn-lg'style='font-size: small' disabled="disabled"id="check-btn">인증 확인</button>
+                  </div>
+                  <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+                </div>
+                
+                
+                
+                
+                
+                
+                
 
                 <div class="form-group has-feedback">
                   <label class="control-label" for="photo">프로필 사진</label>
