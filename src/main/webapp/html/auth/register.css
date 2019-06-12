@@ -25,3 +25,15 @@
   width:140px;
   
   }
+  #check-btn{
+  display:none;
+  }
+   #play{
+  display:none;
+  }
+    #checktel-btn{
+  display:none;
+  }
+   #playtel{
+  display:none;
+  }

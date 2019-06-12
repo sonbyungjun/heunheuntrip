@@ -148,9 +148,10 @@ public class MemberController {
       MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
     int checkNo = (int)session.getAttribute("ranNo");
-    try {
+    Member count = memberService.get(member.getEmail());
+    try { 
 
-      if (checkNo == ranNo){
+      if (checkNo == ranNo && count==null){
 
         if (photo != null) {
           // 헤더용 썸네일 제작
@@ -301,7 +302,7 @@ public class MemberController {
       int ranNo = RanNo.randomNo();
       String title = "이메일 인증";
       String text = "인증번호는 [" + ranNo + "] 입니다.";
-      
+
       gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
@@ -312,7 +313,7 @@ public class MemberController {
     }
     return content;
   }
-  
+
   @GetMapping("resetemail")
   public Object resetemail(String email) {
     HashMap<String,Object> content = new HashMap<>();
@@ -320,7 +321,7 @@ public class MemberController {
       StringBuffer EnranNo = EnRanNo.randomNo();
       String title = "임시 비밀번호 발급";
       String text = "임시 비밀번호는 [" + EnranNo + "] 입니다.";
-      
+
       gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
@@ -338,17 +339,20 @@ public class MemberController {
 
     int ranNo = RanNo.randomNo();
     String messageText = "인증번호 [" + String.valueOf(ranNo) + "] 입니다.\n";
-    sms.smsSend(tel, messageText);
 
     HashMap<String,Object> content = new HashMap<>();
-    //    try {
-    //      
-    //      content.put("status", "success");
-    //      content.put("ranNo", ranNo);
-    //    }catch (Exception e){
-    //      content.put("status", "fail");
-    //      content.put("message", e.getMessage());
-    //    }
+    try {
+      sms.smsSend(tel, messageText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    System.out.println(tel);
+    session.setAttribute("sms", ranNo);
+    content.put("status", "success");
+    content.put("ok", true);
+    System.out.println("???");
+    content.put("ok", false);
+
     return content;
   }
 

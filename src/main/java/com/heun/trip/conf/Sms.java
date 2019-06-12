@@ -1,13 +1,11 @@
 package com.heun.trip.conf;
 
-import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.nexmo.client.NexmoClient;
-import com.nexmo.client.NexmoClientException;
 import com.nexmo.client.sms.SmsSubmissionResponse;
 import com.nexmo.client.sms.messages.TextMessage;
 
@@ -20,7 +18,7 @@ public class Sms {
   Environment env;
 
   @SuppressWarnings("unused")
-  public void smsSend(String phoneNumber, String messageText) {
+  public void smsSend(String phoneNumber, String messageText) throws Exception {
     NexmoClient client = new NexmoClient.Builder()
         .apiKey(env.getProperty("sms.apikey"))
         .apiSecret(env.getProperty("sms.apisecret"))
@@ -31,14 +29,7 @@ public class Sms {
 
     TextMessage message = new TextMessage("흔흔여행", seoulTel, messageText, true);
 
-    SmsSubmissionResponse response = null;
-    try {
-      response = client.getSmsClient().submitMessage(message);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (NexmoClientException e) {
-      e.printStackTrace();
-    }
+    SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
   }
 
 }
