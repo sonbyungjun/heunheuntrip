@@ -184,6 +184,7 @@ $('#add-btn').on('click', function () {
 			$('#play').removeClass("is-valid")
 				.addClass("is-invalid")
 				.show();
+			$('#check-btn').removeAttr("disabled");
 		},
 		fail: function (error) {
 			alert('등록 실패!!');
