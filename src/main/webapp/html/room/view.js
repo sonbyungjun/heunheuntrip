@@ -2,11 +2,11 @@ $('body').on('loaded-list', function () {
 
   var menuHeight = $('#menu').outerHeight();
   $('.has-sidebar>*').theiaStickySidebar({
-		additionalMarginTop: menuHeight + 30,
-		additionalMarginBottom:30,
-		minWidth: 767,
-	});
-  
+    additionalMarginTop: menuHeight + 30,
+    additionalMarginBottom: 30,
+    minWidth: 767,
+  });
+
   // Photoswipe
 
   var initPhotoSwipeFromDOM = function (gallerySelector) {
@@ -213,19 +213,19 @@ $('body').on('loaded-list', function () {
   galleryTop.controller.control = galleryThumbs;
   galleryThumbs.controller.control = galleryTop;
 
-  $(document).click(function(e) {
+  $(document).click(function (e) {
     var $target = $(e.target);
     if (!$target.is('.heun-h1') && !$target.is('.heun-h2')) {
       $('.heun-h1, .heun-h2').css('background-color', '');
-    } 
+    }
   })
 
-  $('.heun-datein').on('click', function() {
+  $('.heun-datein').on('click', function () {
     $('.heun-h1, .heun-h2').blur();
     $('.heun-h1, .heun-h2').css('background-color', 'rgb(210, 253, 255)');
   })
 
-  $('.heun-h1').click(function(e) {
+  $('.heun-h1').click(function (e) {
     e.stopPropagation();
     $('#heun-datetime').data('dateRangePicker').open();
   })
@@ -235,22 +235,22 @@ $('body').on('loaded-list', function () {
   $('#heun-datetime').dateRangePicker({
     format: 'YYYY-MM-DD',
     autoClose: true,
-    startDate : now,
+    startDate: now,
     language: 'ko',
-    separator : ' ~ ',
+    separator: ' ~ ',
     selectForward: true,
     showShortcuts: true,
     customShortcuts: [
       {
         name: '날짜 지우기',
-        dates : function() {
+        dates: function () {
           $('#heun-datetime').data('dateRangePicker').clear();
           $('#date-range12-container').data('dateRangePicker').clear();
           $('#heun-rev').trigger('date-clear');
         }
       }
     ],
-    getValue: function() {
+    getValue: function () {
       if ($('.heun-h1').val() && $('.heun-h2').val()) {
         return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
 
@@ -259,11 +259,11 @@ $('body').on('loaded-list', function () {
         return '';
       }
     },
-    setValue: function(s, s1, s2) {
+    setValue: function (s, s1, s2) {
       $('.heun-h1').val(s1);
       $('.heun-h2').val(s2);
     }
-  }).bind('datepicker-change',function(event,obj) {
+  }).bind('datepicker-change', function (event, obj) {
     var date = obj.value.split(" ~ ");
     $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
     $('.heun-h1, .heun-h2').css('background-color', '');
@@ -274,13 +274,13 @@ $('body').on('loaded-list', function () {
   $('#date-range12-container').dateRangePicker({
     format: 'YYYY-MM-DD',
     inline: true,
-    startDate : now,
-    container: '#date-range12-container', 
+    startDate: now,
+    container: '#date-range12-container',
     alwaysOpen: true,
-    separator : ' ~ ',
+    separator: ' ~ ',
     language: 'ko',
     selectForward: true,
-    setValue: function(s, s1, s2) {
+    setValue: function (s, s1, s2) {
       $('.heun-h1').val(s1);
       $('.heun-h2').val(s2);
     },
@@ -288,14 +288,14 @@ $('body').on('loaded-list', function () {
     customShortcuts: [
       {
         name: '날짜 지우기',
-        dates : function() {
+        dates: function () {
           $('#date-range12-container').data('dateRangePicker').clear();
           $('#heun-rev').trigger('date-clear');
           $('.heun-h2').data('dateRangePicker').close();
         }
       }
     ]
-  }).bind('datepicker-change',function(event,obj) {
+  }).bind('datepicker-change', function (event, obj) {
     $('.heun-h1, .heun-h2').css('background-color', '');
     var date = obj.value.split(' ~ ');
     var start = moment(date[0]);
@@ -305,7 +305,7 @@ $('body').on('loaded-list', function () {
     $('#heun-rev').trigger('date-input');
   });;
 
-  $('#heun-rev').on('date-input', function() {
+  $('#heun-rev').on('date-input', function () {
     $('#price-table').html('');
 
     var price = parseInt($('#heun-rev').data('price'));
@@ -321,19 +321,19 @@ $('body').on('loaded-list', function () {
     var sumComma = comma(String(sum).replace(/[^0-9]/g, ''));
 
     var table = '<tbody>' +
-                '  <tr>' +
-                '    <td>￦ ' + priceComma + ' X ' + day + '박</td>' +
-                '    <td>￦ ' + priceDayComma + '</td>' +
-                '  </tr>' +
-                '  <tr>' +
-                '    <td>부가세</td>' +
-                '    <td>￦ ' + taxComma + '</td>' +
-                '  </tr>' +
-                '  <tr>' +
-                '    <td class="font-weight-bold">합계</td>' +
-                '    <td class="font-weight-bold">￦ ' + sumComma + '</td>' +
-                '  </tr>' +
-                '</tbody>';
+      '  <tr>' +
+      '    <td>￦ ' + priceComma + ' X ' + day + '박</td>' +
+      '    <td>￦ ' + priceDayComma + '</td>' +
+      '  </tr>' +
+      '  <tr>' +
+      '    <td>부가세</td>' +
+      '    <td>￦ ' + taxComma + '</td>' +
+      '  </tr>' +
+      '  <tr>' +
+      '    <td class="font-weight-bold">합계</td>' +
+      '    <td class="font-weight-bold">￦ ' + sumComma + '</td>' +
+      '  </tr>' +
+      '</tbody>';
 
     var person = $('#input-m').data('p');
 
@@ -343,129 +343,22 @@ $('body').on('loaded-list', function () {
     $('#heun-modal-sum').html('₩ ' + priceDayComma);
     $('#heun-modal-tex').html('₩ ' + taxComma);
     $('#heun-modal-texsum').html('₩ ' + sumComma);
-    
+
     $('#price-table').append(table);
     $('#heun-rev').html('예약 요청');
     $('#heun-rev').attr('data-toggle', 'modal')
     $('#heun-rev').attr('data-target', '#leadform');
   });
 
-  $('#heun-rev').on('date-clear', function() {
+  $('#heun-rev').on('date-clear', function () {
     $('#price-table').html('');
     $('#heun-rev').html('날짜 입력');
     $('#heun-rev').attr('data-toggle', '')
     $('#heun-rev').attr('data-target', '');
   });
 
-  $(document).on('show.bs.modal', function(e) {
-    e.preventDefault();
-    getUser(function(res) {
-      if (res.status === "success") {
-        if (res.user.tel === "" || res.user.tel) {
-          
-          Swal.fire({
-            title: '핸드폰 인증',
-            input: 'text',
-            inputAttributes: {
-              autocapitalize: 'off'
-            },
-            showCancelButton: true,
-            confirmButtonText: '인증번호 받기',
-            showLoaderOnConfirm: true,
-            preConfirm: (tel) => {
-              return fetch(`/heunheuntrip/app/json/member/sms?tel=${tel}`)
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error(response.statusText)
-                  }
-                  return response.json()
-                })
-                .catch(error => {
-                  Swal.showValidationMessage(
-                    `Request failed: ${error}`
-                  )
-                })
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-          }).then((result) => {
-            if (result.value) {
-              Swal.fire({
-                title: `${result.value}'s avatar`,
-                imageUrl: result.value.avatar_url
-              })
-            }
-          })
 
-
-
-          
-          // let timerInterval
-          // Swal.fire({
-          //   title: 'Auto close alert!',
-          //   html:
-          //   <div class="input-group mb-3">
-          //     <input type="text" class="form-control" placeholder="핸드폰번호를 입력해주세요." aria-label="핸드폰번호를 입력해주세요." aria-describedby="button-addon2">
-          //     <div class="input-group-append">
-          //       <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
-          //     </div>
-          //   </div>
-          //     ,
-          //   timer: 60000,
-          //   onBeforeOpen: () => {
-
-          //     const content = Swal.getContent()
-          //     const $ = content.querySelector.bind(content)
-          
-          //     const stop = $('#stop')
-          //     const resume = $('#resume')
-          //     const toggle = $('#toggle')
-          //     const increase = $('#increase')
-          
-          //     Swal.showLoading()
-          
-          //     function toggleButtons () {
-          //       stop.disabled = !Swal.isTimerRunning()
-          //       resume.disabled = Swal.isTimerRunning()
-          //     }
-          
-          //     increase.addEventListener('click', () => {
-          //       Swal.increaseTimer(5000)
-          //     })
-          
-          //     timerInterval = setInterval(() => {
-          //       Swal.getContent().querySelector('strong')
-          //         .textContent = (Swal.getTimerLeft() / 1000)
-          //           .toFixed(0)
-          //     }, 100)
-          //   },
-          //   onClose: () => {
-          //     clearInterval(timerInterval)
-          //   }
-          // })
-
-
-          
-        } 
-
-
-
-      } else {
-        Swal.fire({
-          type: 'error',
-          title: '로그인 해주세요!'
-        }).then((result) => {
-          if (result.value) {
-            location.href = '/heunheuntrip/html/auth/signin.html';
-          }
-        })
-        return;
-      }
-    });
-
-    
-  })
-
-  $('#heun-rev').click(function(e) {
+  $('#heun-rev').click(function (e) {
     e.preventDefault();
     if ($(this).html() === '날짜 입력') {
       e.stopPropagation();
@@ -475,7 +368,7 @@ $('body').on('loaded-list', function () {
 
   });
 
-  $('.map-btn').click(function() {
+  $('.map-btn').click(function () {
     var no = $(this).data('no');
     if (no === 0) {
       hideMarkers();
@@ -486,130 +379,34 @@ $('body').on('loaded-list', function () {
     }
   });
 
-  $('.heun-drop').click(function() {
+  $('.heun-drop').click(function () {
     var no = $(this).data('p');
     $('#input-m').html('인원 ' + no + '명');
     $('#input-m').data('p', no);
     $('#heun-rev').trigger('date-input');
   });
 
-  $('#heun-pay').click(function() {
+  $('#heun-pay').click(function () {
 
-    getUser(function(res) {
+    getUser(function (res) {
       if (res.status === "success") {
+
         if (res.user.tel === "" || res.user.tel) {
+          
+          $.ajax({
+            url: '../../app/json/member/sms?tel=' + tel,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
 
-
-          Swal.mixin({
-            input: 'text',
-            confirmButtonText: 'Next &rarr;',
-            showCancelButton: true,
-            progressSteps: ['1', '2', '3']
-          }).queue([
-            {
-              title: 'Question 1',
-              text: 'Chaining swal2 modals is easy'
             },
-            'Question 2',
-            'Question 3'
-          ]).then((result) => {
-            if (result.value) {
-              Swal.fire({
-                title: 'All done!',
-                html:
-                  'Your answers: <pre><code>' +
-                    JSON.stringify(result.value) +
-                  '</code></pre>',
-                confirmButtonText: 'Lovely!'
-              })
+            fail: function (error) {
+              alert('시스템 오류가 발생했습니다.');
             }
-          })
+          });
 
 
-          
-          // Swal.fire({
-          //   title: '핸드폰 인증',
-          //   input: 'text',
-          //   inputAttributes: {
-          //     autocapitalize: 'off'
-          //   },
-          //   showCancelButton: true,
-          //   confirmButtonText: '인증번호 받기',
-          //   showLoaderOnConfirm: true,
-          //   preConfirm: (tel) => {
-          //     return fetch(`/heunheuntrip/app/json/member/sms?tel=${tel}`)
-          //       .then(response => {
-          //         if (!response.ok) {
-          //           throw new Error(response.statusText)
-          //         }
-          //         return response.json()
-          //       })
-          //       .catch(error => {
-          //         Swal.showValidationMessage(
-          //           `Request failed: ${error}`
-          //         )
-          //       })
-          //   },
-          //   allowOutsideClick: () => !Swal.isLoading()
-          // }).then((result) => {
-          //   if (result.value) {
-          //     Swal.fire({
-          //       title: `${result.value}'s avatar`,
-          //       imageUrl: result.value.avatar_url
-          //     })
-          //   }
-          // })
-
-
-
-          
-          // let timerInterval
-          // Swal.fire({
-          //   title: 'Auto close alert!',
-          //   html:
-          //   <div class="input-group mb-3">
-          //     <input type="text" class="form-control" placeholder="핸드폰번호를 입력해주세요." aria-label="핸드폰번호를 입력해주세요." aria-describedby="button-addon2">
-          //     <div class="input-group-append">
-          //       <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
-          //     </div>
-          //   </div>
-          //     ,
-          //   timer: 60000,
-          //   onBeforeOpen: () => {
-
-          //     const content = Swal.getContent()
-          //     const $ = content.querySelector.bind(content)
-          
-          //     const stop = $('#stop')
-          //     const resume = $('#resume')
-          //     const toggle = $('#toggle')
-          //     const increase = $('#increase')
-          
-          //     Swal.showLoading()
-          
-          //     function toggleButtons () {
-          //       stop.disabled = !Swal.isTimerRunning()
-          //       resume.disabled = Swal.isTimerRunning()
-          //     }
-          
-          //     increase.addEventListener('click', () => {
-          //       Swal.increaseTimer(5000)
-          //     })
-          
-          //     timerInterval = setInterval(() => {
-          //       Swal.getContent().querySelector('strong')
-          //         .textContent = (Swal.getTimerLeft() / 1000)
-          //           .toFixed(0)
-          //     }, 100)
-          //   },
-          //   onClose: () => {
-          //     clearInterval(timerInterval)
-          //   }
-          // })
-
-
-          
-        } 
+        }
 
 
 
@@ -624,8 +421,10 @@ $('body').on('loaded-list', function () {
         })
         return;
       }
+
     });
-      
+
+
 
     // IMP.request_pay({
     //   pg : 'inicis', // version 1.1.0부터 지원.
@@ -670,5 +469,5 @@ $('body').on('loaded-list', function () {
       }
     });
   }
-  
+
 })
