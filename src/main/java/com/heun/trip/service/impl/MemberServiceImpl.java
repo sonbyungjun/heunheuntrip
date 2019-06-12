@@ -78,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
+  public String getTel(int no) {
+    return memberDao.extractHostTel(no);
+  }
+  
+  @Override
   public Member get(String email, String password) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("email", email);

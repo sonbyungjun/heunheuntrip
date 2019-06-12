@@ -17,7 +17,7 @@ public interface MemberService {
   Member get(String email);
   int profileupdate(Member member);
   int pwdupdate(Member member);
-  
+  String getTel(int no);
   
 }
 

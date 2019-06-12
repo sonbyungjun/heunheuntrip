@@ -20,4 +20,5 @@ public interface MemberDao {
   int Emailupdate(Member member); 
   int delete(int no);
   int countAll(String search);
+  String extractHostTel(int no);
 }
