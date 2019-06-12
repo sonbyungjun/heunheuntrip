@@ -327,13 +327,11 @@ public class MemberController {
 
     Sms sms = new Sms();
 
-    String seoul = "82";
-    String seoulTel = seoul.concat(tel.substring(1));
     int ranNo = RanNo.randomNo();
 
     String messageText = "인증번호 [" + String.valueOf(ranNo) + "] 입니다.\n";
     
-    sms.smsSend(seoulTel, messageText);
+    sms.smsSend(tel, messageText);
 
     HashMap<String,Object> content = new HashMap<>();
     //    try {
