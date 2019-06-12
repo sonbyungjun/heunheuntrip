@@ -237,30 +237,101 @@ $(document.body).bind('loaded-list', (e) => {
     var content = $('.rev-reas').val();
     var pers = $('.check-person').attr('data-p');
     
-    $.ajax({
-      url: '../../app/json/rev/add',
-      type: 'POST',
-      data: {
-        revUpdate: no,
-        checkIn: checkIn,
-        checkOut: checkOut,
-        revReason: content,
-        revPerson: pers
-      },
-      dataType: 'json',
-      success: function(response) {
-        loadList(1);
-        $('#leadform').modal("hide");
-      },
-      fail: function(error) {
-        alert('등록 실패!!');
+    Swal.fire({
+      text: "예약을 변경하시겠습니까?",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+
+      if (result.value) {
+        
+        $.ajax({
+          url: '../../app/json/rev/add',
+          type: 'POST',
+          data: {
+            revUpdate: no,
+            checkIn: checkIn,
+            checkOut: checkOut,
+            revReason: content,
+            revPerson: pers
+          },
+          dataType: 'json',
+          success: function(response) {
+            
+            Swal.fire(
+                'Success!',
+                '변경 요청이 성공적으로 전송되었습니다.',
+                'success'
+              ).then(() => {
+                loadList(1);
+                $('#leadform').modal("hide");
+              })
+            
+          },
+          fail: function(error) {
+            alert('등록 실패!!');
+          }
+        });
+        
       }
-    });
-    
+    })
     
   })
   
-  $('.cancle-update').off('click').on('click', function(e){
+  $('.rev-cancel').off('click').on('click', function(e){
+    
+    var no = $(e.target).parent().parent().parent().parent().children()
+    .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
+    
+    // 예약 취소 시 호스트에게 문자 메세지로 알림.
+    Swal.fire({
+      text: "예약을 취소하시겠습니까?",
+      type: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '네',
+      cancelButtonText: '아니오'
+    }).then((result) => {
+
+      if (result.value) {
+        
+        $.ajax({
+          url: '../../app/json/rev/cancel',
+          type: 'POST',
+          data: {
+            no: no
+          },
+          dataType: 'json',
+          success: function(response) {
+            
+            if(response.status == "success"){
+              Swal.fire(
+                  'Success!',
+                  '예약 취소 요청이 성공적으로 전송되었습니다.',
+                  'success'
+                ).then(() => {
+                  loadList(1);
+                  $('#leadform').modal("hide");
+                })
+            } else if (response.status == "fail"){
+              Swal.fire(
+                  '오류 발생!',
+                  '예약 취소 요청이 실패하였습니다.',
+                  'error')
+              }
+          }
+        });
+      }
+    
+    })
+  });
+  
+  $('.cancel-update').off('click').on('click', function(e){
     
     $('.rev-reas').val('');
     

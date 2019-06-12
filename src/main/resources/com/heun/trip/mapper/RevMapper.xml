@@ -20,6 +20,7 @@
     <result column="rev_char" property="revCharge"/>
     <result column="rev_updt" property="revUpdate"/>
     <result column="rev_reas" property="revReason"/>
+    <result column="rev_delet" property="revDelete"/>
     
     <result column="rm_name" property="rmsName"/>
     <result column="addr" property="address"/>
@@ -75,6 +76,7 @@
      e.stby_stus,
      e.rev_persn,
      e.rev_char,
+     e.rev_delet,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -103,6 +105,7 @@
      e.rev_persn,
      e.rev_char,
      e.rev_updt,
+     e.rev_delet,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -154,6 +157,7 @@
      e.rev_persn,
      e.rev_char,
      e.rev_updt,
+     e.rev_delet,
      s.stus 
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -173,6 +177,14 @@
     </if>
   </select>
   
+  <update id="requestDelete" parameterType="int">
+    update
+      rev
+    set
+      rev_delet = rev_delet + 1
+    where 
+      rev_id = #{no}
+  </update>
   
 </mapper>
 
