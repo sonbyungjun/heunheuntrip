@@ -1,8 +1,8 @@
 var form = $('.item-listing'),
-    templateSrc = $('#tr-template').html(),
-    trGenerator = Handlebars.compile(templateSrc),
-    rating = 0,
-    paginateSrc = $('#page-template').html();
+templateSrc = $('#tr-template').html(),
+trGenerator = Handlebars.compile(templateSrc),
+rating = 0,
+paginateSrc = $('#page-template').html();
 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
@@ -13,29 +13,28 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-  
+
   loadList(1);
-  
   loadProfile();
-  
+
 })
 
 function loadProfile() {
   $.getJSON('../../app/json/member/profile',
       function(obj) {
-    
+
     if (obj.member.photo != null) {
-    $("<img class='rounded-circle'>").attr('src',
-        '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
-        .css('width', '255px')
-        .appendTo($('#profileimg'));
-  
-    
-    } else {
-    $("<img>").attr('src',
-          '/heunheuntrip/html/memberupload/default.jpeg')
+      $("<img class='rounded-circle'>").attr('src',
+          '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
           .css('width', '255px')
           .appendTo($('#profileimg'));
+
+
+    } else {
+      $("<img>").attr('src',
+      '/heunheuntrip/html/memberupload/default.jpeg')
+      .css('width', '255px')
+      .appendTo($('#profileimg'));
     }
 
     $('.main-name').text(obj.member.name);
@@ -43,72 +42,78 @@ function loadProfile() {
     $('.main-tel').text(" PHONE : " + obj.member.tel);
     no = obj.member.no;
   }); // Bitcamp.getJSON(
-} // loadList()
+} // loadProfile()
 
 function loadList(pn) {
   $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
-    
+
     form.html('');
-    
+
     for(l of obj.list){
-      
+
       if(l.status === "체크아웃"){
         l.isBtn = true;
       } else {
         l.isBtn = false;
       }
-      
+
       if(l.status === "결제완료"){
-        
-        if(l.revUpdate === 0) {
-          l.isCheck = true;
-          l.isupdate = false;
-        } else {
-          l.isupdate = true;
+
+        if(l.revUpdate !== 0) {
           l.isCheck = false;
+          l.isupdate = true;
+          l.isDelete = false;
+        } else if (l.revDelete === 1){
+          l.isDelete = true;
+          l.isupdate = false;
+          l.isCheck = false;
+        } else {
+          l.isDelete = false;
+          l.isupdate = false;
+          l.isCheck = true;
         }
       }
-      
+
       l.revCharge = AddComma(l.revCharge);
     }
-    
+
     console.log(obj.list)
-    
+
     pageNo = obj.pageNo;
-    
+
     obj.pagination = {
         page: obj.pageNo,
         pageCount: obj.totalPage
     };
-    
+
     $(trGenerator(obj)).appendTo(form);
-    
+
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
-    
+
     $(document.body).trigger('loaded-list');
-    
+
   }); 
 
 } // loadList()
 
 function AddComma(data_value) {
   return Number(data_value).toLocaleString('en');
-  }
+}
 
 $(document.body).bind('loaded-list', (e) => {
-  
+
   // 타이틀을 눌렀을 때 해당 숙소 디테일 화면으로 넘어간다.
   $('.item-title').off('click').on('click', function(e){
-    
+
     var rmsNo = $(this).attr('data-rmsNo');
-    
+
     location.href="../room/view.html?no=" + rmsNo;
-    
+
   })
-  
+
   var now = moment().format('YYYY-MM-DD');
-  
+
   $('#main-data').dateRangePicker({
     format: 'YYYY-MM-DD',
     autoClose: true,
@@ -123,29 +128,29 @@ $(document.body).bind('loaded-list', (e) => {
       {
         name: '날짜 지우기',
         dates : function() {
-//          $('.heun-h2').data('dateRangePicker').clear();
-//          $('#date-range12-container').data('dateRangePicker').clear();
-//          $('#heun-rev').trigger('date-clear');
+//        $('.heun-h2').data('dateRangePicker').clear();
+//        $('#date-range12-container').data('dateRangePicker').clear();
+//        $('#heun-rev').trigger('date-clear');
         }
       }
-    ],
-    getValue: function() {
-      if ($('.heun-h1').val() && $('.heun-h2').val()) 
-        return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
-       else 
-        return '';
-    },
-    setValue: function(s, s1, s2) {
-      $('.heun-h1').val(s1);
-      $('.heun-h2').val(s2);
-    }
+      ],
+      getValue: function() {
+        if ($('.heun-h1').val() && $('.heun-h2').val()) 
+          return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
+        else 
+          return '';
+      },
+      setValue: function(s, s1, s2) {
+        $('.heun-h1').val(s1);
+        $('.heun-h2').val(s2);
+      }
   }).bind('datepicker-change',function(event,obj) {
-//    var date = obj.value.split(" ~ ");
-//    $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
-//    $('.heun-h1, .heun-h2').css('background-color', '');
-//    $('#heun-rev').trigger('date-input');
+//  var date = obj.value.split(" ~ ");
+//  $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
+//  $('.heun-h1, .heun-h2').css('background-color', '');
+//  $('#heun-rev').trigger('date-input');
   });
-  
+
   $('.riw-check').off('click').on('click', function(e){
     
     var pd = $(e.target).parent().parent().parent().next()
@@ -286,6 +291,7 @@ $(document.body).bind('loaded-list', (e) => {
     
     var no = $(e.target).parent().parent().parent().parent().children()
     .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
+    var pn = $('.rev-page').attr('data-page');
     
     // 예약 취소 시 호스트에게 문자 메세지로 알림.
     Swal.fire({
@@ -315,7 +321,7 @@ $(document.body).bind('loaded-list', (e) => {
                   '예약 취소 요청이 성공적으로 전송되었습니다.',
                   'success'
                 ).then(() => {
-                  loadList(1);
+                  loadList(pn);
                   $('#leadform').modal("hide");
                 })
             } else if (response.status == "fail"){
@@ -338,5 +344,3 @@ $(document.body).bind('loaded-list', (e) => {
   })
   
 });
-
-

@@ -77,9 +77,7 @@
               <div class="col-md-7 col-lg-8 col-xl-8">
                 <div class="page-header bordered">
                   <h1>예약<small>reservation</small></h1>
-                  <div class="clearfix"></div>
-
-                  <!-- 핸들바스 적용지점 -->
+                </div>
                   <div class="item-listing list"></div>
                   <div class="pagination-menu"></div>
                 </div>
@@ -89,9 +87,10 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-
-  </div>
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+    
   <div id='heun-footer'></div>
 
   <!-- 핸들바스 -->
@@ -120,6 +119,9 @@
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{else if isupdate}}
                       <button type="button" class="btn btn-sm btn-primary update-check">변경대기중</button>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
+                      {{else if isDelete}}
+                      <button type="button" class="btn btn-sm btn-primary delete-check">취소대기중</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{/if}}
 

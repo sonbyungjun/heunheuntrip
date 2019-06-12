@@ -130,5 +130,32 @@ $(document.body).bind('loaded-list', () => {
 	})
 });
 
+function detail(rno){
+	$.ajax({
+		url: '../../app/json/room/detail,
+		type: 'GET',
+		data: {
+			no: rno
+		},
+		dataType: 'json',
+		success: function (response) {
+		 
+		 
+			
+			
+		},
+		error: function (error) {
+			alert('시스템 오류가 발생했습니다.');
+		}
+	});
+}
+	
+	
+	
+	
+}
+
+
+
 
 
