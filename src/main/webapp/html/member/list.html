@@ -109,7 +109,7 @@
                       <button style="font-size: 15px; margin-top:8px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   {{status}}</i>
                        </button>
                       {{#if count}}
-                      <button type="button" class="btn btn-sm btn-primary riw-complete">후기 등록완료</button>
+                      <button type="button" class="btn btn-sm btn-inverse riw-complete">후기 등록완료</button>
                        {{else if isBtn}}
                        <button type="button" class="btn btn-sm btn-secondary riw-write" data-toggle="modal" data-backdrop="static" data-target="#exampleModal">후기 작성</button>
                        <input type="hidden" class="form-control input-room" data-no={{rmsNo}}>
@@ -119,7 +119,7 @@
                       <button type="button" class="btn btn-sm btn-link riw-check" data-revNo={{no}} data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{else if isupdate}}
-                      <button type="button" class="btn btn-sm btn-danger update-check">변경대기중</button>
+                      <button type="button" class="btn btn-sm btn-primary update-check">변경대기중</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{/if}}
 
@@ -162,7 +162,7 @@
           <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="loadList({{n}})">{{n}}</a></li>
         {{/paginate}}
     
-        {{#paginate pagination type="next"}}
+        {{#paginate paginat ion type="next"}}
           <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="loadList({{n}})">&raquo;</a></li>
         {{/paginate}}
     
@@ -229,11 +229,11 @@
         </div>
         <div class="modal-footer">
           <div class="rev-cc">
-            <button type="button" class="btn btn-danger rev-cancle" data-dismiss="modal">예약취소</button>
+            <button type="button" class="btn btn-danger rev-cancel" data-dismiss="modal">예약취소</button>
           </div>
           <div class="rev-up">
           <button type="button" class="btn btn-primary rev-update">예약변경</button>
-          <button type="button" class="btn btn-link cancle-update" data-dismiss="modal" >취소</button>
+          <button type="button" class="btn btn-link cancel-update" data-dismiss="modal" >취소</button>
           </div>
         </div>
       </div>

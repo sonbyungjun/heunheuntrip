@@ -11,4 +11,5 @@ public interface RevService {
   Rev detail(int no);
   int inupdate(Rev rev);
   List<Rev> getupdtData(int pageNo, int pageSize, int userNo);
+  int cancel(int no);
 }

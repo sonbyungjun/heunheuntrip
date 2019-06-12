@@ -21,6 +21,7 @@ public class Rev {
   private int revUpdate;
   private String revReason;
   private int revCharge;
+  private int revDelete;
   
   private String rmsName;
   private String address;
@@ -31,6 +32,12 @@ public class Rev {
   
   
   
+  public int getRevDelete() {
+    return revDelete;
+  }
+  public void setRevDelete(int revDelete) {
+    this.revDelete = revDelete;
+  }
   public int getRevCharge() {
     return revCharge;
   }
@@ -139,14 +146,15 @@ public class Rev {
   public void setRevPerson(int revPerson) {
     this.revPerson = revPerson;
   }
+  
   @Override
   public String toString() {
     return "Rev [no=" + no + ", userNo=" + userNo + ", stusNo=" + stusNo + ", rmsNo=" + rmsNo
         + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", createdDate=" + createdDate
         + ", revStus=" + revStus + ", stanBy=" + stanBy + ", revPerson=" + revPerson
         + ", revUpdate=" + revUpdate + ", revReason=" + revReason + ", revCharge=" + revCharge
-        + ", rmsName=" + rmsName + ", address=" + address + ", thumbnail=" + thumbnail + ", status="
-        + status + ", count=" + count + "]";
+        + ", revDelete=" + revDelete + ", rmsName=" + rmsName + ", address=" + address
+        + ", thumbnail=" + thumbnail + ", status=" + status + ", count=" + count + "]";
   }
 
 }

@@ -61,12 +61,11 @@ public class RevServiceImpl implements RevService {
     return revDao.getupdtData(params);
   }
 
+  @Override
+  public int cancel(int no) {
+    return revDao.requestDelete(no);
+  }
 
 }
-
-
-
-
-
 
 

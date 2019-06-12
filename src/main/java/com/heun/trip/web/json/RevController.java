@@ -165,5 +165,21 @@ public class RevController {
   
     return content;
   }
+  
+  @PostMapping("cancel")
+  public Object cancel(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    
+    System.out.println(no);
+    
+    try {
+      revService.cancel(no);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  } 
 
 }
