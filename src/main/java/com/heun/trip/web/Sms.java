@@ -7,24 +7,27 @@ import com.nexmo.client.sms.SmsSubmissionResponse;
 import com.nexmo.client.sms.messages.TextMessage;
 
 public class Sms {
-  
+
   @SuppressWarnings("unused")
   public void smsSend(String phoneNumber, String messageText) {
     NexmoClient client = new NexmoClient.Builder()
         .apiKey("372df805")
         .apiSecret("Lqhqo3dMIPpcJjtW")
         .build();
+    
+    String seoul = "82";
+    String seoulTel = seoul.concat(phoneNumber.substring(1));
 
-      TextMessage message = new TextMessage("흔흔여행", phoneNumber, messageText, true);
-      
-      SmsSubmissionResponse response = null;
-      try {
-        response = client.getSmsClient().submitMessage(message);
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (NexmoClientException e) {
-        e.printStackTrace();
-      }
+    TextMessage message = new TextMessage("흔흔여행", seoulTel, messageText, true);
+
+    SmsSubmissionResponse response = null;
+    try {
+      response = client.getSmsClient().submitMessage(message);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (NexmoClientException e) {
+      e.printStackTrace();
+    }
   }
-  
+
 }
