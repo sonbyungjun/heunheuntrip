@@ -103,4 +103,9 @@ public class RoomServiceImpl implements RoomService {
   public int hostsize(int no) {
     return roomDao.hostcountAll(no);
   }
+  
+  @Override
+  public String getRoom(int no) {
+    return roomDao.getRoomName(no);
+  }
 }

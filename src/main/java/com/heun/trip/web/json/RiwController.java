@@ -27,15 +27,15 @@ public class RiwController {
   public Object add(Riw riw, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     Member member = (Member)session.getAttribute("loginUser");
-    
+
     System.out.println(riw);
-    
+
     int no = member.getNo();
     riw.setUserNo(no);
-    
+
     try {
       riwService.add(riw);
-      
+
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
@@ -50,77 +50,90 @@ public class RiwController {
       @RequestParam(defaultValue="15") int pageSize
       ) { // localhost:8080/heunheuntrip/app/json/qna/list
 
-    if (pageSize < 1 || pageSize > 16) 
-      pageSize = 15;
-
-    int rowCount = riwService.size();
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-    List<Riw> hostqnas = riwService.list(pageNo, pageSize);
-
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", hostqnas);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
+
+    try {
+
+      if (pageSize < 1 || pageSize > 16) 
+        pageSize = 15;
+
+      int rowCount = riwService.size();
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+
+      List<Riw> hostqnas = riwService.list(pageNo, pageSize);
+
+      content.put("list", hostqnas);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+
+    } catch (Exception e) {
+
+    }
 
     return content;
   }
-  
+
   @GetMapping("listMypage")
   public Object listMypage(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="5") int pageSize,
       HttpSession session
       ) { // localhost:8080/heunheuntrip/app/json/qna/listMypage
-    
+
     Member member = (Member)session.getAttribute("loginUser");
-    int userNo = member.getNo();
-    
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
-
-    int rowCount = riwService.size();
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-    List<Riw> list = riwService.listMypage(pageNo, pageSize, userNo);
-
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", list);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
+    
+    try {
+      int userNo = member.getNo();
+      
+      if (pageSize < 1 || pageSize > 6) 
+        pageSize = 5;
+      
+      int rowCount = riwService.size();
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      
+      List<Riw> list = riwService.listMypage(pageNo, pageSize, userNo);
+
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+      
+    } catch (Exception e) {
+      
+    }
 
     return content;
   }
-  
+
   @GetMapping("listhostMypage")
   public Object hostlistMypage(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="5") int pageSize,
       HttpSession session
       ) { // localhost:8080/heunheuntrip/app/json/riw/listhostMypage
-    
+
     Member member = (Member)session.getAttribute("loginUser");
     int userNo = member.getNo();
     String uname = member.getName();
-    
+
     // 유저 번호로 방번호를 알아온다.     
-    
+
     if (pageSize < 1 || pageSize > 6) 
       pageSize = 5;
 
@@ -168,112 +181,43 @@ public class RiwController {
     return content;
   }
 
-@PostMapping("update")
-   public Object update(Riw riw) {
-     HashMap<String,Object> content = new HashMap<>();
-     
-     if(Float.parseFloat(riw.getGrd()) == 0) {
-       Riw riw2 = riwService.get(riw.getNo());
-       riw.setGrd(riw2.getGrd());
-     }
-     
-     try {
-       if (riwService.update(riw) == 0) 
-         throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-       content.put("status", "success");
-       
-     } catch (Exception e) {
-       content.put("status", "fail");
-       content.put("message", e.getMessage());
-     }
-     return content;
-   }
-  
+  @PostMapping("update")
+  public Object update(Riw riw) {
+    HashMap<String,Object> content = new HashMap<>();
 
-@PostMapping("reply")
-public Object reply(Riw riw, HttpSession session) {
-  HashMap<String,Object> content = new HashMap<>();
-  Member member = (Member)session.getAttribute("loginUser");
-  
-  System.out.println(riw);
-  
-   
-  try {
-    riwService.replyupdate(riw);   // reply부분만 추
-    
-    content.put("status", "success");
-  } catch (Exception e) {
-    content.put("status", "fail");
-    content.put("message", e.getMessage());
+    if(Float.parseFloat(riw.getGrd()) == 0) {
+      Riw riw2 = riwService.get(riw.getNo());
+      riw.setGrd(riw2.getGrd());
+    }
+
+    try {
+      if (riwService.update(riw) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
-  return content;
-}
 
 
+  @PostMapping("reply")
+  public Object reply(Riw riw, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
 
+    System.out.println(riw);
 
+    try {
+      riwService.replyupdate(riw);   // reply부분만 추
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  //  @GetMapping("detail")
-  //  public Object detail(int no) {
-  //   Qna qna = qnaService.get(no);
-  //    return qna;
-  //  }
-  //  
-  //  @GetMapping("relist")
-  //  public Object reList(int parent, int step) {
-  //    List<Qna> qna = qnaService.reList(parent, step);
-  //    HashMap<String,Object> content = new HashMap<>();
-  //    content.put("list", qna);
-  //    return content;
-  //  }
-  //  
-  //  @GetMapping("categorylist")
-  //  public Object categoryList() {
-  //    List<Category> categories = qnaService.getCategory();
-  //    Map<String,Object> content = new HashMap<>();
-  //    content.put("category", categories);
-  //    return content;
-  //  }
-  // 
-  //  
-  //
-  
-  // 
-  // 
-  // @GetMapping("delete")
-  // public Object delete(int no, int parent, int order) {
-  // 
-  //   HashMap<String,Object> content = new HashMap<>();
-  //   
-  //   try {
-  //     if (qnaService.delete(no, parent, order)  == 0) 
-  //       throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-  //     content.put("status", "success");
-  //     
-  //   } catch (Exception e) {
-  //     content.put("status", "fail");
-  //     content.put("message", e.getMessage());
-  //   }
-  //   return content;
-  // }
-
-
-
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 
 }

@@ -34,6 +34,8 @@
     <result column="rms_id" property="roomNo"/>
   </resultMap>
   
+  
+  
   <insert id="inupdate" parameterType="Rev">
     insert into rev(
       usr_id,

@@ -22,4 +22,5 @@ public interface RoomDao {
 //  int delete(int no);
   int countAll(Map<String,Object> paramMap); 
   int hostcountAll(int no); 
+  String getRoomName(int no);
 } 

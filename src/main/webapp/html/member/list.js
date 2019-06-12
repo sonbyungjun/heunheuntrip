@@ -2,6 +2,7 @@ var form = $('.item-listing'),
 templateSrc = $('#tr-template').html(),
 trGenerator = Handlebars.compile(templateSrc),
 rating = 0,
+rmsNo = 0,
 paginateSrc = $('#page-template').html();
 
 Handlebars.registerHelper('paginate', paginate);
@@ -153,6 +154,8 @@ $(document.body).bind('loaded-list', (e) => {
 
   $('.riw-check').off('click').on('click', function(e){
     
+    window.rmsNo = $(this).next().data('no');
+    
     var pd = $(e.target).parent().parent().parent().next()
         .children().children('.item-details').children().children('.people-data').children().html();
     
@@ -231,6 +234,8 @@ $(document.body).bind('loaded-list', (e) => {
   
   $('.rev-update').off('click').on('click', function(e){
     
+    var roomNo = window.rmsNo;
+    
     var no = $(e.target).parent().parent().parent().parent().children()
         .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
     
@@ -267,15 +272,28 @@ $(document.body).bind('loaded-list', (e) => {
           dataType: 'json',
           success: function(response) {
             
-            Swal.fire(
-                'Success!',
-                '변경 요청이 성공적으로 전송되었습니다.',
-                'success'
-              ).then(() => {
-                loadList(1);
-                $('#leadform').modal("hide");
-              })
-            
+            $.ajax({
+              url: '../../app/json/rev/addsms',
+              type: 'GET',
+              data: {
+                roomNo : roomNo
+              },
+              dataType: 'json',
+              success: function(response) {
+                Swal.fire(
+                    'Success!',
+                    '변경 요청이 성공적으로 전송되었습니다.',
+                    'success'
+                  ).then(() => {
+                    loadList(1);
+                    $('#leadform').modal("hide");
+                    window.rmsNo = 0;
+                  })
+              },
+              fail: function(error) {
+                alert('등록 실패!!');
+              }
+            });
           },
           fail: function(error) {
             alert('등록 실패!!');
@@ -288,6 +306,8 @@ $(document.body).bind('loaded-list', (e) => {
   })
   
   $('.rev-cancel').off('click').on('click', function(e){
+    
+    var roomNo = window.rmsNo;
     
     var no = $(e.target).parent().parent().parent().parent().children()
     .children('.modal-body').children().children('.check-first').children('.check-pp').children('#input-m').attr('data-revNo');
@@ -316,14 +336,27 @@ $(document.body).bind('loaded-list', (e) => {
           success: function(response) {
             
             if(response.status == "success"){
-              Swal.fire(
-                  'Success!',
-                  '예약 취소 요청이 성공적으로 전송되었습니다.',
-                  'success'
-                ).then(() => {
-                  loadList(pn);
-                  $('#leadform').modal("hide");
-                })
+
+              $.ajax({
+                url: '../../app/json/rev/cancelsms',
+                type: 'GET',
+                data: {
+                  roomNo : roomNo
+                },
+                dataType: 'json',
+                success: function(response) {
+                  Swal.fire(
+                      'Success!',
+                      '취소 요청이 성공적으로 전송되었습니다.',
+                      'success'
+                    ).then(() => {
+                      loadList(1);
+                      $('#leadform').modal("hide");
+                      window.rmsNo = 0;
+                    })
+                }
+              });
+              
             } else if (response.status == "fail"){
               Swal.fire(
                   '오류 발생!',

@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Rev;
+import com.heun.trip.service.MemberService;
 import com.heun.trip.service.RevService;
+import com.heun.trip.service.RoomService;
 
 
 @RestController("json/RevController")
@@ -18,9 +21,15 @@ import com.heun.trip.service.RevService;
 public class RevController {
 
   RevService revService;
+  MemberService memberService;
+  RoomService roomService;
+  Sms sms;
 
-  public RevController(RevService revService) {
+  public RevController(RevService revService, MemberService memberService, RoomService roomService, Sms sms) {
     this.revService = revService;
+    this.memberService = memberService;
+    this.roomService = roomService;
+    this.sms = sms;
   }
   
   @PostMapping("add")
@@ -48,7 +57,39 @@ public class RevController {
       content.put("message", e.getMessage());
     }
     return content;
-  } 
+  }
+  
+  @GetMapping("addsms")
+  public Object addsms(int roomNo, HttpSession session) {
+    
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    String guestName = loginUser.getName();
+    String tel = memberService.getTel(roomNo);
+    String roomName = roomService.getRoom(roomNo);
+    
+    String messageText = roomName + " 숙소의 " + guestName + "님의 예약 변경 요청. ";
+    sms.smsSend(tel, messageText);
+
+    HashMap<String,Object> content = new HashMap<>();
+    
+    return content;
+  }
+  
+  @GetMapping("cancelsms")
+  public Object cancelsms(int roomNo, HttpSession session) {
+    
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    String guestName = loginUser.getName();
+    String tel = memberService.getTel(roomNo);
+    String roomName = roomService.getRoom(roomNo);
+    
+    String messageText = roomName + " 숙소의 " + guestName + "님의 예약 취소 요청. ";
+    sms.smsSend(tel, messageText);
+
+    HashMap<String,Object> content = new HashMap<>();
+    
+    return content;
+  }
 
   @GetMapping("list")
   public Object list(
