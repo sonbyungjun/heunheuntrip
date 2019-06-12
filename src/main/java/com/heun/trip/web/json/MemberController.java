@@ -2,8 +2,6 @@ package com.heun.trip.web.json;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -333,11 +331,8 @@ public class MemberController {
     String seoulTel = seoul.concat(tel.substring(1));
     int ranNo = RanNo.randomNo();
 
-
-    String messageText = "sms No. " + String.valueOf(ranNo);
+    String messageText = "인증번호 [" + String.valueOf(ranNo) + "] 입니다.\n";
     
-    System.out.println(messageText);
-
     sms.smsSend(seoulTel, messageText);
 
     HashMap<String,Object> content = new HashMap<>();
