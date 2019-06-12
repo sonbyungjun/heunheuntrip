@@ -179,6 +179,7 @@ $('#add-btn').on('click', function () {
 			// 인증번호 입력창의 readonly를 해제
 			$('#play').attr("readonly", false);
 			$('#play').val('');
+			$('#check-btn').show();
 
 			// 기존 성공상태를 실패상태로 바꿈
 			$('#play').removeClass("is-valid")

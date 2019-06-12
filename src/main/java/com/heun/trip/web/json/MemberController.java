@@ -144,9 +144,10 @@ public class MemberController {
       MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
     int checkNo = (int)session.getAttribute("ranNo");
-    try {
+    Member count = memberService.get(member.getEmail());
+    try { 
 
-      if (checkNo == ranNo){
+      if (checkNo == ranNo && count==null){
 
         if (photo != null) {
           // 헤더용 썸네일 제작

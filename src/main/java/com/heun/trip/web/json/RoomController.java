@@ -173,12 +173,6 @@ public class RoomController {
     return room;
   }
   
-  
-  
-  
-  
-  
-  
   @GetMapping("hostroom")
   public Object hostroom(
       @RequestParam(defaultValue="1") int pageNo,
