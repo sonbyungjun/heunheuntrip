@@ -191,9 +191,12 @@ public class MemberController {
     }
     return content;
   }
+  
+  
   @PostMapping("update")
   public Object update(Member member) {
     HashMap<String,Object> content = new HashMap<>();
+    System.out.println(member);
     try {
       memberService.update(member);
       content.put("status", "success");
@@ -342,16 +345,40 @@ public class MemberController {
 
     HashMap<String,Object> content = new HashMap<>();
     try {
+      
+      Member loginUser = (Member) session.getAttribute("loginUser");
+      
+      if (loginUser == null) {
+        throw new Exception();
+      }
+      
       sms.smsSend(tel, messageText);
+      session.setAttribute("sms", String.valueOf(ranNo));
+      session.setAttribute("time", System.currentTimeMillis());
+      content.put("status", "success");
     } catch (Exception e) {
-      e.printStackTrace();
+      content.put("status", "fail");
     }
-    System.out.println(tel);
-    session.setAttribute("sms", ranNo);
-    content.put("status", "success");
-    content.put("ok", true);
-    System.out.println("???");
-    content.put("ok", false);
+
+    return content;
+  }
+  
+  @GetMapping("smsConfirm")
+  public Object smsConfirm(String number, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+    
+    if (((long) System.currentTimeMillis() - (long) session.getAttribute("time")) / 1000 > 60 ||
+        !session.getAttribute("sms").equals(number)) {
+      
+      content.put("status", "fail");
+      session.setAttribute("pass", false);
+      
+    } else {
+      
+      content.put("status", "success");
+      session.setAttribute("pass", true);
+    }
 
     return content;
   }

@@ -61,5 +61,5 @@ dependencies {
     compile group: 'javax.mail', name: 'mail', version: '1.4.7'
     
     // sms
-    compile 'com.nexmo:client:4.+'
+    compile 'net.nurigo:javaSDK:2.2'
 }
