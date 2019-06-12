@@ -68,7 +68,11 @@ public class RevController {
     String roomName = roomService.getRoom(roomNo);
     
     String messageText = roomName + " 숙소의 " + guestName + "님의 예약 변경 요청. ";
-    sms.smsSend(tel, messageText);
+    try {
+      sms.smsSend(tel, messageText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     HashMap<String,Object> content = new HashMap<>();
     
@@ -84,7 +88,11 @@ public class RevController {
     String roomName = roomService.getRoom(roomNo);
     
     String messageText = roomName + " 숙소의 " + guestName + "님의 예약 취소 요청. ";
-    sms.smsSend(tel, messageText);
+    try {
+      sms.smsSend(tel, messageText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     HashMap<String,Object> content = new HashMap<>();
     
