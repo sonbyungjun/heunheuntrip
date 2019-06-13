@@ -124,7 +124,7 @@
           AS distance
         from
           rms
-        HAVING distance <= 3
+        HAVING distance <= 10
         ORDER BY distance 
       ]]>
       </when>
@@ -150,7 +150,7 @@
             *cos(radians(lati))*cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
           AS distance
         from rms
-        HAVING distance <= 3) as a
+        HAVING distance <= 10) as a
       ]]>
       </when>
       <when test="lati == null and longi == null">
