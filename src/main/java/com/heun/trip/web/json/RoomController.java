@@ -1,6 +1,6 @@
 package com.heun.trip.web.json;
   
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +22,7 @@ import com.heun.trip.domain.Riw;
 import com.heun.trip.domain.Room;
 import com.heun.trip.domain.RoomFile;
 import com.heun.trip.domain.Safety;
+import com.heun.trip.service.FileService;
 import com.heun.trip.service.RiwService;
 import com.heun.trip.service.RoomService;
 import net.coobird.thumbnailator.Thumbnails;
@@ -35,11 +36,14 @@ public class RoomController {
   RoomService roomSerive;
   ServletContext servletContext;
   RiwService riwService;
+  FileService fileService;
   
-  public RoomController(RoomService roomSerive, ServletContext servletContext, RiwService riwService) {
+  public RoomController(RoomService roomSerive, ServletContext servletContext, RiwService riwService, 
+      FileService fileService) {
     this.roomSerive = roomSerive;
     this.servletContext = servletContext;
     this.riwService = riwService;
+    this.fileService = fileService;
   }
 
   @PostMapping("add")
@@ -103,27 +107,22 @@ public class RoomController {
   public Object fileAdd(@RequestParam(value="files[]", required=false) MultipartFile[] files, boolean isMain) {
     Map<String, Object> content = new HashMap<>();
 
-    String uploadDir = servletContext.getRealPath(
-        "/upload/roomphoto");
-
     String filename = UUID.randomUUID().toString();
-    File originFile = new File(uploadDir + "/" + filename);
-    File thumFile = new File(uploadDir + "/Thumbnail/" + filename);
-
+    
     for (MultipartFile f : files) {
       if (!f.isEmpty()) {
-
         // 메인사진이 아니면 그냥 저장한다.
         try {
-          f.transferTo(originFile);
+          fileService.uploadImage(f.getInputStream(), f.getSize(), filename);
         } catch(Exception e) {
           e.printStackTrace();
         }
-
         // 메인사진이면 섬네일로 만든 후 맵에 담는다.
         if (isMain) {
           try {
-            Thumbnails.of(originFile).crop(Positions.CENTER).size(530,375).outputFormat("jpeg").toFile(thumFile);
+            BufferedImage image = Thumbnails.of(f.getInputStream()).crop(Positions.CENTER).size(530,375).outputFormat("jpeg")
+            .asBufferedImage();
+            fileService.uploadThumImage(image, filename);
             content.put("thumbnail", filename);
           } catch(Exception e) {
             e.printStackTrace();
