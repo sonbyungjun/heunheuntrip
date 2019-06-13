@@ -19,6 +19,13 @@
   <link href="../../css/colors/blue.css" rel="stylesheet">
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
+  <script src="../../node_modules/blueimp-load-image/js/load-image.all.min.js"></script>
+  <script src="../../node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
+  <script src="../../node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
   <script src="../../lib/popper.min.js"></script>
   <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="../../lib/selectric/jquery.selectric.js"></script>
@@ -35,8 +42,8 @@
   <div id="main">
 
     <div id="heun-header"></div>
-      전화번호 : <input id="tel" type="text">
-      <button id="send">이메일 인증 </button>
+      파일 : <input id="file" name="files" type="file">
+      <button id="send">전송</button>
 
     <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
 
@@ -46,17 +53,25 @@
 
   <script src="payments.js"></script>
   <script>
-  $('#send').click(function() {
-    $.ajax({
-				url: '../../app/json/member/sms?tel=' + $('#tel').val(),
-				type: 'GET',
-				dataType: 'json',
-				success: function (response) {
-          console.log(response)
-          console.log('완료')
-        }
-      })
-  }) 
+
+  $('#file').fileupload({
+	url: '../../app/json/images/upload',        // 서버에 요청할 URL
+	dataType: 'json',         // 서버가 보낸 응답이 JSON임을 지정하기
+	singleFileUploads: true, // 한 요청에 여러 개의 파일을 전송시키기.  
+	autoUpload: true,
+	processalways: function (e, data) {
+    $('#send').click(function() {
+      console.log("???????")
+      data.submit();
+    })
+	},
+	done: function (e, data) { // 서버에서 응답이 오면 호출된다. 각 파일 별로 호출된다.
+		
+	},
+	submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
+    console.log("전송완료!")
+	}
+}); //fileupload
 
 
  
