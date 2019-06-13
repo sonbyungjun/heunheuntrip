@@ -106,6 +106,25 @@
 	background:
 		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+
+.date-picker-wrapper {
+  position: absolute;
+  z-index: 1;
+  padding: 5px 12px;
+  line-height: 20px;
+  font-family: Arial, sans-serif;
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-sizing: initial;
+          box-sizing: initial;
+  background-color: white;
+  margin-left: 50px;
+}
+
+.media-left {
+    padding-right: 20px;
+    padding-left: 20px;
+}
 </style>
 </head>
 
@@ -319,25 +338,7 @@
                         </div>
                       </div>
 
-                      <div class="card shadow">
-                        <h5 class="subheadline mt-0  mb-0">호스트</h5>
-                        <div class="media">
-                          <div class="media-left"> 
-                            <a href="../../images/default.jpg"> 
-                              <img class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64" alt=""> 
-                            </a> 
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading">
-                              <a href="../../images/default.jpg">손병준님</a>
-                            </h4>
-                            <p>회원 가입: 2014년 8월</p>
-                            <p><i class="fa fa-star" aria-hidden="true"></i></i>후기: 500개</a></p>
-                            <p><a href="../../images/default.jpg" class="btn btn-sm btn-light">호스트에게 연락하기</a></p>
-                          </div>
-                        </div>
-                      </div>
-
+                     <div class="host-profile" data-no={{hostNo}}></div>
 
                     </div>
                   </div>
@@ -408,9 +409,7 @@
       <div class="media">
          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
          <div class="media-body">
-            <div class="heun-reply">
-            <a id="cont-{{no}}" href="#" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
-            </div>
+            <a id="cont-{{no}}" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
             <h5 class="media-heading author">{{userNo}}</h5>
             <div class="date">{{createdDate}}</div>
             <div class="comment">{{contents}}</div>
@@ -441,6 +440,27 @@
          </div>
       </div>
 {{/each}}
+</script>
+
+<script id="hostProfile-template" type="text/x-handlebars-template">
+
+<div class="card shadow">
+<h5 class="subheadline mt-0  mb-0">호스트</h5>
+<div class="media">
+  <div class="media-left"> 
+    <a href="../../images/default.jpg"> 
+      <img class="media-object rounded-circle" src="../memberprofileupload/{{photo}}" width="64" height="64" alt=""> 
+    </a> 
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{name}}</h4>
+    <p>가입일 : {{createdDate}}</p>
+    <p><i class="fa fa-star" aria-hidden="true" style="color: #ffd700"></i></i>   후기 : {{count}}개</a></p>
+    <p><a href="#" class="btn btn-sm btn-inverse">호스트에게 연락하기</a></p>
+  </div>
+</div>
+</div>
+
 </script>
 
 

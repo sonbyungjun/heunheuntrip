@@ -6,12 +6,59 @@ $('body').on('loaded-list', function () {
 	templateSrc = $('#review-template').html(),
 	reviewGenerator = Handlebars.compile(templateSrc),
 	reviewlist = $('#review'),
+  templateSrcs = $('#hostProfile-template').html(),
+  hostProfileGenerator = Handlebars.compile(templateSrcs),
+  hprofile = $('.host-profile'),
 	rating = 0,
 	rmsNo=0;
 
-
 	roomreview();  
-
+	roomProfile();
+	
+	function roomProfile(){
+	  
+	  var hostNo = $('.host-profile').data('no');
+	  
+	  
+	   $.ajax({
+	      url: '../../app/json/member/detail',
+	      type: 'GET',
+	      data: {
+	        no: hostNo 
+	      },
+	      dataType: 'json',
+	      success: function(response) {
+	        
+	        var reviewNo = 0;
+	        
+	        $.ajax({
+	          url: '../../app/json/riw/countAllHost',
+	          type: 'POST',
+	          async:false,
+	          data: {
+	            no: hostNo 
+	          },
+	          dataType: 'json',
+	          success: function(response) {
+	            reviewNo = response.riwNo;
+	          },
+	          fail: function(error) {
+	          }
+	        });
+	        
+	        response.count = reviewNo;
+	        console.log(reviewNo);
+	        
+	        hprofile.html('');
+	        $(hostProfileGenerator(response)).appendTo(hprofile);
+	        
+	      },
+	      fail: function(error) {
+	      }
+	    });
+	  
+	}
+	
 	function roomreview() {
 
 		$.ajax({

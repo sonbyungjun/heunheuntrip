@@ -40,6 +40,7 @@
   -webkit-box-shadow: none;
           box-shadow: none;
   display: inline-block;
+  margin-left: 80px;
 }
 
 .date-picker-wrapper.single-date {

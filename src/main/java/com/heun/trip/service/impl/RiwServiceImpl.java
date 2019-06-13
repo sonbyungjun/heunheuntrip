@@ -96,79 +96,13 @@ public class RiwServiceImpl implements RiwService {
   
   @Override
   public int count(Map<String, Object> params) {
-    return count(params);
+    return riwDao.count(params);
   }
 
-  //  
-  //  @Override
-  //  public List<Qna> reList(int parent,  int step) {
-  //    HashMap<String,Object> params = new HashMap<>();
-  //    params.put("parent", parent);
-  //    params.put("step", step);
-  //    return qnaDao.findByReList(params);
-  //  }
-  //  
-  //  @Override
-  //  public List<Category> getCategory() {
-  //    return qnaDao.getCategory();
-  //  }
-  //  
-  //  
-  //  @Override
-  //  public int maxParent() {
-  //    return qnaDao.maxParent();
-  //  }
-  //  
-  //  @Override
-  //  public int maxOrder(int parent) {
-  //    return qnaDao.maxOrder(parent);
-  //  }
-  //  
-  //  @Override
-  //  public int sorting(int parent, int order) {
-  //    HashMap<String,Object> params = new HashMap<>();
-  //    params.put("parent", parent);
-  //    params.put("order", order);
-  //    return qnaDao.sorting(params);
-  //  }
-  //  
-  //  
-  //  @Override
-  //  public int update(Qna qna) {
-  //    return qnaDao.update(qna);
-  //  }
-  //  
-  //  @Override
-  //  public int delete(int no, int parent, int order) {
-  //    HashMap<String,Object> params = new HashMap<>();
-  //    params.put("parent", parent);
-  //    params.put("order", order);
-  //    Qna qna = qnaDao.findByNo(no);
-  //    int step = qna.getStep();
-  //    List<Qna> deleteList = qnaDao.deleteList(params);
-  //    
-  //    // 원글을 먼저 지운다.
-  //    for (QnaPhoto p : qna.getQnaPhotos()) {
-  //      qnaPhotoDao.deleteByPQnaPhotoNo(p.getNo());
-  //    }
-  //    qnaDao.delete(qna.getQnaNo());
-  //    
-  //    int count = 0;
-  //    
-  //    // 원글의 자식 글을 지운다.
-  //    for (Qna q : deleteList) {
-  //      if (q.getStep() == step) {
-  //        break;
-  //      }
-  //      for (QnaPhoto p : q.getQnaPhotos()) {
-  //        qnaPhotoDao.deleteByPQnaPhotoNo(p.getNo());
-  //      }
-  //      qnaDao.delete(q.getQnaNo());
-  //      count++;
-  //    }
-  //    
-  //    return count;
-  //  }
+  @Override
+  public int countAllHost(int no) {
+    return riwDao.countAllHost(no);
+  }
 
 }
 
