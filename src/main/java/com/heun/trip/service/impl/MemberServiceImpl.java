@@ -51,7 +51,22 @@ public class MemberServiceImpl implements MemberService {
   
   @Override
   public int update(Member member) {
-    return memberDao.update(member);
+    
+    HashMap<String,Object> params = new HashMap<>();
+    
+    Member loginUser = memberDao.findByNo(member.getNo());
+    
+    params.put("no", member.getNo());
+    
+    if (member.getName().length() > 0 && !member.getName().equals(loginUser.getName())) {
+      params.put("name", member.getName());
+    } else if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
+      params.put("tel", member.getTel());
+    } else {
+      return 0;
+    }
+    
+    return memberDao.update(params);
   }
   
   
@@ -114,6 +129,11 @@ public class MemberServiceImpl implements MemberService {
   public Member get(String email) {
     
     return memberDao.findByEmail(email);
+  }
+  
+  @Override
+  public int getTel(String tel) {
+    return memberDao.findByTel(tel);
   }
   
 }

@@ -29,6 +29,11 @@ public class Sms {
     params.put("to", phoneNumber);
     params.put("from", "01094559808");
     params.put("type", "SMS");
+    
+    String title = "[HeunheunTrip]\n";
+    
+    messageText = title + messageText;
+    
     params.put("text", messageText);
     params.put("app_version", "test app 1.2"); // application name and version
 
