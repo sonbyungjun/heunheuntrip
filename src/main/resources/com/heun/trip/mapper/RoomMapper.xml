@@ -244,6 +244,9 @@
   where rms_id= #{value}
   </delete>
   
+  <select id="getRoomName" parameterType="int" resultType="String">
+    select rm_name from rms where rms_id = #{no};
+  </select>
   
   
 </mapper>     

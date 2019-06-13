@@ -191,9 +191,12 @@ public class MemberController {
     }
     return content;
   }
+  
+  
   @PostMapping("update")
   public Object update(Member member) {
     HashMap<String,Object> content = new HashMap<>();
+    System.out.println(member);
     try {
       memberService.update(member);
       content.put("status", "success");
@@ -302,7 +305,7 @@ public class MemberController {
       int ranNo = RanNo.randomNo();
       String title = "이메일 인증";
       String text = "인증번호는 [" + ranNo + "] 입니다.";
-      
+
       gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
@@ -313,7 +316,7 @@ public class MemberController {
     }
     return content;
   }
-  
+
   @GetMapping("resetemail")
   public Object resetemail(String email) {
     HashMap<String,Object> content = new HashMap<>();
@@ -321,7 +324,7 @@ public class MemberController {
       StringBuffer EnranNo = EnRanNo.randomNo();
       String title = "임시 비밀번호 발급";
       String text = "임시 비밀번호는 [" + EnranNo + "] 입니다.";
-      
+
       gmail.gmailSend(email, title, text);
 
       content.put("status", "success");
@@ -339,17 +342,44 @@ public class MemberController {
 
     int ranNo = RanNo.randomNo();
     String messageText = "인증번호 [" + String.valueOf(ranNo) + "] 입니다.\n";
-    sms.smsSend(tel, messageText);
 
     HashMap<String,Object> content = new HashMap<>();
-    //    try {
-    //      
-    //      content.put("status", "success");
-    //      content.put("ranNo", ranNo);
-    //    }catch (Exception e){
-    //      content.put("status", "fail");
-    //      content.put("message", e.getMessage());
-    //    }
+    try {
+      
+      Member loginUser = (Member) session.getAttribute("loginUser");
+      
+      if (loginUser == null) {
+        throw new Exception();
+      }
+      
+      sms.smsSend(tel, messageText);
+      session.setAttribute("sms", String.valueOf(ranNo));
+      session.setAttribute("time", System.currentTimeMillis());
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+    }
+
+    return content;
+  }
+  
+  @GetMapping("smsConfirm")
+  public Object smsConfirm(String number, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+    
+    if (((long) System.currentTimeMillis() - (long) session.getAttribute("time")) / 1000 > 60 ||
+        !session.getAttribute("sms").equals(number)) {
+      
+      content.put("status", "fail");
+      session.setAttribute("pass", false);
+      
+    } else {
+      
+      content.put("status", "success");
+      session.setAttribute("pass", true);
+    }
+
     return content;
   }
 

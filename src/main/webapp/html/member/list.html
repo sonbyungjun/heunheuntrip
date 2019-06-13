@@ -116,7 +116,7 @@
 
                       {{#if isCheck}}
                       <button type="button" class="btn btn-sm btn-link riw-check" data-revNo={{no}} data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
-                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}} data-rmsName={{rmsName}}>
                       {{else if isupdate}}
                       <button type="button" class="btn btn-sm btn-primary update-check">변경대기중</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>

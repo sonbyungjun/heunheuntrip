@@ -20,13 +20,11 @@ function loadList() {
 
 		$('#file-btn1').hide();
 		
-		
 		if (obj.member.photo != null) {
 		$("<img class='rounded-circle'>").attr('src',
 				'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
 				.css('width', '255px')
 				.appendTo($('#profileimg'));
-	
 		
 		} else {
 		$("<img>").attr('src',
@@ -60,17 +58,22 @@ loadList();
 
 
 $('#btn1').on('click', function(e) {
-	
+	 
 	e.preventDefault();
+
+	var data = {
+		name: $('.name').val(),
+		email: $('.email').val(),
+		tel: $('#tel').val(),
+		no: window.no
+	};
+
+	console.log(data);
 	
 	$.ajax({
 		url: '../../app/json/member/update',
 		type: 'POST',
-		 data: {
-	          name: $('.name').val(),
-	          email: $('.email').val(),
-	          tel: $('.tel').val(),
-	          no: window.no},
+		data: data,
 		dataType: 'json',
 		success: function (response) {
 			if (response.status == 'success') {
@@ -175,3 +178,73 @@ $('body').on('loaded-file', function () {
 	})
 })
 
+
+$('#tel-btn').click(function() {
+
+	var tel = $('#tel').val();
+
+	if (!tel) {
+		alert('번호를 입력하거나 로그인 해주세요.');
+		return;
+	}
+
+	$.getJSON('../../app/json/member/sms?tel=' + tel, function(res) {
+		if (res.status === "fail") {
+
+			Swal.fire({
+				type: 'error',
+				title:"유효한 전화번호를 입력해주세요."
+			})
+
+		} else {
+
+			Swal.fire({
+				type: 'success',
+				title:"인증번호를 보냈습니다!"
+			}).then((result) =>{
+				if(result.value){
+					$('#sms-tag').html('');
+					var tag =	'<div class="row form-group has-feedback in-line">' +
+										'	<div class="col col-lg-8">' +
+										'		<input class="form-control form-control-lg required" type="text" data-name="전화번호" name="tel" id="sms-number" /> ' +
+										'	</div>' +
+										'	<div class="col col-lg-4">' +
+										'		<button type="button" class="btn btn-primary btn-lg" id="smstel-btn">인증하기</button>' +
+										'	</div>' +
+										'</div>';
+					$('#sms-tag').append(tag);
+					$(document).trigger('sms-load');
+				}	
+			});
+		}
+	})
+})
+
+$(document).on('sms-load', function() {
+
+	$('#smstel-btn').click(function() {
+
+		var number = $('#sms-number').val();
+
+		if (!number) {
+			alert('번호를 입력해주세요.');
+			return;
+		}
+
+		$.getJSON('../../app/json/member/smsConfirm?number=' + number, function(res) {
+			console.log(res);
+			if (res.status === "fail") {
+				alert('인증번호가 틀렸거나 60초가 지났습니다.');
+				return;
+			} 
+
+			console.log("오 통과통과");
+
+	
+			$('#sms-tag').html('');
+		
+		})
+
+	})
+
+})

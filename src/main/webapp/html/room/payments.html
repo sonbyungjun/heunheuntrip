@@ -35,7 +35,7 @@
   <div id="main">
 
     <div id="heun-header"></div>
-      이메일 : <input id="email" type="email">
+      전화번호 : <input id="tel" type="text">
       <button id="send">이메일 인증 </button>
 
     <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
@@ -48,21 +48,11 @@
   <script>
   $('#send').click(function() {
     $.ajax({
-				url: '../../app/json/member/add',
-				type: 'POST',
-
-				data: {
-					email: 'aaaa@com.com',
-					password: 'bbbb',
-					name: '김김김',
-					bank: '111',
-					bnk_no: '1111',
-					auth: 1,
-					sns_no: 0
-			},
+				url: '../../app/json/member/sms?tel=' + $('#tel').val(),
+				type: 'GET',
 				dataType: 'json',
 				success: function (response) {
-
+          console.log(response)
           console.log('완료')
         }
       })

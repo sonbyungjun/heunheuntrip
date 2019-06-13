@@ -6,3 +6,22 @@
 	margin-bottom : 10px;
   
 }
+   #checktel-btn{
+  display:none;
+  }
+   #playtel{
+  display:none;
+  }
+  
+  .tel-div{
+  padding-left: 47px;
+  }
+  .checkktel-div{
+  padding-left: 47px;
+  }
+  #tel{
+  width:440px;
+  }
+  #playtel{
+  width:440px;
+  }
