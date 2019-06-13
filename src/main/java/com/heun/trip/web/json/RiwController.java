@@ -219,5 +219,24 @@ public class RiwController {
     }
     return content;
   }
+  
+  
+  @PostMapping("countAllHost")
+  public Object countAllHost(int no) {
+    HashMap<String,Object> content = new HashMap<>();
 
+    try {
+      
+      int riwNo = riwService.countAllHost(no);
+      
+      System.out.println("리뷰수=----->" + riwNo);
+
+      content.put("riwNo", riwNo);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 }
