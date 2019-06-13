@@ -106,12 +106,12 @@
     <script id="detail-template" type="text/x-handlebars-template">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col col-md-12 col-lg-12 col-xl-10">
+          <div class="col col-md-12 col-lg-12 col-xl-11">
             <div class="page-header bordered mb0">
               <div class="row">
                 <div class="col-md-8"> <a href="#" onClick="history.back()" class="btn-return" title="Back"><i class="fa fa-angle-left"></i></a>
                   <h1>{{name}}
-                    <small><i class="fa fa-map-marker"></i> {{area}}</small>
+                    <small><i class="fas fa-map-marker-alt"></i> {{area}}</small>
                   </h1>
                 </div>
                 <div class="col-md-4">
@@ -306,12 +306,12 @@
                               <div class="form-group">
                                 <label for="input-m"><span class="align-bottom">인원</span></label>
                                 
-                                <button id="input-m" type="button" class="form-control dropdown-toggle" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <button id="input-m" type="button" class="form-control dropdown-toggle drop-people" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                                   인원 1명
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                <div class="dropdown-menu dropdown-menu-lg-right drop-item-p">
                                   {{#each persons}}
-                                  <button class="dropdown-item heun-drop" type="button" data-p="{{i}}">인원 {{i}}명</button>
+                                  <button class="dropdown-item heun-drop" style="text-align: center" type="button" data-p="{{i}}">인원 {{i}}명</button>
                                   {{/each}}
                                 </div>
                               </div>

@@ -18,14 +18,13 @@
   position: absolute;
   z-index: 1;
   padding: 5px 12px;
-  font-size: 12px;
   line-height: 20px;
-  color: #aaa;
   font-family: Arial, sans-serif;
   -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
           box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
   -webkit-box-sizing: initial;
           box-sizing: initial;
+  background-color: white;
 }
 
 .dp-clearfix {

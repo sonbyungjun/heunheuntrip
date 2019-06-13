@@ -469,5 +469,10 @@ $('body').on('loaded-list', function () {
       }
     });
   }
+  
+  $('.dropdown-toggle').off('click').on('click', function(){
+    var width = $('.drop-people').outerWidth();
+    $('.drop-item-p').css('width', width);
+  });
 
 })

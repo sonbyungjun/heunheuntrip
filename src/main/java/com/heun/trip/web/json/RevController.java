@@ -67,7 +67,7 @@ public class RevController {
     String tel = memberService.getTel(roomNo);
     String roomName = roomService.getRoom(roomNo);
     
-    String messageText = roomName + " 숙소의 " + guestName + "님의 예약 변경 요청. ";
+    String messageText = roomName + " 숙소의 " + guestName + "님의 예약 변경 요청.";
     try {
       sms.smsSend(tel, messageText);
     } catch (Exception e) {
