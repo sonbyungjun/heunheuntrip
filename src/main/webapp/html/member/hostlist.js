@@ -41,7 +41,7 @@ function loadList() {
 			$('.main-tel').text(" PHONE : " + obj.member.tel);
 			$('.custom-file').find('label').html(obj.member.photo);
 			Loadroomlist(1);
-			//	$(--------).appendTo(-------);
+			//	$(--------).appendTo(-------); 
 			// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 		}); // Bitcamp.getJSON(
 } // loadList()
@@ -129,31 +129,10 @@ $(document.body).bind('loaded-list', () => {
 
 	})
 });
+	
+	
+	
 
-function detail(rno){
-	$.ajax({
-		url: '../../app/json/room/detail,
-		type: 'GET',
-		data: {
-			no: rno
-		},
-		dataType: 'json',
-		success: function (response) {
-		 
-		 
-			
-			
-		},
-		error: function (error) {
-			alert('시스템 오류가 발생했습니다.');
-		}
-	});
-}
-	
-	
-	
-	
-}
 
 
 

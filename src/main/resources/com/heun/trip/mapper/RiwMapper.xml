@@ -19,6 +19,8 @@
     <result column="rms_id" property="roomNo"/>
     <result column="rm_name" property="roomName"/>
     <result column="thum" property="roomPhoto"/>
+    <result column="usr_photo" property="userPhoto"/>
+    
   </resultMap>
   
   <select id="findAll" resultMap="riwMap" parameterType="map">
@@ -102,10 +104,56 @@
 
 
 
-
+<select id="findroomreview" resultMap="riwMap" parameterType="int">
+    select
+      r.riw_id,
+      r.usr_id,
+      r.riw_conts,
+      r.grd,
+      r.cdt,
+      r.riw_reply,
+      r.reply_dt,
+      m.rms_id,
+      m.rm_name,
+      m.thum,
+      u.usr_photo,
+      u.name        
+    from
+      riw r
+    left outer join
+      rms m on r.rms_id=m.rms_id 
+    left outer join
+      usr u on u.usr_id=m.usr_id      
+    where
+      m.rms_id = #{value}
+    order by 
+      cdt desc
+   
+  </select>
 
 
   <insert id="insert" parameterType="riw">
+    insert into riw(
+      usr_id,
+      rms_id,
+      riw_conts,
+      grd,
+      riw_reply,
+      reply_dt)
+    values(
+      #{userNo},
+      #{roomNo},
+      #{contents},
+      #{grd},
+      #{reply},
+      #{replyDate})
+  </insert>
+  
+ 
+ 
+ 
+ 
+  <insert id="riwinsert" parameterType="riw">
     insert into riw(
       usr_id,
       rms_id,

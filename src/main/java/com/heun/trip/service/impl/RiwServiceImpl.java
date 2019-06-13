@@ -18,6 +18,12 @@ public class RiwServiceImpl implements RiwService {
   }
 
   @Override
+  public List<Riw> roomreview(int no) {
+
+   return riwDao.findroomreview(no);
+  }
+  
+  @Override
   public List<Riw> list(int pageNo, int pageSize) {
 
     HashMap<String,Object> params = new HashMap<>();
@@ -26,6 +32,8 @@ public class RiwServiceImpl implements RiwService {
 
     return riwDao.findAll(params);
   }
+  
+  
   
   @Override
   public List<Riw> listMypage(int pageNo, int pageSize, int userNo) {
@@ -59,6 +67,13 @@ public class RiwServiceImpl implements RiwService {
     int count = riwDao.insert(riw);
     return count;
   }
+  
+  @Override
+  public int addriw(Riw riw) {
+    int count = riwDao.riwinsert(riw);
+    return count;
+  }
+  
   @Override
   public Riw get(int no) {
     return riwDao.findByNo(no);

@@ -77,9 +77,11 @@ function pageload(no) {
         var m = {i: i};
         persons.push(m);
       };
-
+      
       response.persons = persons;
-
+      
+      console.log(response)
+      
       form.html('');
 
       $(listGenerator(response)).appendTo(form);

@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.domain.Convenience;
 import com.heun.trip.domain.Member;
+import com.heun.trip.domain.Riw;
 import com.heun.trip.domain.Room;
 import com.heun.trip.domain.RoomFile;
 import com.heun.trip.domain.Safety;
+import com.heun.trip.service.RiwService;
 import com.heun.trip.service.RoomService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -32,10 +34,12 @@ public class RoomController {
 
   RoomService roomSerive;
   ServletContext servletContext;
-
-  public RoomController(RoomService roomSerive, ServletContext servletContext) {
+  RiwService riwService;
+  
+  public RoomController(RoomService roomSerive, ServletContext servletContext, RiwService riwService) {
     this.roomSerive = roomSerive;
     this.servletContext = servletContext;
+    this.riwService = riwService;
   }
 
   @PostMapping("add")
@@ -68,7 +72,7 @@ public class RoomController {
         cons.add(con);
       }
       for (int c : safety) {
-        Safety safe = new Safety();
+        Safety safe = new Safety(); 
         safe.setNo(c);
         safes.add(safe);
       }
@@ -138,11 +142,12 @@ public class RoomController {
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
       String lati,
-      String longi,
-      HttpSession session
-      ) { // localhost:8080/heunheuntrip/app/json/qna/list
-    
+      HttpSession session,
+      String longi
+      ) { // localhost:8080/heunheuntrip/app/json/room/review
+
     Member loginUser = (Member)session.getAttribute("loginUser");
+
 
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
@@ -181,6 +186,7 @@ public class RoomController {
     return room;
   }
   
+
   @GetMapping("hostroom")
   public Object hostroom(
       @RequestParam(defaultValue="1") int pageNo,
@@ -209,25 +215,6 @@ public class RoomController {
   
   
   
-  
-    
-    
-
-   
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   @GetMapping("delete")
   public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
@@ -241,4 +228,45 @@ public class RoomController {
     return content;
   }
 
+  
+  @PostMapping("review")
+  public Object hostlistMypage(
+      HttpSession session, int no) {
+    
+   System.out.println(no);
+    Member member = (Member)session.getAttribute("loginUser");
+    String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
+   
+    List<Riw> list = riwService.roomreview(no);
+
+    HashMap<String,Object> content = new HashMap<>();
+    content.put("list", list);
+    content.put("hostname", hostname);
+  
+  
+
+    return content;
+  }
+  
+  
+  @PostMapping("addriw")
+  public Object update(Riw riw, HttpSession session) {
+    HashMap<String,Object> content = new HashMap<>();
+
+    Member member = (Member)session.getAttribute("loginUser");
+    
+    riw.setUserNo(member.getNo());
+    
+    
+    try {
+      if (riwService.addriw(riw) == 0) 
+        throw new RuntimeException("해당 번호의 게시물이 없습니다.");
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 }
