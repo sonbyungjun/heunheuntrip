@@ -35,60 +35,8 @@
   <div id="main">
 
     <div id="heun-header"></div>
-
-    <div id="content" class="property-single">
-      <div class="container">
-        <div class="row justify-content-md-center">
-          <div class="col col-lg-8 col-xl-7">
-
-            <div class="page-header v2 bordered">
-              <h1>확인 및 결제</h1>
-            </div>
-            <h4 class="title">결제 수단</h4>
-            <p></p>
-
-          </div>
-          <div class="col col-lg-4 col-xl-5">
-
-            <div class="card shadow">
-              <div class="media title">
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    숙소제목
-                  </h4>
-                  <p>지역명</p>
-                </div>
-                <div class="media-right"> 
-                  <a href="../../upload/roomphoto/0a3950e8-e993-4117-97db-3fd968450a85"> 
-                    <img class="media-object" src="../../upload/roomphoto/0a3950e8-e993-4117-97db-3fd968450a85" width="100" height="100" alt=""> 
-                  </a> 
-                </div>
-              </div>
-              <div class="title text-center">
-                <p class="h5"><i class="fas fa-user-friends"></i>    게스트 1명</p>
-                <dl class="row text-center">
-                  <dt class="col-sm-6">체크인</dt>
-                  <dd class="col-sm-6">2019년 7월 10일</dd>
-                  <dt class="col-sm-6">체크아웃</dt>
-                  <dd class="col-sm-6">2019년 7월 10일</dd>
-                </dl>
-              </div>
-                <dl class="row text-center">
-                  <dt class="col-sm-6">₩87,332 x 9박</dt>
-                  <dd class="col-sm-6">₩785,984</dd>
-                  <dt class="col-sm-6">부가세</dt>
-                  <dd class="col-sm-6">₩785,98</dd>
-                </dl>
-              <hr>  
-              <dl class="row text-center">
-                <dt class="col-sm-6">총 합계(원)</dt>
-                <dd class="col-sm-6">₩785,984</dd>
-              </dl>
-            </div>
-          
-          </div>
-      </div>
-    </div>
+      전화번호 : <input id="tel" type="text">
+      <button id="send">이메일 인증 </button>
 
     <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
 
@@ -97,6 +45,23 @@
   </div>
 
   <script src="payments.js"></script>
+  <script>
+  $('#send').click(function() {
+    $.ajax({
+				url: '../../app/json/member/sms?tel=' + $('#tel').val(),
+				type: 'GET',
+				dataType: 'json',
+				success: function (response) {
+          console.log(response)
+          console.log('완료')
+        }
+      })
+  }) 
+
+
+ 
+
+  </script>
 
 </body>
 

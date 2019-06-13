@@ -17,6 +17,10 @@
     <result column="stby_stus" property="stanBy"/>
     <result column="rev_persn" property="revPerson"/>
     <result column="rev_cdt" property="createdDate"/>
+    <result column="rev_char" property="revCharge"/>
+    <result column="rev_updt" property="revUpdate"/>
+    <result column="rev_reas" property="revReason"/>
+    <result column="rev_delet" property="revDelete"/>
     
     <result column="rm_name" property="rmsName"/>
     <result column="addr" property="address"/>
@@ -30,6 +34,36 @@
     <result column="rms_id" property="roomNo"/>
   </resultMap>
   
+  
+  
+  <insert id="inupdate" parameterType="Rev">
+    insert into rev(
+      usr_id,
+      stus_id,
+      rms_id,
+      cck_in,
+      cck_out,
+      stby_stus,
+      rev_persn,
+      rev_char,
+      rev_updt,
+      rev_reas)
+      
+    values (
+      #{userNo},
+      #{stusNo},
+      #{rmsNo},
+      #{checkIn},
+      #{checkOut},
+      #{stanBy},
+      #{revPerson},
+      #{revCharge},
+      #{revUpdate},
+      #{revReason}
+    )
+  
+  </insert>
+  
   <select id="findAll" resultMap="revMap" parameterType="map">
     select
      r.rm_name,
@@ -38,16 +72,19 @@
      e.rev_id,
      e.usr_id,
      e.rms_id,
+     e.stus_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
      e.rev_persn,
+     e.rev_char,
+     e.rev_delet,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
      left outer join stus s on e.stus_id = s.stus_id
     where
-      e.usr_id = 1
+      e.usr_id = #{userNo}
     order by 
       e.rev_id desc 
     <if test="size != null and rowNo != null">
@@ -63,10 +100,14 @@
      e.rev_id,
      e.usr_id,
      e.rms_id,
+     e.stus_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
      e.rev_persn,
+     e.rev_char,
+     e.rev_updt,
+     e.rev_delet,
      s.stus
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
@@ -84,14 +125,68 @@
   </select>
   
   <select id="countAll" resultType="int" parameterType="int">
-    select count(*) from rev where usr_id=#{no}
+    select 
+      count(*) 
+    from 
+      rev
+    where
+      rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and usr_id = #{no}
   </select>
   
-      <delete id="delete" parameterType="int">
+  <delete id="delete" parameterType="int">
     delete from rev 
     where rms_id = #{value}
   </delete>
   
+  <select id="getupdtData" resultMap="revMap">
+    select
+     r.rm_name,
+     r.addr,
+     r.thum,
+     e.rev_id,
+     e.usr_id,
+     e.rms_id,
+     e.stus_id,
+     e.cck_in,
+     e.cck_out,
+     e.stby_stus,
+     e.rev_persn,
+     e.rev_char,
+     e.rev_updt,
+     e.rev_delet,
+     s.stus 
+    from rev e
+     left outer join rms r on e.rms_id = r.rms_id
+     left outer join stus s on e.stus_id = s.stus_id
+    where 
+      e.rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and e.usr_id = #{userNo}
+    order by 
+      e.rev_id desc 
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <update id="requestDelete" parameterType="int">
+    update
+      rev
+    set
+      rev_delet = rev_delet + 1
+    where 
+      rev_id = #{no}
+  </update>
   
 </mapper>
 

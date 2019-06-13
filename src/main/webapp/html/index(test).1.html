@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>흔흔여행</title>
+  <link rel="stylesheet" href="/heunheuntrip/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <style>
+    .heun-input {
+      height: 60px;
+    }
+    .heun-search {
+      margin: 3px 0px 0px 10px;
+      font-size: 9px;
+    }
+    .heun-holder::placeholder {
+      color: lightgray;
+    }
+  </style>
+</head>
+<body>
+<!-- 헤더 시작-->
+<div class="container">
+
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">즐겨찾기</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">로그인</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bolder text-dark" href="#">회원가입</a>
+    </li>
+  </ul>
+
+</div>
+<!-- 헤더 끝-->
+
+<div class='container pt-5'>
+  <div class="d-flex justify-content-center">
+    <h1>HeunheunTrip</h1>
+  </div>
+  
+  <div class='w-50 p-3 mx-auto'>
+
+    <div class="heun-input input-group input-group-lg border border-info mb-3">
+      <div class="position-absolute heun-search"><span class="text-muted align-top">어디로 떠날까요?</span></div>
+      <div class="w-100 pt-3">
+        <input type="text" class="heun-holder form-control border-0" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"  placeholder="도시, 공항, 지역, 랜드마크, 호텔 이름으로 검색">
+      </div>
+    </div>
+
+    <div class="input-group mb-3">
+
+      <div class="border border-info heun-input form-control">
+        <div class="position-absolute heun-search"><span class="text-muted align-top">체크인</span></div>
+        <div class="w-100 pt-3">
+          <input type="date" aria-label="First name" class="border-0" value="5월10일(금)">
+        </div>
+      </div>
+
+      <div class="border border-info heun-input form-control">
+        <div class="position-absolute heun-search"><span class="text-muted align-top">체크아웃</span></div>
+        <div class="w-100 pt-3">
+          <input type="date" aria-label="second name" class="border-0" value="5월11일(토)">
+        </div>
+      </div>
+
+      <div class="border border-info form-control">
+        <div class="position-absolute heun-search"><span class="text-muted align-top">객실당 인원 수</span></div>
+        <div class="w-100 pt-3">
+          <input type="dropdown" aria-label="Last name" class="border-0 dropdown-toggle dropdown-toggle-split"
+          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="성인 1명, 어린이 0명">
+          <div id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">성인 1명, 어린이 0명</a>
+            <a class="dropdown-item" href="#">성인 2명, 어린이 0명</a>
+            <a class="dropdown-item" href="#">성인 3명, 어린이 0명</a>
+            <a class="dropdown-item" href="#">성인 4명, 어린이 0명</a>
+            <a class="dropdown-item" href="#">성인 1명, 어린이 1명</a>
+            <a class="dropdown-item" href="#">성인 2명, 어린이 1명</a>
+            <a class="dropdown-item" href="#">성인 2명, 어린이 2명</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+  <button type="button" class="btn btn-secondary btn-lg btn-block">검색하기</button>
+  </div>
+</div>
+  
+
+<script src="/heunheuntrip/node_modules/jquery/dist/jquery.min.js"></script>
+<script src="/heunheuntrip/node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="/heunheuntrip/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+
+<script>
+$('#dropdown > a').on('click', function() {
+  // 버튼에 선택된 항목 텍스트 넣기
+  $('#dropdownMenuButton').val($(this).text());
+});
+</script>
+</body>
+</html>

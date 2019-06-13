@@ -256,8 +256,10 @@
       email = #{email}
       and name =#{name}
   </select>
-  
-  
+
+  <select id="extractHostTel" parameterType="int" resultType="String">
+    select tel from usr where usr_id = (select usr_id from rms where rms_id = #{no})
+  </select>
   
 </mapper>
 

@@ -60,5 +60,6 @@ dependencies {
     //mail 전송
     compile group: 'javax.mail', name: 'mail', version: '1.4.7'
     
-    
+    // sms
+    compile 'net.nurigo:javaSDK:2.2'
 }

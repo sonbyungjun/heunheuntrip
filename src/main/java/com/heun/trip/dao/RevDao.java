@@ -10,6 +10,9 @@ public interface RevDao {
   int countAll(int no);
   Rev findByNo(int no);
   int delete(int no);
+  int inupdate(Rev rev);
+  List<Rev> getupdtData(Map<String, Object> params);
+  int requestDelete(int no);
 }
  
 

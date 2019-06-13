@@ -132,6 +132,33 @@ $("#fileupload").change(function (e) {
 	$('#file-btn1').show();
 })
 
+$('#check-btn').on('click', function () {
+  // 먼저 서버에 사용자가 입력한 이메일을 서버에 보내서 인증번호를 받아옴
+  $.ajax({
+    url: '../../app/json/member/checkEmail',
+    type: 'GET',
+    data: {
+      ranNo: $("#play").val()
+    },
+    dataType: 'json',
+    success: function (response) {
+     if(response.status == "success"){
+       $('#play').removeClass("is-invalid")
+       .addClass("is-valid")
+       .show();
+     } else {
+       $('#play').removeClass("is-valid")
+       .addClass("is-invalid")
+       .show();
+     }
+    },
+    fail: function (error) {
+      alert('등록 실패!!');
+    }
+  });
+})
+
+
 // 인증 번호 보내기
 $('#add-btn').on('click', function () {
 	// 먼저 서버에 사용자가 입력한 이메일을 서버에 보내서 인증번호를 받아옴
@@ -152,24 +179,13 @@ $('#add-btn').on('click', function () {
 			// 인증번호 입력창의 readonly를 해제
 			$('#play').attr("readonly", false);
 			$('#play').val('');
+			$('#check-btn').show();
 
 			// 기존 성공상태를 실패상태로 바꿈
 			$('#play').removeClass("is-valid")
 				.addClass("is-invalid")
 				.show();
-
-			$("#play").keyup(function () {
-				var play = $(this).val();
-				if (play == response.ranNo) {
-					$('#play').removeClass("is-invalid")
-						.addClass("is-valid")
-						.show();
-				} else {
-					$('#play').removeClass("is-valid")
-						.addClass("is-invalid")
-						.show();
-				}
-			});
+			$('#check-btn').removeAttr("disabled");
 		},
 		fail: function (error) {
 			alert('등록 실패!!');
@@ -220,36 +236,9 @@ if(window.auth == '2' && $('#bnk_no').val()==''){
 		$('#rePwd').hasClass("is-valid") &
 		window.auth=='1'&
 		$('#fileupload').val() == "") {
-		$.ajax({
-			url: '../../app/json/member/add',
-			type: 'POST',
-
-			data: {
-				email: $("#email").val(),
-				password: $("#pwd").val(),
-				name: $("#name").val(),
-				auth: window.auth,
-				sns_no: 0
-			},
-			dataType: 'json',
-			success: function (response) {
-
-				if (response.status == 'success') {
-
-					Swal.fire({
-						type: 'success',
-						title: "회원 가입을 환영 합니다!"
-					}).then((result) => {
-						if (result.value) {
-							location.href = 'signin.html'
-						}
-					})
-				}
-			},
-			error: function (error) {
-				alert('시스템 오류가 발생했습니다.');
-			}
-		});
+		
+  memberadd()
+  
 	}else if ($('#name').hasClass("is-valid") &
 			$('#email').hasClass("is-valid") &
 			$('#play').hasClass("is-valid") &
@@ -456,7 +445,41 @@ function banknumber(event){
 	  }
 	}
 
+function memberadd(){
+  $.ajax({
+    url: '../../app/json/member/add',
+    type: 'POST',
 
+    data: {
+      email: $("#email").val(),
+      password: $("#pwd").val(),
+      name: $("#name").val(),
+      auth: window.auth,
+      ranNo: $("#play").val(),
+      sns_no: 0
+    },
+    dataType: 'json',
+    success: function (response) {
+
+      if (response.status == 'success') {
+
+        Swal.fire({
+          type: 'success',
+          title: "회원 가입을 환영 합니다!"
+        }).then((result) => {
+          if (result.value) {
+            location.href = 'signin.html'
+          }
+        })
+      } else {
+        alert("정보를 다시 확인해주세요")
+      }
+    },
+    error: function (error) {
+      alert('시스템 오류가 발생했습니다.');
+    }
+  });
+}
 
 
 

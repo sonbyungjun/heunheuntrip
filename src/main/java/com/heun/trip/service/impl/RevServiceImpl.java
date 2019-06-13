@@ -17,6 +17,12 @@ public class RevServiceImpl implements RevService {
     this.revDao = revDao;
   }
 
+  
+  @Override
+  public int inupdate(Rev rev) {
+    return revDao.inupdate(rev);
+  }
+  
   @Override
   public List<Rev> list(int pageNo, int pageSize, int userNo) {
     
@@ -43,13 +49,23 @@ public class RevServiceImpl implements RevService {
   public int size(int no) {
     return revDao.countAll(no);
   }
+  
+  @Override
+  public List<Rev> getupdtData(int pageNo, int pageSize, int userNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return revDao.getupdtData(params);
+  }
 
+  @Override
+  public int cancel(int no) {
+    return revDao.requestDelete(no);
+  }
 
 }
-
-
-
-
-
 
 

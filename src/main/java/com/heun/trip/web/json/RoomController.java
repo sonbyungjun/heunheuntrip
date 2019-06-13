@@ -72,7 +72,7 @@ public class RoomController {
         cons.add(con);
       }
       for (int c : safety) {
-        Safety safe = new Safety();
+        Safety safe = new Safety(); 
         safe.setNo(c);
         safes.add(safe);
       }
@@ -142,8 +142,12 @@ public class RoomController {
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
       String lati,
+      HttpSession session,
       String longi
       ) { // localhost:8080/heunheuntrip/app/json/room/review
+
+    Member loginUser = (Member)session.getAttribute("loginUser");
+
 
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
@@ -162,6 +166,11 @@ public class RoomController {
     List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
     
     HashMap<String,Object> content = new HashMap<>();
+    
+    if(loginUser != null) {
+      content.put("loginNo", loginUser.getNo());
+    }
+    
     content.put("list", rooms);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
@@ -177,7 +186,7 @@ public class RoomController {
     return room;
   }
   
-  
+
   @GetMapping("hostroom")
   public Object hostroom(
       @RequestParam(defaultValue="1") int pageNo,

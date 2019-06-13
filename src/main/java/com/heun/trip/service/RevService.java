@@ -9,4 +9,7 @@ public interface RevService {
   int count(Map<String, Object> params);
   int size(int no);
   Rev detail(int no);
+  int inupdate(Rev rev);
+  List<Rev> getupdtData(int pageNo, int pageSize, int userNo);
+  int cancel(int no);
 }

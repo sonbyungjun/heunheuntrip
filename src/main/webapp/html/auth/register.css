@@ -1,0 +1,39 @@
+  /* .help-block 을 일단 보이지 않게 설정 */
+  #signupForm .help-block {
+    display: none;
+  }
+
+  /* glyphicon 을 일단 보이지 않게 설정 */
+  #signupForm .glyphicon {
+    display: none;
+  }
+
+
+  .a {
+    padding: 40px;
+  }
+
+
+  .check {
+    padding-bottom: 20px;
+  }
+  #nn {
+    border-color: #ced4da;
+  }
+
+  div button{
+  width:140px;
+  
+  }
+  #check-btn{
+  display:none;
+  }
+   #play{
+  display:none;
+  }
+    #checktel-btn{
+  display:none;
+  }
+   #playtel{
+  display:none;
+  }

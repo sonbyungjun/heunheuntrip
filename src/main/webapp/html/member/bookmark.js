@@ -70,6 +70,12 @@ function loadList(pn) {
 
 $(document.body).bind('loaded-list', (e) => {
   
+  $('.room-bookmark').off('click').on('click', function(e){
+    var roomNo = $(this).data('no');
+    location.href="../room/view.html?no=" + roomNo;
+    
+  })
+  
   $('.bookmark-delete').off('click').on('click', function(e){
     
     var no = $(this).parent().data('no');

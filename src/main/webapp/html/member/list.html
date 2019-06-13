@@ -77,9 +77,7 @@
               <div class="col-md-7 col-lg-8 col-xl-8">
                 <div class="page-header bordered">
                   <h1>예약<small>reservation</small></h1>
-                  <div class="clearfix"></div>
-
-                  <!-- 핸들바스 적용지점 -->
+                </div>
                   <div class="item-listing list"></div>
                   <div class="pagination-menu"></div>
                 </div>
@@ -89,9 +87,10 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-
-  </div>
+    <button class="btn btn-primary btn-circle" id="to-top">
+      <i class="fa fa-angle-up"></i>
+    </button>
+    
   <div id='heun-footer'></div>
 
   <!-- 핸들바스 -->
@@ -102,21 +101,27 @@
                 <div class="row">
                   <div class="col-lg-5">
                     <div class="item-image"> 
-                      <a href="property_single.html">
+                      <div class="charge-image">
                         <img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" class="img-fluid" alt="">
-                      </a>
+                      </div>
                       <div class="rev-state">
-                      <button style="font-size: 15px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   {{status}}</i>
+                      <button style="font-size: 15px; margin-top:8px" type="button" class="btn btn-sm" disabled="disabled"><i class="fas fa-check"></i>   {{status}}</i>
                        </button>
                       {{#if count}}
-                      <button type="button" class="btn btn-sm btn-primary riw-complete">후기 등록완료</button>
+                      <button type="button" class="btn btn-sm btn-inverse riw-complete">후기 등록완료</button>
                        {{else if isBtn}}
                        <button type="button" class="btn btn-sm btn-secondary riw-write" data-toggle="modal" data-backdrop="static" data-target="#exampleModal">후기 작성</button>
                        <input type="hidden" class="form-control input-room" data-no={{rmsNo}}>
                        {{/if}}
 
                       {{#if isCheck}}
-                      <button type="button" class="btn btn-sm btn-link riw-check" data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
+                      <button type="button" class="btn btn-sm btn-link riw-check" data-revNo={{no}} data-ci={{checkIn}} data-co={{checkOut}} data-toggle="modal" data-target="#leadform">변경 / 취소</button>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}} data-rmsName={{rmsName}}>
+                      {{else if isupdate}}
+                      <button type="button" class="btn btn-sm btn-primary update-check">변경대기중</button>
+                      <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
+                      {{else if isDelete}}
+                      <button type="button" class="btn btn-sm btn-primary delete-check">취소대기중</button>
                       <input type="hidden" class="form-control riw-check-room" data-no={{rmsNo}}>
                       {{/if}}
 
@@ -125,14 +130,15 @@
                   </div>
                   <div class="col-lg-7">
                   <div class="item-info">
-                    <h3 class="item-title" data-no={{no}}><a href="#">{{rmsName}}</a></h3>
+                    <h3 class="item-title" data-no={{no}} data-rmsNo={{rmsNo}}><a href="#">{{rmsName}}</a></h3>
                     <div class="item-location"><i class="fas fa-map-marker-alt"></i>   {{address}}</div>
                     <div class="item-details">
                       <ul>
                         <li>체크인<span>{{checkIn}}</span></li>
                         <li>체크아웃<span>{{checkOut}}</span></li> 
-                        <li>예약 인원 <span>{{revPerson}}</span></li>
+                        <li class="people-data">예약 인원 <span>{{revPerson}}</span></li>
                         <li>승인 여부 <span>{{stanBy}}</span></li>
+                        <li>결제 금액 <span>$ {{revCharge}}</span></li>
                       </ul>
                     </div>
                  </div>
@@ -175,8 +181,6 @@
       <div class="modal-content" style="width: 480px; height: auto;">
         <div class="modal-header">
           <div class="media">
-            <div class="media-left"> <img src="img/demo/property/thumb/1.jpg" width="60" class="img-rounded mt5" alt="">
-            </div>
             <div class="media-body">
               <h4 class="media-heading">예약 변경/취소</h4>
             </div>
@@ -186,7 +190,7 @@
         </div>
         <div class="modal-body">
           <form>
-            <div class="form-group">
+            <div class="form-group check-first">
               <label>날짜</label>
               <div class="input-group" id="main-data">
                 <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
@@ -201,7 +205,7 @@
               </div>
               <div id="main-calendar"></div>
               <br>
-              <div class="form-group">
+              <div class="form-group check-pp">
                 <label for="input-m"><span class="align-bottom">인원</span></label>
                 <button id="input-m" type="button" class="form-control dropdown-toggle check-person" data-p="1"
                   data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
@@ -221,14 +225,18 @@
             </div>
             <div class="form-group">
             <label>변경사유</label>
-            <textarea rows="4" class="form-control" placeholder="">I thought you might want to take a look at this property for sale.</textarea>
+            <textarea rows="4" class="form-control rev-reas" placeholder="변경 사유를 작성하세요."></textarea>
           </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">예약취소</button>
-          <button type="button" class="btn btn-link" data-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary">예약변경</button>
+          <div class="rev-cc">
+            <button type="button" class="btn btn-danger rev-cancel" data-dismiss="modal">예약취소</button>
+          </div>
+          <div class="rev-up">
+          <button type="button" class="btn btn-primary rev-update">예약변경</button>
+          <button type="button" class="btn btn-link cancel-update" data-dismiss="modal" >취소</button>
+          </div>
         </div>
       </div>
     </div>
