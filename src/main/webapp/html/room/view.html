@@ -2,107 +2,120 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <title>HeunheunTrip</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>HeunheunTrip</title>
 
-  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700"
+	rel="stylesheet">
 
-  <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="../../lib/animate.css" rel="stylesheet">
-  <link href="../../lib/selectric/selectric.css" rel="stylesheet">
-  <link href="../../lib/swiper/css/swiper.min.css" rel="stylesheet">
-  <link href="../../lib/aos/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../lib/photoswipe/photoswipe.css">
-  <link rel="stylesheet" href="../../lib/photoswipe/default-skin/default-skin.css">
-  <link href="../../css/style.css" rel="stylesheet">
-  <link href="../../css/colors/blue.css" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="../../lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css" /> -->
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
-  <link rel="stylesheet" href="../../lib/jquery-date-range-picker-master/dist/daterangepicker.css" />
+<link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../lib/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="../../lib/animate.css" rel="stylesheet">
+<link href="../../lib/selectric/selectric.css" rel="stylesheet">
+<link href="../../lib/swiper/css/swiper.min.css" rel="stylesheet">
+<link href="../../lib/aos/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="../../lib/photoswipe/photoswipe.css">
+<link rel="stylesheet"
+	href="../../lib/photoswipe/default-skin/default-skin.css">
+<link href="../../css/style.css" rel="stylesheet">
+<link href="../../css/colors/blue.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="../../lib/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css" /> -->
+<!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> -->
+<link rel="stylesheet"
+	href="../../lib/jquery-date-range-picker-master/dist/daterangepicker.css" />
+	<link rel="stylesheet" href="../../star/star-rating-svg.css">
 
-  <script src="../../lib/jquery-3.2.1.min.js"></script>
-  <script src="../../lib/popper.min.js"></script>
-  <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../../lib/selectric/jquery.selectric.js"></script>
-  <script src="../../lib/swiper/js/swiper.min.js"></script>
-  <script src="../../lib/aos/aos.js"></script>
-  <script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
-  <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
-  <script src="../../lib/photoswipe/photoswipe.min.js"></script>
-  <script src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
-  <!-- <script src="../../lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
+<script src="../../lib/jquery-3.2.1.min.js"></script>
+<script src="../../lib/popper.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../lib/selectric/jquery.selectric.js"></script>
+<script src="../../lib/swiper/js/swiper.min.js"></script>
+<script src="../../lib/aos/aos.js"></script>
+<script src="../../lib/sticky-sidebar/ResizeSensor.min.js"></script>
+<script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
+<script src="../../lib/photoswipe/photoswipe.min.js"></script>
+<script src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
+<!-- <script src="../../lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
     <script src="../../lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.ko.min.js"></script> -->
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
-  <script type="text/javascript"
-    src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
-  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
-  <style>
-    .customoverlay {
-      position: relative;
-      bottom: 85px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      border-bottom: 2px solid #ddd;
-      float: left;
-    }
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+<script type="text/javascript"
+	src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+<script src="../../star/jquery.star-rating-svg.js"></script>
+<style>
+.customoverlay {
+	position: relative;
+	bottom: 85px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	float: left;
+}
 
-    .customoverlay:nth-of-type(n) {
-      border: 0;
-      box-shadow: 0px 1px 2px #888;
-    }
+.customoverlay:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
 
-    .customoverlay a {
-      display: block;
-      text-decoration: none;
-      color: #000;
-      text-align: center;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-      overflow: hidden;
-      background: #d95050;
-      background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
-    }
+.customoverlay a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	background: #d95050;
+	background: #d95050
+		url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+		no-repeat right 14px center;
+}
 
-    .customoverlay .title {
-      display: block;
-      text-align: center;
-      background: #fff;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      margin-right: 35px;
-      padding: 10px 15px;
-      font-size: 14px;
-      font-weight: bold;
-    }
+.customoverlay .title {
+	display: block;
+	text-align: center;
+	background: #fff;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-right: 35px;
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: bold;
+}
 
-    .customoverlay:after {
-      content: '';
-      position: absolute;
-      margin-left: -12px;
-      left: 50%;
-      bottom: -12px;
-      width: 22px;
-      height: 12px;
-      background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-    }
-  </style>
+.customoverlay:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: -12px;
+	width: 22px;
+	height: 12px;
+	background:
+		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+</style>
 </head>
 
 <body>
-  <div id="main">
-    <div id="heun-header"></div>
+	<div id="main">
+		<div id="heun-header"></div>
 
-    <div id="heun-detail"></div>
+		<div id="heun-detail"></div>
 
-    <script id="detail-template" type="text/x-handlebars-template">
+		<script id="detail-template" type="text/x-handlebars-template">
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col col-md-12 col-lg-12 col-xl-10">
@@ -198,27 +211,9 @@
                       </ul>
                     
                       <h3 class="headline">후기</h3>
-                      <div class="comments">
-                        <div class="media">
-                          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
-                          <div class="media-body">
-                            <a href="#post-comment" class="btn-reply"><i class="fa fa-reply"></i> 답글</a>
-                            <h5 class="media-heading author">손병준</h5>
-                            <div class="date">2019년 6월</div>
-                            <div class="comment">깨끗해요 좋아요!!</div>
-
-                            <div class="media">
-                              <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
-                              <div class="media-body">
-                            <a href="#post-comment" class="btn-reply"><i class="fa fa-reply"></i> 답글</a>
-                                <h5 class="media-heading author">호스트</h5>
-                                <div class="date">2019년 6월</div>
-                                <div class="comment">감사합니다.</div></div>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
+                      <a class="btn btn-link riw-update" href="#" data-toggle="modal"  data-backdrop="static" data-target="#exampleModal">후기 작성</a>
+                      <div id="review"></div>
+                      
 
                       <h3 class="headline">예약 가능 여부</h3>
                       <div class="row">
@@ -407,79 +402,164 @@
 
 
 
-    <button class="btn btn-primary btn-circle" id="to-top"><i class="fa fa-angle-up"></i></button>
-
-    <div id="heun-footer"></div>
-  </div>
-  <!-- Root element of PhotoSwipe. Must have class pswp. -->
-  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element, as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-      <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
-      <!-- don't modify these 3 pswp__item elements, data is added later on. -->
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-
-      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-      <div class="pswp__ui pswp__ui--hidden">
-
-        <div class="pswp__top-bar">
-
-          <!--  Controls are self-explanatory. Order can be changed. -->
-
-          <div class="pswp__counter"></div>
-
-          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-          <button class="pswp__button pswp__button--share" title="Share"></button>
-
-          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-          <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
-          <!-- element will get class pswp__preloader--active when preloader is running -->
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
-              </div>
+		<script id="review-template" type="text/x-handlebars-template">
+{{#each list}}
+   <div class="comments">
+      <div class="media">
+         <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+         <div class="media-body">
+            <div class="heun-reply">
+            <a id="cont-{{no}}" href="#" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
             </div>
-          </div>
-        </div>
+            <h5 class="media-heading author">{{userNo}}</h5>
+            <div class="date">{{createdDate}}</div>
+            <div class="comment">{{contents}}</div>
 
-        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-          <div class="pswp__share-tooltip"></div>
-        </div>
 
-        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-        </button>
+            <div  class="comment-input-box" id="post-comment">
+              <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea id="comment" class="form-control form-control-lg" placeholder="Your Comment"></textarea>
+               </div>
+             <div class="form-group">
+               <button type="submit" class="btn btn-lg btn-primary">Post Comment</button>
+             </div>
+           </div>
 
-        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-        </button>
 
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
-        </div>
 
+            <div class="media"   id="no-reply-{{no}}">
+              <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+              <div class="media-body">
+              
+                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{name}}</h5>
+                <div class="date">{{replyDate}}</div>
+                <div class="comment">{{reply}}</div></div>
+             </div>
+
+           </div>
+         </div>
       </div>
+{{/each}}
+</script>
 
+
+		<button class="btn btn-primary btn-circle" id="to-top">
+			<i class="fa fa-angle-up"></i>
+		</button>
+
+
+  <div class="modal fade riw-modal" id="exampleModal" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"
+        style="border-radius: 5px; border: 0px solid white;">
+        <div class="modal-header" style="background-color: #3b8ced">
+          <h5 class="modal-title" id="exampleModalLabel"
+            style="color: white;">후기작성</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close" style="color: white">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <h4>후기를 작성해주세요.</h4>
+            <small>평점을 매겨주세요.</small>
+
+            <div class="my-rating"></div>
+            <div class="form-group">
+              <textarea class="form-control" id="message-text"
+                style="border-radius: 10px;"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary add-btn">등록</button>
+        </div>
+      </div>
     </div>
-
   </div>
-  <script src="../../lib/lib.js"></script>
-  <script src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
-  <script src="view.js"></script>
-  <script src="viewLoad.js"></script>
+
+
+		<div id="heun-footer"></div>
+	</div>
+	<!-- Root element of PhotoSwipe. Must have class pswp. -->
+	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+		<!-- Background of PhotoSwipe. 
+         It's a separate element, as animating opacity is faster than rgba(). -->
+		<div class="pswp__bg"></div>
+
+		<!-- Slides wrapper with overflow:hidden. -->
+		<div class="pswp__scroll-wrap">
+
+			<!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+			<!-- don't modify these 3 pswp__item elements, data is added later on. -->
+			<div class="pswp__container">
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+				<div class="pswp__item"></div>
+			</div>
+
+			<!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+			<div class="pswp__ui pswp__ui--hidden">
+
+				<div class="pswp__top-bar">
+
+					<!--  Controls are self-explanatory. Order can be changed. -->
+
+					<div class="pswp__counter"></div>
+
+					<button class="pswp__button pswp__button--close"
+						title="Close (Esc)"></button>
+
+					<button class="pswp__button pswp__button--share" title="Share"></button>
+
+					<button class="pswp__button pswp__button--fs"
+						title="Toggle fullscreen"></button>
+
+					<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+					<!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+					<!-- element will get class pswp__preloader--active when preloader is running -->
+					<div class="pswp__preloader">
+						<div class="pswp__preloader__icn">
+							<div class="pswp__preloader__cut">
+								<div class="pswp__preloader__donut"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+					<div class="pswp__share-tooltip"></div>
+				</div>
+
+				<button class="pswp__button pswp__button--arrow--left"
+					title="Previous (arrow left)"></button>
+
+				<button class="pswp__button pswp__button--arrow--right"
+					title="Next (arrow right)"></button>
+
+				<div class="pswp__caption">
+					<div class="pswp__caption__center"></div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<script src="../../lib/lib.js"></script>
+	<script
+		src="/heunheuntrip/node_modules/handlebars/dist/handlebars.min.js"></script>
+	<script src="viewLoad.js"></script>
+	<script src="view.js"></script>
 </body>
 
 </html>
