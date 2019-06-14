@@ -42,7 +42,7 @@
 <script src="../../lib/photoswipe/photoswipe-ui-default.min.js"></script>
 <!-- <script src="../../lib/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
     <script src="../../lib/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.ko.min.js"></script> -->
-
+<script src="../js/handlebars-paginate.js"></script>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
@@ -213,6 +213,7 @@
                       <h3 class="headline">후기</h3>
                       <a class="btn btn-link riw-update" href="#" data-toggle="modal"  data-backdrop="static" data-target="#exampleModal">후기 작성</a>
                       <div id="review"></div>
+                      <div class="pagination-menu"></div>
                       
 
                       <h3 class="headline">예약 가능 여부</h3>
@@ -408,21 +409,19 @@
       <div class="media">
          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
          <div class="media-body">
-            <div class="heun-reply">
-            <a id="cont-{{no}}" href="#" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
-            </div>
-            <h5 class="media-heading author">{{userNo}}</h5>
+            <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
+            <h5 class="media-heading author">{{name}}</h5>
             <div class="date">{{createdDate}}</div>
             <div class="comment">{{contents}}</div>
 
 
-            <div  class="comment-input-box" id="post-comment">
+            <div  class="comment-input-box cont-{{no}}" id="post-comment">
               <div class="form-group">
                 <label for="comment">Comment</label>
-                <textarea id="comment" class="form-control form-control-lg" placeholder="Your Comment"></textarea>
+                <textarea id="comment" class="form-control form-control-lg reply-{{no}}" placeholder="답변을 작성해주세요"></textarea>
                </div>
              <div class="form-group">
-               <button type="submit" class="btn btn-lg btn-primary">Post Comment</button>
+               <button type="button" class="btn btn-lg btn-primary reply-submit">답변 등록</button>
              </div>
            </div>
 
@@ -432,7 +431,7 @@
               <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
               <div class="media-body">
               
-                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{name}}</h5>
+                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}</h5>
                 <div class="date">{{replyDate}}</div>
                 <div class="comment">{{reply}}</div></div>
              </div>
@@ -443,6 +442,33 @@
 {{/each}}
 </script>
 
+
+
+  <script id="page-template" type="text/x-handlebars-template">
+    <nav>
+      <ul class="pagination pagination-centered">
+        {{#paginate pagination type="first"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&laquo;&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="previous"}}
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&laquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="middle" limit="5"}}
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="roomreview({{n}})">{{n}}</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="next"}}
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="a({{n}})">&raquo;</a></li>
+        {{/paginate}}
+    
+        {{#paginate pagination type="last"}}
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&raquo;&raquo;</a></li>
+        {{/paginate}}
+    </ul>
+    </nav>
+    </script>
 
 		<button class="btn btn-primary btn-circle" id="to-top">
 			<i class="fa fa-angle-up"></i>

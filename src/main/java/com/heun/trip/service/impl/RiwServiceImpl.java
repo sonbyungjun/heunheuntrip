@@ -18,9 +18,12 @@ public class RiwServiceImpl implements RiwService {
   }
 
   @Override
-  public List<Riw> roomreview(int no) {
-
-   return riwDao.findroomreview(no);
+  public List<Riw> roomreview(int no, int pageNo, int pageSize) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("no", no);
+   return riwDao.findroomreview(params);
   }
   
   @Override
@@ -97,6 +100,11 @@ public class RiwServiceImpl implements RiwService {
   @Override
   public int count(Map<String, Object> params) {
     return count(params);
+  }
+  
+  @Override
+  public int reviewsize(int no) {
+    return riwDao.roomreviewcount(no);
   }
 
   //  

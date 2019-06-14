@@ -14,14 +14,46 @@
     <result column="cdt" property="createdDate"/>
     <result column="riw_reply" property="reply"/>
     <result column="reply_dt" property="replyDate"/>
-    <result column="name" property="name"/>
-    <result column="usr_photo" property="photo"/>
     <result column="rms_id" property="roomNo"/>
     <result column="rm_name" property="roomName"/>
-    <result column="thum" property="roomPhoto"/>
+    <result column="name" property="name"/>
     <result column="usr_photo" property="userPhoto"/>
+    <result column="hostname" property="hostname"/>
+    <result column="hostphoto" property="hostphoto"/>
+    <result column="thum" property="roomPhoto"/>
     
   </resultMap>
+  
+  <select id="findroomreview" resultMap="riwMap" parameterType="map">
+  select
+  r.riw_id,
+  r.usr_id,
+  r.riw_conts,
+  r.grd,
+  r.cdt,
+  r.riw_reply,
+  r.reply_dt,
+  r.rms_id,
+  u.name,
+  u.usr_photo,
+  (select name from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostname,
+  (select usr_photo from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostphoto
+from
+  riw r
+left outer join usr u
+  on r.usr_id=u.usr_id
+where
+  r.rms_id=#{no}
+order by 
+  cdt desc 
+  <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+
+  </select>
+  
+  
+  
   
   <select id="findAll" resultMap="riwMap" parameterType="map">
     select
@@ -104,32 +136,7 @@
 
 
 
-<select id="findroomreview" resultMap="riwMap" parameterType="int">
-    select
-      r.riw_id,
-      r.usr_id,
-      r.riw_conts,
-      r.grd,
-      r.cdt,
-      r.riw_reply,
-      r.reply_dt,
-      m.rms_id,
-      m.rm_name,
-      m.thum,
-      u.usr_photo,
-      u.name        
-    from
-      riw r
-    left outer join
-      rms m on r.rms_id=m.rms_id 
-    left outer join
-      usr u on u.usr_id=m.usr_id      
-    where
-      m.rms_id = #{value}
-    order by 
-      cdt desc
-   
-  </select>
+
 
 
   <insert id="insert" parameterType="riw">
@@ -222,7 +229,7 @@
   </update>
   
   
-  <select id="count" parameterType="map">
+  <select id="count" parameterType="map" >
     select 
      count(*) 
     from 
@@ -231,7 +238,10 @@
      usr_id=#{userNo} and rms_id=#{roomNo}
   </select>
   
-  
+    <select id="roomreviewcount" resultType="int" parameterType="int">
+    select count(*) from riw 
+    where rms_id = #{value}
+  </select>
   
   
     <!-- 

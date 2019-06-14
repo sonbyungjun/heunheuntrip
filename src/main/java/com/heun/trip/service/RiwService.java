@@ -15,6 +15,7 @@ public interface RiwService {
   int replyupdate(Riw riw);   
   int delete(int no);
   int size();
+  int reviewsize(int no);
   int count(Map<String, Object> params);
-  List<Riw> roomreview(int no) ;
+  List<Riw> roomreview(int no, int pageNo, int pageSize) ;
 }
