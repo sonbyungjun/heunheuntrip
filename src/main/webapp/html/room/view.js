@@ -5,31 +5,22 @@ $('body').on('loaded-list', function () {
 	templateSrc = $('#review-template').html(),
 	reviewGenerator = Handlebars.compile(templateSrc),
 	reviewlist = $('#review'),
-  templateSrcs = $('#hostProfile-template').html(),
-  hostProfileGenerator = Handlebars.compile(templateSrcs),
-  hprofile = $('.host-profile'),
+    templateSrcs = $('#hostProfile-template').html(),
+    hostProfileGenerator = Handlebars.compile(templateSrcs),
+    hprofile = $('.host-profile'),
 	rating = 0,
-	rmsNo=0,
 	paginateSrc = $('#page-template').html();
+	
+	
 	
 	
 	Handlebars.registerHelper('paginate', paginate);
 	var pageGenerator = Handlebars.compile(paginateSrc);
 
-<<<<<<< HEAD
-	roomreview(param, 1); 
 
+	console.log(param)
 	
-	
-	function a(pn) {
-		roomreview(param, pn)
-	}
-	
-	
-	
-	function roomreview(param, pn) {
-=======
-	roomreview();  
+	roomreview(1); 
 	roomProfile();
 	
 	function roomProfile(){
@@ -76,22 +67,26 @@ $('body').on('loaded-list', function () {
 	  
 	}
 	
-	function roomreview() {
->>>>>>> branch 'master' of https://github.com/sonbyungjun/heunheuntrip.git
+	function roomreview(pn) {
 
 		$.ajax({
-			url: '../../app/json/room/review?no='+ param + '&pageNo=' + pn,
+			url: '../../app/json/room/review?pageNo=' + pn,
 			type: 'GET',
+			data: {
+		        no: param 
+		      },
 			dataType: 'json',
 			success: function(response) {
 
+				
+				
 				pageNo = response.pageNo;				  
 			   				
 				reviewlist.html('');
 
 				//$(reviewGenerator(response)).appendTo(reviewlist);
 
-				console.log(response)
+				
 				 response.pagination = {
 				          page: response.pageNo,
 				          pageCount: response.totalPage
@@ -149,7 +144,7 @@ $('body').on('loaded-list', function () {
 				
 
 				console.log(response)
-				window.rmsNo = response.list[0].roomNo;
+				
 
 				if(response.list[0].name != response.hostname) {
 					$('.btn-reply').hide();
@@ -221,7 +216,7 @@ $('body').on('loaded-list', function () {
 				url: '../../app/json/room/addriw',
 				type: 'POST',
 				data: {
-					roomNo: window.rmsNo,
+					roomNo: window.param,
 					grd: window.rating,
 					contents: $('#message-text').val()
 				},

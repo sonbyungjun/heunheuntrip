@@ -235,6 +235,7 @@ public class RoomController {
       HttpSession session, int no) {
     System.out.println(pageNo);
     System.out.println(pageSize);
+    System.out.println(no + "------------------------------");
     
     HashMap<String,Object> content = new HashMap<>();
 
@@ -243,6 +244,7 @@ public class RoomController {
       pageSize = 2;
 
     int rowCount = riwService.reviewsize(no);
+    System.out.println(rowCount);
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;

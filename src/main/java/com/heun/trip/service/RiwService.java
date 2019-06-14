@@ -18,5 +18,5 @@ public interface RiwService {
   int reviewsize(int no);
   int count(Map<String, Object> params);
   int countAllHost(int no);
-  List<Riw> roomreview(int no) ;
+  List<Riw> roomreview(int no, int pageNo, int pageSize) ;
 }
