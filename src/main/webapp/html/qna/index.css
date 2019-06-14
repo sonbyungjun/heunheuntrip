@@ -1,23 +1,10 @@
-@font-face {
-  font-family: 'S-CoreDream-3Light';
-  src:
-    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 .heun-btitle {
 	text-align: center;
-	font-family: 'S-CoreDream-3Light';
 	margin: 40px;
 	font-weight: blod;
 }
  
-.content {
-	font-family: 'S-CoreDream-3Light';
-}
 
 th:nth-child(1) {
 	text-align: center;
@@ -72,45 +59,34 @@ td:nth-child(6) {
 }
 
 .pagination-menu {
-	font-family: 'S-CoreDream-3Light';
 	margin: 0 auto;
 	width: 530px;
 }
 
 .search-choose {
-	font-family: 'S-CoreDream-3Light';
 	margin-bottom: 8px;
 }
 
 .main-btn {
-	font-family: 'S-CoreDream-3Light';
 	margin: 10px;
 	display: inline-block;
 }
 
 .searchselect {
-	font-family: 'S-CoreDream-3Light';
 	margin-bottom: 10px;
   width: 84px;
 }
 
 .main-search {
-	font-family: 'S-CoreDream-3Light';
 	margin: 10px;
 	display: inline-block;
 	float: right;
 }
 
 .main-title {
-	font-family: 'S-CoreDream-3Light';
 	margin-bottom: 0px;
 }
 
 .pagination-centered {
-	font-family: 'S-CoreDream-3Light';
 	width: 400;
-}
-
-.product_comparison {
-	font-family: 'S-CoreDream-3Light';
 }

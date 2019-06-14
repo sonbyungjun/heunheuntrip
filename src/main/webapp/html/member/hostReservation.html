@@ -35,6 +35,17 @@
 <script src="../js/handlebars-paginate.js"></script>
 <script src="../../star/jquery.star-rating-svg.js"></script>
 
+<style>
+
+.page-header {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -68,9 +79,9 @@
 												class="fas fa-unlock-alt"></i> 비밀번호 변경
 											</a> <a href="hostlist.html" class="list-group-item"> <i
 												class="fas fa-h-square"></i> 등록한 숙소</a>
-                      <a href="hostReservation.html" class="list-group-item"> <i 
+                      <a href="hostReservation.html" class="list-group-item active"> <i 
                       class="far fa-bell"></i> 예약 관리</a>
-										   <a href="hostreview.html" class="list-group-item active"> <i
+										   <a href="hostreview.html" class="list-group-item"> <i
 												class="fas fa-sliders-h"></i> 리뷰 관리
 											</a>
 
@@ -81,7 +92,7 @@
 							<div class="col-md-7 col-lg-8 col-xl-8">
 								<div class="page-header bordered">
 									<h1>
-										리뷰 관리<small>Review</small>
+										예약 관리<small>Reservation</small>
 									</h1>
 								</div>
 								<div class="card-list"></div>
@@ -100,31 +111,22 @@
 
 
 	<script id="tr-template" type="text/x-handlebars-template">
-    <input type="hidden" class="riw-page" data-page={{pageNo}}>
     {{#each list}}
-                 <div class="card">
-                    <div class="media mt-0">
-                          <div class="media-left"> <a href="agent.html"> <img class="media-object rounded-circle" src="../../upload/roomphoto/Thumbnail/{{roomPhoto}}.jpeg" width="100" height="100"  alt="">
-                            <pre  id="no-reply-{{no}}" style="text-align:center" margin-top = 10px href="#">미답변</pre>
-                        </a>
-                          </div>
-                          <div class="media-body row">
-                            <div class="main-riw col-12 col-sm-6 col-md-8">
-                             <h6 class="media-heading riw-cont" id="aaa-{{no}}" data-reply="{{reply}}">{{contents}}</h6>
-                             <p class="text-muted"><i class="fas fa-map-marker-alt"></i>        {{roomName}}</p>
-                             <p class="text-muted">작성자 : {{name}}</p>
-                             <p class="text-muted">작성일 : {{createdDate}} </p>
-                            </div>
-                            <div class="riw-btn col-6 col-md-4" data-no={{no}} data-grd={{grd}} >
-                              <a class="btn btn-link riw-update" href="#" data-toggle="modal" data-reply="{{reply}}" data-userNo="{{userNo}}" data-backdrop="static" data-target="#exampleModal">상세보기</a>
-                            
-                            </div>
-                          </div>
-                        </div>
-                    </div>
+              <div class="heun-revitem" style="border-bottom: 1px solid #eee; padding-bottom: 20px; padding-top: 20px">
+                <div class="row heun-css">
+                  <div class="col-12 col-sm-6 col-md-9" style="font-size: 16px">
+                   <h4 style="color: #869E9E">{{rmsName}}</h4>
+                   <b>예약 날짜</b> : <span>{{checkIn}}<span> ~ <span>{{checkOut}}</span><br>
+                   <b>예약자 명</b> : <span>{{guestName}}     </span> <a href="#" style="color: #3b8ced"><i class="far fa-envelope"></i>  메세지 보내기</a><br> 
+                   <b>인원</b> : <span>{{revPerson}}<span>명
+                  </div>
+                  <div class="col-6 col-md-3">
+                    <button type="button" class="btn btn-sm btn-primary" style="width: 100px; text-align: center; margin: 5px;">상세정보</button>
+                    <button type="button" class="btn btn-sm btn-primary" style="width: 100px; text-align: center; margin: 5px;">변경요청</button>
+                  </div>
+                </div>
+             </div>
     {{/each}}
-
-    
   </script>
 
 	<script id="page-template" type="text/x-handlebars-template">
@@ -153,47 +155,7 @@
     </nav>
     </script>
 
-	<div class="modal fade riw-modal" id="exampleModal" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content"
-				style="border-radius: 5px; border: 0px solid white;">
-				<div class="modal-header" style="background-color: #3b8ced">
-					<h5 class="modal-title" id="exampleModalLabel"
-						style="color: white;">후기작성</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" style="color: white">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<h4>후기에 답변을 달아주세요.</h4>
-
-
-						<div class="my-rating"></div>
-						<div class="form-group">
-							<textarea class="form-control" id="message-text"
-								style="border-radius: 10px;" readonly></textarea>
-						</div>
-					</form>
-				</div>
-				<textarea class="form-control" id="remessage-text"
-					style="border-radius: 10px;" placeholder="리뷰에 답글을 남겨주세요!"></textarea>
-				<div class="modal-footer">
-
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary update-btn">변경</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-	<script src='hostreview.js'></script>
+	<script src='hostReservation.js'></script>
 </body>
 
 </html>

@@ -26,6 +26,8 @@
     <result column="addr" property="address"/>
     <result column="thum" property="thumbnail"/>
     <result column="stus" property="status"/>
+    
+    <result column="name" property="guestName"/>
   </resultMap>
   
   <resultMap type="riw" id="riwMap">
@@ -187,6 +189,38 @@
     where 
       rev_id = #{no}
   </update>
+  
+  <select id="listInHostPage" parameterType="map" resultMap="revMap">
+  
+  select 
+    e.rev_id, 
+    e.cck_in, 
+    e.cck_out, 
+    e.usr_id, 
+    e.rev_persn,
+    r.rm_name, 
+    u.name
+  from 
+    rev e 
+  left outer join 
+    usr u on e.usr_id = u.usr_id 
+  left outer join 
+    rms r on e.rms_id = r.rms_id 
+  where
+    e.rms_id IN (select rms_id from rms where usr_id=#{userNo}) and e.rev_updt is null
+  <if test="size != null and rowNo != null">
+    limit #{rowNo}, #{size}
+  </if>
+  </select>
+  
+  <select id="countInHostPage" parameterType="int" resultType="int">
+   select 
+      count(rev_id)
+    from 
+      rev
+    where
+      rms_id IN (select rms_id from rms where usr_id= #{no}) and rev_updt is null
+  </select>
   
 </mapper>
 

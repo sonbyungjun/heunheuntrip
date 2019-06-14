@@ -51,28 +51,31 @@ function loadList(pn) {
     form.html('');
 
     for(l of obj.list){
-
-      if(l.status === "체크아웃"){
-        l.isBtn = true;
-      } else {
-        l.isBtn = false;
-      }
-
-      if(l.status === "결제완료"){
-
-        if(l.revUpdate !== 0) {
-          l.isCheck = false;
-          l.isupdate = true;
-          l.isDelete = false;
-        } else if (l.revDelete === 1){
-          l.isDelete = true;
-          l.isupdate = false;
-          l.isCheck = false;
+      if(l.count !== true){
+        
+        if(l.status === "체크아웃"){
+          l.isBtn = true;
         } else {
-          l.isDelete = false;
-          l.isupdate = false;
-          l.isCheck = true;
+          l.isBtn = false;
         }
+
+        if(l.status === "결제완료"){
+
+          if(l.revUpdate !== 0) {
+            l.isCheck = false;
+            l.isupdate = true;
+            l.isDelete = false;
+          } else if (l.revDelete === 1){
+            l.isDelete = true;
+            l.isupdate = false;
+            l.isCheck = false;
+          } else {
+            l.isDelete = false;
+            l.isupdate = false;
+            l.isCheck = true;
+          }
+        }
+        
       }
 
       l.revCharge = AddComma(l.revCharge);
@@ -129,9 +132,6 @@ $(document.body).bind('loaded-list', (e) => {
       {
         name: '날짜 지우기',
         dates : function() {
-//        $('.heun-h2').data('dateRangePicker').clear();
-//        $('#date-range12-container').data('dateRangePicker').clear();
-//        $('#heun-rev').trigger('date-clear');
         }
       }
       ],
@@ -146,10 +146,6 @@ $(document.body).bind('loaded-list', (e) => {
         $('.heun-h2').val(s2);
       }
   }).bind('datepicker-change',function(event,obj) {
-//  var date = obj.value.split(" ~ ");
-//  $('#date-range12-container').data('dateRangePicker').setDateRange(date[0], date[1]);
-//  $('.heun-h1, .heun-h2').css('background-color', '');
-//  $('#heun-rev').trigger('date-input');
   });
 
   $('.riw-check').off('click').on('click', function(e){

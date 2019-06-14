@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Riw { // 일반회원이나 호스트가 관리자에게 문의하는 게시판 도메인
   private int no;
   private int userNo;
-  private String userPhoto;
   private String  contents;
   private String grd;
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
@@ -15,7 +14,9 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date replyDate;
   private String name;
-  private String photo;
+  private String userPhoto;
+  private String hostphoto;
+  private String hostname;
   private int roomNo;
   private String roomPhoto;
   private String roomName;
@@ -39,11 +40,18 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   public void setName(String name) {
     this.name = name;
   }
-  public String getPhoto() {
-    return photo;
+ 
+  public String getHostphoto() {
+    return hostphoto;
   }
-  public void setPhoto(String photo) {
-    this.photo = photo;
+  public void setHostphoto(String hostphoto) {
+    this.hostphoto = hostphoto;
+  }
+  public String getHostname() {
+    return hostname;
+  }
+  public void setHostname(String hostname) {
+    this.hostname = hostname;
   }
   public int getNo() {
     return no;
@@ -105,8 +113,9 @@ public class Riw { // 일반회원이나 호스트가 관리자에게 문의하�
   public String toString() {
     return "Riw [no=" + no + ", userNo=" + userNo + ", userPhoto=" + userPhoto + ", contents="
         + contents + ", grd=" + grd + ", createdDate=" + createdDate + ", reply=" + reply
-        + ", replyDate=" + replyDate + ", name=" + name + ", photo=" + photo + ", roomNo=" + roomNo
-        + ", roomPhoto=" + roomPhoto + ", roomName=" + roomName + "]";
+        + ", replyDate=" + replyDate + ", name=" + name + ", hostphoto=" + hostphoto + ", hostname="
+        + hostname + ", roomNo=" + roomNo + ", roomPhoto=" + roomPhoto + ", roomName=" + roomName
+        + "]";
   }
 
 }

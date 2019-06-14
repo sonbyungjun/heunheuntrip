@@ -1,21 +1,11 @@
-@font-face {
-  font-family: 'S-CoreDream-3Light';
-  src:
-    url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 
 h1 {
 	text-align: center;  
     margin: 30px; 
-    font-family: 'S-CoreDream-3Light';  
 }
 
  .page-header {	 
     text-align: center;	
-    font-family: 'S-CoreDream-3Light';	
 }	
 
 
