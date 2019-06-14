@@ -255,14 +255,14 @@ public class RoomController {
       pageNo = totalPage;
     
    
-//    Member member = (Member)session.getAttribute("loginUser");
-//    String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
+    Member member = (Member)session.getAttribute("loginUser");
+    String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
    
    
     List<Riw> list = riwService.roomreview(no, pageNo, pageSize);
     System.out.println(list);
     content.put("list", list);
-//    content.put("hostname", hostname);
+    content.put("hostname", hostname);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
     content.put("totalPage", totalPage);
