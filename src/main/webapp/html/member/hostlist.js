@@ -43,7 +43,7 @@ function loadList() {
 			$('.main-email').text(" E-MAIL : " + obj.member.email);
 			$('.main-tel').text(" PHONE : " + obj.member.tel);
 			$('.custom-file').find('label').html(obj.member.photo);
-			Loadroomlist(1);
+			Loadroomlist(0);
 			//	$(--------).appendTo(-------); 
 			// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 		}); // Bitcamp.getJSON(
