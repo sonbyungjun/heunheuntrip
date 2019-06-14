@@ -16,23 +16,22 @@ $(document).ready(function () {
   loadProfile();
 })
 
-//자신의 숙소 사진을 가지고옴
 function loadProfile() {
   $.getJSON('../../app/json/member/profile',
       function(obj) {
     
     if (obj.member.photo != null) {
-    $("<img class='rounded-circle'>").attr('src',
-        '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
+      $("<img class='rounded-circle'>").attr('src',
+        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
         .css('width', '255px')
+        .css('height', '255px')
         .appendTo($('#profileimg'));
-  
-    
     } else {
-    $("<img>").attr('src',
-          '/heunheuntrip/html/memberupload/default.jpeg')
-          .css('width', '255px')
-          .appendTo($('#profileimg'));
+      $("<img>").attr('src',
+        '/heunheuntrip/app/json/images/down/defualt.jpeg')
+        .css('width', '255px')
+        .css('height', '255px')
+        .appendTo($('#profileimg'));
     }
 
     $('.main-name').text(obj.member.name);
@@ -40,19 +39,13 @@ function loadProfile() {
     $('.main-tel').text(" PHONE : " + obj.member.tel);
     no = obj.member.no;
   }); // Bitcamp.getJSON(
-} // loadList()
-
-
+}
 
 
 // 내 숙소에 회원이 등록한 리뷰를 가지고옴
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listhostMypage?pageNo=' + pn, function(obj) {
     
-	  
-	  
-	 
-	
     pageNo = obj.pageNo;
     
     form.html('');

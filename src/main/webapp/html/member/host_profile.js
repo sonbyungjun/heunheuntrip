@@ -1,15 +1,19 @@
 "use strict"
 var no = 0,
-	reheader = 0;
+	  reheader = 0;
 
 $(document).ready(function () {
-	$("#heun-header").load("/heunheuntrip/html/header.html", function () {
-		$(".heun-header-nav").removeClass("navbar-over absolute-top");
-	});
-	$('p').hide();
-	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+  $("#heun-header").load("/heunheuntrip/html/header.html", function () {
+    $(".heun-header-nav").removeClass("navbar-over absolute-top");
+  });
+  
+  $('p').hide();
+  
+  $("#heun-footer").load("/heunheuntrip/html/footer.html");
+  
 	rephoto();
 })
+
 
 function rephoto() {
 	//$('#login-userphoto').css('background-image', '');
@@ -19,18 +23,19 @@ function rephoto() {
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
 			function(obj) {
-	  if (obj.member.photo != null) {
-	    $("<img class='rounded-circle'>").attr('src',
-	        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
-	        .css('width', '255px')
-	        .appendTo($('#profileimg'));
-	    reheader = obj.member.photo;
-	    } else {
-	    $("<img>").attr('src',
-	          '/heunheuntrip/html/memberupload/default.jpeg')
-	          .css('width', '255px')
-	          .appendTo($('#profileimg'));
-	    }
+    if (obj.member.photo != null) {
+      $("<img class='rounded-circle'>").attr('src',
+        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+        .css('width', '255px')
+        .css('height', '255px')
+        .appendTo($('#profileimg'));
+    } else {
+      $("<img>").attr('src',
+        '/heunheuntrip/app/json/images/down/defualt.jpeg')
+        .css('width', '255px')
+        .css('height', '255px')
+        .appendTo($('#profileimg'));
+    }
 		//	$(--------).appendTo(-------);
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 		$('.main-name').text(obj.member.name);

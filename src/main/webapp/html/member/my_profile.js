@@ -20,18 +20,21 @@ function loadList() {
 
 		$('#file-btn1').hide();
 		
-		if (obj.member.photo != null) {
-		$("<img class='rounded-circle'>").attr('src',
-				'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
-				.css('width', '255px')
-				.appendTo($('#profileimg'));
-		
-		} else {
-		$("<img>").attr('src',
-					'/heunheuntrip/html/memberupload/default.jpeg')
-					.css('width', '255px')
-					.appendTo($('#profileimg'));
-		}
+    if (obj.member.photo != null) {
+      $("<img class='rounded-circle'>").attr('src',
+          '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+          .css('width', '255px')
+          .css('height', '255px')
+          .appendTo($('#profileimg'));
+    
+      
+      } else {
+      $("<img>").attr('src',
+            '/heunheuntrip/app/json/images/down/default.jpeg')
+            .css('width', '255px')
+            .css('height', '255px')
+            .appendTo($('#profileimg'));
+      }
 		
 		console.log(obj);
 
