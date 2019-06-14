@@ -9,10 +9,14 @@ $(document).ready(function () {
 	});
 	
 	$('p').hide();
-	
-	$("#heun-footer").load("/heunheuntrip/html/footer.html");
-})
 
+	$(".heun-sideSijin").load("/heunheuntrip/html/member/side_profile.html", function() {
+		loadList();
+	});
+
+	$("#heun-footer").load("/heunheuntrip/html/footer.html");
+
+})
 
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
@@ -22,7 +26,7 @@ function loadList() {
 		
     if (obj.member.photo != null) {
       $("<img class='rounded-circle'>").attr('src',
-          '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+          '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
           .css('width', '255px')
           .css('height', '255px')
           .appendTo($('#profileimg'));
@@ -30,7 +34,7 @@ function loadList() {
       
       } else {
       $("<img>").attr('src',
-            '/heunheuntrip/app/json/images/down/default.jpeg')
+            '/heunheuntrip/images/default.jpeg')
             .css('width', '255px')
             .css('height', '255px')
             .appendTo($('#profileimg'));
@@ -53,12 +57,6 @@ function loadList() {
 	
 	
 } // loadList()
-
-
-//사용자의 프로필을 꺼낸다.
-loadList();
-
-
 
 $('#btn1').on('click', function(e) {
 	 
@@ -167,9 +165,6 @@ $("#fileupload").change(function (e) {
 	$('#file-btn1').show();
 })
 
-
-
-
 $('body').on('loaded-file', function () {
 	$('#images-div').on('click', function () {
 		$(this).find('img').remove();
@@ -179,7 +174,6 @@ $('body').on('loaded-file', function () {
 		$('#file-btn1').hide();
 	})
 })
-
 
 $('#tel-btn').click(function() {
 

@@ -1,6 +1,5 @@
 package com.heun.trip.web.json;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.heun.trip.conf.Gmail;
 import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
+import com.heun.trip.service.FileService;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.web.EnRanNo;
 import com.heun.trip.web.RanNo;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 
 @RestController("json/MemberController")
 @RequestMapping("/json/member")
@@ -30,12 +28,14 @@ public class MemberController {
   ServletContext servletContext;
   Sms sms;
   Gmail gmail;
+  FileService fileService;
 
-  public MemberController(MemberService memberService, ServletContext servletContext, Sms sms, Gmail gmail) {
+  public MemberController(MemberService memberService, ServletContext servletContext, Sms sms, Gmail gmail, FileService fileService) {
     this.memberService = memberService;
     this.servletContext= servletContext;
     this.sms = sms;
     this.gmail = gmail;
+    this.fileService = fileService;
   }
 
   @GetMapping("profile")
@@ -93,31 +93,14 @@ public class MemberController {
 
 
   @PostMapping("snsadd")
-  public Object snsadd(Member member, MultipartFile photo) {
-    System.out.println(photo);
+  public Object snsadd(Member member) {
+
     HashMap<String,Object> content = new HashMap<>();
     StringBuffer ranNo = EnRanNo.randomNo();
     String EnranNo = ranNo.toString();
+    String deft = "default.jpeg";
+    member.setPhoto(deft);
 
-    if (photo != null) {
-      String filename = UUID.randomUUID().toString();
-      String uploadDir = servletContext.getRealPath(
-          "/html/memberupload");
-      File orginFile= new File(uploadDir + "/" + filename); 
-      File thumFile=new File(uploadDir+"/" + filename);
-      try {
-        photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
-      } catch (IllegalStateException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      member.setPhoto(filename+".jpeg");
-    } else {
-      String deft ="default.jpeg";
-      member.setPhoto(deft);
-    }
     try {
       if(memberService.get(member.getEmail()) ==null) {
         member.setPassword(EnranNo);
@@ -146,48 +129,35 @@ public class MemberController {
       int ranNo,
       HttpSession session,
       MultipartFile photo) {
+
     HashMap<String,Object> content = new HashMap<>();
     int checkNo = (int)session.getAttribute("ranNo");
-    System.out.println(checkNo);
     Member count = memberService.get(member.getEmail());
-    
+
     try { 
-
-      if (checkNo == ranNo && count==null){
-
+      if (checkNo == ranNo && count == null){
         if (photo != null) {
-          // 헤더용 썸네일 제작
           String filename = UUID.randomUUID().toString();
-          String uploadDir = servletContext.getRealPath(
-              "/html/memberupload");
-          File orginFile= new File(uploadDir + "/" + filename); 
-          File thumFile=new File(uploadDir+"/" + filename);
-
-          // 프로필용 썸네일제작
-          String profileuploadDir = servletContext.getRealPath(
-              "/html/memberprofileupload");
-          File profilethumFile=new File(profileuploadDir+"/" + filename);
-
+          
           try {
-            photo.transferTo(orginFile);
-            Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
-            Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
+            fileService.uploadImage(photo.getInputStream(), photo.getSize(), filename);
+            fileService.uploadImageThumbnail(photo.getInputStream(), 30, 30, filename + "_header");
+            fileService.uploadImageThumbnail(photo.getInputStream(), 250, 250, filename + "_profile");
+            
           } catch (IllegalStateException e) {
             e.printStackTrace();
           } catch (IOException e) {
             e.printStackTrace();
           }
-          member.setPhoto(filename+".jpeg");
-        } else {
-          String deft ="default.jpeg";
-          member.setPhoto(deft);
-        }
+          
+          member.setPhoto(filename);
+          
+        } 
         memberService.add(member);
         content.put("status", "success");
       } else {
         content.put("status", "fail");
       }
-
     } catch (Exception e) {
       content.put("message", e.getMessage());
     }
@@ -229,29 +199,17 @@ public class MemberController {
 
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
-      String uploadDir = servletContext.getRealPath(
-          "/html/memberupload");
-      File orginFile= new File(uploadDir + "/" + filename); 
-      File thumFile=new File(uploadDir+"/" + filename);
-      // 프로필용 썸네일제작
-      String profileuploadDir = servletContext.getRealPath(
-          "/html/memberprofileupload");
-      File profilethumFile=new File(profileuploadDir+"/" + filename);
       try {
-        photo.transferTo(orginFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(30,30).outputFormat("jpeg").toFile(thumFile);
-        Thumbnails.of(orginFile).crop(Positions.CENTER).size(250,250).outputFormat("jpeg").toFile(profilethumFile);
+        fileService.uploadImage(photo.getInputStream(), photo.getSize(), filename);
+        fileService.uploadImageThumbnail(photo.getInputStream(), 30, 30, filename + "_header");
+        fileService.uploadImageThumbnail(photo.getInputStream(), 250, 250, filename + "_profile");
       } catch (IllegalStateException e) {
         e.printStackTrace();
       } catch (IOException e) {
         e.printStackTrace();
       }
-      member.setPhoto(filename+".jpeg");
-    } else {
-      String deft ="default.jpeg";
-      member.setPhoto(deft);
-    }
-
+      member.setPhoto(filename);
+    } 
     try {
       memberService.update(member);
       content.put("status", "success");

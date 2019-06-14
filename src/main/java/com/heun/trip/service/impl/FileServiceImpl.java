@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.imageio.ImageIO;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import com.heun.trip.service.FileService;
@@ -118,10 +117,4 @@ public class FileServiceImpl implements FileService {
     return 1;
   }
   
-  @Override
-  public int uploadImage(BufferedImage image, String filename) {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
 }
