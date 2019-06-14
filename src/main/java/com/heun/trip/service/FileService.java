@@ -9,5 +9,6 @@ public interface FileService {
   int uploadImage(BufferedImage image, String filename);
   int downloadImage(String filename, OutputStream out);
   int deleteImage(String filename);
+  int uploadImageThumbnail(InputStream in, int width, int height, String filename);
 }
  
