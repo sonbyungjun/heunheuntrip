@@ -6,7 +6,6 @@ import com.heun.trip.domain.Rev;
 
 public interface RevDao {
   List<Rev> findAll(Map<String, Object> params);
-  List<Rev> listInHostPage(Map<String, Object> params);
   int count(Map<String, Object> params);
   int countAll(int no);
   Rev findByNo(int no);
@@ -14,7 +13,9 @@ public interface RevDao {
   int inupdate(Rev rev);
   List<Rev> getupdtData(Map<String, Object> params);
   int requestDelete(int no);
+  List<Rev> listInHostPage(Map<String, Object> params);
   int countInHostPage(int no);
+  int deleteInHostpage(int no);
 }
  
 

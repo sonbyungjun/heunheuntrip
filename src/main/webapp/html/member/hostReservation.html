@@ -14,12 +14,9 @@
 <link href="../../lib/animate.css" rel="stylesheet">
 <link href="../../lib/selectric/selectric.css" rel="stylesheet">
 <link href="../../lib/aos/aos.css" rel="stylesheet">
-<link href="../../lib/Magnific-Popup/magnific-popup.css"
-	rel="stylesheet">
+<link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
-<link rel="stylesheet" href="review.css">
-<link rel="stylesheet" href="../../star/star-rating-svg.css">
 
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
@@ -33,7 +30,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
 <script src="../js/handlebars-paginate.js"></script>
-<script src="../../star/jquery.star-rating-svg.js"></script>
 
 <style>
 
@@ -111,6 +107,7 @@
 
 
 	<script id="tr-template" type="text/x-handlebars-template">
+  <input type="hidden" id="pageNo" data-no={{pageNo}}>
     {{#each list}}
               <div class="heun-revitem" style="border-bottom: 1px solid #eee; padding-bottom: 20px; padding-top: 20px">
                 <div class="row heun-css">
@@ -122,7 +119,9 @@
                   </div>
                   <div class="col-6 col-md-3">
                     <button type="button" class="btn btn-sm btn-primary" style="width: 100px; text-align: center; margin: 5px;">상세정보</button>
-                    <button type="button" class="btn btn-sm btn-primary" style="width: 100px; text-align: center; margin: 5px;">변경요청</button>
+                    {{#if revDelete}}
+                    <button type="button" id="rev-delete" class="btn btn-sm btn-danger" data-no={{no}} style="width: 100px; text-align: center; margin: 5px;">삭제요청</button>
+                    {{/if}}
                   </div>
                 </div>
              </div>

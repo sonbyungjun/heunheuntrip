@@ -14,5 +14,6 @@ public interface RevService {
   int cancel(int no);
   List<Rev> listInHostPage(int pageNo, int pageSize, int userNo);
   int countInHostPage(int no);
+  int deleteInHostpage(int no);
   
 }

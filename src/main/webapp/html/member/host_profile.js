@@ -10,15 +10,8 @@ $(document).ready(function () {
   $('p').hide();
   
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-  
-	rephoto();
 })
 
-
-function rephoto() {
-	//$('#login-userphoto').css('background-image', '');
-	setTimeout(function() {$('#login-userphoto').css('background-image', "url('/heunheuntrip/app/json/images/down/" + reheader + "')");}, 100)
-}
 
 function loadList() {
 	$.getJSON('../../app/json/member/profile',

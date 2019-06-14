@@ -81,6 +81,11 @@ public class RevServiceImpl implements RevService {
   public int countInHostPage(int no) {
     return revDao.countInHostPage(no);
   }
+  
+  @Override
+  public int deleteInHostpage(int no) {
+    return revDao.deleteInHostpage(no);
+  }
 
 }
 
