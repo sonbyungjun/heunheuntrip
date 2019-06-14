@@ -15,6 +15,8 @@ public interface RiwService {
   int replyupdate(Riw riw);   
   int delete(int no);
   int size();
+  // 유저 개인의 review 수를 구함.
+  int size(int userNo);
   int reviewsize(int no);
   int count(Map<String, Object> params);
   int countAllHost(int no);

@@ -102,9 +102,9 @@ function check_input() {
 
 $('#update-btn').click(function () {
 
-  if (check_input() == "error") {
-    return;
-  }
+//  if (check_input() == "error") {
+//    return;
+//  }
 
   Swal.fire({
     title: '잠깐!',

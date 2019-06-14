@@ -64,6 +64,11 @@ public class RiwServiceImpl implements RiwService {
   public int size() {
     return riwDao.countAll();
   }
+  
+  @Override
+  public int size(int userNo) {
+    return riwDao.countReview(userNo);
+  }
 
   @Override
   public int add(Riw riw) {

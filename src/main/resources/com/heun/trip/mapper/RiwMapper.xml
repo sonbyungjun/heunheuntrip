@@ -238,6 +238,8 @@ order by
      usr_id=#{userNo} and rms_id=#{roomNo}
   </select>
   
+  
+  
     <select id="roomreviewcount" resultType="int" parameterType="int">
     select count(*) from riw 
     where rms_id = #{value}
@@ -360,6 +362,10 @@ order by
   -->
   <select id="countAll" resultType="int">
     select count(*) from riw
+  </select>
+  
+  <select id="countReview" resultType="int" parameterType="int">
+    select count(*) from riw where usr_id=#{no}
   </select>
   
   <select id="countAllHost" resultType="int" parameterType="int">

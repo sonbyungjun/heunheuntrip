@@ -73,11 +73,7 @@ function loadCheckOut() {
 function check_input() {
   dropdown = $('.heun-cc').html();
   summernote = $('#summernote').summernote('code');
-  title = $('.heun-title').val();
-
-  console.log(title);
-  console.log(dropdown);
-  console.log(summernote);
+  title = $('#title').val();
 
   if (title == undefined || title == "") {
     Swal.fire({
@@ -122,9 +118,11 @@ $('#error-btn').on('click', function () {
 
 $('#add-btn').click(function () {
 
-//  if (check_input() == "error") {
-//    return;
-//  }
+  if (check_input() == "error") {
+    return;
+  }
+  
+  console.log($('#title').val());
 
   Swal.fire({
     title: '잠깐!',
