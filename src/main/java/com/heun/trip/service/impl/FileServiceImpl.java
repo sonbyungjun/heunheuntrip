@@ -13,6 +13,7 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
@@ -29,6 +30,7 @@ public class FileServiceImpl implements FileService {
           .key(filename).build(), RequestBody.fromInputStream(in, size));
     } catch (Exception e) {
       e.printStackTrace();
+      return 0;
     }
     
     System.out.println("버킷에 파일 업로드 완료!");
@@ -42,6 +44,7 @@ public class FileServiceImpl implements FileService {
       ImageIO.write(image, "jpeg", os);
     } catch (IOException e) {
       e.printStackTrace();
+      return 0;
     }
     byte[] buffer = os.toByteArray();
     InputStream is = new ByteArrayInputStream(buffer);
@@ -63,9 +66,27 @@ public class FileServiceImpl implements FileService {
           ResponseTransformer.toOutputStream(out));
     } catch (Exception e) {
       System.out.println("파일이 없습니다.");
-//      e.printStackTrace();
+      return 0;
     }
     System.out.println("버킷의 파일 다운로드 완료!");
+    return 1;
+  }
+  
+  @Override
+  public int deleteImage(String filename) {
+    Region region = Region.AP_NORTHEAST_2;
+    S3Client s3 = S3Client.builder().region(region).build();
+    
+    try {
+      DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+          .bucket("b1.sbj.kr").key(filename).build();
+      s3.deleteObject(deleteObjectRequest);
+    } catch (Exception e) {
+      System.out.println("그런 파일이 없습니다.");
+      return 0;
+    }
+
+    System.out.println("버킷의 파일 삭제!");
     return 1;
   }
 

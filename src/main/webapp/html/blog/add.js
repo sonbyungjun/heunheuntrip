@@ -53,7 +53,7 @@ function sendFile(file, isMain, el) {
         $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
         filenames.push(url);
       } else {
-        filenames.push(url + '_tumbnail');
+        filenames.push(url);
       }
     }
   });

@@ -150,7 +150,8 @@ public class BlogController {
               .crop(Positions.CENTER).size(350,450)
               .outputFormat("jpeg")
               .asBufferedImage();
-            fileService.uploadImage(image, filename + "_thum");
+            filename = filename + "_thum";
+            fileService.uploadImage(image, filename);
           } catch (Exception e) {
             e.printStackTrace();
           }
