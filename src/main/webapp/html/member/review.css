@@ -13,11 +13,6 @@
 	margin: 50px;
 }
 
-.riw-modal {
-  font-family: NanumBarunGothic;
-  text-align: center; 
-}
-
 #message-text {
   margin-top: 20px;
 }
@@ -25,4 +20,8 @@
 h4 {
   font-family: NanumBarunGothic;
   color: #696969;
+}
+
+.riw-delete {
+	width: 90px;
 }

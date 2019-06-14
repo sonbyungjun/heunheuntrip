@@ -15,6 +15,7 @@ public interface RiwDao {
   int update(Riw riw); 
   int replyupdate(Riw riw);
   int countAll();
+  int countReview(int userNo);
   int count(Map<String, Object> params);
   int roomreviewcount(int no);
   List<Riw> findroomreview(Map<String,Object> params);

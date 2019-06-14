@@ -97,19 +97,17 @@
                  <div class="card">
                     <div class="media mt-0">
                           <div class="media-left"> 
-                             <a href="agent.html"> <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{roomPhoto}}.jpeg" width="100" height="100" alt=""> 
-                             <pre  id="no-reply-{{no}}" style="text-align:center" margin-top = 10px href="#">답변완료</pre>
-                             </a> 
+                             <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{roomPhoto}}.jpeg" width="100" height="100" alt=""> 
                           </div>
-                            <div class="media-body row">
-                            <div class="main-riw col-12 col-sm-6 col-md-8">
+                            <div class="media-body row" style="position: relative">
+                            <div class="main-riw col-12 col-sm-6 col-md-9">
                              <h6 class="media-heading riw-cont" id="aaa-{{no}}" data-reply="{{reply}}">{{contents}}</h6>
                              <p class="text-muted"><i class="fas fa-map-marker-alt"></i>        {{roomName}}</p>
                              <p class="text-muted">작성일 : {{createdDate}}</p>
                             </div>
-                            <div class="riw-btn col-6 col-md-4" data-no={{no}} data-grd={{grd}}>
-                              <a class="btn btn-link riw-update" href="#" data-toggle="modal" data-reply="{{reply}}" data-backdrop="static" data-target="#exampleModal">수정</a>
-                              <a class="btn btn-link riw-delete" href="#">삭제</a>
+                            <div class="riw-btn col-6 col-md-3" data-no={{no}} data-grd={{grd}}>
+                              <div id="no-reply-{{no}}" style="font-size : 16px; margin-top: 5px; color: green"><i class="fas fa-check"></i>  답변완료</div>
+                              <a class="btn btn-link riw-delete" href="#" style="position: absolute; bottom: 0">삭제</a>
                             </div>
                           </div>
                         </div>
@@ -144,45 +142,6 @@
     </ul>
     </nav>
     </script>
-
-	<div class="modal fade riw-modal" id="exampleModal" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content"
-				style="border-radius: 5px; border: 0px solid white;">
-				<div class="modal-header" style="background-color: #3b8ced">
-					<h5 class="modal-title" id="exampleModalLabel"
-						style="color: white;">후기작성</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" style="color: white">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<h4>후기를 재작성해주세요.</h4>
-						<small>평점을 다시 매겨주세요 :)</small>
-
-						<div class="my-rating"></div>
-						<div class="form-group">
-							<textarea class="form-control" id="message-text"
-								style="border-radius: 10px;"></textarea>
-						</div>
-					</form>
-					<textarea class="form-control" id="remessage-text"
-						style="border-radius: 10px;" readonly
-						placeholder="호스트 답변이 미등록 상태입니다."></textarea>
-				</div>
-				<div class="modal-footer">
-
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary update-btn">변경</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 
 	<script src='review.js'></script>
 </body>
