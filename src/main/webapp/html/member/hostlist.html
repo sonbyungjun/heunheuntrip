@@ -103,7 +103,7 @@
                   <div class="col-lg-5">
                     <div class="item-image"> 
     
-                      <a href="property_single.html">
+                      <a>
                         <img src="/heunheuntrip/app/json/images/down/{{thumbnail}}" class="img-fluid" alt="">
                       </a>
                       <div class="rev-state">
@@ -120,7 +120,7 @@
                         <li>지역명<span>{{area}}</span></li>
                         <li>숙소명<span>{{name}}</span></li> 
                         <li>숙소 가격<span>{{price}}</span></li>
-                        <li>숙소 설명<span>{{content}}</span></li>
+                        <li>숙소 최대 인원<span>{{maxPerson}}</span></li>
                         {{#if state}}
                         <li>승인 여부<span>미승인</span></li>
                            {{else if restate}}
@@ -130,8 +130,9 @@
                         {{/if}}
                       </ul>
                        
-                    <button type="button" class="btn btn-sm btn-secondary riw-write" onclick="location.href='../room/updateform.html'">수정</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write" onclick="location.href='../room/updateform.html?no={{no}}'">수정</button>
                     <button type="button" class="btn btn-sm btn-secondary riw-write del" data-no="{{no}}">삭제</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write roomcontent" data-no="{{no}}">상세 보기</button>
                           
                     </div>
                  </div>

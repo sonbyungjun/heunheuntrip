@@ -108,4 +108,10 @@ public class RoomServiceImpl implements RoomService {
   public String getRoom(int no) {
     return roomDao.getRoomName(no);
   }
+  @Override
+  public int update(Room room) {
+    return roomDao.update(room);
+  }
+  
+  
 }

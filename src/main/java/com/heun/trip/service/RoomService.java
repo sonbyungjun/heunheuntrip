@@ -11,6 +11,7 @@ public interface RoomService {
   Room get(int no);
   List<Room> hostroomlist(int pageNo, int pageSize,int hostNo);
   int add(Room room);
+  int update(Room room);
   String getRoom(int no);
 }
  

@@ -103,6 +103,70 @@ public class RoomController {
     return content;
   }
 
+  @PostMapping("update")
+  public Object update(
+      Room room, BindingResult result,
+      @RequestParam("convenience[]") int[] convenience,
+      @RequestParam("safety[]") int[] safety,
+      @RequestParam("files[]") String[] files,
+      HttpSession session) {
+
+    List<Convenience> cons = new ArrayList<>();
+    List<Safety> safes = new ArrayList<>();
+    List<RoomFile> roomFiles = new ArrayList<>();
+
+    Map<String,Object> content = new HashMap<>();
+    
+    try {
+      Member loginUser = (Member) session.getAttribute("loginUser");
+
+      if (loginUser != null) {
+        System.out.println("loginUser");
+        room.setHostNo(loginUser.getNo());
+      } else {
+        // 테스트 코드
+        System.out.println("테스트");
+        room.setHostNo(6);
+      }
+
+      for (int c : convenience) {
+        System.out.println("convenience");
+        Convenience con = new Convenience();
+        con.setNo(c);
+        cons.add(con);
+      }
+      for (int c : safety) {
+        System.out.println("safety");
+        Safety safe = new Safety();
+        safe.setNo(c);
+        safes.add(safe);
+      }
+      for (String f : files) {
+        System.out.println("files");
+        RoomFile file = new RoomFile();
+        file.setName(f);
+        roomFiles.add(file);
+      }
+
+      room.setConveniences(cons);
+      room.setSafeties(safes);
+      room.setPhotos(roomFiles);
+
+      System.out.println(room);
+      roomSerive.update(room);
+      content.put("status", "success");
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+
+    return content;
+  }
+  
+  
+  
   @PostMapping("fileAdd")
   public Object fileAdd(@RequestParam(value="files[]", required=false) MultipartFile[] files, boolean isMain) {
     Map<String, Object> content = new HashMap<>();

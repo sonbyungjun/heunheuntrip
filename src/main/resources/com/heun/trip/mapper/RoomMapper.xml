@@ -83,6 +83,33 @@
       #{welcome}, #{traffic}, #{name}, #{price}, #{maxPerson}, #{postcode}, #{address}, #{detailAddress}, #{latitude}, 
       #{longitude}, #{grade}, #{thumbnail})
   </insert>
+   <update id="update" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
+    update rms
+    <set>
+    <if test="hostNo != ''">usr_id =  #{hostNo},</if>
+    <if test="area != ''">area =  #{area},</if>
+    <if test="type != ''">type =  #{type},</if>
+    <if test="bed != ''">bed =  #{bed},</if>
+    <if test="bath != ''">bath =  #{bath},</if>
+    <if test="content != ''">cont =  #{content},</if>
+    <if test="details != ''">dets =  #{details},</if>
+    <if test="reservation != ''">reva =  #{reservation},</if>
+    <if test="welcome != ''">come =  #{welcome},</if>
+    <if test="traffic != ''">traf =  #{traffic},</if>
+    <if test="name != ''">rm_name =  #{name},</if>
+    <if test="price != ''">rm_chge =  #{price},</if>
+    <if test="maxPerson != ''">max_ple = #{maxPerson},</if>
+    <if test="postcode != ''">post_code =  #{postcode},</if>
+    <if test="address != ''">addr =  #{address},</if>
+    <if test="detailAddress != ''">dtil_addr =  #{detailAddress},</if>
+    <if test="latitude != ''">lati =  #{latitude},</if>
+    <if test="longitude != ''">longi =  #{longitude},</if>
+    <if test="grade != ''">grd =  #{grade},</if>
+    <if test="thumbnail != ''">thum =  #{thumbnail}</if>
+      </set>
+      where
+      rms_id=#{no}
+  </update>
   
   <insert id="insertConvenience" parameterType="list">
     INSERT INTO rms_amn(
@@ -214,6 +241,7 @@
       thum,
       rm_chge,
       rm_name,
+      max_ple,
       activation
       
       
