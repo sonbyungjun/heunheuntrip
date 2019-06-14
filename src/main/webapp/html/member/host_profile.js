@@ -13,7 +13,7 @@ $(document).ready(function () {
 
 function rephoto() {
 	//$('#login-userphoto').css('background-image', '');
-	setTimeout(function() {$('#login-userphoto').css('background-image', "url('/heunheuntrip/html/memberupload/" + reheader + "')");}, 100)
+	setTimeout(function() {$('#login-userphoto').css('background-image', "url('/heunheuntrip/app/json/images/down/" + reheader + "')");}, 100)
 }
 
 function loadList() {
@@ -21,7 +21,7 @@ function loadList() {
 			function(obj) {
 	  if (obj.member.photo != null) {
 	    $("<img class='rounded-circle'>").attr('src',
-	        '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
+	        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
 	        .css('width', '255px')
 	        .appendTo($('#profileimg'));
 	    reheader = obj.member.photo;

@@ -16,7 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("classpath:/com/heun/trip/conf/gmail.properties")
+@PropertySource("classpath:/com/heun/trip/conf/sec.properties")
 @EnableTransactionManagement
 public class Gmail {
   
