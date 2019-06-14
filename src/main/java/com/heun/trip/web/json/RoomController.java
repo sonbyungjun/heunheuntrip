@@ -59,7 +59,7 @@ public class RoomController {
     List<RoomFile> roomFiles = new ArrayList<>();
 
     Map<String,Object> content = new HashMap<>();
-
+    
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -110,7 +110,7 @@ public class RoomController {
       @RequestParam("safety[]") int[] safety,
       @RequestParam("files[]") String[] files,
       HttpSession session) {
-
+   
     List<Convenience> cons = new ArrayList<>();
     List<Safety> safes = new ArrayList<>();
     List<RoomFile> roomFiles = new ArrayList<>();
