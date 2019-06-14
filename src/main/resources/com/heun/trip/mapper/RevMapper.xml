@@ -198,6 +198,7 @@
     e.cck_out, 
     e.usr_id, 
     e.rev_persn,
+    e.rev_delet,
     r.rm_name, 
     u.name
   from 
@@ -212,6 +213,11 @@
     limit #{rowNo}, #{size}
   </if>
   </select>
+  
+  <delete id="deleteInHostpage" parameterType="int">
+    delete from rev
+    where rev_id = #{no}
+  </delete>
   
   <select id="countInHostPage" parameterType="int" resultType="int">
    select 

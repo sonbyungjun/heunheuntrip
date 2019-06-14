@@ -31,15 +31,15 @@ public class RevController {
     this.roomService = roomService;
     this.sms = sms;
   }
-  
+
   @PostMapping("add")
   public Object add(Rev rev, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
-    
+
     int userNo = loginUser.getNo();
     rev.setUserNo(userNo);
-    
+
     Rev revs = revService.detail(rev.getRevUpdate());
     System.out.println(revs);
     rev.setStusNo(revs.getStusNo());
@@ -47,7 +47,7 @@ public class RevController {
     rev.setRevStus(revs.getRevStus());
     rev.setStanBy(revs.getStanBy());
     rev.setRevCharge(revs.getRevCharge());
-    
+
     System.out.println(" 결론 ------>  " + rev);
     try {
       revService.inupdate(rev);
@@ -58,15 +58,15 @@ public class RevController {
     }
     return content;
   }
-  
+
   @GetMapping("addsms")
   public Object addsms(int roomNo, HttpSession session) {
-    
+
     Member loginUser = (Member) session.getAttribute("loginUser");
     String guestName = loginUser.getName();
     String tel = memberService.getTel(roomNo);
     String roomName = roomService.getRoom(roomNo);
-    
+
     String messageText = roomName + " 숙소의 " + guestName + "님의 예약 변경 요청.";
     try {
       sms.smsSend(tel, messageText);
@@ -75,18 +75,18 @@ public class RevController {
     }
 
     HashMap<String,Object> content = new HashMap<>();
-    
+
     return content;
   }
-  
+
   @GetMapping("cancelsms")
   public Object cancelsms(int roomNo, HttpSession session) {
-    
+
     Member loginUser = (Member) session.getAttribute("loginUser");
     String guestName = loginUser.getName();
     String tel = memberService.getTel(roomNo);
     String roomName = roomService.getRoom(roomNo);
-    
+
     String messageText = roomName + " 숙소의 " + guestName + "님의 예약 취소 요청. ";
     try {
       sms.smsSend(tel, messageText);
@@ -95,7 +95,7 @@ public class RevController {
     }
 
     HashMap<String,Object> content = new HashMap<>();
-    
+
     return content;
   }
 
@@ -107,7 +107,7 @@ public class RevController {
       ) { 
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
-    
+
     int userNo = member.getNo();
 
     if (pageSize < 1 || pageSize > 6) 
@@ -151,8 +151,8 @@ public class RevController {
 
     return content;
   }
-  
-  
+
+
   @GetMapping("listInHostPage")
   public Object listInHostPage(
       @RequestParam(defaultValue="1") int pageNo,
@@ -161,7 +161,7 @@ public class RevController {
       ) { 
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
-    
+
     int userNo = member.getNo();
 
     if (pageSize < 1 || pageSize > 6) 
@@ -181,7 +181,7 @@ public class RevController {
     try {
       List<Rev> reservation = revService.listInHostPage(pageNo, pageSize, userNo);
 
-      
+
       content.put("list", reservation);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
@@ -192,26 +192,38 @@ public class RevController {
 
     return content;
   }
-  
+
+  @PostMapping("deleteInHostpage")
+  public Object deleteInHostPage(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      revService.deleteInHostpage(no);
+      content.put("success", "success");
+    } catch (Exception e) {
+      content.put("fail", "삭제 실패!");
+    }
+    return content;
+  }
+
   @GetMapping("detail")
   public Object detail(int no) {
     Rev rev = revService.detail(no);
     HashMap<String,Object> content = new HashMap<>();
     content.put("rev", rev);
-  
+
     return content;
   }
-  
+
   @GetMapping("listup")
   public Object listup(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="5") int pageSize, 
       HttpSession session
       ) {
-    
+
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
-    
+
     int userNo = member.getNo();
 
     if (pageSize < 1 || pageSize > 6) 
@@ -230,7 +242,7 @@ public class RevController {
 
     try {
       List<Rev> reservation = revService.getupdtData(pageNo, pageSize, userNo);
-      
+
       System.out.println(reservation);
 
       for(Rev r : reservation) {
@@ -254,16 +266,16 @@ public class RevController {
     } catch (Exception e) {
       content.put("fail", "예약 목록이 없습니다.");
     }
-  
+
     return content;
   }
-  
+
   @PostMapping("cancel")
   public Object cancel(int no) {
     HashMap<String,Object> content = new HashMap<>();
-    
+
     System.out.println(no);
-    
+
     try {
       revService.cancel(no);
       content.put("status", "success");
