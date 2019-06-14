@@ -15,9 +15,10 @@ $(document).ready(function () {
 		$(".heun-header-nav").removeClass("navbar-over absolute-top");
 	});
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
-	loadList()
-
+	
+	loadList();
 })
+"use strict"
 
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
@@ -26,13 +27,15 @@ function loadList() {
 			//window.no = obj.member.no;
 			if (obj.member.photo != null) {
 				$("<img class='rounded-circle'>").attr('src',
-					'/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
+					'/heunheuntrip/app/json/images/down/' + obj.member.photo)
 					.css('width', '255px')
+					.css('height', '255px')
 					.appendTo($('#profileimg'));
 			} else {
 				$("<img>").attr('src',
-					'/heunheuntrip/html/memberupload/defualt.jpeg')
+					'/heunheuntrip/app/json/images/down/defualt.jpeg')
 					.css('width', '255px')
+          .css('height', '255px')
 					.appendTo($('#profileimg'));
 			}
 

@@ -17,15 +17,17 @@ function loadProfile() {
     
     if (obj.member.photo != null) {
     $("<img class='rounded-circle'>").attr('src',
-        '/heunheuntrip/html/memberprofileupload/' + obj.member.photo)
+        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
         .css('width', '255px')
+        .css('height', '255px')
         .appendTo($('#profileimg'));
   
     
     } else {
     $("<img>").attr('src',
-          '/heunheuntrip/html/memberupload/default.jpeg')
+          '/heunheuntrip/app/json/images/down/default.jpeg')
           .css('width', '255px')
+          .css('height', '255px')
           .appendTo($('#profileimg'));
     }
 
