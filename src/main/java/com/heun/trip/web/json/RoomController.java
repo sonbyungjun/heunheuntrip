@@ -122,8 +122,8 @@ public class RoomController {
           try {
             BufferedImage image = Thumbnails.of(f.getInputStream()).crop(Positions.CENTER).size(530,375).outputFormat("jpeg")
             .asBufferedImage();
-            fileService.uploadImage(image, filename);
-            content.put("thumbnail", filename);
+            fileService.uploadImage(image, filename + "_thum");
+            content.put("thumbnail", filename + "_thum");
           } catch(Exception e) {
             e.printStackTrace();
           }
