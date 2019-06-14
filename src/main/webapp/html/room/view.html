@@ -407,14 +407,14 @@
 		<script id="review-template" type="text/x-handlebars-template">
 {{#each list}}
    <div class="comments">
-      <div class="media">
+      
+
+       <div class="media">
          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
          <div class="media-body">
-
-            <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
+         <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
+           
             <h5 class="media-heading author">{{name}}</h5>
-            <a id="cont-{{no}}" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
-            <h5 class="media-heading author">{{userNo}}</h5>
             <div class="date">{{createdDate}}</div>
             <div class="comment">{{contents}}</div>
 
@@ -484,7 +484,7 @@
         {{/paginate}}
     
         {{#paginate pagination type="next"}}
-          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="a({{n}})">&raquo;</a></li>
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link"  onclick="roomreview({{n}})">&raquo;</a></li>
         {{/paginate}}
     
         {{#paginate pagination type="last"}}

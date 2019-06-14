@@ -68,7 +68,7 @@ $('body').on('loaded-list', function () {
 	}
 	
 	function roomreview(pn) {
-
+		
 		$.ajax({
 			url: '../../app/json/room/review?pageNo=' + pn,
 			type: 'GET',
@@ -133,6 +133,8 @@ $('body').on('loaded-list', function () {
 					        dataType: 'json',
 					        success: function(response) {
 					         alert('등록 성공!!');
+					         roomreview(1);
+					         
 					        },
 					        fail: function(error) {
 					          alert('등록 실패!!');
@@ -146,7 +148,7 @@ $('body').on('loaded-list', function () {
 				console.log(response)
 				
 
-				if(response.list[0].name != response.hostname) {
+				if(response.list[0].hostname != response.hostname) {
 					$('.btn-reply').hide();
 				} else {
 					$('.riw-update').hide();
@@ -160,9 +162,7 @@ $('body').on('loaded-list', function () {
 					if($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
 					} 
-//						else {
-//						$('.cont-'+ no).val() = "답변수정";
-//					}
+
 				}
  
 			},
@@ -216,13 +216,13 @@ $('body').on('loaded-list', function () {
 				url: '../../app/json/room/addriw',
 				type: 'POST',
 				data: {
-					roomNo: window.param,
+					roomNo: window.param.split('=')[1],
 					grd: window.rating,
 					contents: $('#message-text').val()
 				},
 				dataType: 'json',
 				success: function(response) {
-					roomreview();
+					roomreview(1);
 
 					//  $('#exampleModal').modal("hide");
 				},
