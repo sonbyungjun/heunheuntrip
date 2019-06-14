@@ -230,6 +230,8 @@ public class RevController {
 
     try {
       List<Rev> reservation = revService.getupdtData(pageNo, pageSize, userNo);
+      
+      System.out.println(reservation);
 
       for(Rev r : reservation) {
         HashMap<String,Object> params = new HashMap<>();

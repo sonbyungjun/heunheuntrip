@@ -47,6 +47,8 @@ function loadProfile() {
 
 function loadList(pn) {
   $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
+    
+    console.log(obj);
 
     form.html('');
 

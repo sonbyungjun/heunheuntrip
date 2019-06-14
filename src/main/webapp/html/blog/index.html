@@ -82,8 +82,10 @@
   <script id="tr-template" type="text/x-handlebars-template">
     {{#each list}}
     <div class='item item-lg col-lg-3 col-md-4 col-sm-6 col-xs-12 one-form'>
-        <div class='item-image'><a class='bit-view-link' href='#'>
-          <img src=/heunheuntrip/upload/blogphoto/Thumbnail/{{mainPhoto}}.jpeg class='img-fluid' data-no='{{no}}' alt=''>
+        <div class='item-image'>
+          <a class='bit-view-link' href='#' data-no={{no}}>
+           <img src='/heunheuntrip/upload/blogphoto/Thumbnail/{{mainPhoto}}.jpeg' class='img-fluid' alt=''>
+          </a>
         </div>
         <div class='blog-list-info'>
           <h3 class='item-title'>{{title}}</h3>
@@ -93,7 +95,6 @@
           <span class='author'>글쓴이 : {{name}}</span>
           </div>
         </div>
-
     </div>
    {{/each}}
 

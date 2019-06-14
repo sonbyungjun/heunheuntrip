@@ -26,7 +26,7 @@ function loadList(pn, order, blike, dedorder) {
 	isLoading = true;
 	$.getJSON('../../app/json/blog/list?pageNo=' + pn + '&order=' + order + '&blike=' + blike + '&deorder=' + deorder,
 			function(obj) {
-
+	  
 		pageNo = obj.pageNo;
 		totalPage = obj.totalPage
 
@@ -125,10 +125,10 @@ $('.heun-search > a').on('click', function() {
 
 $(document.body).bind('loaded-list', () => {
 
-	$('.bit-view-link').on('click', function (e) {
+	$('.bit-view-link').off('click').on('click', function (e) {
 		e.preventDefault();
-		console.log(e.target);
-		window.location.href = 'view.html?no=' + $(e.target).attr('data-no');
+		console.log($(this))
+		window.location.href = 'view.html?no=' + $(this).data('no');
 	})
 
 	$('.check-btn').on('click', function (e) {
