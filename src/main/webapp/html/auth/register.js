@@ -247,39 +247,8 @@ if(window.auth == '2' && $('#bnk_no').val()==''){
 			window.auth=='2'&
 			$('#fileupload').val() == "") {
 		
+		  memberadd()
 		
-			$.ajax({
-				url: '../../app/json/member/add',
-				type: 'POST',
-
-				data: {
-					email: $("#email").val(),
-					password: $("#pwd").val(),
-					name: $("#name").val(),
-					bank: $('.dropdown-toggle').html(),
-					bnk_no: $('#bnk_no').val(),
-					auth: window.auth,
-					sns_no: 0
-			},
-				dataType: 'json',
-				success: function (response) {
-
-					if (response.status == 'success') {
-
-						Swal.fire({
-							type: 'success',
-							title: "회원 가입을 환영 합니다!"
-						}).then((result) => {
-							if (result.value) {
-								location.href = 'signin.html'
-							}
-						})
-					}
-				},
-				error: function (error) {
-					alert('시스템 오류가 발생했습니다.');
-				}
-			});
 		}
 }
 
@@ -451,12 +420,14 @@ function memberadd(){
     type: 'POST',
 
     data: {
-      email: $("#email").val(),
-      password: $("#pwd").val(),
-      name: $("#name").val(),
-      auth: window.auth,
-      ranNo: $("#play").val(),
-      sns_no: 0
+    	email: $("#email").val(),
+		password: $("#pwd").val(),
+		name: $("#name").val(),
+		bank: $('.dropdown-toggle').html(),
+		bnk_no: $('#bnk_no').val(),
+		auth: window.auth,
+		ranNo:$("#play").val(),
+		sns_no: 0
     },
     dataType: 'json',
     success: function (response) {

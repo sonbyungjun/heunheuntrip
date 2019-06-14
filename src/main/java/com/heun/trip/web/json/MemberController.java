@@ -148,7 +148,9 @@ public class MemberController {
       MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
     int checkNo = (int)session.getAttribute("ranNo");
+    System.out.println(checkNo);
     Member count = memberService.get(member.getEmail());
+    
     try { 
 
       if (checkNo == ranNo && count==null){

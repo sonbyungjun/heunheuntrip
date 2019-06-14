@@ -17,7 +17,7 @@ $(document).ready(function () {
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 	
 	loadList();
-})
+}) 
 "use strict"
 
 function loadList() {
