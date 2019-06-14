@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 public interface FileService {
   int uploadImage(InputStream in, long size, String filename);
-  int uploadThumImage(BufferedImage image, String filename);
+  int uploadImage(BufferedImage image, String filename);
   int downloadImage(String filename, OutputStream out); 
 }
  

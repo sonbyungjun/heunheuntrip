@@ -36,7 +36,7 @@ public class FileServiceImpl implements FileService {
   }
   
   @Override
-  public int uploadThumImage(BufferedImage image, String filename) {
+  public int uploadImage(BufferedImage image, String filename) {
     ByteArrayOutputStream os = new ByteArrayOutputStream();
     try {
       ImageIO.write(image, "jpeg", os);
@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
     
     return 1;
   }
-
+  
   @Override
   public int downloadImage(String filename, OutputStream out) {
     System.out.println(filename);
