@@ -1,5 +1,6 @@
 package com.heun.trip.web.json;
   
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import com.heun.trip.domain.BlogFile;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
+import com.heun.trip.service.FileService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
@@ -31,6 +33,7 @@ public class BlogController {
 
   @Autowired BlogService blogService;
   @Autowired ServletContext servletContext;
+  @Autowired FileService fileService;
 
 
   @PostMapping("add")
@@ -44,20 +47,20 @@ public class BlogController {
     
     for (String s : filenames) {
       
-      if (s.contains("tumbnail")) { 
+      if (s.contains("_thum")) { 
         blog.setMainPhoto(s);
         continue;
       }
       
-      if (!blog.getContent().contains(s)) {
-        String uploadDir = servletContext.getRealPath(
-            "/upload/blogphoto");
-        try {
-          new File(uploadDir + "/" + s).delete();
-        } catch (Exception e) {
-        }
-        continue;
-      }
+//      if (!blog.getContent().contains(s)) {
+//        String uploadDir = servletContext.getRealPath(
+//            "/upload/blogphoto");
+//        try {
+//          new File(uploadDir + "/" + s).delete();
+//        } catch (Exception e) {
+//        }
+//        continue;
+//      }
       
       BlogFile file = new BlogFile();
       file.setFile(s);
@@ -131,23 +134,24 @@ public class BlogController {
 
   @PostMapping("addfile")
   public Object addFile(MultipartFile[] file, boolean isMain) {
-    String uploadDir = servletContext.getRealPath(
-        "/upload/blogphoto");
+    
     String filename = UUID.randomUUID().toString();
-    File originFile = new File(uploadDir + "/" + filename);
+    
     for (MultipartFile f : file) {
       if (!f.isEmpty()) {
         try {
-          f.transferTo(originFile);
+          fileService.uploadImage(f.getInputStream(), f.getSize(), filename);
         } catch(Exception e) {
           e.printStackTrace();
         }
         if (isMain) {
           try {
-            Thumbnails.of(originFile)
+            BufferedImage image = Thumbnails.of(f.getInputStream())
               .crop(Positions.CENTER).size(350,450)
               .outputFormat("jpeg")
-              .toFile(new File(uploadDir + "/Thumbnail/" + filename + "_tumbnail"));
+              .asBufferedImage();
+            filename = filename + "_thum";
+            fileService.uploadImage(image, filename);
           } catch (Exception e) {
             e.printStackTrace();
           }
