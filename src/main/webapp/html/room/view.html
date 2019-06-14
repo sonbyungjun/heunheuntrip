@@ -106,6 +106,25 @@
 	background:
 		url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 }
+
+.date-picker-wrapper {
+  position: absolute;
+  z-index: 1;
+  padding: 5px 12px;
+  line-height: 20px;
+  font-family: Arial, sans-serif;
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-sizing: initial;
+          box-sizing: initial;
+  background-color: white;
+  margin-left: 50px;
+}
+
+.media-left {
+    padding-right: 20px;
+    padding-left: 20px;
+}
 </style>
 </head>
 
@@ -118,12 +137,12 @@
 		<script id="detail-template" type="text/x-handlebars-template">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col col-md-12 col-lg-12 col-xl-10">
+          <div class="col col-md-12 col-lg-12 col-xl-11">
             <div class="page-header bordered mb0">
               <div class="row">
                 <div class="col-md-8"> <a href="#" onClick="history.back()" class="btn-return" title="Back"><i class="fa fa-angle-left"></i></a>
                   <h1>{{name}}
-                    <small><i class="fa fa-map-marker"></i> {{area}}</small>
+                    <small><i class="fas fa-map-marker-alt"></i> {{area}}</small>
                   </h1>
                 </div>
                 <div class="col-md-4">
@@ -149,8 +168,8 @@
                           {{#each photos}}
                             <div class="swiper-slide">
                               <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"> <a
-                                  href="../../upload/roomphoto/{{name}}" itemprop="contentUrl" data-size="2000x1414"> <img
-                                    src="../../upload/roomphoto/{{name}}" class="img-fluid swiper-lazy" alt="Drawing Room"> </a>
+                                  href="/heunheuntrip/app/json/images/down/{{name}}" itemprop="contentUrl" data-size="2000x1414"> <img
+                                    src="/heunheuntrip/app/json/images/down/{{name}}" class="img-fluid swiper-lazy" alt="Drawing Room"> </a>
                               </figure>
                             </div>
                           {{/each}}
@@ -161,7 +180,7 @@
                       <div class="swiper-container gallery-thumbs">
                         <div class="swiper-wrapper">
                           {{#each photos}}
-                            <div class="swiper-slide"><img src="../../upload/roomphoto/{{name}}" class="img-fluid" alt="">
+                            <div class="swiper-slide"><img src="/heunheuntrip/app/json/images/down/{{name}}" class="img-fluid" alt="">
                             </div>
                           {{/each}}
                         </div>
@@ -301,12 +320,12 @@
                               <div class="form-group">
                                 <label for="input-m"><span class="align-bottom">인원</span></label>
                                 
-                                <button id="input-m" type="button" class="form-control dropdown-toggle" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                                <button id="input-m" type="button" class="form-control dropdown-toggle drop-people" data-p="1" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
                                   인원 1명
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                <div class="dropdown-menu dropdown-menu-lg-right drop-item-p">
                                   {{#each persons}}
-                                  <button class="dropdown-item heun-drop" type="button" data-p="{{i}}">인원 {{i}}명</button>
+                                  <button class="dropdown-item heun-drop" style="text-align: center" type="button" data-p="{{i}}">인원 {{i}}명</button>
                                   {{/each}}
                                 </div>
                               </div>
@@ -320,25 +339,7 @@
                         </div>
                       </div>
 
-                      <div class="card shadow">
-                        <h5 class="subheadline mt-0  mb-0">호스트</h5>
-                        <div class="media">
-                          <div class="media-left"> 
-                            <a href="../../images/default.jpg"> 
-                              <img class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64" alt=""> 
-                            </a> 
-                          </div>
-                          <div class="media-body">
-                            <h4 class="media-heading">
-                              <a href="../../images/default.jpg">손병준님</a>
-                            </h4>
-                            <p>회원 가입: 2014년 8월</p>
-                            <p><i class="fa fa-star" aria-hidden="true"></i></i>후기: 500개</a></p>
-                            <p><a href="../../images/default.jpg" class="btn btn-sm btn-light">호스트에게 연락하기</a></p>
-                          </div>
-                        </div>
-                      </div>
-
+                     <div class="host-profile" data-no={{hostNo}}></div>
 
                     </div>
                   </div>
@@ -359,7 +360,7 @@
           </div>
           <div class="modal-header">
             <div class="media">
-              <div class="media-left"><img src="../../upload/roomphoto/Thumbnail/{{thumbnail}}.jpeg" width="60" class="img-rounded mt5" alt=""></div>
+              <div class="media-left"><img src="/heunheuntrip/app/json/images/down/{{thumbnail}}.jpeg." width="60" class="img-rounded mt5" alt=""></div>
               <div class="media-body">
                 <h4 class="media-heading">{{name}}</h4>
                 {{area}}
@@ -409,8 +410,13 @@
       <div class="media">
          <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
          <div class="media-body">
+<<<<<<< HEAD
             <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
             <h5 class="media-heading author">{{name}}</h5>
+=======
+            <a id="cont-{{no}}" class="btn-reply" data-no="{{no}}"><i class="fa fa-reply "></i> 답글</a>
+            <h5 class="media-heading author">{{userNo}}</h5>
+>>>>>>> branch 'master' of https://github.com/sonbyungjun/heunheuntrip.git
             <div class="date">{{createdDate}}</div>
             <div class="comment">{{contents}}</div>
 
@@ -440,6 +446,27 @@
          </div>
       </div>
 {{/each}}
+</script>
+
+<script id="hostProfile-template" type="text/x-handlebars-template">
+
+<div class="card shadow">
+<h5 class="subheadline mt-0  mb-0">호스트</h5>
+<div class="media">
+  <div class="media-left"> 
+    <a href="../../images/default.jpg"> 
+      <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{photo}}" width="64" height="64" alt=""> 
+    </a> 
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{name}}</h4>
+    <p>가입일 : {{createdDate}}</p>
+    <p><i class="fa fa-star" aria-hidden="true" style="color: #ffd700"></i></i>   후기 : {{count}}개</a></p>
+    <p><a href="#" class="btn btn-sm btn-inverse">호스트에게 연락하기</a></p>
+  </div>
+</div>
+</div>
+
 </script>
 
 

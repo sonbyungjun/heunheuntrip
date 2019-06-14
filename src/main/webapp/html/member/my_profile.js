@@ -42,7 +42,7 @@ function loadList() {
 		$('.main-email').text(" E-MAIL : " + obj.member.email);
 		$('.email').val(obj.member.email);
 		$('.main-tel').text(" PHONE : " + obj.member.tel);
-		$('.tel').val(obj.member.tel);
+		$('#tel').val(obj.member.tel);
 		$('.custom-file').find('label').html(obj.member.photo);
 		no = obj.member.no;
 	}); // Bitcamp.getJSON(
@@ -63,9 +63,7 @@ $('#btn1').on('click', function(e) {
 
 	var data = {
 		name: $('.name').val(),
-		email: $('.email').val(),
-		tel: $('#tel').val(),
-		no: window.no
+		tel: $('#tel').val()
 	};
 
 	console.log(data);
@@ -76,6 +74,7 @@ $('#btn1').on('click', function(e) {
 		data: data,
 		dataType: 'json',
 		success: function (response) {
+			console.log(response)
 			if (response.status == 'success') {
 
 				location.href = 'my_profile.html';
@@ -193,7 +192,7 @@ $('#tel-btn').click(function() {
 
 			Swal.fire({
 				type: 'error',
-				title:"유효한 전화번호를 입력해주세요."
+				title: res.message
 			})
 
 		} else {
@@ -221,30 +220,28 @@ $('#tel-btn').click(function() {
 })
 
 $(document).on('sms-load', function() {
-
 	$('#smstel-btn').click(function() {
-
 		var number = $('#sms-number').val();
-
 		if (!number) {
 			alert('번호를 입력해주세요.');
 			return;
 		}
-
 		$.getJSON('../../app/json/member/smsConfirm?number=' + number, function(res) {
 			console.log(res);
 			if (res.status === "fail") {
 				alert('인증번호가 틀렸거나 60초가 지났습니다.');
 				return;
 			} 
-
-			console.log("오 통과통과");
-
-	
 			$('#sms-tag').html('');
-		
-		})
 
+			Swal.fire({
+				position: 'center',
+				type: 'success',
+				title: '인증 성공!',
+				showConfirmButton: false,
+				timer: 1500
+			})
+		})
 	})
 
 })

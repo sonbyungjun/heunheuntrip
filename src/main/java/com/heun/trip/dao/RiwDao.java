@@ -18,6 +18,7 @@ public interface RiwDao {
   int count(Map<String, Object> params);
   int roomreviewcount(int no);
   List<Riw> findroomreview(Map<String,Object> params);
+
 }
 
 

@@ -91,6 +91,7 @@ td:nth-child(6) {
 .searchselect {
 	font-family: 'S-CoreDream-3Light';
 	margin-bottom: 10px;
+  width: 84px;
 }
 
 .main-search {

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Configuration
-@PropertySource("classpath:/com/heun/trip/conf/sms.properties")
+@PropertySource("classpath:/com/heun/trip/conf/sec.properties")
 @EnableTransactionManagement
 public class Sms {
   
@@ -29,6 +29,11 @@ public class Sms {
     params.put("to", phoneNumber);
     params.put("from", "01094559808");
     params.put("type", "SMS");
+    
+    String title = "[HeunheunTrip]\n";
+    
+    messageText = title + messageText;
+    
     params.put("text", messageText);
     params.put("app_version", "test app 1.2"); // application name and version
 

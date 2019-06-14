@@ -138,15 +138,11 @@
       #{auth})
   </insert>
   
-  <update id="update" parameterType="member">
+  <update id="update" parameterType="map">
     update usr
     <set>
       <if test="name != null">name = #{name},</if>
-      <if test="email != null">email = #{email},</if>
-      <if test="password != null">pwd = password(#{password}),</if>
-      <if test="tel != null">tel = #{tel},</if>
-       <if test="auth != null">auth_id = #{auth},</if>
-       <if test="photo != null">usr_photo = #{photo}</if>
+      <if test="tel != null">tel = #{tel}</if>
     </set>  
     where 
       usr_id = #{no}
@@ -259,6 +255,15 @@
 
   <select id="extractHostTel" parameterType="int" resultType="String">
     select tel from usr where usr_id = (select usr_id from rms where rms_id = #{no})
+  </select>
+  
+  <select id="findByTel" resultType="int" parameterType="string">
+    select
+      count(*) 
+    from
+      usr
+    where
+      tel = #{value}
   </select>
   
 </mapper>

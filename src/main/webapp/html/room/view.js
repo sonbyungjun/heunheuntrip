@@ -5,6 +5,9 @@ $('body').on('loaded-list', function () {
 	templateSrc = $('#review-template').html(),
 	reviewGenerator = Handlebars.compile(templateSrc),
 	reviewlist = $('#review'),
+  templateSrcs = $('#hostProfile-template').html(),
+  hostProfileGenerator = Handlebars.compile(templateSrcs),
+  hprofile = $('.host-profile'),
 	rating = 0,
 	rmsNo=0,
 	paginateSrc = $('#page-template').html();
@@ -13,6 +16,7 @@ $('body').on('loaded-list', function () {
 	Handlebars.registerHelper('paginate', paginate);
 	var pageGenerator = Handlebars.compile(paginateSrc);
 
+<<<<<<< HEAD
 	roomreview(param, 1); 
 
 	
@@ -24,6 +28,56 @@ $('body').on('loaded-list', function () {
 	
 	
 	function roomreview(param, pn) {
+=======
+	roomreview();  
+	roomProfile();
+	
+	function roomProfile(){
+	  
+	  var hostNo = $('.host-profile').data('no');
+	  
+	  
+	   $.ajax({
+	      url: '../../app/json/member/detail',
+	      type: 'GET',
+	      data: {
+	        no: hostNo 
+	      },
+	      dataType: 'json',
+	      success: function(response) {
+	        
+	        var reviewNo = 0;
+	        
+	        $.ajax({
+	          url: '../../app/json/riw/countAllHost',
+	          type: 'POST',
+	          async:false,
+	          data: {
+	            no: hostNo 
+	          },
+	          dataType: 'json',
+	          success: function(response) {
+	            reviewNo = response.riwNo;
+	          },
+	          fail: function(error) {
+	          }
+	        });
+	        
+	        response.count = reviewNo;
+	        console.log(reviewNo);
+	        
+	        hprofile.html('');
+	        $(hostProfileGenerator(response)).appendTo(hprofile);
+	        
+	      },
+	      fail: function(error) {
+	      }
+	    });
+	  
+	}
+	
+	function roomreview() {
+>>>>>>> branch 'master' of https://github.com/sonbyungjun/heunheuntrip.git
 
 		$.ajax({
 			url: '../../app/json/room/review?no='+ param + '&pageNo=' + pn,
@@ -660,5 +714,10 @@ $('body').on('loaded-list', function () {
 		}
 	  });
 	}
+
+	$('.dropdown-toggle').off('click').on('click', function(){
+		var width = $('.drop-people').outerWidth();
+		$('.drop-item-p').css('width', width);
+	  });
   
   })

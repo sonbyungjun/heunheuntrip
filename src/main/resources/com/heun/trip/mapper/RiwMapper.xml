@@ -361,7 +361,10 @@ order by
   <select id="countAll" resultType="int">
     select count(*) from riw
   </select>
-   
+  
+  <select id="countAllHost" resultType="int" parameterType="int">
+    select count(riw_id) from riw where rms_id IN (select rms_id from rms where usr_id=#{no})
+  </select>
   
 </mapper>
 

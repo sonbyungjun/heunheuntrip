@@ -18,6 +18,6 @@ public interface MemberService {
   int profileupdate(Member member);
   int pwdupdate(Member member);
   String getTel(int no);
-  
+  int getTel(String tel);
 }
 

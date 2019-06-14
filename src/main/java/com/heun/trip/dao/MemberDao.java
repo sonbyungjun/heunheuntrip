@@ -15,10 +15,11 @@ public interface MemberDao {
   Member findByEmailName(Map<String,Object> paramMap);
   Member findByEmailSns(HashMap<String, Object> paramMap);
   Member findByEmail(String email);
-  int update(Member member);
+  int update(Map<String,Object> paramMap);
   int profileupdate(Member member);
   int Emailupdate(Member member); 
   int delete(int no);
   int countAll(String search);
   String extractHostTel(int no);
+  int findByTel(String tel);
 }

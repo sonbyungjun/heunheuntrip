@@ -24,4 +24,4 @@ Release/
 *.tar.gz
 *.rar
 hs_err_pid*
-*.properties
+*sec.properties
