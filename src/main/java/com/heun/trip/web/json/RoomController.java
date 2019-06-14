@@ -242,8 +242,6 @@ public class RoomController {
     content.put("list", list);
     content.put("hostname", hostname);
   
-  
-
     return content;
   }
   
