@@ -1,7 +1,7 @@
 var latitude = '';
 var longitude = '';
 var prevCheck = false
-
+var roomdetailno = document.location.href.split('=')[1];
 // 모든 슬라이드의 유효성 검사 코드를 객체화
 var slideRule = [
   {
@@ -257,7 +257,7 @@ $(document).ready(function () {
     controlArrows: false,
     anchors: ['firstPage']
   });
-  detail(17);
+  detail(roomdetailno);
 });
 
 
@@ -283,7 +283,6 @@ $('#post-search').click(function () {
       // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
       var addr = ''; // 주소 변수
       var extraAddr = ''; // 참고항목 변수
-
       //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
       if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
         addr = data.roadAddress;
@@ -384,21 +383,23 @@ $('.heun-push').click(function () {
         convenience: convenience,
         safety: safety,
         thumbnail: thumbnail,
-        files: photos
+        files: photos,
+        no:roomdetailno
       }
 
       console.log(allData)
 
       $.ajax({
-        url: '../../app/json/room/add',
+        url: '../../app/json/room/update',
         type: 'POST',
         data: allData,
         dataType: 'json',
         success: function (response) {
           if (response.status == 'success') {
+        	  console.log("성공이다")
             location.href = 'index.html';
           } else {
-            // 테스트용
+            console.log("실패")
             location.href = 'index.html';
           }
         },
@@ -462,37 +463,33 @@ function comma(x) {
 
 
 
-
 function detail(rno){
 
 	$.ajax({
 		url: '../../app/json/room/detail',
 		type: 'GET',
 		data: {
-			no: rno
+			no:rno
 		},
 		dataType: 'json',
 		success: function (response) {
 			
-		
-			
-			
-			
 			
           for(var l of response.conveniences){
         	  $('input[name=convenience]').each(function(i, e) {
-        		  if ($(e).val() === l.no) {
+        		  if ($(e).val() == l.no) {
 //        			  convenience[l.no].checked=true;
-        			  e.prop("checked", true);
+        			  
+        			  $(e).prop("checked", true);
         			  return false;
         		  }
         	  })
           }
           
           for(var l of response.safeties){
-        	  $('input[name=safeties]').each(function(i, e) {
-        		  if ($(e).val() === l.no) {
-        			  e.prop("checked", true);
+        	  $('input[name=safety]').each(function(i, e) {
+        		  if ($(e).val() == l.no) {
+        			  $(e).prop("checked", true);
         			  return false;
         		  }
         	  })
@@ -500,25 +497,34 @@ function detail(rno){
           
           for(var l of response.photos){
         	  $('input[name=files]').each(function(i, e) {
-        		  if ($(e).val() === l.no) {
-        			  e.prop("checked", true);
+        		  if ($(e).val() == l.no) {
+        			  $(e).prop("checked", true);
         			  return false;
         		  }
         	  })
           }
           
           $('#area').val(response.area);
-          console.log('되?')
           $('#heun-name').val(response.name);
           $('#heun-price').val(response.price);
-          $('#bed').val(response.bed);
-          $('#maxp').val(response.maxPerson);
           $('#postcode').val(response.postcode);
           $('#area').val(response.area);
           $('#address').val(response.address);
           $('#detailAddress').val(response.detailAddress);
           $('#contents').val(response.content);
+          
+          $('#bed').val(response.bed);
+          $('#bed').parents('.selectric-wrapper').find('span').html(response.bed + "개");
+          
+          $('#bath').val(response.bath);
+          $('#bath').parents('.selectric-wrapper').find('span').html(response.bath + "개");
+          
+          $('#maxp').val(response.maxPerson);
+          $('#maxp').parents('.selectric-wrapper').find('span').html("최대"+response.maxPerson +"명 숙박 가능");
+          
           $('#type').val(response.type);
+          $('#type').parents('.selectric-wrapper').find('span').html(response.type);
+
           $('#details').val(response.details);
           $('#reservation').val(response.reservation);
           $('#welcome').val(response.welcome);
@@ -532,7 +538,7 @@ function detail(rno){
 
 }
 
-//////////////
+
 
 
 
