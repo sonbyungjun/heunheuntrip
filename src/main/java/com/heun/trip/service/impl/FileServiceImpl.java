@@ -62,8 +62,8 @@ public class FileServiceImpl implements FileService {
           .bucket("b1.sbj.kr").key(filename).build(),
           ResponseTransformer.toOutputStream(out));
     } catch (Exception e) {
-      
-      e.printStackTrace();
+      System.out.println("파일이 없습니다.");
+//      e.printStackTrace();
     }
     System.out.println("버킷의 파일 다운로드 완료!");
     return 1;

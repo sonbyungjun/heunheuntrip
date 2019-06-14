@@ -1,6 +1,5 @@
 $('body').on('loaded-list', function () {
 
-
 	var menuHeight = $('#menu').outerHeight(),
 	param = location.href.split('?')[1].split('=')[1],
 	templateSrc = $('#review-template').html(),
@@ -10,8 +9,26 @@ $('body').on('loaded-list', function () {
   hostProfileGenerator = Handlebars.compile(templateSrcs),
   hprofile = $('.host-profile'),
 	rating = 0,
-	rmsNo=0;
+	rmsNo=0,
+	paginateSrc = $('#page-template').html();
+	
+	
+	Handlebars.registerHelper('paginate', paginate);
+	var pageGenerator = Handlebars.compile(paginateSrc);
 
+<<<<<<< HEAD
+	roomreview(param, 1); 
+
+	
+	
+	function a(pn) {
+		roomreview(param, pn)
+	}
+	
+	
+	
+	function roomreview(param, pn) {
+=======
 	roomreview();  
 	roomProfile();
 	
@@ -60,22 +77,76 @@ $('body').on('loaded-list', function () {
 	}
 	
 	function roomreview() {
+>>>>>>> branch 'master' of https://github.com/sonbyungjun/heunheuntrip.git
 
 		$.ajax({
-			url: '../../app/json/room/review',
-			type: 'POST',
-			data: {
-				no: param        
-			},
+			url: '../../app/json/room/review?no='+ param + '&pageNo=' + pn,
+			type: 'GET',
 			dataType: 'json',
 			success: function(response) {
 
+				pageNo = response.pageNo;				  
+			   				
 				reviewlist.html('');
 
-				$(reviewGenerator(response)).appendTo(reviewlist);
+				//$(reviewGenerator(response)).appendTo(reviewlist);
 
+				console.log(response)
+				 response.pagination = {
+				          page: response.pageNo,
+				          pageCount: response.totalPage
+				      };
+				  
+				      $(reviewGenerator(response)).appendTo(reviewlist);
+				      $('.pagination-menu').html('');
+				      $(pageGenerator(response)).appendTo('.pagination-menu');
+				
+				
+				
 				$('.comment-input-box').hide();
 
+				$('.heun-reply').on('click', function(e) {
+					e.preventDefault();
+					console.log($(this).attr('data-userNo'))
+					console.log($(this).attr('data-no'))
+					//console.log($('.reply-'+ no).html())
+					
+					var no = $(this).attr('data-no');    //예약번호
+					var userNo = $(this).attr('data-userNo'); // 회원번호
+					var reply =  $('.reply-'+ no);        // reply데이터
+					
+					console.log(reply)
+					
+					//원하는 핸들바스 부분만 여는 코드
+					if($('.cont-'+ no).css('display') == 'none'){
+					$('.cont-'+ no).show();
+					} else {
+					$('.cont-'+ no).hide();
+					}
+					
+					
+					 $('.reply-submit').off('click').on('click', function(e){
+					      
+					      $.ajax({
+					        url: '../../app/json/riw/reply',
+					        type: 'POST',
+					        data: {
+					          no: no,
+					          userNo : userNo,
+					          reply: reply.val()
+					        },
+					        dataType: 'json',
+					        success: function(response) {
+					         alert('등록 성공!!');
+					        },
+					        fail: function(error) {
+					          alert('등록 실패!!');
+					        }
+					      });
+					      
+					    });
+			    	});
+				
 
 				console.log(response)
 				window.rmsNo = response.list[0].roomNo;
@@ -89,11 +160,14 @@ $('body').on('loaded-list', function () {
 				for(var i = 0; i < response.list.length; i++) {
 
 					var a = response.list[i].no;
-
-
+					console.log($('.cont-'+ no).val());
+				    
 					if($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
-					}
+					} 
+//						else {
+//						$('.cont-'+ no).val() = "답변수정";
+//					}
 				}
  
 			},
@@ -102,12 +176,11 @@ $('body').on('loaded-list', function () {
 			}
 		});
 		
-			$('.heun-reply').off('click').on('click', function(e) {
-			e.preventDefault();
-			console.log('afadsfasdf')
-		});
+			
 	}
 
+	
+	
 
 	$('.riw-update').off('click').on('click', function(e){
 
@@ -169,6 +242,8 @@ $('body').on('loaded-list', function () {
 	})
 
 
+	
+	
 
 	var menuHeight = $('#menu').outerHeight();
 	$('.has-sidebar>*').theiaStickySidebar({

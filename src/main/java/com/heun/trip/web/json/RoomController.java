@@ -228,20 +228,46 @@ public class RoomController {
   }
 
   
-  @PostMapping("review")
+  @GetMapping("review")
   public Object hostlistMypage(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="2") int pageSize,
       HttpSession session, int no) {
+    System.out.println(pageNo);
+    System.out.println(pageSize);
     
-   System.out.println(no);
-    Member member = (Member)session.getAttribute("loginUser");
-    String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
-   
-    List<Riw> list = riwService.roomreview(no);
-
     HashMap<String,Object> content = new HashMap<>();
+
+    try {
+    if (pageSize < 1 || pageSize > 3) 
+      pageSize = 2;
+
+    int rowCount = riwService.reviewsize(no);
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+    
+   
+//    Member member = (Member)session.getAttribute("loginUser");
+//    String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
+   
+   
+    List<Riw> list = riwService.roomreview(no, pageNo, pageSize);
+    System.out.println(list);
     content.put("list", list);
-    content.put("hostname", hostname);
-  
+//    content.put("hostname", hostname);
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
+    
+    } catch (Exception e) {
+
+    }
   
 
     return content;
