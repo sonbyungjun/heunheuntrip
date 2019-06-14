@@ -152,6 +152,47 @@ public class RevController {
     return content;
   }
   
+  
+  @GetMapping("listInHostPage")
+  public Object listInHostPage(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="5") int pageSize, 
+      HttpSession session
+      ) { 
+    Member member = (Member)session.getAttribute("loginUser");
+    HashMap<String,Object> content = new HashMap<>();
+    
+    int userNo = member.getNo();
+
+    if (pageSize < 1 || pageSize > 6) 
+      pageSize = 5;
+
+    int rowCount = revService.countInHostPage(userNo);
+    int totalPage = rowCount / pageSize;
+    if (rowCount % pageSize > 0)
+      totalPage++;
+
+    if (pageNo < 1) 
+      pageNo = 1;
+    else if (pageNo > totalPage)
+      pageNo = totalPage;
+
+
+    try {
+      List<Rev> reservation = revService.listInHostPage(pageNo, pageSize, userNo);
+
+      
+      content.put("list", reservation);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } catch (Exception e) {
+      content.put("fail", "예약 목록이 없습니다.");
+    }
+
+    return content;
+  }
+  
   @GetMapping("detail")
   public Object detail(int no) {
     Rev rev = revService.detail(no);

@@ -23,6 +23,8 @@ public class Rev {
   private int revCharge;
   private int revDelete;
   
+  private String guestName;
+  
   private String rmsName;
   private String address;
   private String thumbnail;
@@ -32,6 +34,12 @@ public class Rev {
   
   
   
+  public String getGuestName() {
+    return guestName;
+  }
+  public void setGuestName(String guestName) {
+    this.guestName = guestName;
+  }
   public int getRevDelete() {
     return revDelete;
   }
@@ -153,8 +161,9 @@ public class Rev {
         + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", createdDate=" + createdDate
         + ", revStus=" + revStus + ", stanBy=" + stanBy + ", revPerson=" + revPerson
         + ", revUpdate=" + revUpdate + ", revReason=" + revReason + ", revCharge=" + revCharge
-        + ", revDelete=" + revDelete + ", rmsName=" + rmsName + ", address=" + address
-        + ", thumbnail=" + thumbnail + ", status=" + status + ", count=" + count + "]";
+        + ", revDelete=" + revDelete + ", guestName=" + guestName + ", rmsName=" + rmsName
+        + ", address=" + address + ", thumbnail=" + thumbnail + ", status=" + status + ", count="
+        + count + "]";
   }
-
+  
 }

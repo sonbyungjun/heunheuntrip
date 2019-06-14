@@ -65,6 +65,22 @@ public class RevServiceImpl implements RevService {
   public int cancel(int no) {
     return revDao.requestDelete(no);
   }
+  
+  @Override
+  public List<Rev> listInHostPage(int pageNo, int pageSize, int userNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("userNo", userNo);
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return revDao.listInHostPage(params);
+  }
+  
+  @Override
+  public int countInHostPage(int no) {
+    return revDao.countInHostPage(no);
+  }
 
 }
 

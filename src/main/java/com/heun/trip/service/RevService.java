@@ -12,4 +12,7 @@ public interface RevService {
   int inupdate(Rev rev);
   List<Rev> getupdtData(int pageNo, int pageSize, int userNo);
   int cancel(int no);
+  List<Rev> listInHostPage(int pageNo, int pageSize, int userNo);
+  int countInHostPage(int no);
+  
 }

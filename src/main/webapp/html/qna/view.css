@@ -1,31 +1,13 @@
-@font-face {
-	font-family: 'S-CoreDream-3Light';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-.content {
-	font-family: 'S-CoreDream-3Light';
-}
 
 .item-meta-info {
 	text-align: right;
 	margin-top: 0px;
 	margin-bottom: 0px;
-	font-family: 'S-CoreDream-3Light';
 	font-size: medium;
-}
-
-h5 {
-	font-family: 'S-CoreDream-3Light';
 }
 
 h3 {
 	text-align: center;  
-	font-family: 'S-CoreDream-3Light';
 	margin: 20px;
 }
 
@@ -45,7 +27,6 @@ h3 {
 }
 
 .heun-catename {
-	font-family: 'S-CoreDream-3Light';
 	font-size: medium;
 	color: #3b8ced;
 	background: #ffffff;
