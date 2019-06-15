@@ -21,39 +21,34 @@
     <result column="hostname" property="hostname"/>
     <result column="hostphoto" property="hostphoto"/>
     <result column="thum" property="roomPhoto"/>
-    
   </resultMap>
   
   <select id="findroomreview" resultMap="riwMap" parameterType="map">
-  select
-  r.riw_id,
-  r.usr_id,
-  r.riw_conts,
-  r.grd,
-  r.cdt,
-  r.riw_reply,
-  r.reply_dt,
-  r.rms_id,
-  u.name,
-  u.usr_photo,
-  (select name from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostname,
-  (select usr_photo from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostphoto
-from
-  riw r
-left outer join usr u
-  on r.usr_id=u.usr_id
-where
-  r.rms_id=#{no}
-order by 
-  cdt desc 
-  <if test="size != null and rowNo != null">
+     select
+     r.riw_id,
+     r.usr_id,
+     r.riw_conts,
+     r.grd,
+     r.cdt,
+     r.riw_reply,
+     r.reply_dt,
+     r.rms_id,
+     u.name,
+     u.usr_photo,
+     (select name from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostname,
+     (select usr_photo from usr where usr_id=(select usr_id from rms where rms_id=#{no})) hostphoto
+   from
+     riw r
+   left outer join usr u
+     on r.usr_id=u.usr_id
+   where
+     r.rms_id=#{no}
+   order by 
+     cdt desc 
+    <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
-
   </select>
-  
-  
-  
   
   <select id="findAll" resultMap="riwMap" parameterType="map">
     select
@@ -110,9 +105,6 @@ order by
       limit #{rowNo}, #{size}
     </if>
   </select>
-  
-
-
 
   <select id="findAllhostMypage" resultMap="riwMap" parameterType="map">
     select
@@ -142,11 +134,6 @@ order by
     </if>
   </select>
 
-
-
-
-
-
   <insert id="insert" parameterType="riw">
     insert into riw(
       usr_id,
@@ -163,10 +150,6 @@ order by
       #{reply},
       #{replyDate})
   </insert>
-  
- 
- 
- 
  
   <insert id="riwinsert" parameterType="riw">
     insert into riw(
@@ -184,8 +167,6 @@ order by
       #{reply},
       #{replyDate})
   </insert>
- 
-  
  
   <select id="findByNo" resultMap="riwMap" parameterType="int">
     select
@@ -207,8 +188,7 @@ order by
       r.riw_id=#{value}
   </select>
   
-      <delete id="delete" parameterType="int">
-
+  <delete id="delete" parameterType="int">
     delete 
       from riw 
     where 
@@ -225,7 +205,6 @@ order by
       riw_id = #{no}
   </update>
   
-  
   <update id="replyupdate" parameterType="riw">
     update
       riw
@@ -236,7 +215,6 @@ order by
       riw_id = #{no}
   </update>
   
-  
   <select id="count" parameterType="map" >
     select 
      count(*) 
@@ -246,9 +224,7 @@ order by
      usr_id=#{userNo} and rms_id=#{roomNo}
   </select>
   
-  
-  
-    <select id="roomreviewcount" resultType="int" parameterType="int">
+  <select id="roomreviewcount" resultType="int" parameterType="int">
     select count(*) from riw 
     where rms_id = #{value}
   </select>

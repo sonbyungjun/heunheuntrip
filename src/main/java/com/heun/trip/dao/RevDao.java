@@ -16,6 +16,7 @@ public interface RevDao {
   List<Rev> listInHostPage(Map<String, Object> params);
   int countInHostPage(int no);
   int deleteInHostpage(int no);
+  int changeRev(int no);
 }
  
 

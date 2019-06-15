@@ -198,7 +198,7 @@ public class RevController {
     HashMap<String,Object> content = new HashMap<>();
     try {
       revService.deleteInHostpage(no);
-      content.put("success", "success");
+      content.put("status", "success");
     } catch (Exception e) {
       content.put("fail", "삭제 실패!");
     }
@@ -284,6 +284,21 @@ public class RevController {
       content.put("message", e.getMessage());
     }
     return content;
-  } 
+  }
+  
+  // 예약을 변경한다.
+  @PostMapping("change")
+  public Object change(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+
+    try {
+      revService.change(no);
+      content.put("status", "success");
+    } catch (Exception e) {
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 
 }
