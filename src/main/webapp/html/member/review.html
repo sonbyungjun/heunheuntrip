@@ -34,7 +34,6 @@
 <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
 <script src="../js/handlebars-paginate.js"></script>
 <script src="../../star/jquery.star-rating-svg.js"></script>
-
 </head>
 
 <body>
@@ -100,16 +99,16 @@
                              <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{roomPhoto}}.jpeg" width="100" height="100" alt=""> 
                           </div>
                             <div class="media-body row" style="position: relative">
-                            <div class="main-riw col-12 col-sm-6 col-md-9">
-                             <h6 class="media-heading riw-cont" id="aaa-{{no}}" data-reply="{{reply}}">{{contents}}</h6>
-                             <p class="text-muted"><i class="fas fa-map-marker-alt"></i>        {{roomName}}</p>
-                             <p class="text-muted">작성일 : {{createdDate}}</p>
-                            </div>
-                            <div class="riw-btn col-6 col-md-3" data-no={{no}} data-grd={{grd}}>
-                              <div id="no-reply-{{no}}" style="font-size : 16px; margin-top: 5px; color: green"><i class="fas fa-check"></i>  답변완료</div>
-                              <a class="btn btn-link riw-delete" href="#" style="position: absolute; bottom: 0">삭제</a>
-                            </div>
-                          </div>
+                              <div class="main-riw col-12 col-sm-6 col-md-9" data-photo={{userPhoto}} data-hostphoto={{hostphoto}}>
+                               <h6 class="media-heading riw-cont" id="aaa-{{no}}" data-reply="{{reply}}" data-hostname={{hostname}} data-name={{name}}>{{contents}}</h6>
+                               <p class="text-muted"><i class="fas fa-map-marker-alt"></i>        {{roomName}}</p>
+                               <p class="text-muted">작성일 : {{createdDate}}</p>
+                              </div>
+                              <div class="riw-btn col-6 col-md-3" data-no={{no}} data-grd={{grd}}>
+                               <a href="#" data-toggle="modal" data-target="#leadform" class="reply-complete"><div id="no-reply-{{no}}" style="font-size : 16px; margin-top: 5px; color: green"><i class="fas fa-check"></i>  답변완료</div></a>
+                               <a class="btn btn-link riw-delete" href="#" style="position: absolute; bottom: 0">삭제</a>
+                              </div>
+                           </div>
                         </div>
                     </div>
     {{/each}}
@@ -142,7 +141,34 @@
     </ul>
     </nav>
     </script>
-
+    
+<div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      </div>
+      <div class="modal-body">
+      
+      <div class="guest-say">
+	      <img class="media-object riw-photo" src="" width="100" height="100" alt=""
+	           style="margin: 10px; border-radius: 7px;"> 
+	      <div class="bubble" style="float: right"><span class="riw-name"></span><br><b class="riw-conts"></b></div>
+      </div>
+      
+      <div class="host-say">
+        <div>
+		      <img class="media-object reply-photo" src="" width="100" height="100" alt=""
+		           style="margin-top: 25px; margin-right:10px; border-radius: 7px; float: right;">
+	      </div> 
+	      <div class="bubble-ans" style="float: left; color: white;"><span class="reply-hostname"></span><br><b class="reply-conts"></b></div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<script src='review.js'></script>
 </body>
 

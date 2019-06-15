@@ -123,6 +123,28 @@ $(document.body).bind('loaded-list', (e) => {
     })
   })
   
+  $('.reply-complete').off('click').on('click',function(e){
+    
+    var review = $(e.target).parent().parent().prev().children('h6').text();
+    var reply = $(e.target).parent().parent().prev().children('h6').attr('data-reply');
+    var hostname = $(e.target).parent().parent().prev().children('h6').attr('data-hostname');
+    var name = $(e.target).parent().parent().prev().children('h6').attr('data-name');
+    
+    // 사진 데이터
+    var photo = $(e.target).parent().parent().prev().attr('data-photo');
+    var hostphoto = $(e.target).parent().parent().prev().attr('data-hostphoto');
+    
+    $('.riw-conts').text(review);
+    $('.riw-name').text(name + "님의 리뷰 : ");
+    $('.reply-conts').text(reply);
+    $('.reply-hostname').text(hostname + "님의 답글 : ");
+    
+    $('.riw-photo').attr('src', "/heunheuntrip/app/json/images/down/" + photo);
+    $('.reply-photo').attr('src', "/heunheuntrip/app/json/images/down/" + hostphoto);
+    
+  })
+    
+  
 });
 
 
