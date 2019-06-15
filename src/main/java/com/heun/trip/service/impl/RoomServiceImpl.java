@@ -30,7 +30,7 @@ public class RoomServiceImpl implements RoomService {
   
   @Override
   public int add(Room room) {
-    
+ 
     roomDao.insert(room);
     
     List<Convenience> cons = room.getConveniences();
@@ -110,7 +110,29 @@ public class RoomServiceImpl implements RoomService {
   }
   @Override
   public int update(Room room) {
-    return roomDao.update(room);
+    roomDao.amnDelete(room.getNo());
+    roomDao.safetyDelete(room.getNo());
+    roomDao.update(room);
+    
+    List<Convenience> cons = room.getConveniences();
+    for (Convenience c : cons) {
+      c.setRoomNo(room.getNo());
+    }
+    roomDao.insertConvenience(cons);
+    
+    List<Safety> safes = room.getSafeties();
+    for (Safety s : safes) {
+      s.setRoomNo(room.getNo());
+    }
+    roomDao.insertSafety(safes);
+    
+    List<RoomFile> files = room.getPhotos();
+    for (RoomFile f : files) {
+      f.setRoomNo(room.getNo());
+    }
+    roomFileDao.insert(files);
+    
+    return 1;
   }
   
   

@@ -1,7 +1,5 @@
 package com.heun.trip.web.json;
   
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,8 +22,6 @@ import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Roomcheckout;
 import com.heun.trip.service.BlogService;
 import com.heun.trip.service.FileService;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 
 @RestController("json/BlogController")
 @RequestMapping("/json/blog")
@@ -52,15 +48,13 @@ public class BlogController {
         continue;
       }
       
-//      if (!blog.getContent().contains(s)) {
-//        String uploadDir = servletContext.getRealPath(
-//            "/upload/blogphoto");
-//        try {
-//          new File(uploadDir + "/" + s).delete();
-//        } catch (Exception e) {
-//        }
-//        continue;
-//      }
+      if (!blog.getContent().contains(s)) {
+        try {
+          fileService.deleteImage(s);
+        } catch (Exception e) {
+        }
+        continue;
+      }
       
       BlogFile file = new BlogFile();
       file.setFile(s);
@@ -94,16 +88,14 @@ public class BlogController {
     
     for (String s : filenames) {
       
-      if (s.contains("tumbnail")) {
+      if (s.contains("_thum")) {
         blog.setMainPhoto(s);
         continue;
       }
       
       if (!blog.getContent().contains(s)) {
-        String uploadDir = servletContext.getRealPath(
-            "/upload/blogphoto");
         try {
-          new File(uploadDir + "/" + s).delete();
+          fileService.deleteImage(s);
         } catch (Exception e) {
         }
         continue;
@@ -146,12 +138,8 @@ public class BlogController {
         }
         if (isMain) {
           try {
-            BufferedImage image = Thumbnails.of(f.getInputStream())
-              .crop(Positions.CENTER).size(350,450)
-              .outputFormat("jpeg")
-              .asBufferedImage();
             filename = filename + "_thum";
-            fileService.uploadImage(image, filename);
+            fileService.uploadImageThumbnail(f.getInputStream(), 350, 450, filename);
           } catch (Exception e) {
             e.printStackTrace();
           }
@@ -244,10 +232,9 @@ public class BlogController {
     List<BlogFile> files = blogService.filelist(no);
     
     for(BlogFile f : files) {
-      String uploadDir = servletContext.getRealPath("/upload/blogphoto");
       String filename = f.getFile();
       try {
-        new File(uploadDir + "/" + filename).delete();
+        fileService.deleteImage(filename);
       } catch (Exception e) {}
     }
     

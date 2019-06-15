@@ -1,6 +1,5 @@
 package com.heun.trip.web.json;
   
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +24,6 @@ import com.heun.trip.domain.Safety;
 import com.heun.trip.service.FileService;
 import com.heun.trip.service.RiwService;
 import com.heun.trip.service.RoomService;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5)
 @RestController("json/RoomController")
@@ -59,7 +56,7 @@ public class RoomController {
     List<RoomFile> roomFiles = new ArrayList<>();
 
     Map<String,Object> content = new HashMap<>();
-
+    
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -110,7 +107,7 @@ public class RoomController {
       @RequestParam("safety[]") int[] safety,
       @RequestParam("files[]") String[] files,
       HttpSession session) {
-
+   
     List<Convenience> cons = new ArrayList<>();
     List<Safety> safes = new ArrayList<>();
     List<RoomFile> roomFiles = new ArrayList<>();
@@ -184,9 +181,7 @@ public class RoomController {
         // 메인사진이면 섬네일로 만든 후 맵에 담는다.
         if (isMain) {
           try {
-            BufferedImage image = Thumbnails.of(f.getInputStream()).crop(Positions.CENTER).size(530,375).outputFormat("jpeg")
-            .asBufferedImage();
-            fileService.uploadImage(image, filename + "_thum");
+            fileService.uploadImageThumbnail(f.getInputStream(), 530, 375, filename + "_thum");
             content.put("thumbnail", filename + "_thum");
           } catch(Exception e) {
             e.printStackTrace();

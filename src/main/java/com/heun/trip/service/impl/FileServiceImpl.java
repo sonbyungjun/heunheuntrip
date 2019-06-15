@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import javax.imageio.ImageIO;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import com.heun.trip.service.FileService;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.regions.Region;
@@ -18,6 +21,7 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Service
+@EnableAsync
 public class FileServiceImpl implements FileService {
 
   @Override
@@ -34,23 +38,6 @@ public class FileServiceImpl implements FileService {
     }
     
     System.out.println("버킷에 파일 업로드 완료!");
-    return 1;
-  }
-  
-  @Override
-  public int uploadImage(BufferedImage image, String filename) {
-    ByteArrayOutputStream os = new ByteArrayOutputStream();
-    try {
-      ImageIO.write(image, "jpeg", os);
-    } catch (IOException e) {
-      e.printStackTrace();
-      return 0;
-    }
-    byte[] buffer = os.toByteArray();
-    InputStream is = new ByteArrayInputStream(buffer);
-    
-    uploadImage(is, buffer.length, filename);
-    
     return 1;
   }
   
@@ -72,6 +59,7 @@ public class FileServiceImpl implements FileService {
     return 1;
   }
   
+  
   @Override
   public int deleteImage(String filename) {
     Region region = Region.AP_NORTHEAST_2;
@@ -89,5 +77,44 @@ public class FileServiceImpl implements FileService {
     System.out.println("버킷의 파일 삭제!");
     return 1;
   }
+  
 
+  @Override
+  public int uploadImageThumbnail(InputStream in, int width, int height, String filename) {
+    
+    BufferedImage image = null;
+    try {
+      image = Thumbnails.of(in).crop(Positions.CENTER).size(width, height).outputFormat("jpeg")
+      .asBufferedImage();
+    } catch (IOException e) {
+      System.out.println("섬네일을 만들지 못했습니다.");
+      e.printStackTrace();
+      return 0;
+    }
+    
+    ByteArrayOutputStream os = new ByteArrayOutputStream();
+    try {
+      ImageIO.write(image, "jpeg", os);
+    } catch (IOException e) {
+      e.printStackTrace();
+      return 0;
+    }
+    byte[] buffer = os.toByteArray();
+    InputStream is = new ByteArrayInputStream(buffer);
+    
+    Region region = Region.AP_NORTHEAST_2;
+    S3Client s3 = S3Client.builder().region(region).build();
+
+    try {
+      s3.putObject(PutObjectRequest.builder().bucket("b1.sbj.kr")
+          .key(filename).build(), RequestBody.fromInputStream(is, buffer.length));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return 0;
+    }
+    System.out.println("버킷에 파일 섬네일 업로드 완료!");
+    
+    return 1;
+  }
+  
 }
