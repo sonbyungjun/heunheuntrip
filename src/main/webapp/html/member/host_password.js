@@ -79,7 +79,7 @@ function chkValue() {
 
 				if(response.status == 'success'){
 					$.ajax({
-						url:'../../app/json/member/update',
+						url:'../../app/json/member/updatepwd',
 						type:'POST',
 						data:{
 							no: response.user.no,
@@ -92,14 +92,14 @@ function chkValue() {
 								title:"비밀번호 변경이 완료 되었습니다!"
 							}).then((result) =>{
 								if(result.value){
+								  $.ajax({
+								    url:'../../app/json/auth/logout',
+								    type:'GET',
+								    dataType:'json'
+								  })
 									location.href='/heunheuntrip/html/auth/signin.html'
 								}	
 							});// alert창
-							$.ajax({
-								url:'../../app/json/auth/logout',
-								type:'GET',
-								dataType:'json'
-							})
 						}//success
 					})// ajax 요청
 					
@@ -164,33 +164,33 @@ function loadList() {
   
   } // loadList()
 
-$('.udatepwd-btn').on('click', function(e) {
-	
-	e.preventDefault();
-	
-	$.ajax({
-		url: '../../app/json/member/updatepwd',
-		type: 'POST',
-		 data: {
-	          password: $('.pwd').val()
-	          },
-		dataType: 'json',
-		success: function (response) {
-			if (response.status == 'success') {
-				location.href = 'host_profile.html';
-			} else {
-				Swal.fire({
-					type: 'error',
-					title: '변경실패!',
-					text: '프로필을 변경하지 못했습니다.'
-				})
-			}
-		},
-		fail: function (error) {
-			alert('비밀번호가 일치하지 않습니다.');
-		}
-	});
-})
+//$('.udatepwd-btn').on('click', function(e) {
+//	
+//	e.preventDefault();
+//	
+//	$.ajax({
+//		url: '../../app/json/member/updatepwd',
+//		type: 'POST',
+//		 data: {
+//	          password: $('.pwd').val()
+//	          },
+//		dataType: 'json',
+//		success: function (response) {
+//			if (response.status == 'success') {
+//				location.href = 'host_profile.html';
+//			} else {
+//				Swal.fire({
+//					type: 'error',
+//					title: '변경실패!',
+//					text: '프로필을 변경하지 못했습니다.'
+//				})
+//			}
+//		},
+//		fail: function (error) {
+//			alert('비밀번호가 일치하지 않습니다.');
+//		}
+//	});
+//})
  
 
 
