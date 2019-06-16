@@ -68,12 +68,12 @@ function sendFile(file, isMain, el) {
     success: function(url) {
       // el(태그) 가 파라미터로 넘어오면 true 값이 없으면 false
       if (el) {
-        var path = '/heunheuntrip/upload/blogphoto/' + url
+        var path = '/heunheuntrip/app/json/images/down/' + url
         $(el).summernote('editor.insertImage', path);
         $('#imageBoard > ul').append('<li><img src="'+path+'" width="480" height="auto"/></li>');
         filenames.push(url);
       } else {
-        filenames.push(url + '_tumbnail');
+        filenames.push(url);
       }
     }
   });

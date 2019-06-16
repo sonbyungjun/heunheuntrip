@@ -3,7 +3,6 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-
 })
 
 if (window.localStorage.getItem('email')) {
@@ -21,7 +20,6 @@ $("#email").keydown(function(key) {
     HeLogin();
   }
 });
-
   
   document.querySelector('#login-btn').onclick = () => {
     HeLogin();

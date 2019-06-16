@@ -1,12 +1,14 @@
 package com.heun.trip.conf;
 
 import java.util.HashMap;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+ 
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
@@ -46,6 +48,6 @@ public class Sms {
       throw new Exception(e.getMessage());
     }
     
-  }
-
+  }  
+  
 }

@@ -57,6 +57,12 @@ function loadList(pn) {
       } else {
         l.revDelete = false;
       }
+      
+      if(l.revUpdate !== 0){
+        l.update = true;
+      } else {
+        l.update = false;
+      }
     }
     console.log(obj.list);
     
@@ -81,6 +87,8 @@ function loadList(pn) {
 
 
 $(document.body).bind('loaded-list', (e) => {
+  
+  $('.modal-close').on('hidden', function() { $(this).empty(); });
   
   // 예약 삭제
   $('#rev-delete').off('click').on('click', function(e){
@@ -108,8 +116,7 @@ $(document.body).bind('loaded-list', (e) => {
           },
           dataType: 'json',
           success: function(response) {
-            
-            if(response.success == "success"){
+              
               Swal.fire(
                   'Success!',
                   '삭제되었습니다.',
@@ -118,7 +125,6 @@ $(document.body).bind('loaded-list', (e) => {
                   loadList(window.pageNo);
                   window.pageNo = 0;
                 })
-            }
           },
           fail: function(error) {
             alert('등록 실패!!');
@@ -130,7 +136,83 @@ $(document.body).bind('loaded-list', (e) => {
     
   });
   
-  
+  // 예약 변경
+  $('.rev-update').off('click').on('click', function(e){
+    
+    var revNo = $(e.target).data('no');
+    var revUpdateNo = $(e.target).attr('data-rev');
+    var checkIn = $(e.target).parent().prev().children('.cck-in').text()
+    var checkOut = $(e.target).parent().prev().children('.cck-out').text()
+    var revName = $(e.target).parent().prev().children('.rev-name').text()
+    var revPp = $(e.target).parent().prev().children('.rev-pp').text()
+    var revReason = $(e.target).attr('data-reas');
+
+    $('.check-In').text(checkIn);
+    $('.check-Out').text(checkOut);
+    $('.name').text(revName);
+    $('.person').text(revPp);
+    $('.reason').text(revReason);
+    
+    $('.update').off('click').on('click', function(e){
+      
+      Swal.fire({
+        text: "변경하시겠습니까?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '네',
+        cancelButtonText: '아니오'
+      }).then((result) => {
+        
+        if (result.value) {
+          
+          $.ajax({
+            url: '../../app/json/rev/change',
+            type: 'POST',
+            data: {
+              no : revNo
+            },
+            dataType: 'json',
+            success: function(response) {
+              
+              if(response.status == "success"){
+                
+                $.ajax({
+                  url: '../../app/json/rev/deleteInHostpage',
+                  type: 'POST',
+                  data: {
+                    no : revUpdateNo
+                  },
+                  dataType: 'json',
+                  success: function(response) {
+                    
+                    if(response.status == "success"){
+                      
+                      Swal.fire(
+                          'Success!',
+                          '변경되었습니다.',
+                          'success'
+                      ).then(() => {
+                        loadList(window.pageNo);
+                        window.pageNo = 0;
+                        $('#update-modal').modal("hide");
+                      })
+                    }
+                  },
+                  fail: function(error) {
+                    alert('등록 실패!!');
+                  }
+                });
+              }
+            }
+          });
+        }
+      })
+      
+    });
+  })
+    
 });
 
 

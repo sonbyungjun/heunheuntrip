@@ -59,7 +59,7 @@
 										<div class="agent-detail">
 											<div class="text-center">
 												<div id='profileimg'></div>
-												<h4 class="main-name" style="color: #869E9E;"></h4>
+												<h4 class="main-name" style="color: #4682B4;"></h4>
 											</div>
 											<ul class="list-unstyled main-infomation"
 												style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
@@ -113,15 +113,21 @@
                 <div class="row heun-css">
                   <div class="col-12 col-sm-6 col-md-9" style="font-size: 16px">
                    <h4 style="color: #869E9E">{{rmsName}}</h4>
-                   <b>예약 날짜</b> : <span>{{checkIn}}<span> ~ <span>{{checkOut}}</span><br>
-                   <b>예약자 명</b> : <span>{{guestName}}     </span> <a href="#" style="color: #3b8ced"><i class="far fa-envelope"></i>  메세지 보내기</a><br> 
-                   <b>인원</b> : <span>{{revPerson}}<span>명
+                   <b>예약 날짜</b> : <span class="cck-in">{{checkIn}}</span> ~ <span class="cck-out">{{checkOut}}</span><br>
+                   <b>예약자 명</b> : <span class="rev-name">{{guestName}}     </span> <a href="#" style="color: #3b8ced"><i class="far fa-envelope"></i>  메세지 보내기</a><br> 
+                   <b>인원</b> : <span class="rev-pp">{{revPerson}}<span>명
                   </div>
                   <div class="col-6 col-md-3">
                     <button type="button" class="btn btn-sm btn-primary" style="width: 100px; text-align: center; margin: 5px;">상세정보</button>
                     {{#if revDelete}}
                     <button type="button" id="rev-delete" class="btn btn-sm btn-danger" data-no={{no}} style="width: 100px; text-align: center; margin: 5px;">예약취소</button>
                     {{/if}}
+
+                    {{#if update}}
+                    <button type="button" data-toggle="modal" data-target=".bs-example-modal-lg" id="id-update" class="btn btn-sm btn-inverse rev-update" data-no={{no}} 
+                            data-rev={{revUpdate}} style="width: 100px; text-align: center; margin: 5px;" data-reas='{{revReason}}'>예약변경</button>
+                    {{/if}}
+
                   </div>
                 </div>
              </div>
@@ -154,6 +160,37 @@
     </nav>
     </script>
 
+	<div class="modal fade bs-example-modal-lg" id="update-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	     <div class="modal-body">
+	      <div class="row">
+          <div class="col-md-6 ml-auto">
+            <h4 style="text-align: center;">현재</h4>
+            <div style="border: 1px solid gray; height: 300px">
+            </div>
+          </div>
+          <div class="col-md-6 ml-auto">
+            <h4 style="text-align: center;">변경</h4>
+            <div style="border-radius: 25px; padding: 20px;  height: 300px; background: #b3b3b3; color: white; font-size: 16px">
+              날짜 : <span class="check-In"></span> ~ <span class="check-Out"></span><br>
+              <br>
+              인원 : <span class="person"></span><br>
+              <br>
+              예약자명 : <span class="name"></span><br>
+              <br>
+              사유 : <span class="reason"></span>
+            </div>
+          </div>
+        </div>
+       </div>
+		   <div class="modal-footer">
+		     <button type="button" class="btn btn-primary update">변경</button>
+		     <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
+		   </div>
+	    </div>
+	  </div>
+	</div>
 	<script src='hostReservation.js'></script>
 </body>
 

@@ -69,7 +69,7 @@ function loadLoginUser() {
         $('#register-btn').hide();
         $('#login-btn').hide();
         $('#login-username').append(response.member.name +"님");
-        $('#login-userphoto').css('background-image', "url('/heunheuntrip/app/json/images/down/" + response.member.photo + "')");
+        $('#login-userphoto').css('background-image', "url('/heunheuntrip/app/json/images/down/" + response.member.photo + "_header" + "')");
       } else {
         $('#login-btn').show();
         $('#logout-btn').hide();

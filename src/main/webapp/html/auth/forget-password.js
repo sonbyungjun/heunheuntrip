@@ -13,11 +13,11 @@ $("#email").keyup(function () {
 		$("#emailErr").hide();
 		successState("#email");
 		$('#add-btn').removeAttr("disabled");
+
 	} else {//정규표현식을 통과하지 못하면
 		$("#emailErr").show();
 		errorState("#email");
 		$('#add-btn').attr("disabled", "disabled");
-
 	}
 });
 
@@ -106,6 +106,7 @@ $('#re-btn').on('click', function () {
 		})
 	}
 })
+
 //성공 상태로 바꾸는 함수
 function successState(sel) {
 	$(sel)
@@ -116,6 +117,7 @@ function successState(sel) {
 	$("#myForm button[type=submit]")
 		.removeAttr("disabled");
 };
+
 //에러 상태로 바꾸는 함수
 function errorState(sel) {
 	$(sel)

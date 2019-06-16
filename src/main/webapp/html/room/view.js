@@ -737,11 +737,9 @@ $('body').on('loaded-list', function () {
   
 	  });
   
-  
-  
 	  IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
-	    pay_method : 'card',
+	    pay_method : $('input[name=type]:checked').val(),
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
 	    amount : 14000,
