@@ -87,7 +87,7 @@ function loadList(pn) {
 
 
 $(document.body).bind('loaded-list', (e) => {
-  
+
   $('.modal-close').on('hidden', function() { $(this).empty(); });
   
   // 예약 삭제
@@ -139,6 +139,19 @@ $(document.body).bind('loaded-list', (e) => {
   // 예약 변경
   $('.rev-update').off('click').on('click', function(e){
     
+    function loadData(pn){
+      $.getJSON('../../app/json/rev/detail?no=' + pn, function(obj) {
+        
+        console.log(obj);
+        
+        $('.be-person').text(obj.rev.revPerson + "명 ");
+        $('.be-check-In').text(obj.rev.checkIn);
+        $('.be-check-Out').text(obj.rev.checkOut);
+        $('.be-name').text(obj.rev.guestName);
+        
+      }); 
+    }
+    
     var revNo = $(e.target).data('no');
     var revUpdateNo = $(e.target).attr('data-rev');
     var checkIn = $(e.target).parent().prev().children('.cck-in').text()
@@ -146,6 +159,9 @@ $(document.body).bind('loaded-list', (e) => {
     var revName = $(e.target).parent().prev().children('.rev-name').text()
     var revPp = $(e.target).parent().prev().children('.rev-pp').text()
     var revReason = $(e.target).attr('data-reas');
+    
+    // 이전 데이터를 가져온다.
+    loadData(29);
 
     $('.check-In').text(checkIn);
     $('.check-Out').text(checkOut);
@@ -209,10 +225,54 @@ $(document.body).bind('loaded-list', (e) => {
           });
         }
       })
-      
-    });
-  })
+    }); // 예약 변경 승낙 end 
     
+    // 예약 변경을 거절한다.
+    $('.update-cancel').off('click').on('click', function(e){
+      
+      Swal.fire({
+        text: "거절하시겠습니까?",
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '네',
+        cancelButtonText: '아니오'
+      }).then((result) => {
+
+        if (result.value) {
+          
+          $.ajax({
+            url: '../../app/json/rev/deleteInHostpage',
+            type: 'POST',
+            data: {
+              no : revNo
+            },
+            dataType: 'json',
+            success: function(response) {
+                
+                Swal.fire(
+                    'Success!',
+                    '거절하였습니다.',
+                    'success'
+                  ).then(() => {
+                    loadList(window.pageNo);
+                    window.pageNo = 0;
+                    $('#update-modal').modal("hide");
+                  })
+            },
+            fail: function(error) {
+              alert('등록 실패!!');
+            }
+          });
+          
+        }
+      })
+      
+    }) // 예약 변경 거절 end
+    
+    
+  })
 });
 
 

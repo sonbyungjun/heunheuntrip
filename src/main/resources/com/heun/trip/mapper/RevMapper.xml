@@ -110,9 +110,11 @@
      e.rev_char,
      e.rev_updt,
      e.rev_delet,
-     s.stus
+     s.stus,
+     u.name
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
+     left outer join usr u on e.usr_id = u.usr_id 
      left outer join stus s on e.stus_id = s.stus_id
     where e.rev_id=#{no}
   </select>
