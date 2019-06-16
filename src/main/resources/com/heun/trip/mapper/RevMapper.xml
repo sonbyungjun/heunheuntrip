@@ -191,14 +191,15 @@
   </update>
   
   <select id="listInHostPage" parameterType="map" resultMap="revMap">
-  
-  select 
+    select
     e.rev_id, 
     e.cck_in, 
     e.cck_out, 
     e.usr_id, 
     e.rev_persn,
     e.rev_delet,
+    e.rev_updt,
+    e.rev_reas,
     r.rm_name, 
     u.name
   from 
@@ -207,8 +208,14 @@
     usr u on e.usr_id = u.usr_id 
   left outer join 
     rms r on e.rms_id = r.rms_id 
-  where
-    e.rms_id IN (select rms_id from rms where usr_id=#{userNo}) and e.rev_updt is null
+    where 
+      e.rev_id NOT IN(
+        select 
+          rev_updt 
+        from 
+          rev 
+        where 
+          rev_updt is not null) and r.usr_id = #{userNo}
   <if test="size != null and rowNo != null">
     limit #{rowNo}, #{size}
   </if>
@@ -227,6 +234,15 @@
     where
       rms_id IN (select rms_id from rms where usr_id= #{no}) and rev_updt is null
   </select>
+  
+  <update id="changeRev" parameterType="int">
+    update
+      rev
+    set
+      rev_updt = NULL, rev_reas = NULL
+    where
+      rev_id = #{no}
+  </update>
   
 </mapper>
 

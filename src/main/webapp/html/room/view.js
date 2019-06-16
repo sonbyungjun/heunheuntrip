@@ -110,7 +110,7 @@ $('body').on('loaded-list', function () {
 					var userNo = $(this).attr('data-userNo'); // 회원번호
 					var reply =  $('.reply-'+ no);        // reply데이터
 					
-					console.log(reply)
+			
 					
 					//원하는 핸들바스 부분만 여는 코드
 					if($('.cont-'+ no).css('display') == 'none'){
@@ -147,23 +147,98 @@ $('body').on('loaded-list', function () {
 
 				console.log(response)
 				
-
+				
+				console.log(response.list[0].hostname)
+				console.log(response.hostname)
+				
+				$('.delete1').hide(); 
+				$('.delete2').hide();  
+				
 				if(response.list[0].hostname != response.hostname) {
-					$('.btn-reply').hide();
+					$('.btn-reply').hide();  
+				
+					  //그숙소 회원이 아니면 
 				} else {
 					$('.riw-update').hide();
+					$('.delete2').show();   
+								
 				}
+				
 
 				for(var i = 0; i < response.list.length; i++) {
 
 					var a = response.list[i].no;
-					console.log($('.cont-'+ no).val());
-				    
+					var delete1 = response.list[i].name;
+									    
 					if($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
 					} 
 
+					if($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
+						$('#delete1-' + a).show();  
+					}
 				}
+					
+				
+				
+				$('.delete1').on('click', function(e) {
+					e.preventDefault();
+					
+					
+										
+					var no = $(this).attr('data-no');    //예약번호
+												
+								      
+					      $.ajax({
+					        url: '../../app/json/riw/delete',
+					        type: 'POST',
+					        data: {
+					          no: no						          
+					        },
+					        dataType: 'json',
+					        success: function(response) {
+					         alert('삭제 성공!!');
+					         roomreview(1);
+					         
+					        },
+					        fail: function(error) {
+					          alert('삭제 실패!!');
+					        }
+					      });
+					      
+					  
+			    	});
+				
+					
+					$('.delete2').on('click', function(e) {
+						e.preventDefault();
+						
+						console.log($(this).attr('data-no'));
+											
+						var no = $(this).attr('data-no');    //예약번호
+													
+									      
+						      $.ajax({
+						        url: '../../app/json/riw/replydelete',
+						        type: 'POST',
+						        data: {
+						          no: no						          
+						        },
+						        dataType: 'json',
+						        success: function(response) {
+						         alert('삭제 성공!!');
+						         roomreview(1);
+						         
+						        },
+						        fail: function(error) {
+						          alert('삭제 실패!!');
+						        }
+						      });
+						      
+						  
+				    	});
+					
+					
  
 			},
 			fail: function(error) {
@@ -174,8 +249,6 @@ $('body').on('loaded-list', function () {
 			
 	}
 
-	
-	
 
 	$('.riw-update').off('click').on('click', function(e){
 
@@ -664,11 +737,9 @@ $('body').on('loaded-list', function () {
   
 	  });
   
-  
-  
 	  IMP.request_pay({
 	    pg : 'inicis', // version 1.1.0부터 지원.
-	    pay_method : 'card',
+	    pay_method : $('input[name=type]:checked').val(),
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
 	    amount : 14000,

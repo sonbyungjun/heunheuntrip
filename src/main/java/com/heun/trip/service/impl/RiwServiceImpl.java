@@ -91,6 +91,11 @@ public class RiwServiceImpl implements RiwService {
   public int delete(int no) {
     return riwDao.delete(no);
   }
+  
+  @Override
+  public int replydelete(int no) {
+    return riwDao.replydelete(no);
+  }
 
   @Override
   public int update(Riw riw) {

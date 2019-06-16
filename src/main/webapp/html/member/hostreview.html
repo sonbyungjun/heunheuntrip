@@ -8,14 +8,15 @@
 <title>호스트 페이지</title>
 
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 <link href="../../lib/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
+  rel="stylesheet">
 <link href="../../lib/animate.css" rel="stylesheet">
 <link href="../../lib/selectric/selectric.css" rel="stylesheet">
 <link href="../../lib/aos/aos.css" rel="stylesheet">
 <link href="../../lib/Magnific-Popup/magnific-popup.css"
-	rel="stylesheet">
+  rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
 <link rel="stylesheet" href="review.css">
@@ -38,85 +39,88 @@
 </head>
 
 <body>
-	<div id="main">
-		<div id='heun-header'></div>
-		<div class="clearfix"></div>
-		<div id="content">
-			<div class="container">
-				<div class="row justify-content-md-center">
-					<div class="col col-lg-12 col-xl-10">
-						<div class="row has-sidebar">
-							<div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
-								<div id="sidebar" class="sidebar-left">
-									<div class="sidebar_inner">
-										<div class="agent-detail">
-											<div class="text-center">
-												<div id='profileimg'></div>
-												<h4 class="main-name" style="color: #869E9E;"></h4>
-											</div>
-											<ul class="list-unstyled main-infomation"
-												style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
-												<li><span class="main-tel"></span></li>
-												<li><span class="main-email"></span></li>
-											</ul>
-										</div>
-										<div class="list-group no-border list-unstyled">
+  <div id="main">
+    <div id='heun-header'></div>
+    <div class="clearfix"></div>
+    <div id="content">
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="row has-sidebar">
+              <div class="col-md-5 col-lg-4 col-xl-4 col-sidebar">
+                <div id="sidebar" class="sidebar-left">
+                  <div class="sidebar_inner">
+                    <div class="agent-detail">
+                      <div class="text-center">
+                        <div id='profileimg'></div>
+                        <h4 class="main-name" style="color: #869E9E;"></h4>
+                      </div>
+                      <ul class="list-unstyled main-infomation"
+                        style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
+                        <li><span class="main-tel"></span></li>
+                        <li><span class="main-email"></span></li>
+                      </ul>
+                    </div>
+                    <div class="list-group no-border list-unstyled">
 
-											<a href="host_profile.html" class="list-group-item ">
-												<i class="far fa-id-card"></i> 호스트 프로필
-											</a> <a href="host_password.html" class="list-group-item"> <i
-												class="fas fa-unlock-alt"></i> 비밀번호 변경
-											</a> <a href="hostlist.html" class="list-group-item"> <i
-												class="fas fa-h-square"></i> 등록한 숙소</a>
+                      <a href="host_profile.html" class="list-group-item ">
+                        <i class="far fa-id-card"></i> 호스트 프로필
+                      </a> <a href="host_password.html" class="list-group-item"> <i
+                        class="fas fa-unlock-alt"></i> 비밀번호 변경
+                      </a> <a href="hostlist.html" class="list-group-item"> <i
+                        class="fas fa-h-square"></i> 등록한 숙소</a>
                       <a href="hostReservation.html" class="list-group-item"> <i 
                       class="far fa-bell"></i> 예약 관리</a>
-										   <a href="hostreview.html" class="list-group-item active"> <i
-												class="fas fa-sliders-h"></i> 리뷰 관리
-											</a>
+                       <a href="hostreview.html" class="list-group-item active"> <i
+                        class="fas fa-sliders-h"></i> 리뷰 관리
+                      </a>
 
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-7 col-lg-8 col-xl-8">
-								<div class="page-header bordered">
-									<h1>
-										리뷰 관리<small>Review</small>
-									</h1>
-								</div>
-								<div class="card-list"></div>
-								<div class="pagination-menu"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<button class="btn btn-primary btn-circle" id="to-top">
-		<i class="fa fa-angle-up"></i>
-	</button>
-	<div id='heun-footer'></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-lg-8 col-xl-8">
+                <div class="page-header bordered">
+                  <h1>
+                    리뷰 관리<small>Review</small>
+                  </h1>
+                </div>
+                <div class="card-list"></div>
+                <div class="pagination-menu"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-circle" id="to-top">
+    <i class="fa fa-angle-up"></i>
+  </button>
+  <div id='heun-footer'></div>
 
 
-	<script id="tr-template" type="text/x-handlebars-template">
+  <script id="tr-template" type="text/x-handlebars-template">
     <input type="hidden" class="riw-page" data-page={{pageNo}}>
     {{#each list}}
                  <div class="card">
                     <div class="media mt-0">
                           <div class="media-left"> <a href="agent.html"> <img class="media-object rounded-circle" src="/heunheuntrip/app/json/images/down/{{roomPhoto}}.jpeg" width="100" height="100"  alt="">
-                            <pre  id="no-reply-{{no}}" style="text-align:center" margin-top = 10px href="#">미답변</pre>
+                            
                         </a>
                           </div>
                           <div class="media-body row">
-                            <div class="main-riw col-12 col-sm-6 col-md-8">
+                            <div class="main-riw col-12 col-sm-6 col-md-9">
                              <h6 class="media-heading riw-cont" id="aaa-{{no}}" data-reply="{{reply}}">{{contents}}</h6>
                              <p class="text-muted"><i class="fas fa-map-marker-alt"></i>        {{roomName}}</p>
                              <p class="text-muted">작성자 : {{name}}</p>
                              <p class="text-muted">작성일 : {{createdDate}} </p>
                             </div>
-                            <div class="riw-btn col-6 col-md-4" data-no={{no}} data-grd={{grd}} >
-                              <a class="btn btn-link riw-update" href="#" data-toggle="modal" data-reply="{{reply}}" data-userNo="{{userNo}}" data-backdrop="static" data-target="#exampleModal">상세보기</a>
+                            <div class="riw-btn col-6 col-md-3" data-no={{no}} data-grd={{grd}} >
+                            
+                            <div id="no-reply-{{no}}" style="font-size : 16px; margin-top: 5px; color: green"><i class="far fa-comment"></i>  미답변</div>
+
+                            <a class="btn btn-link riw-update" href="#" data-toggle="modal" data-reply="{{reply}}" data-userNo="{{userNo}}" data-backdrop="static" data-target="#exampleModal" style="position: absolute; bottom: 0">상세보기</a>
                             
                             </div>
                           </div>
@@ -127,7 +131,7 @@
     
   </script>
 
-	<script id="page-template" type="text/x-handlebars-template">
+  <script id="page-template" type="text/x-handlebars-template">
     <nav>
       <ul class="pagination pagination-centered">
         {{#paginate pagination type="first"}}
@@ -153,47 +157,47 @@
     </nav>
     </script>
 
-	<div class="modal fade riw-modal" id="exampleModal" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content"
-				style="border-radius: 5px; border: 0px solid white;">
-				<div class="modal-header" style="background-color: #3b8ced">
-					<h5 class="modal-title" id="exampleModalLabel"
-						style="color: white;">후기작성</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" style="color: white">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form>
-						<h4>후기에 답변을 달아주세요.</h4>
+  <div class="modal fade riw-modal" id="exampleModal" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content"
+        style="border-radius: 5px; border: 0px solid white;">
+        <div class="modal-header" style="background-color: #3b8ced">
+          <h5 class="modal-title" id="exampleModalLabel"
+            style="color: white;">후기작성</h5>
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close" style="color: white">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <h4>후기에 답변을 달아주세요.</h4>
 
 
-						<div class="my-rating"></div>
-						<div class="form-group">
-							<textarea class="form-control" id="message-text"
-								style="border-radius: 10px;" readonly></textarea>
-						</div>
-					</form>
-				</div>
-				<textarea class="form-control" id="remessage-text"
-					style="border-radius: 10px;" placeholder="리뷰에 답글을 남겨주세요!"></textarea>
-				<div class="modal-footer">
+            <div class="my-rating"></div>
+            <div class="form-group">
+              <textarea class="form-control" id="message-text"
+                style="border-radius: 10px;" readonly></textarea>
+            </div>
+          </form>
+        </div>
+        <textarea class="form-control" id="remessage-text"
+          style="border-radius: 10px;" placeholder="리뷰에 답글을 남겨주세요!"></textarea>
+        <div class="modal-footer">
 
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">취소</button>
-					<button type="button" class="btn btn-primary update-btn">변경</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
+          <button type="button" class="btn btn-secondary"
+            data-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary update-btn">변경</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-	<script src='hostreview.js'></script>
+
+
+  <script src='hostreview.js'></script>
 </body>
 
 </html>

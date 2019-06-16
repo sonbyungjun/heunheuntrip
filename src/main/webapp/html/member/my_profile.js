@@ -10,14 +10,12 @@ $(document).ready(function () {
 	
 	$('p').hide();
 
-	$(".heun-sideSijin").load("/heunheuntrip/html/member/side_profile.html", function() {
-		loadList();
-	});
 
 	$("#heun-footer").load("/heunheuntrip/html/footer.html");
 
 })
 
+	
 function loadList() {
 	$.getJSON('../../app/json/member/profile',
 			function(obj) {
@@ -57,6 +55,9 @@ function loadList() {
 	
 	
 } // loadList()
+
+
+loadList();
 
 $('#btn1').on('click', function(e) {
 	 

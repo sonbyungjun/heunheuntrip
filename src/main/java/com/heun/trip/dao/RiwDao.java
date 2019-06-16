@@ -12,6 +12,7 @@ public interface RiwDao {
   List<Riw> findAllhostMypage(Map<String,Object> params);
   Riw findByNo(int no);
   int delete(int no);   
+  int replydelete(int no);
   int update(Riw riw); 
   int replyupdate(Riw riw);
   int countAll();

@@ -11,12 +11,14 @@ $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
+
+  
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
-  loadProfile();
+ 
   
   loadList(1);
-  
+  loadProfile();
 })
 
 
@@ -26,7 +28,7 @@ function loadProfile() {
     
     if (obj.member.photo != null) {
       $("<img class='rounded-circle'>").attr('src',
-          '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+    		  '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
           .css('width', '255px')
           .css('height', '255px')
           .appendTo($('#profileimg'));
@@ -34,7 +36,7 @@ function loadProfile() {
       
       } else {
       $("<img>").attr('src',
-            '/heunheuntrip/app/json/images/down/default.jpeg')
+    		  '/heunheuntrip/images/default.jpeg')
             .css('width', '255px')
             .css('height', '255px')
             .appendTo($('#profileimg'));
@@ -122,6 +124,28 @@ $(document.body).bind('loaded-list', (e) => {
       }
     })
   })
+  
+  $('.reply-complete').off('click').on('click',function(e){
+    
+    var review = $(e.target).parent().parent().prev().children('h6').text();
+    var reply = $(e.target).parent().parent().prev().children('h6').attr('data-reply');
+    var hostname = $(e.target).parent().parent().prev().children('h6').attr('data-hostname');
+    var name = $(e.target).parent().parent().prev().children('h6').attr('data-name');
+    
+    // 사진 데이터
+    var photo = $(e.target).parent().parent().prev().attr('data-photo');
+    var hostphoto = $(e.target).parent().parent().prev().attr('data-hostphoto');
+    
+    $('.riw-conts').text(review);
+    $('.riw-name').text(name + "님의 리뷰 : ");
+    $('.reply-conts').text(reply);
+    $('.reply-hostname').text(hostname + "님의 답글 : ");
+    
+    $('.riw-photo').attr('src', "/heunheuntrip/app/json/images/down/" + photo);
+    $('.reply-photo').attr('src', "/heunheuntrip/app/json/images/down/" + hostphoto);
+    
+  })
+    
   
 });
 

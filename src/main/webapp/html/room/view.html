@@ -11,6 +11,7 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700"
 	rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="../../lib/font-awesome/css/font-awesome.min.css"
@@ -390,6 +391,33 @@
                 <li class="list-group-item">
                   숙소 이용규칙, 환불 정책, 및 게스트 환불 정책에 동의합니다. 또한, 서비스 수수료를 포함하여 명시된 총 금액을 결제하는 데 동의합니다.
                 </li>
+                <li class="list-group-item">
+                  <div class="form-group" style="margin-bottom: 0px;">
+                    <label>결제 방식을 선택해주세요.</label>
+                    <div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="samsung" value="samsung">
+                        <label for="samsung">삼성페이</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="card" value="card">
+                        <label for="card">신용카드</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="trans" value="trans">
+                        <label for="trans">실시간계좌이체</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="vbank" value="vbank">
+                        <label for="vbank">가상계좌</label>
+                      </div>
+                      <div class="radio radio-inline">
+                        <input type="radio" name="type" id="phone" value="phone">
+                        <label for="phone">휴대폰소액결제</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
               </ul>
           </div>
           <div class="modal-footer">
@@ -410,9 +438,10 @@
       
 
        <div class="media">
-         <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+         <div class="media-left"> </div>
          <div class="media-body">
          <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
+         <a id="delete1-{{no}}" href="#" style="text-align:right" data-name="{{name}}" data-no="{{no}}" class="delete1" ><i class="far fa-trash-alt"></i></a>
            
             <h5 class="media-heading author">{{name}}</h5>
             <div class="date">{{createdDate}}</div>
@@ -432,8 +461,9 @@
 
 
             <div class="media"   id="no-reply-{{no}}">
-              <div class="media-left"> <a href="#"> <img alt="" class="media-object rounded-circle" src="../../images/default.jpg" width="64" height="64"> </a> </div>
+              <div class="media-left"></div>
               <div class="media-body">
+                <a id="delete2-{{no}}" href="#" style="text-align:right" class="delete2" data-no={{no}}><i class="far fa-trash-alt"></i></a>
                 <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}</h5>
                 <div class="date">{{replyDate}}</div>
                 <div class="comment">{{reply}}</div></div>

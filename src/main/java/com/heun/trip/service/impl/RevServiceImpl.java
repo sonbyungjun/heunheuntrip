@@ -8,7 +8,7 @@ import com.heun.trip.dao.RevDao;
 import com.heun.trip.domain.Rev;
 import com.heun.trip.service.RevService;
 
-@Service
+@Service 
 public class RevServiceImpl implements RevService {
 
   RevDao revDao;
@@ -85,6 +85,11 @@ public class RevServiceImpl implements RevService {
   @Override
   public int deleteInHostpage(int no) {
     return revDao.deleteInHostpage(no);
+  }
+  
+  @Override
+  public int change(int no) {
+    return revDao.changeRev(no);
   }
 
 }
