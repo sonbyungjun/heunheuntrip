@@ -166,21 +166,19 @@
 	     <div class="modal-body">
 	      <div class="row">
           <div class="col-md-6 ml-auto">
-            <h4 style="text-align: center;">현재</h4>
+            <h4 style="text-align: center;">BEFORE</h4>
             <div style="border: 1px solid gray; height: 300px">
             </div>
           </div>
           <div class="col-md-6 ml-auto">
-            <h4 style="text-align: center;">변경</h4>
-            <div style="border-radius: 25px; padding: 20px;  height: 300px; background: #b3b3b3; color: white; font-size: 16px">
-              날짜 : <span class="check-In"></span> ~ <span class="check-Out"></span><br>
-              <br>
-              인원 : <span class="person"></span><br>
-              <br>
-              예약자명 : <span class="name"></span><br>
-              <br>
-              사유 : <span class="reason"></span>
-            </div>
+            <h4 style="text-align: center;">AFTER</h4>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <p><i class="fas fa-user-friends"></i>    게스트 <span id="heun-modal-person" class="person"></span>[ <span class="name"></span> ]</p>
+                  <p><i class="fas fa-calendar-week"></i>    <span class="check-In"></span> ~ <span class="check-Out"></span></p>
+                  <p><i class="fas fa-angle-double-right"></i>    <span class="reason"></span></p>
+                </li>
+              </ul>
           </div>
         </div>
        </div>
