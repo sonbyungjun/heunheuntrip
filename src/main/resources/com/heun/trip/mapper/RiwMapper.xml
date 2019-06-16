@@ -207,6 +207,19 @@ order by
       riw_id = #{no} 
   </delete>
   
+  
+  
+   <update id="replydelete" parameterType="int">
+    update
+      riw
+    set
+      riw_reply = null,
+      reply_dt = null
+    where 
+      riw_id = #{no}
+  </update>
+  
+  
      <update id="update" parameterType="riw">
     update
       riw
