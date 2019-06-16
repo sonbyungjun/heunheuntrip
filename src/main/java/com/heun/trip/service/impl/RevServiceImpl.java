@@ -8,7 +8,7 @@ import com.heun.trip.dao.RevDao;
 import com.heun.trip.domain.Rev;
 import com.heun.trip.service.RevService;
 
-@Service
+@Service 
 public class RevServiceImpl implements RevService {
 
   RevDao revDao;

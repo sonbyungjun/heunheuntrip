@@ -172,6 +172,21 @@ public class RiwController {
     }
     return content;
   }
+  
+  
+  @PostMapping("replydelete")
+  public Object replydelete(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      riwService.replydelete(no);
+      content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
 
   @GetMapping("detail")
   public Object detail(int no) {

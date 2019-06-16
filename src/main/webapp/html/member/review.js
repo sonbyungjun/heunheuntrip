@@ -11,12 +11,14 @@ $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
+
+  
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
-  loadProfile();
+ 
   
   loadList(1);
-  
+  loadProfile();
 })
 
 
@@ -26,7 +28,7 @@ function loadProfile() {
     
     if (obj.member.photo != null) {
       $("<img class='rounded-circle'>").attr('src',
-          '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+    		  '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
           .css('width', '255px')
           .css('height', '255px')
           .appendTo($('#profileimg'));
@@ -34,7 +36,7 @@ function loadProfile() {
       
       } else {
       $("<img>").attr('src',
-            '/heunheuntrip/app/json/images/down/default.jpeg')
+    		  '/heunheuntrip/images/default.jpeg')
             .css('width', '255px')
             .css('height', '255px')
             .appendTo($('#profileimg'));

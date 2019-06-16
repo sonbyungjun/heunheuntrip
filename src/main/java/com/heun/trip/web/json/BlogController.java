@@ -31,7 +31,7 @@ public class BlogController {
   @Autowired ServletContext servletContext;
   @Autowired FileService fileService;
 
-
+ 
   @PostMapping("add")
   public Object add(Blog blog,@RequestParam(value="filenames[]") String[] filenames, HttpSession session) throws IOException {
     
