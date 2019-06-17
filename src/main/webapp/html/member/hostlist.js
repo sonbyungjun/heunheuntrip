@@ -16,41 +16,13 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
   $(document.body).trigger('loaded-list');
-  loadList();
+  loadProfile();
 }) 
 
-
+$(document).on('load',function() {
+	Loadroomlist(0);
+})
 "use strict"
-
-function loadList() {
-  $.getJSON('../../app/json/member/profile',
-      function (obj) {
-    window.no = obj.member.no
-    //window.no = obj.member.no;
-    if (obj.member.photo != null) {
-      $("<img class='rounded-circle'>").attr('src',
-          '/heunheuntrip/app/json/images/down/' + obj.member.photo)
-          .css('width', '255px')
-          .css('height', '255px')
-          .appendTo($('#profileimg'));
-    } else {
-      $("<img>").attr('src',
-      '/heunheuntrip/app/json/images/down/defualt.jpeg')
-      .css('width', '255px')
-      .css('height', '255px')
-      .appendTo($('#profileimg'));
-    }
-
-    $('.main-name').text(obj.member.name);
-    $('.main-email').text(obj.member.email);
-    $('.main-tel').text(obj.member.tel);
-    $('.custom-file').find('label').html(obj.member.photo);
-    Loadroomlist(0);
-    //	$(--------).appendTo(-------); 
-    // 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
-  }); // Bitcamp.getJSON(
-} // loadList()
-
 function Loadroomlist(pn) {
   $.ajax({
     url: '../../app/json/room/hostroom?pageNo=' + pn,
@@ -88,10 +60,6 @@ function Loadroomlist(pn) {
     }
   });
 }
-
-
-
-
 
 $(document.body).bind('loaded-list', () => {
   $('.del').on('click', function () {
@@ -139,8 +107,8 @@ $(document.body).bind('loaded-list', () => {
 $(document.body).bind('loaded-list', (e) => {
   $('.roomcontent').on('click', function () {
 
-    var no = $(this).attr('data-no')
-    detail(no)
+    var rno = $(this).attr('data-no')
+    detail(rno)
   })
 })
 
