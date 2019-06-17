@@ -153,8 +153,6 @@ function loadList() {
         .appendTo($('#profileimg'));
     }
 		  $('.main-name').text(obj.member.name);
-		    $('.main-email').text(" E-MAIL : " + obj.member.email);
-		    $('.main-tel').text(" PHONE : " + obj.member.tel);
 		    $('.custom-file').find('label').html(obj.member.photo);
 		    no = obj.member.no;
 		  //	$(--------).appendTo(-------);

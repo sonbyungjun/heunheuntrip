@@ -40,8 +40,6 @@ function loadList() {
 			}
 
 			$('.main-name').text(obj.member.name);
-			$('.main-email').text(" E-MAIL : " + obj.member.email);
-			$('.main-tel').text(" PHONE : " + obj.member.tel);
 			$('.custom-file').find('label').html(obj.member.photo);
 			Loadroomlist(0);
 			//	$(--------).appendTo(-------); 

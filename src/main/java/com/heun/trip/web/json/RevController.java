@@ -78,6 +78,61 @@ public class RevController {
 
     return content;
   }
+  
+  
+  // 예약 변경 완료시 게스트에게 날라 갈 문자
+  @GetMapping("addCompleteSms")
+  public Object addCompleteSms(int no) {
+
+    Rev rev = revService.detail(no);
+    int rmsNo = rev.getRmsNo();
+    int userNo = rev.getUserNo();
+    
+    Member member = memberService.get(userNo);
+    
+    String guestName = member.getName();
+    String tel = member.getTel();
+    String roomName = roomService.getRoom(rmsNo);
+
+    String messageText = roomName + "의 " + guestName + "님의 예약 변경이 완료되었습니다.\n";
+    
+    try {
+      sms.smsSend(tel, messageText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    return content;
+  }
+  
+  // 예약 변경 거절시 게스트에게 날라 갈 문자
+  @GetMapping("addCancelSms")
+  public Object addCancelSms(int no) {
+
+    Rev rev = revService.detail(no);
+    int rmsNo = rev.getRmsNo();
+    int userNo = rev.getUserNo();
+    
+    Member member = memberService.get(userNo);
+    
+    String guestName = member.getName();
+    String tel = member.getTel();
+    String roomName = roomService.getRoom(rmsNo);
+
+    String messageText = roomName + "의 " + guestName + "님의 예약 변경이 거절되었습니다.\n";
+    
+    try {
+      sms.smsSend(tel, messageText);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    return content;
+  }
 
   @GetMapping("cancelsms")
   public Object cancelsms(int roomNo, HttpSession session) {

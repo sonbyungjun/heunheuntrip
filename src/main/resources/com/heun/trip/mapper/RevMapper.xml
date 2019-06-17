@@ -14,7 +14,6 @@
     <result column="cck_in" property="checkIn"/>
     <result column="cck_out" property="checkOut"/>
     <result column="rev_stus" property="revStus"/>
-    <result column="stby_stus" property="stanBy"/>
     <result column="rev_persn" property="revPerson"/>
     <result column="rev_cdt" property="createdDate"/>
     <result column="rev_char" property="revCharge"/>
@@ -45,7 +44,6 @@
       rms_id,
       cck_in,
       cck_out,
-      stby_stus,
       rev_persn,
       rev_char,
       rev_updt,
@@ -57,7 +55,6 @@
       #{rmsNo},
       #{checkIn},
       #{checkOut},
-      #{stanBy},
       #{revPerson},
       #{revCharge},
       #{revUpdate},
@@ -74,7 +71,6 @@
      e.rev_id,
      e.usr_id,
      e.rms_id,
-     e.stus_id,
      e.cck_in,
      e.cck_out,
      e.stby_stus,
@@ -105,7 +101,6 @@
      e.stus_id,
      e.cck_in,
      e.cck_out,
-     e.stby_stus,
      e.rev_persn,
      e.rev_char,
      e.rev_updt,
@@ -159,7 +154,6 @@
      e.stus_id,
      e.cck_in,
      e.cck_out,
-     e.stby_stus,
      e.rev_persn,
      e.rev_char,
      e.rev_updt,

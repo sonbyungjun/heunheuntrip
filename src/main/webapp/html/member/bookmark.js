@@ -41,8 +41,6 @@ function loadProfile() {
       }
 
     $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
     no = obj.member.no;
   }); // Bitcamp.getJSON(
 } // loadList()

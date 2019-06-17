@@ -37,8 +37,6 @@ function loadProfile() {
     }
 
     $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
     no = obj.member.no;
   });
 } // loadProfile()
@@ -161,7 +159,7 @@ $(document.body).bind('loaded-list', (e) => {
     var revReason = $(e.target).attr('data-reas');
     
     // 이전 데이터를 가져온다.
-    loadData(29);
+    loadData(revUpdateNo);
 
     $('.check-In').text(checkIn);
     $('.check-Out').text(checkOut);
@@ -205,15 +203,28 @@ $(document.body).bind('loaded-list', (e) => {
                     
                     if(response.status == "success"){
                       
-                      Swal.fire(
-                          'Success!',
-                          '변경되었습니다.',
-                          'success'
-                      ).then(() => {
-                        loadList(window.pageNo);
-                        window.pageNo = 0;
-                        $('#update-modal').modal("hide");
-                      })
+                      $.ajax({
+                        url: '../../app/json/rev/addCompleteSms',
+                        type: 'GET',
+                        data: {
+                          no : revNo
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                          Swal.fire(
+                              'Success!',
+                              '변경되었습니다.',
+                              'success'
+                          ).then(() => {
+                            loadList(window.pageNo);
+                            window.pageNo = 0;
+                            $('#update-modal').modal("hide");
+                          })
+                        },
+                        fail: function(error) {
+                          alert('등록 실패!!');
+                        }
+                      });
                     }
                   },
                   fail: function(error) {
@@ -250,22 +261,31 @@ $(document.body).bind('loaded-list', (e) => {
             },
             dataType: 'json',
             success: function(response) {
-                
-                Swal.fire(
-                    'Success!',
-                    '거절하였습니다.',
-                    'success'
-                  ).then(() => {
-                    loadList(window.pageNo);
-                    window.pageNo = 0;
-                    $('#update-modal').modal("hide");
-                  })
-            },
-            fail: function(error) {
-              alert('등록 실패!!');
+              
+              $.ajax({
+                url: '../../app/json/rev/addCancelSms',
+                type: 'GET',
+                data: {
+                  no : revUpdateNo
+                },
+                dataType: 'json',
+                success: function(response) {
+                  Swal.fire(
+                      'Success!',
+                      '거절하였습니다.',
+                      'success'
+                    ).then(() => {
+                      loadList(window.pageNo);
+                      window.pageNo = 0;
+                      $('#update-modal').modal("hide");
+                    })
+                },
+                fail: function(error) {
+                  alert('등록 실패!!');
+                }
+              });
             }
           });
-          
         }
       })
       
