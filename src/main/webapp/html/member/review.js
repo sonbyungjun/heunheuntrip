@@ -56,7 +56,7 @@ $(document.body).bind('loaded-list', (e) => {
     
     Swal.fire({
       title: '삭제하시겠어요?',
-      text: "찜 해두었던 숙소를 삭제합니다.",
+      text: "리뷰를 삭제합니다.",
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -67,7 +67,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         Swal.fire(
             '삭제!',
-            '찜을 삭제하였습니다.',
+            '리뷰를 삭제하였습니다.',
             'success'
         ).then(() => {
           
