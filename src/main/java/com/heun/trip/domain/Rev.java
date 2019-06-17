@@ -16,7 +16,6 @@ public class Rev {
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "Asia/Seoul")
   private Date createdDate;
   private String revStus;
-  private String stanBy;
   private int revPerson;
   private int revUpdate;
   private String revReason;
@@ -142,28 +141,20 @@ public class Rev {
   public void setRevStus(String revStus) {
     this.revStus = revStus;
   }
-  public String getStanBy() {
-    return stanBy;
-  }
-  public void setStanBy(String stanBy) {
-    this.stanBy = stanBy;
-  }
   public int getRevPerson() {
     return revPerson;
   }
   public void setRevPerson(int revPerson) {
     this.revPerson = revPerson;
   }
-  
   @Override
   public String toString() {
     return "Rev [no=" + no + ", userNo=" + userNo + ", stusNo=" + stusNo + ", rmsNo=" + rmsNo
         + ", checkIn=" + checkIn + ", checkOut=" + checkOut + ", createdDate=" + createdDate
-        + ", revStus=" + revStus + ", stanBy=" + stanBy + ", revPerson=" + revPerson
-        + ", revUpdate=" + revUpdate + ", revReason=" + revReason + ", revCharge=" + revCharge
-        + ", revDelete=" + revDelete + ", guestName=" + guestName + ", rmsName=" + rmsName
-        + ", address=" + address + ", thumbnail=" + thumbnail + ", status=" + status + ", count="
-        + count + "]";
+        + ", revStus=" + revStus + ", revPerson=" + revPerson + ", revUpdate=" + revUpdate
+        + ", revReason=" + revReason + ", revCharge=" + revCharge + ", revDelete=" + revDelete
+        + ", guestName=" + guestName + ", rmsName=" + rmsName + ", address=" + address
+        + ", thumbnail=" + thumbnail + ", status=" + status + ", count=" + count + "]";
   }
-  
+
 }

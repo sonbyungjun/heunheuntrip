@@ -32,7 +32,7 @@ public class RevController {
     this.sms = sms;
   }
 
-  @PostMapping("add")
+  @PostMapping("update")
   public Object add(Rev rev, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
     Member loginUser = (Member) session.getAttribute("loginUser");
@@ -45,7 +45,6 @@ public class RevController {
     rev.setStusNo(revs.getStusNo());
     rev.setRmsNo(revs.getRmsNo());
     rev.setRevStus(revs.getRevStus());
-    rev.setStanBy(revs.getStanBy());
     rev.setRevCharge(revs.getRevCharge());
 
     System.out.println(" 결론 ------>  " + rev);
@@ -59,7 +58,7 @@ public class RevController {
     return content;
   }
 
-  @GetMapping("addsms")
+  @GetMapping("updatesms")
   public Object addsms(int roomNo, HttpSession session) {
 
     Member loginUser = (Member) session.getAttribute("loginUser");
@@ -81,7 +80,7 @@ public class RevController {
    
   
   // 예약 변경 완료시 게스트에게 날라 갈 문자
-  @GetMapping("addCompleteSms")
+  @GetMapping("updateCompleteSms")
   public Object addCompleteSms(int no) {
 
     Rev rev = revService.detail(no);
@@ -108,7 +107,7 @@ public class RevController {
   }
   
   // 예약 변경 거절시 게스트에게 날라 갈 문자
-  @GetMapping("addCancelSms")
+  @GetMapping("updateCancelSms")
   public Object addCancelSms(int no) {
 
     Rev rev = revService.detail(no);
