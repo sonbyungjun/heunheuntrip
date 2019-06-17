@@ -98,7 +98,7 @@
     left outer join
       usr u on m.usr_id = u.usr_id 
     where
-      r.usr_id = 18
+      r.usr_id = #{userNo}
     order by 
       cdt desc
     <if test="size != null and rowNo != null">
