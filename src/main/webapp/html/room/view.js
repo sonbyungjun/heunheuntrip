@@ -148,11 +148,17 @@ $('body').on('loaded-list', function () {
 				console.log(response)
 				
 				
-				console.log(response.list[0].hostname)
-				console.log(response.hostname)
+			//	console.log(response.list[0].hostname)
+			//	console.log(response.hostname)
+				
+				
+				
 				
 				$('.delete1').hide(); 
 				$('.delete2').hide();  
+				console.log(typeof response.list != undefined)
+				
+				if(response.list) { 
 				
 				if(response.list[0].hostname != response.hostname) {
 					$('.btn-reply').hide();  
@@ -178,7 +184,7 @@ $('body').on('loaded-list', function () {
 						$('#delete1-' + a).show();  
 					}
 				}
-					
+							
 				
 				
 				$('.delete1').on('click', function(e) {
@@ -238,6 +244,7 @@ $('body').on('loaded-list', function () {
 						  
 				    	});
 					
+				}
 					
  
 			},
@@ -246,25 +253,29 @@ $('body').on('loaded-list', function () {
 			}
 		});
 		
-			
+    	
 	}
 
 
 	$('.riw-update').off('click').on('click', function(e){
 
-
+		//$('#message-text').val('');
 //		var no = $(this).parent().data('no');
 //		var grd = $(this).parent().data('grd');
 //		var content = $(this).parent().prev().children().html();
+		
+		//modal.find('#message-text').val("");
+		
 		window.rating = 0;
 
 		$('#exampleModal').on('show.bs.modal', function (event) {
+			console.log(event)
 			var button = $(event.relatedTarget) 
 			var recipient = button.data('whatever') 
 			var modal = $(this)
 			modal.find('.modal-title').text('Review')
 			modal.find('.modal-body input').val(recipient)
-			modal.find('#message-text').val(content);
+			modal.find('#message-text').val('');
 
 		});
 
@@ -295,7 +306,9 @@ $('body').on('loaded-list', function () {
 				},
 				dataType: 'json',
 				success: function(response) {
-					roomreview(1);
+					alert('등록 성공!!');
+					location.href='view.html?no=' + window.param.split('=')[1];
+					//roomreview(1);
 
 					//  $('#exampleModal').modal("hide");
 				},
