@@ -7,3 +7,15 @@
 .list-unstyled > a{
 	width:255px;
 }
+#tel {
+	width: 450px;
+}
+#playtel {
+	display: none;
+}
+#checktel-btn {
+	display: none;
+}
+.tel-div {
+	padding-left: 70px;
+}

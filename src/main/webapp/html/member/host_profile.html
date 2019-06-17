@@ -54,13 +54,8 @@
                     <div class="agent-detail">
                       <div class="text-center">
                         <div id='profileimg'></div>
-                        <h4 class="main-name" style="color: #4682B4;"></h4>
+                        <h4 class="main-name" style="color: #4682B4; font-weight:bold;"></h4>
                       </div>
-                      <ul class="list-unstyled main-infomation"
-                        style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
-                        <li><span class="main-tel"></span></li>
-                        <li><span class="main-email"></span></li>
-                      </ul>
                     </div>
                     <div class="list-group no-border list-unstyled">
                       <a href="host_profile.html" class="list-group-item active"> <i
@@ -86,23 +81,32 @@
               </div>
               <div class="form-group">
                 <label>이름</label> <input type="text" class="form-control form-control-lg name"
-                  placeholder="" value="John">
+                  >
               </div>
               <div class="form-group">
                 <label>이메일</label> <input type="text" class="form-control form-control-lg email"
-                  value="john.doe@email.com" readonly>
+                   readonly>
               </div>
               <div class="form-group">
-                <label>핸드폰 번호</label> <input type="text" class="form-control form-control-lg tel"
-                  placeholder="" value="+14155552671">
-              </div>
+                  <label class="control-label" for="email">전화번호</label>
+                  <div class="row form-group has-feedback in-line">
+                    <div class="col col-lg-8">
+                      <input class="form-control form-control-lg" type="text" data-name='전화번호' name="tel" id="tel" /> 
+                    </div>
+                    <div class="col col-lg-4 tel-div">
+                      <button type='button' class='btn btn-primary' id='tel-btn' style="height: 48px">인증번호 받기</button>
+                    </div>
+                  </div>
+                  <div id="sms-tag"></div>
+                </div>
+                
               <div class="form-group has-feedback">
                 <label class="control-label" for="photo">프로필 사진</label>
                 <div class="input-group mb-3">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="fileupload"
                       src='../../images/default.jpg' name="photo" method='post' autocomplete=off
-                      aria-describedby="inputGroupFileAddon01"> <label
+                      aria-describedby="inputGroupFileAddon01"placeholder='파일을 선택해주세요'> <label
                       class="custom-file-label photo" for="inputGroupFile01">파일을 선택하세요</label>
                   </div>
                 </div>
@@ -121,7 +125,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
   <button class="btn btn-primary btn-circle" id="to-top">
     <i class="fa fa-angle-up"></i>
@@ -129,6 +133,7 @@
 
   </div>
   <div id='heun-footer'></div>
+  <script src='common_profile.js'></script>
   <script src='host_profile.js'></script>
 </body>
 

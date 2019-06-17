@@ -3,7 +3,7 @@ var form = $('.card-list'),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html(),
     pageNo = 0;
-
+ 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 
@@ -13,35 +13,9 @@ $(document).ready(function () {
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
-
-  loadProfile();
+  loadList(1);
       
 })
-
-//function loadProfile() {
-//  $.getJSON('../../app/json/member/profile',
-//      function(obj) {
-//    
-//    if (obj.member.photo != null) {
-//      $("<img class='rounded-circle'>").attr('src',
-//        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    } else {
-//      $("<img>").attr('src',
-//        '/heunheuntrip/app/json/images/down/defualt.jpeg')
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    }
-//
-//    $('.main-name').text(obj.member.name);
-//    $('.main-email').text(" E-MAIL : " + obj.member.email);
-//    $('.main-tel').text(" PHONE : " + obj.member.tel);
-//    no = obj.member.no;
-//  });
-//} // loadProfile()
 
 
 function loadList(pn) {
@@ -84,13 +58,6 @@ function loadList(pn) {
  
   }); 
 }
-
-
-
-
-loadList(1);
-
-
 
 
 $(document.body).bind('loaded-list', (e) => {
@@ -168,7 +135,7 @@ $(document.body).bind('loaded-list', (e) => {
     var revReason = $(e.target).attr('data-reas');
     
     // 이전 데이터를 가져온다.
-    loadData(29);
+    loadData(revUpdateNo);
 
     $('.check-In').text(checkIn);
     $('.check-Out').text(checkOut);
@@ -212,15 +179,28 @@ $(document.body).bind('loaded-list', (e) => {
                     
                     if(response.status == "success"){
                       
-                      Swal.fire(
-                          'Success!',
-                          '변경되었습니다.',
-                          'success'
-                      ).then(() => {
-                        loadList(window.pageNo);
-                        window.pageNo = 0;
-                        $('#update-modal').modal("hide");
-                      })
+                      $.ajax({
+                        url: '../../app/json/rev/addCompleteSms',
+                        type: 'GET',
+                        data: {
+                          no : revNo
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                          Swal.fire(
+                              'Success!',
+                              '변경되었습니다.',
+                              'success'
+                          ).then(() => {
+                            loadList(window.pageNo);
+                            window.pageNo = 0;
+                            $('#update-modal').modal("hide");
+                          })
+                        },
+                        fail: function(error) {
+                          alert('등록 실패!!');
+                        }
+                      });
                     }
                   },
                   fail: function(error) {
@@ -257,22 +237,31 @@ $(document.body).bind('loaded-list', (e) => {
             },
             dataType: 'json',
             success: function(response) {
-                
-                Swal.fire(
-                    'Success!',
-                    '거절하였습니다.',
-                    'success'
-                  ).then(() => {
-                    loadList(window.pageNo);
-                    window.pageNo = 0;
-                    $('#update-modal').modal("hide");
-                  })
-            },
-            fail: function(error) {
-              alert('등록 실패!!');
+              
+              $.ajax({
+                url: '../../app/json/rev/addCancelSms',
+                type: 'GET',
+                data: {
+                  no : revUpdateNo
+                },
+                dataType: 'json',
+                success: function(response) {
+                  Swal.fire(
+                      'Success!',
+                      '거절하였습니다.',
+                      'success'
+                    ).then(() => {
+                      loadList(window.pageNo);
+                      window.pageNo = 0;
+                      $('#update-modal').modal("hide");
+                    })
+                },
+                fail: function(error) {
+                  alert('등록 실패!!');
+                }
+              });
             }
           });
-          
         }
       })
       

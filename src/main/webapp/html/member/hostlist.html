@@ -50,16 +50,12 @@
                    <div class="agent-detail"> 
                     <div class="text-center">
                       <div id='profileimg'></div>
-                    <h4 class="main-name" style=" color: #4682B4;"></h4>
+                    <h4 class="main-name" style=" color: #4682B4; font-weight:bold;"></h4>
                     </div>
-                    <ul class="list-unstyled main-infomation" style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
-                      <li><span class="main-tel"></span></li>
-                      <li><span class="main-email"></span></li>
-                    </ul>
                    </div>
                     <div class="list-group no-border list-unstyled">
                       <a href="host_profile.html" class="list-group-item"> <i
-                        class="far fa-id-card"></i> 내 프로필
+                        class="far fa-id-card"></i> 호스트 프로필
                       </a> <a href="host_password.html" class="list-group-item "> <i
                         class="fas fa-unlock-alt"></i> 비밀번호 변경
                       </a> <a href="hostlist.html" class="list-group-item active"> <i class="fas fa-h-square"></i> 등록한 숙소</a> 
@@ -132,7 +128,8 @@
                        
                     <button type="button" class="btn btn-sm btn-secondary riw-write" onclick="location.href='../room/updateform.html?no={{no}}'">수정</button>
                     <button type="button" class="btn btn-sm btn-secondary riw-write del" data-no="{{no}}">삭제</button>
-                    <button type="button" class="btn btn-sm btn-secondary riw-write roomcontent" data-no="{{no}}">상세 보기</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write roomcontent" data-toggle="modal" data-target="#leadform" data-no="{{no}}">상세 보기</button>
+ 
                           
                     </div>
                  </div>
@@ -168,9 +165,48 @@
     </ul>
     </nav>
   </script>
+  <!-- Lead Form Modal -->
+<div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="media">
+          <div class="media-left"></div>
+          <div class="media-body">
+            <h4 class="media-heading"></div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label>지역명</label>
+            <input id="room-location"type="text" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label>주소</label>
+            <input id="room-address"type="email" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label>숙소 금액</label>
+            <input id="room-price" type="tel" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label>숙소 금액</label>
+            <textarea rows="4" class="form-control" placeholder="Please include any useful details, i.e. current status, availability for viewings, etc."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Request Details</button>
+      </div>
+    </div>
+  </div>
+</div>
   
   
-  
+   <script src='common_profile.js'></script>
   <script src='hostlist.js'></script>
   
 </body>

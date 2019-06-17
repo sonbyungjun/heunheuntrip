@@ -3,7 +3,7 @@ var form = $('.card-list'),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html(),
     rating = 0;
-
+ 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 
@@ -15,32 +15,6 @@ $(document).ready(function () {
   
   loadProfile();
 })
-
-//function loadProfile() {
-//  $.getJSON('../../app/json/member/profile',
-//      function(obj) {
-//    
-//    if (obj.member.photo != null) {
-//      $("<img class='rounded-circle'>").attr('src',
-//        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    } else {
-//      $("<img>").attr('src',
-//        '/heunheuntrip/app/json/images/down/defualt.jpeg')
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    }
-//
-//    $('.main-name').text(obj.member.name);
-//    $('.main-email').text(" E-MAIL : " + obj.member.email);
-//    $('.main-tel').text(" PHONE : " + obj.member.tel);
-//    no = obj.member.no;
-//  }); // Bitcamp.getJSON(
-//}
-
 
 // 내 숙소에 회원이 등록한 리뷰를 가지고옴
 function loadList(pn) {

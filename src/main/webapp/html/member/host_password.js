@@ -3,7 +3,7 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-	loadList();
+  loadProfile();
 })
 "use strict"
 
@@ -136,62 +136,5 @@ function errorState(sel) {
 	.attr("disabled", "disabled");
 };
 
-//function loadList() {
-//	$.getJSON('../../app/json/member/profile',
-//			  function(obj) {
-//    if (obj.member.photo != null) {
-//      $("<img class='rounded-circle'>").attr('src',
-//        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    } else {
-//      $("<img>").attr('src',
-//        '/heunheuntrip/app/json/images/down/defualt.jpeg')
-//        .css('width', '255px')
-//        .css('height', '255px')
-//        .appendTo($('#profileimg'));
-//    }
-//		  $('.main-name').text(obj.member.name);
-//		    $('.main-email').text(" E-MAIL : " + obj.member.email);
-//		    $('.main-tel').text(" PHONE : " + obj.member.tel);
-//		    $('.custom-file').find('label').html(obj.member.photo);
-//		    no = obj.member.no;
-//		  //	$(--------).appendTo(-------);
-//		  // 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
-//	  }); // Bitcamp.getJSON(
-//	
-//  
-//  } // loadList()
-
-
-//$('.udatepwd-btn').on('click', function(e) {
-//	
-//	e.preventDefault();
-//	
-//	$.ajax({
-//		url: '../../app/json/member/updatepwd',
-//		type: 'POST',
-//		 data: {
-//	          password: $('.pwd').val()
-//	          },
-//		dataType: 'json',
-//		success: function (response) {
-//			if (response.status == 'success') {
-//				location.href = 'host_profile.html';
-//			} else {
-//				Swal.fire({
-//					type: 'error',
-//					title: '변경실패!',
-//					text: '프로필을 변경하지 못했습니다.'
-//				})
-//			}
-//		},
-//		fail: function (error) {
-//			alert('비밀번호가 일치하지 않습니다.');
-//		}
-//	});
-//})
- 
 
 

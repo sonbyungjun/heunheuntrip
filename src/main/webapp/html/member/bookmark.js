@@ -41,8 +41,6 @@ function loadProfile() {
       }
 
     $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
     no = obj.member.no;
   }); // Bitcamp.getJSON(
 } // loadList()
@@ -139,7 +137,7 @@ $(document.body).bind('loaded-list', (e) => {
       modal.find('.modal-body input').val(recipient)
       modal.find('#message-text').val(content);
     });
-
+ 
     
     $('.update-btn').off('click').on('click', function(e){
       
