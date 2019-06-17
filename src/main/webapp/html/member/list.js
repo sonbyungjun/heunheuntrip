@@ -232,7 +232,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         
         $.ajax({
-          url: '../../app/json/rev/add',
+          url: '../../app/json/rev/update',
           type: 'POST',
           data: {
             revUpdate: no,
@@ -245,7 +245,7 @@ $(document.body).bind('loaded-list', (e) => {
           success: function(response) {
             
             $.ajax({
-              url: '../../app/json/rev/addsms',
+              url: '../../app/json/rev/updatesms',
               type: 'GET',
               data: {
                 roomNo : roomNo

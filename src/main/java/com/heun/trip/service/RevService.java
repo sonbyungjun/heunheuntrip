@@ -16,5 +16,5 @@ public interface RevService {
   int countInHostPage(int no);
   int deleteInHostpage(int no);
   int change(int no);
-  
+  List<String> reservationHistory(int no);
 } 
