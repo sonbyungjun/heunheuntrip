@@ -143,18 +143,24 @@ $('body').on('loaded-list', function () {
 
 
 				console.log(response)
-
-
-				console.log(response.list[0].hostname)
-				console.log(response.hostname)
-
-				$('.delete1').hide();
-				$('.delete2').hide();
-
-				if (response.list[0].hostname != response.hostname) {
-					$('.btn-reply').hide();
-
-					//그숙소 회원이 아니면 
+				
+				
+			//	console.log(response.list[0].hostname)
+			//	console.log(response.hostname)
+				
+				
+				
+				
+				$('.delete1').hide(); 
+				$('.delete2').hide();  
+				console.log(typeof response.list != undefined)
+				
+				if(response.list) { 
+				
+				if(response.list[0].hostname != response.hostname) {
+					$('.btn-reply').hide();  
+				
+					  //그숙소 회원이 아니면 
 				} else {
 					$('.riw-update').hide();
 					$('.delete2').show();
@@ -175,93 +181,98 @@ $('body').on('loaded-list', function () {
 						$('#delete1-' + a).show();
 					}
 				}
-
-
-
-				$('.delete1').on('click', function (e) {
+							
+				
+				
+				$('.delete1').on('click', function(e) {
 					e.preventDefault();
 
 
 
 					var no = $(this).attr('data-no');    //예약번호
-
-
-					$.ajax({
-						url: '../../app/json/riw/delete',
-						type: 'POST',
-						data: {
-							no: no
-						},
-						dataType: 'json',
-						success: function (response) {
-							alert('삭제 성공!!');
-							roomreview(1);
-
-						},
-						fail: function (error) {
-							alert('삭제 실패!!');
-						}
-					});
-
-
-				});
-
-
-				$('.delete2').on('click', function (e) {
-					e.preventDefault();
-
-					console.log($(this).attr('data-no'));
-
-					var no = $(this).attr('data-no');    //예약번호
-
-
-					$.ajax({
-						url: '../../app/json/riw/replydelete',
-						type: 'POST',
-						data: {
-							no: no
-						},
-						dataType: 'json',
-						success: function (response) {
-							alert('삭제 성공!!');
-							roomreview(1);
-
-						},
-						fail: function (error) {
-							alert('삭제 실패!!');
-						}
-					});
-
-
-				});
-
-
-
+												
+								      
+					      $.ajax({
+					        url: '../../app/json/riw/delete',
+					        type: 'POST',
+					        data: {
+					          no: no						          
+					        },
+					        dataType: 'json',
+					        success: function(response) {
+					         alert('삭제 성공!!');
+					         roomreview(1);
+					         
+					        },
+					        fail: function(error) {
+					          alert('삭제 실패!!');
+					        }
+					      });
+					      
+					  
+			    	});
+				
+					
+					$('.delete2').on('click', function(e) {
+						e.preventDefault();
+						
+						console.log($(this).attr('data-no'));
+											
+						var no = $(this).attr('data-no');    //예약번호
+													
+									      
+						      $.ajax({
+						        url: '../../app/json/riw/replydelete',
+						        type: 'POST',
+						        data: {
+						          no: no						          
+						        },
+						        dataType: 'json',
+						        success: function(response) {
+						         alert('삭제 성공!!');
+						         roomreview(1);
+						         
+						        },
+						        fail: function(error) {
+						          alert('삭제 실패!!');
+						        }
+						      });
+						      
+						  
+				    	});
+					
+				}
+					
+ 
 			},
 			fail: function (error) {
 				alert('ㅠㅠ!!');
 			}
 		});
-
-
+		
+    	
 	}
 
 
 	$('.riw-update').off('click').on('click', function (e) {
 
-
-		//		var no = $(this).parent().data('no');
-		//		var grd = $(this).parent().data('grd');
-		//		var content = $(this).parent().prev().children().html();
+		//$('#message-text').val('');
+//		var no = $(this).parent().data('no');
+//		var grd = $(this).parent().data('grd');
+//		var content = $(this).parent().prev().children().html();
+		
+		//modal.find('#message-text').val("");
+		
 		window.rating = 0;
 
 		$('#exampleModal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget)
-			var recipient = button.data('whatever')
+			console.log(event)
+			var button = $(event.relatedTarget) 
+			var recipient = button.data('whatever') 
 			var modal = $(this)
 			modal.find('.modal-title').text('Review')
 			modal.find('.modal-body input').val(recipient)
-			modal.find('#message-text').val(content);
+			modal.find('#message-text').val('');
 
 		});
 
@@ -291,8 +302,10 @@ $('body').on('loaded-list', function () {
 					contents: $('#message-text').val()
 				},
 				dataType: 'json',
-				success: function (response) {
-					roomreview(1);
+				success: function(response) {
+					alert('등록 성공!!');
+					location.href='view.html?no=' + window.param.split('=')[1];
+					//roomreview(1);
 
 					//  $('#exampleModal').modal("hide");
 				},

@@ -9,7 +9,7 @@ function loadProfile() {
         .appendTo($('#profileimg'));
     } else {
       $("<img>").attr('src',
-        '/heunheuntrip/app/json/images/down/defualt.jpeg')
+        '/heunheuntrip/images/default.jpeg')
         .css('width', '255px')
         .css('height', '255px')
         .appendTo($('#profileimg'));
