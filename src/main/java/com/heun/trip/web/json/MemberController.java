@@ -180,7 +180,9 @@ public class MemberController {
         throw new Exception("인증이 되지 않았습니다.");
       }
       if (memberService.update(member) > 0) {
+        member = memberService.get(loginUser.getNo());
         content.put("status", "success");
+        session.setAttribute("loginUser", member);
       } else {
         throw new Exception();
       }
@@ -364,6 +366,7 @@ public class MemberController {
 
       content.put("status", "success");
       session.setAttribute("pass", true);
+      
     }
 
     return content;

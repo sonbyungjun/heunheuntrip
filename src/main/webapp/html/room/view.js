@@ -24,7 +24,6 @@ $('body').on('loaded-list', function () {
 
 		var hostNo = $('.host-profile').data('no');
 
-
 		$.ajax({
 			url: '../../app/json/member/detail',
 			type: 'GET',
@@ -52,7 +51,6 @@ $('body').on('loaded-list', function () {
 				});
 
 				response.count = reviewNo;
-				console.log(reviewNo);
 
 				hprofile.html('');
 				$(hostProfileGenerator(response)).appendTo(hprofile);
@@ -99,15 +97,10 @@ $('body').on('loaded-list', function () {
 
 				$('.heun-reply').on('click', function (e) {
 					e.preventDefault();
-					console.log($(this).attr('data-userNo'))
-					console.log($(this).attr('data-no'))
-					//console.log($('.reply-'+ no).html())
 
 					var no = $(this).attr('data-no');    //예약번호
 					var userNo = $(this).attr('data-userNo'); // 회원번호
 					var reply = $('.reply-' + no);        // reply데이터
-
-
 
 					//원하는 핸들바스 부분만 여는 코드
 					if ($('.cont-' + no).css('display') == 'none') {
@@ -141,19 +134,8 @@ $('body').on('loaded-list', function () {
 					});
 				});
 
-
-				console.log(response)
-				
-				
-			//	console.log(response.list[0].hostname)
-			//	console.log(response.hostname)
-				
-				
-				
-				
 				$('.delete1').hide(); 
 				$('.delete2').hide();  
-				console.log(typeof response.list != undefined)
 				
 				if(response.list) { 
 				
@@ -216,10 +198,7 @@ $('body').on('loaded-list', function () {
 					$('.delete2').on('click', function(e) {
 						e.preventDefault();
 						
-						console.log($(this).attr('data-no'));
-											
 						var no = $(this).attr('data-no');    //예약번호
-													
 									      
 						      $.ajax({
 						        url: '../../app/json/riw/replydelete',
@@ -266,7 +245,6 @@ $('body').on('loaded-list', function () {
 		window.rating = 0;
 
 		$('#exampleModal').on('show.bs.modal', function (event) {
-			console.log(event)
 			var button = $(event.relatedTarget) 
 			var recipient = button.data('whatever') 
 			var modal = $(this)
@@ -733,25 +711,52 @@ $('body').on('loaded-list', function () {
 		getUser(function (res) {
 			if (res.status === "success") {
 
-				if (res.user.tel === "" || res.user.tel) {
-
-					$.ajax({
-						url: '../../app/json/member/sms?tel=' + tel,
-						type: 'GET',
-						dataType: 'json',
-						success: function (response) {
-							console.log(response)
-
-						},
-						fail: function (error) {
-							alert('시스템 오류가 발생했습니다.');
+				if (res.user.tel === "" || res.user.tel === null) {
+					Swal.fire({
+						type: 'error',
+						title: '전화번호를 등록해주세요!'
+					}).then((result) => {
+						if (result.value) {
+							location.href = '/heunheuntrip/html/member/my_profile.html';
+							return;
 						}
-					});
+					})
+				} else {
 
+					if ($('input[name=type]:checked').val()) {
+
+						$.ajax({
+							url: '../../app/json/rev/getbuyinfo',
+							type: 'POST',
+							dataType: 'json',
+							data: {
+								rmsNo: param,
+								checkIn: $('.heun-h1').val(),
+								checkOut: $('.heun-h2').val(),
+								revPerson: $('#input-m').data('p')
+							},
+							success: function (res) {
+								buyPay(res.name, res.amount, res.buyer_email, res.buyer_name, res.buyer_tel);
+							},
+							fail: function (error) {
+								alert('시스템 오류가 발생했습니다.');
+							}
+						});
+
+						return;
+					} else {
+						Swal.fire({
+							type: 'error',
+							title: '결제 방식을 선택해주세요!'
+						}).then((result) => {
+							if (result.value) {
+								return;
+							}
+						})
+						return;
+					}
 
 				}
-
-
 
 			} else {
 				Swal.fire({
@@ -765,39 +770,47 @@ $('body').on('loaded-list', function () {
 				})
 				return;
 			}
-
 		});
-
-	
 
 	})
 
-	function buyReservation() {
+	function buyPay(name, amount, buyer_email, buyer_name, buyer_tel) {
 		IMP.request_pay({
 			pg: 'inicis', // version 1.1.0부터 지원.
 			pay_method: $('input[name=type]:checked').val(),
 			merchant_uid: 'merchant_' + new Date().getTime(),
-			name: '주문명:결제테스트',
-			amount: 14000,
-			buyer_email: 'iamport@siot.do',
-			buyer_name: '구매자이름',
-			buyer_tel: '010-1234-5678',
-			buyer_addr: '서울특별시 강남구 삼성동',
-			buyer_postcode: '123-456',
-			m_redirect_url: 'http://http://team5.bitcamp.co.kr:8080/heunheuntrip/html/room'
+			name: name,
+			amount: amount,
+			buyer_email: buyer_email,
+			buyer_name: buyer_name,
+			buyer_tel: buyer_tel,
+			buyer_addr: '',
+			buyer_postcode: '',
+			m_redirect_url: 'http://http://team5.bitcamp.co.kr:8080/heunheuntrip/html/member/hostReservation.html'
 		}, function (rsp) {
 			if (rsp.success) {
+				var isrsp = true;
 				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
+				// msg += '고유ID : ' + rsp.imp_uid;
+				// msg += '상점 거래ID : ' + rsp.merchant_uid;
+				// msg += '결제 금액 : ' + rsp.paid_amount;
+				// msg += '카드 승인번호 : ' + rsp.apply_num;
+
 				console.log(msg);
 			} else {
+				var isrsp = false;
 				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
+				// msg += '에러내용 : ' + rsp.error_msg;
 			}
-			alert(msg);
+			Swal.fire({
+				type: isrsp ? 'success' : 'fail',
+				title: msg
+			}).then((result) => {
+				if (result.value) {
+					location.href = '/heunheuntrip/html/member/hostReservation.html';
+					return;
+				}
+			})
 		});
 	}
 
