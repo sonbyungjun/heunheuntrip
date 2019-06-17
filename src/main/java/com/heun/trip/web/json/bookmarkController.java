@@ -33,11 +33,15 @@ public class bookmarkController {
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
 
+    System.out.println(member);
+    
     try {
+      int userNo = member.getNo();
+      
       if (pageSize < 1 || pageSize > 6) 
         pageSize = 5;
 
-      int rowCount = bookmarkService.size(member.getNo());
+      int rowCount = bookmarkService.size(userNo);
       int totalPage = rowCount / pageSize;
       if (rowCount % pageSize > 0)
         totalPage++;
@@ -47,7 +51,7 @@ public class bookmarkController {
       else if (pageNo > totalPage)
         pageNo = totalPage;
 
-      List<Bookmark> list = bookmarkService.list(pageNo, pageSize);
+      List<Bookmark> list = bookmarkService.list(pageNo, pageSize, userNo);
 
       content.put("list", list);
       content.put("pageNo", pageNo);

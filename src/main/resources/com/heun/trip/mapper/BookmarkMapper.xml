@@ -30,6 +30,8 @@
       bookmark b
     left outer join
       rms r on b.rms_id=r.rms_id
+    where
+      b.usr_id = #{userNo}
     order by
       b.cdt desc
     <if test="size != null and rowNo != null">

@@ -358,10 +358,12 @@ $('.heun-push').click(function () {
     })
 
     $('body').on('xy', function () {
-
+    	
       var price = $('#heun-price').val();
-      price = price.replace(',', '');
-
+       console.log(price)
+      var reprice = price.replace(',', '');
+       console.log(price)
+       
       var allData = {
         type: $('#type').val(),
         maxPerson: $('#maxp').val(),
@@ -377,7 +379,7 @@ $('.heun-push').click(function () {
         welcome: $('#welcome').val(),
         traffic: $('#traffic').val(),
         name: $('#heun-name').val(),
-        price: price,
+        price: reprice,
         latitude: window.latitude,
         longitude: window.longitude,
         convenience: convenience,
