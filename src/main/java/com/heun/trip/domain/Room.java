@@ -38,6 +38,7 @@ public class Room {
   private List<Convenience> conveniences;
   private List<Safety> safeties;
   private List<RoomFile> photos;
+  private List<String> reservationHistory;
   
   public int getNo() {
     return no;
@@ -189,9 +190,12 @@ public class Room {
   public void setGrade(String grade) {
     this.grade = grade;
   }
-  
-  
-  
+  public List<String> getReservationHistory() {
+    return reservationHistory;
+  }
+  public void setReservationHistory(List<String> reservationHistory) {
+    this.reservationHistory = reservationHistory;
+  }
   public String getState() {
     return state;
   }
@@ -207,7 +211,7 @@ public class Room {
         + details + ", reservation=" + reservation + ", welcome=" + welcome + ", traffic=" + traffic
         + ", grade=" + grade + ", state=" + state + ", thumbnail=" + thumbnail + ", createdDate="
         + createdDate + ", hostNo=" + hostNo + ", conveniences=" + conveniences + ", safeties="
-        + safeties + ", photos=" + photos + "]";
+        + safeties + ", photos=" + photos + ", reservationHistory=" + reservationHistory + "]";
   }
  
   
