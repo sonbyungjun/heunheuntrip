@@ -18,6 +18,8 @@ $(document).ready(function () {
 	
 	loadList();
 }) 
+
+
 "use strict"
 
 function loadList() {
@@ -86,6 +88,10 @@ function Loadroomlist(pn) {
 		}
 	});
 }
+
+
+
+
 
 $(document.body).bind('loaded-list', () => {
 	$('.del').on('click', function () {

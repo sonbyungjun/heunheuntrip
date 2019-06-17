@@ -158,7 +158,6 @@ function loadList() {
 		  //	$(--------).appendTo(-------);
 		  // 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 	  }); // Bitcamp.getJSON(
-	
   
   } // loadList()
 
