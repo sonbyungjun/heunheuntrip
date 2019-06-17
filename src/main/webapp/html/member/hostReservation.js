@@ -62,44 +62,54 @@ function loadList(pn) {
 
 
 $(document.body).bind('loaded-list', (e) => {
-
+  
   $('.modal-close').on('hidden', function() { $(this).empty(); });
+  
+  var now = moment().format('YYYY-MM-DD');
+
+  $('#main-calendar').dateRangePicker({
+    format: 'YYYY-MM-DD',
+    inline: true,
+    startDate: now,
+    container: '#main-calendar',
+    alwaysOpen: true,
+    separator: ' ~ ',
+    language: 'ko',
+    selectForward: true,
+    customShortcuts: [
+      {
+        name: '날짜 지우기',
+        dates : function() {
+        }
+      }
+      ]
+  }).bind('datepicker-change',function(event,obj) {
+    
+  });
+  
+  function AddComma(data_value) {
+    return Number(data_value).toLocaleString('en');
+  }
   
   // 예약 상세보기
   $('.rev-detail').off('click').on('click', function(e){
     e.preventDefault();
     
-    var checkIn = $(e.target).parent().prev().children('.cck-in').text()
-    var checkOut = $(e.target).parent().prev().children('.cck-out').text()
+    var revNo = $(e.target).data('no');
     
-    var now = moment().format('YYYY-MM-DD');
-
-    $('#main-calendar').dateRangePicker({
-      format: 'YYYY-MM-DD',
-      inline: true,
-      startDate: now,
-      container: '#main-calendar',
-      alwaysOpen: true,
-      separator: ' ~ ',
-      language: 'ko',
-      selectForward: true,
-      customShortcuts: [
-        {
-          name: '날짜 지우기',
-          dates : function() {
-          }
-        }
-        ],
-        getValue: function() {
-          if (checkIn && checkOut) 
-            return checkIn + ' ~ ' + checkOut;
-          else 
-            return '';
-        }
-    }).bind('datepicker-change',function(event,obj) {
-    });
-    
-    
+    $.getJSON('../../app/json/rev/detail?no=' + revNo, function(obj) {
+      
+      $('.heun-modal-photo').attr('src', "/heunheuntrip/app/json/images/down/" + obj.rev.thumbnail);
+      $('.heun-modal-roomName').html(obj.rev.rmsName);
+      $('.heun-modal-addr').html("<i class='fas fa-map-marker-alt'></i>      " + obj.rev.address);
+      $('.heun-modal-charge').html("<i class='fas fa-won-sign'></i>      " + AddComma(obj.rev.revCharge));
+      $('.heun-modal-checkin').text("      " + obj.rev.checkIn);
+      $('.heun-modal-checkout').text(obj.rev.checkOut);
+      $('.heun-modal-person').text("    게스트 " + obj.rev.revPerson + "명");
+      $('.heun-modal-name').text(obj.rev.guestName + "님의 예약");
+      
+      $('#main-calendar').data('dateRangePicker').setDateRange($('.heun-modal-checkin').text(), $('.heun-modal-checkout').text());
+    }); 
     
   })
   
@@ -152,19 +162,6 @@ $(document.body).bind('loaded-list', (e) => {
   // 예약 변경
   $('.rev-update').off('click').on('click', function(e){
     
-    function loadData(pn){
-      $.getJSON('../../app/json/rev/detail?no=' + pn, function(obj) {
-        
-        console.log(obj);
-        
-        $('.be-person').text(obj.rev.revPerson + "명 ");
-        $('.be-check-In').text(obj.rev.checkIn);
-        $('.be-check-Out').text(obj.rev.checkOut);
-        $('.be-name').text(obj.rev.guestName);
-        
-      }); 
-    }
-    
     var revNo = $(e.target).data('no');
     var revUpdateNo = $(e.target).attr('data-rev');
     var checkIn = $(e.target).parent().prev().children('.cck-in').text()
@@ -174,7 +171,15 @@ $(document.body).bind('loaded-list', (e) => {
     var revReason = $(e.target).attr('data-reas');
     
     // 이전 데이터를 가져온다.
-    loadData(revUpdateNo);
+    $.getJSON('../../app/json/rev/detail?no=' + revUpdateNo, function(obj) {
+      
+      console.log(obj);
+      
+      $('.be-person').text(obj.rev.revPerson + "명 ");
+      $('.be-check-In').text(obj.rev.checkIn);
+      $('.be-check-Out').text(obj.rev.checkOut);
+      $('.be-name').text(obj.rev.guestName);
+    }); 
 
     $('.check-In').text(checkIn);
     $('.check-Out').text(checkOut);

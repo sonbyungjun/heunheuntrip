@@ -194,8 +194,10 @@ public class MemberController {
 
 
   @PostMapping("updateprofile")
-  public Object profileupdate(Member member,  MultipartFile photo) {
+  public Object profileupdate(Member member,  MultipartFile photo, HttpSession session) {
+    Member loginUser = (Member) session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
+    member.setNo(loginUser.getNo());
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       try {
