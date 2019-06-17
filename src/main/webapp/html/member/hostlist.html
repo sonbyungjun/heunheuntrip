@@ -173,7 +173,8 @@
         <div class="media">
           <div class="media-left"></div>
           <div class="media-body">
-            <h4 class="media-heading"></div>
+            <h4 class="media-heading"></h4>
+            </div>
         </div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
@@ -185,21 +186,47 @@
           </div>
           <div class="form-group">
             <label>주소</label>
-            <input id="room-address"type="email" class="form-control" readonly>
+            <input id="room-address"type="text" class="form-control" readonly>
           </div>
           <div class="form-group">
             <label>숙소 금액</label>
-            <input id="room-price" type="tel" class="form-control" readonly>
+            <input id="room-price" type="text" class="form-control" readonly>
           </div>
+          
+           <div class="form-group row">
+           
+           <div class="col">
+            <label>객실 종류</label>
+            <input id="room-type" type="text" class="form-control" readonly>
+            </div>
+            
+            <div class="col">
+            <label>숙박 최대 인원</label>
+            <input id="room-person" type="text" class="form-control" readonly>
+            </div>
+            
+          </div>
+          
+            <div class="form-group row">
+           <div class="col">
+            <label>욕실</label>
+            <input id="room-bath" type="text" class="form-control" readonly>
+            </div>
+            
+            <div class="col">
+            <label>침대</label>
+            <input id="room-bed" type="text" class="form-control" readonly>
+            </div>
+          </div>
+          
           <div class="form-group">
-            <label>숙소 금액</label>
-            <textarea rows="4" class="form-control" placeholder="Please include any useful details, i.e. current status, availability for viewings, etc."></textarea>
+            <label>숙소 설명</label>
+            <textarea id='room-content'rows="4" class="form-control" placeholder="" readonly></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Request Details</button>
       </div>
     </div>
   </div>

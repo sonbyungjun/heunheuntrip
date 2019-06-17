@@ -9,13 +9,13 @@ import com.heun.trip.service.MemberService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-  
+
   MemberDao memberDao;
-  
+
   public MemberServiceImpl(MemberDao memberDao) {
     this.memberDao = memberDao;
   }
-  
+
   @Override
   public List<Member> list(int pageNo, int pageSize, String search) {
     HashMap<String,Object> params = new HashMap<>();
@@ -24,85 +24,114 @@ public class MemberServiceImpl implements MemberService {
     params.put("search", search);
     return memberDao.findAll(params);
   }
-  
+
   @Override
   public int add(Member member) {
-  
-     if(member.getAuth().equals("2")) {
-       HashMap<String,Object> params = new HashMap<>();
-       try {
-         memberDao.insert(member);
-         params.put("no", member.getNo());
-         params.put("bank", member.getBank());
-         params.put("bnkno", member.getBnk_no());
-       } catch (Exception e) {
-         e.printStackTrace();
-       }
-        return memberDao.bankinsert(params);     
-     }
-     return memberDao.insert(member);
+
+    if(member.getAuth().equals("2")) {
+      HashMap<String,Object> params = new HashMap<>();
+      try {
+        memberDao.insert(member);
+        params.put("no", member.getNo());
+        params.put("bank", member.getBank());
+        params.put("bnkno", member.getBnk_no());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      return memberDao.bankinsert(params);     
+    }
+    return memberDao.insert(member);
   }
-  
-  
+
+
   @Override
   public Member get(int no) {
     return memberDao.findByNo(no);
   }
-  
+
   @Override
   public int update(Member member) {
-    
+
     HashMap<String,Object> params = new HashMap<>();
-    
+
     Member loginUser = memberDao.findByNo(member.getNo());
-    
+
     params.put("no", member.getNo());
-    
+
     if (member.getName().length() > 0 && !member.getName().equals(loginUser.getName())) {
       params.put("name", member.getName());
-    } else if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
+    }
+    if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
       params.put("tel", member.getTel());
+    } 
+    if (member.getName().length() <= 0 && member.getName().equals(loginUser.getName()) &&
+        member.getTel().length() <= 0 && member.getTel().equals(loginUser.getTel())) {
+      return 0;
+    }
+    return memberDao.update(params);
+  }
+
+
+  @Override
+  public int profileupdate(Member member) {
+    HashMap<String,Object> params = new HashMap<>();
+
+    Member loginUser = memberDao.findByNo(member.getNo());
+
+    params.put("no", member.getNo());
+
+    if (member.getName().length() > 0 && !member.getName().equals(loginUser.getName())) {
+      params.put("name", member.getName());
+    }
+    if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
+      params.put("tel", member.getTel());
+    } 
+    if (member.getName().length() <= 0 && member.getName().equals(loginUser.getName()) &&
+        member.getTel().length() <= 0 && member.getTel().equals(loginUser.getTel())) {
+      return 0;
+    }
+    return memberDao.profileupdate(params);
+  }
+
+  @Override
+  public int pwdupdate(Member member) {
+    HashMap<String,Object> params = new HashMap<>();
+
+    Member loginUser = memberDao.findByNo(member.getNo());
+
+    params.put("no", member.getNo());
+    
+    if (member.getPassword().length() > 0) {
+      params.put("password", member.getPassword());
     } else {
       return 0;
     }
-    
-    return memberDao.update(params);
+    return memberDao.profileupdate(params);
   }
-  
-  
-  @Override
-  public int profileupdate(Member member) {
-    return memberDao.profileupdate(member);
-  }
-  
-  @Override
-  public int pwdupdate(Member member) {
-    return memberDao.profileupdate(member);
-  }
-  
-  
-  
+
+
+
   @Override
   public int Emailupdate(Member member) {
     return memberDao.Emailupdate(member);
   }
-   
+
   @Override
   public int delete(int no) {
     return memberDao.delete(no);
   }
-  
+
   @Override
   public String getTel(int no) {
     return memberDao.extractHostTel(no);
   }
-  
+
   @Override
   public Member get(String email, String password) {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("email", email);
     paramMap.put("password", password);
-    
+
     return memberDao.findByEmailPassword(paramMap);
   }
   @Override
@@ -110,10 +139,10 @@ public class MemberServiceImpl implements MemberService {
     HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("email", email);
     paramMap.put("sns_no",sns_no);
-    
+
     return memberDao.findByEmailSns(paramMap);
   }
-  
+
   @Override
   public int size(String search) {
     return memberDao.countAll(search);
@@ -121,21 +150,21 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public int snsadd(Member member) {
-    
+
     return memberDao.snsinsert(member);
   }
 
   @Override
   public Member get(String email) {
-    
+
     return memberDao.findByEmail(email);
   }
-  
+
   @Override
   public int getTel(String tel) {
     return memberDao.findByTel(tel);
   }
-  
+
 }
 
 

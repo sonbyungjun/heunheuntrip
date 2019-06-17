@@ -149,7 +149,7 @@
   </update>
   
   
-  <update id="profileupdate" parameterType="member">
+  <update id="profileupdate" parameterType="map">
     update usr
     <set>
       <if test="name != null">name = #{name},</if>
