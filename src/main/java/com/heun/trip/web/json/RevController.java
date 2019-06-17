@@ -3,12 +3,19 @@ package com.heun.trip.web.json;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Rev;
@@ -353,6 +360,24 @@ public class RevController {
       content.put("message", e.getMessage());
     }
     return content;
+  }
+  
+  @PostMapping("complete")
+  public Object complete(String imp_uid, HttpSession session) {
+    
+    Map<String,Object> content = (Map) session.getAttribute("buyInfo");
+    
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("imp_key", "1371174847164199");
+    headers.add("imp_secret", "Aplum86xuSHGBcv5YHLpOGjA8p4bN7eowATTI0qdT8Uulqzk7lJV23vatAmhHBGebA8UAz7tH2X2sxmz");
+    headers.setContentType(MediaType.APPLICATION_JSON); 
+    HttpEntity<?> requestEntity =  new HttpEntity<>(headers);
+    
+    restTemplate.exchange("https://api.iamport.kr/users/getToken", HttpMethod.POST, requestEntity, Map.class);
+    
+
+    return null;
   }
 
   @PostMapping("getbuyinfo")
