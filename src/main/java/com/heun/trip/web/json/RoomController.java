@@ -22,6 +22,7 @@ import com.heun.trip.domain.Room;
 import com.heun.trip.domain.RoomFile;
 import com.heun.trip.domain.Safety;
 import com.heun.trip.service.FileService;
+import com.heun.trip.service.RevService;
 import com.heun.trip.service.RiwService;
 import com.heun.trip.service.RoomService;
 
@@ -34,13 +35,15 @@ public class RoomController {
   ServletContext servletContext;
   RiwService riwService;
   FileService fileService;
+  RevService revService;
   
   public RoomController(RoomService roomSerive, ServletContext servletContext, RiwService riwService, 
-      FileService fileService) {
+      FileService fileService, RevService revService) {
     this.roomSerive = roomSerive;
     this.servletContext = servletContext;
     this.riwService = riwService;
     this.fileService = fileService;
+    this.revService = revService;
   }
 
   @PostMapping("add")
@@ -206,7 +209,6 @@ public class RoomController {
 
     Member loginUser = (Member)session.getAttribute("loginUser");
 
-
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
 
@@ -240,6 +242,7 @@ public class RoomController {
   @GetMapping("detail")
   public Object detail(int no) {
     Room room = roomSerive.get(no);
+    room.setReservationHistory(revService.reservationHistory(no));
     System.out.println(room);
     return room;
   }

@@ -47,8 +47,6 @@ function loadProfile() {
     }
 
     $('.main-name').text(obj.member.name);
-    $('.main-email').text(obj.member.email);
-    $('.main-tel').text(obj.member.tel);
     no = obj.member.no;
   });
 } // loadProfile()

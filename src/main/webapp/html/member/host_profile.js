@@ -8,12 +8,9 @@ $(document).ready(function () {
   });
   
   $('p').hide();
-  loadList();
+  loadProfile();
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
 })
-
-
-
 
 $('#btn1').on('click', function(e) {
 	e.preventDefault();

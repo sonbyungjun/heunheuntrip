@@ -15,38 +15,9 @@ $(document).ready(function () {
   });
   
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
-
   loadList(1);
   loadProfile();
-
 })
-
-function loadProfile() {
-  $.getJSON('../../app/json/member/profile',
-      function(obj) {
-
-    if (obj.member.photo != null) {
-      $("<img class='rounded-circle'>").attr('src',
-    		  '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
-          .css('width', '255px')
-          .css('height', '255px')
-          .appendTo($('#profileimg'));
-    
-      
-      } else {
-      $("<img>").attr('src',
-    		  '/heunheuntrip/images/default.jpeg')
-            .css('width', '255px')
-            .css('height', '255px')
-            .appendTo($('#profileimg'));
-      }
-
-    $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
-    no = obj.member.no;
-  }); // Bitcamp.getJSON(
-} // loadProfile()
 
 function loadList(pn) {
   $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
@@ -261,7 +232,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         
         $.ajax({
-          url: '../../app/json/rev/add',
+          url: '../../app/json/rev/update',
           type: 'POST',
           data: {
             revUpdate: no,
@@ -274,7 +245,7 @@ $(document.body).bind('loaded-list', (e) => {
           success: function(response) {
             
             $.ajax({
-              url: '../../app/json/rev/addsms',
+              url: '../../app/json/rev/updatesms',
               type: 'GET',
               data: {
                 roomNo : roomNo

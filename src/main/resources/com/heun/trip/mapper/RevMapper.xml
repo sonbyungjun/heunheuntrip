@@ -240,6 +240,25 @@
       rev_id = #{no}
   </update>
   
+  <select id="findByRoomReservationHistory" parameterType="int" resultMap="revMap">
+    select
+      rev_id,
+      rms_id,
+      cck_in, 
+      cck_out,
+      rev_cdt
+    from 
+      rev e 
+    where 
+      rev_id NOT IN(
+          select 
+            rev_updt 
+          from 
+            rev 
+          where 
+            rev_updt is not null) and rms_id = #{no}
+  </select>
+  
 </mapper>
 
 

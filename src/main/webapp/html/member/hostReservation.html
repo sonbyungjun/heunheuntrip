@@ -17,6 +17,7 @@
 <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
+<link rel="stylesheet" href="../../lib/jquery-date-range-picker-master/dist/daterangepicker.css" />
 
 <script src="../../lib/jquery-3.2.1.min.js"></script>
 <script src="../../lib/popper.min.js"></script>
@@ -31,7 +32,36 @@
 <script src="../../node_modules/handlebars/dist/handlebars.js"></script>
 <script src="../js/handlebars-paginate.js"></script>
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+  <script type="text/javascript"
+    src="../../lib/jquery-date-range-picker-master/dist/jquery.daterangepicker.min.js"></script>
+
 <style>
+
+.date-picker-wrapper.inline-wrapper {
+  padding-left: 0px;
+  width: 100%;
+  position: relative;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  margin-left: 0px;
+ }
+ 
+.date-picker-wrapper .gap {
+  position: relative;
+  z-index: 1;
+  width: 15px;
+  height: 100%;
+  background-color: red;
+  font-size: 0;
+  line-height: 0;
+  float: left;
+  top: -5px;
+  margin: 0 10px -10px;
+  visibility: hidden;
+  height: 200px !important;
+}
 
 .page-header {
     margin-top: 20px;
@@ -63,8 +93,6 @@
 											</div>
 											<ul class="list-unstyled main-infomation"
 												style="border-bottom: 0.2px solid #e1e1e1; padding: 5px; margin-left: 30px;">
-												<li><span class="main-tel"></span></li>
-												<li><span class="main-email"></span></li>
 											</ul>
 										</div>
 										<div class="list-group no-border list-unstyled">
@@ -118,7 +146,7 @@
                    <b>인원</b> : <span class="rev-pp">{{revPerson}}<span>명
                   </div>
                   <div class="col-6 col-md-3">
-                    <button type="button" class="btn btn-sm btn-primary rev-detail" style="width: 100px; text-align: center; margin: 5px;">상세정보</button>
+                    <button type="button" data-toggle="modal" data-target="#detail-modal" class="btn btn-sm btn-primary rev-detail" style="width: 100px; text-align: center; margin: 5px;">상세정보</button>
                     {{#if revDelete}}
                     <button type="button" id="rev-delete" class="btn btn-sm btn-danger" data-no={{no}} style="width: 100px; text-align: center; margin: 5px;">예약취소</button>
                     {{/if}}
@@ -196,8 +224,31 @@
 	    </div>
 	  </div>
 	</div>
-	<script src='hostReservation.js'></script>
+	
+	 <div class="modal fade item-badge-rightm" id="detail-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 470px; height: auto;">
+       <div class="modal-body">
+        <h4>전민희님의 예약</h4>
+        
+          <div id="main-calendar"></div>
+          
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+            <p><i class="fas fa-user-friends"></i><span id="heun-modal-person"></span></p>
+            <p><i class="fas fa-calendar-week"></i><span id="heun-modal-day"></span></p>
+            </li>
+          </ul>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
+       </div>
+      </div>
+    </div>
+  </div>
+	
 	<script src='hostmethod.js'></script>
+	<script src='hostReservation.js'></script>
 	
 </body>
 

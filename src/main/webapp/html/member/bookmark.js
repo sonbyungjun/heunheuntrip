@@ -10,42 +10,10 @@ $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
-  
-
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
-  
   loadList(1);
   loadProfile();
- 
-  
 })
-
-function loadProfile() {
-  $.getJSON('../../app/json/member/profile',
-      function(obj) {
-    
-    if (obj.member.photo != null) {
-      $("<img class='rounded-circle'>").attr('src',
-    		  '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
-          .css('width', '255px')
-          .css('height', '255px')
-          .appendTo($('#profileimg'));
-    
-      
-      } else {
-      $("<img>").attr('src',
-    		  '/heunheuntrip/images/default.jpeg')
-            .css('width', '255px')
-            .css('height', '255px')
-            .appendTo($('#profileimg'));
-      }
-
-    $('.main-name').text(obj.member.name);
-    no = obj.member.no;
-  }); // Bitcamp.getJSON(
-} // loadList()
-
-
 function loadList(pn) {
   $.getJSON('../../app/json/bookmark/list?pageNo=' + pn, function(obj) {
     
@@ -67,8 +35,6 @@ function loadList(pn) {
     
   }); 
 }
-
-
 
 $(document.body).bind('loaded-list', (e) => {
   
@@ -119,7 +85,6 @@ $(document.body).bind('loaded-list', (e) => {
       }
       })
     })
-
   
   $('.bookmark-update').on('click', function(e){
     
@@ -137,7 +102,6 @@ $(document.body).bind('loaded-list', (e) => {
       modal.find('.modal-body input').val(recipient)
       modal.find('#message-text').val(content);
     });
- 
     
     $('.update-btn').off('click').on('click', function(e){
       

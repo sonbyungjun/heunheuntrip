@@ -14,7 +14,8 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
   loadList(1);
-      
+  
+  loadProfile();
 })
 
 
@@ -63,6 +64,44 @@ function loadList(pn) {
 $(document.body).bind('loaded-list', (e) => {
 
   $('.modal-close').on('hidden', function() { $(this).empty(); });
+  
+  // 예약 상세보기
+  $('.rev-detail').off('click').on('click', function(e){
+    e.preventDefault();
+    
+    var checkIn = $(e.target).parent().prev().children('.cck-in').text()
+    var checkOut = $(e.target).parent().prev().children('.cck-out').text()
+    
+    var now = moment().format('YYYY-MM-DD');
+
+    $('#main-calendar').dateRangePicker({
+      format: 'YYYY-MM-DD',
+      inline: true,
+      startDate: now,
+      container: '#main-calendar',
+      alwaysOpen: true,
+      separator: ' ~ ',
+      language: 'ko',
+      selectForward: true,
+      customShortcuts: [
+        {
+          name: '날짜 지우기',
+          dates : function() {
+          }
+        }
+        ],
+        getValue: function() {
+          if (checkIn && checkOut) 
+            return checkIn + ' ~ ' + checkOut;
+          else 
+            return '';
+        }
+    }).bind('datepicker-change',function(event,obj) {
+    });
+    
+    
+    
+  })
   
   // 예약 삭제
   $('#rev-delete').off('click').on('click', function(e){
@@ -180,7 +219,7 @@ $(document.body).bind('loaded-list', (e) => {
                     if(response.status == "success"){
                       
                       $.ajax({
-                        url: '../../app/json/rev/addCompleteSms',
+                        url: '../../app/json/rev/updateCompleteSms',
                         type: 'GET',
                         data: {
                           no : revNo
@@ -239,7 +278,7 @@ $(document.body).bind('loaded-list', (e) => {
             success: function(response) {
               
               $.ajax({
-                url: '../../app/json/rev/addCancelSms',
+                url: '../../app/json/rev/updateCancelSms',
                 type: 'GET',
                 data: {
                   no : revUpdateNo
@@ -266,8 +305,6 @@ $(document.body).bind('loaded-list', (e) => {
       })
       
     }) // 예약 변경 거절 end
-    
-    
   })
 });
 
