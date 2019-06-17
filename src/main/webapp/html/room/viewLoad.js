@@ -7,7 +7,8 @@ var param = location.href.split('?')[1],
   markers = [],
   map,
   jmt,
-  myung;
+  myung,
+  revHistory = [];
 
 IMP.init('imp74040300');
 
@@ -79,9 +80,9 @@ function pageload(no) {
       };
       
       response.persons = persons;
-      
-      console.log(response)
-      
+
+      revHistory = response.reservationHistory;
+
       form.html('');
 
       $(listGenerator(response)).appendTo(form);
