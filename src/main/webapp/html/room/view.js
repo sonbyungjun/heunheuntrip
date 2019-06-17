@@ -747,6 +747,7 @@ $('body').on('loaded-list', function () {
 				}).then((result) => {
 					if (result.value) {
 						location.href = '/heunheuntrip/html/auth/signin.html';
+						return;
 					}
 				})
 				return;
@@ -754,6 +755,11 @@ $('body').on('loaded-list', function () {
 
 		});
 
+	
+
+	})
+
+	function buyReservation() {
 		IMP.request_pay({
 			pg: 'inicis', // version 1.1.0부터 지원.
 			pay_method: $('input[name=type]:checked').val(),
@@ -773,15 +779,14 @@ $('body').on('loaded-list', function () {
 				msg += '상점 거래ID : ' + rsp.merchant_uid;
 				msg += '결제 금액 : ' + rsp.paid_amount;
 				msg += '카드 승인번호 : ' + rsp.apply_num;
-				console.log(rsp);
+				console.log(msg);
 			} else {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
 			}
 			alert(msg);
 		});
-
-	})
+	}
 
 
 	function getUser(cb) {
