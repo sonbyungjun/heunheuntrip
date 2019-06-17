@@ -27,6 +27,9 @@ function loadList(pn, order, blike, dedorder) {
 	$.getJSON('../../app/json/blog/list?pageNo=' + pn + '&order=' + order + '&blike=' + blike + '&deorder=' + deorder,
 			function(obj) {
 	  
+		console.log(obj)
+		
+		
 		pageNo = obj.pageNo;
 		totalPage = obj.totalPage
 

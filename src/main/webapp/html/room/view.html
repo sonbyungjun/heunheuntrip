@@ -441,9 +441,11 @@
          <div class="media-left"> </div>
          <div class="media-body">
          <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}"><i class="fa fa-reply "></i> 답글</a>
-         <a id="delete1-{{no}}" href="#" style="text-align:right" data-name="{{name}}" data-no="{{no}}" class="delete1" ><i class="far fa-trash-alt"></i></a>
+         
            
-            <h5 class="media-heading author">{{name}}</h5>
+            <h5 class="media-heading author">{{name}}  
+            <a id="delete1-{{no}}" style="float:right" href="#"  data-name="{{name}}" data-no="{{no}}" class="delete1" ><i  class="far fa-trash-alt"></i></a>
+            </h5>
             <div class="date">{{createdDate}}</div>
             <div class="comment">{{contents}}</div>
 
@@ -463,8 +465,10 @@
             <div class="media"   id="no-reply-{{no}}">
               <div class="media-left"></div>
               <div class="media-body">
-                <a id="delete2-{{no}}" href="#" style="text-align:right" class="delete2" data-no={{no}}><i class="far fa-trash-alt"></i></a>
-                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}</h5>
+                
+                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}
+                <a id="delete2-{{no}}" href="#" style="float:right" class="delete2" data-no={{no}}><i class="far fa-trash-alt"></i></a>
+                </h5>
                 <div class="date">{{replyDate}}</div>
                 <div class="comment">{{reply}}</div></div>
              </div>
