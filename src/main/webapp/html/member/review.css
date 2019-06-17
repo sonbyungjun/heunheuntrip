@@ -1,3 +1,4 @@
+
 .riw-cont {
 	display: block;
 	overflow: hidden; 
@@ -44,10 +45,7 @@ position: relative;
 width: 320px;
 height: 120px;
 padding: 3px;
-background: #dcdcdc;
--webkit-border-radius: 25px;
--moz-border-radius: 25px;
-border-radius: 25px;
+background: #ebebeb;
 padding: 20px;
 font-size: 16px;
 }
@@ -58,7 +56,7 @@ content: '';
 position: absolute;
 border-style: solid;
 border-width: 11px 25px 11px 0;
-border-color: transparent #dcdcdc;
+border-color: transparent #ebebeb;
 display: block;
 width: 0;
 z-index: 1;
@@ -73,10 +71,7 @@ width: 320px;
 height: 120px;
 margin-top:20px;
 padding: 3px;
-background: #3B8CED;
--webkit-border-radius: 25px;
--moz-border-radius: 25px;
-border-radius: 25px;
+background: #42a1f6;
 padding: 20px;
 font-size: 16px;
 }
@@ -87,7 +82,7 @@ content: '';
 position: absolute;
 border-style: solid;
 border-width: 11px 0 11px 25px;
-border-color: transparent #3B8CED;
+border-color: transparent #42a1f6;
 display: block;
 width: 0;
 z-index: 1;

@@ -196,7 +196,6 @@ public class MemberController {
   @PostMapping("updateprofile")
   public Object profileupdate(Member member,  MultipartFile photo) {
     HashMap<String,Object> content = new HashMap<>();
-
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       try {
@@ -211,7 +210,7 @@ public class MemberController {
       member.setPhoto(filename);
     } 
     try {
-      memberService.update(member);
+      memberService.profileupdate(member);
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");
