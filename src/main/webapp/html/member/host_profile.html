@@ -93,9 +93,18 @@
                   value="john.doe@email.com" readonly>
               </div>
               <div class="form-group">
-                <label>핸드폰 번호</label> <input type="text" class="form-control form-control-lg tel"
-                  placeholder="" value="+14155552671">
-              </div>
+                  <label class="control-label" for="email">전화번호</label>
+                  <div class="row form-group has-feedback in-line">
+                    <div class="col col-lg-8">
+                      <input class="form-control form-control-lg" type="text" data-name='전화번호' name="tel" id="tel" /> 
+                    </div>
+                    <div class="col col-lg-4 tel-div">
+                      <button type='button' class='btn btn-primary' id='tel-btn' style="height: 48px">인증번호 받기</button>
+                    </div>
+                  </div>
+                  <div id="sms-tag"></div>
+                </div>
+                
               <div class="form-group has-feedback">
                 <label class="control-label" for="photo">프로필 사진</label>
                 <div class="input-group mb-3">

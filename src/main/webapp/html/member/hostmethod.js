@@ -16,8 +16,8 @@ function loadList() {
         .appendTo($('#profileimg'));
     }
 		  $('.main-name').text(obj.member.name);
-		    $('.main-email').text(" E-MAIL : " + obj.member.email);
-		    $('.main-tel').text(" PHONE : " + obj.member.tel);
+		    $('.main-email').text(obj.member.email);
+		    $('.main-tel').text(obj.member.tel);
 		    $('.custom-file').find('label').html(obj.member.photo);
 		    no = obj.member.no;
 		   
@@ -47,8 +47,8 @@ function loadProfile() {
     }
 
     $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
+    $('.main-email').text(obj.member.email);
+    $('.main-tel').text(obj.member.tel);
     no = obj.member.no;
   });
 } // loadProfile()

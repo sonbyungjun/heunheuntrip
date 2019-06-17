@@ -33,10 +33,10 @@ function loadList() {
 		// 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
 		$('.main-name').text(obj.member.name);
     $('.name').val(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
+    $('.main-email').text(obj.member.email);
     $('.email').val(obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
-    $('.tel').val(obj.member.tel);
+    $('.main-tel').text(obj.member.tel);
+    $('#tel').val(obj.member.tel);
     $('.custom-file').find('label').html(obj.member.photo);
 		no = obj.member.no;
 	}); // Bitcamp.getJSON(
@@ -144,5 +144,73 @@ $('body').on('loaded-file', function () {
 		$('p').hide();
 		$('#file-btn1').hide();
 	})
+})
+
+$('#tel-btn').click(function() {
+
+  var tel = $('#tel').val();
+
+  if (!tel) {
+    alert('번호를 입력하거나 로그인 해주세요.');
+    return;
+  }
+
+  $.getJSON('../../app/json/member/sms?tel=' + tel, function(res) {
+    if (res.status === "fail") {
+
+      Swal.fire({
+        type: 'error',
+        title: res.message
+      })
+
+    } else {
+
+      Swal.fire({
+        type: 'success',
+        title:"인증번호를 보냈습니다!"
+      }).then((result) =>{
+        if(result.value){
+          $('#sms-tag').html('');
+          var tag = '<div class="row form-group has-feedback in-line">' +
+                    ' <div class="col col-lg-8">' +
+                    '   <input class="form-control form-control-lg required" type="text" data-name="전화번호" name="tel" id="sms-number" /> ' +
+                    ' </div>' +
+                    ' <div class="col col-lg-4">' +
+                    '   <button type="button" class="btn btn-primary btn-lg" id="smstel-btn">인증하기</button>' +
+                    ' </div>' +
+                    '</div>';
+          $('#sms-tag').append(tag);
+          $(document).trigger('sms-load');
+        } 
+      });
+    }
+  })
+})
+
+$(document).on('sms-load', function() {
+  $('#smstel-btn').click(function() {
+    var number = $('#sms-number').val();
+    if (!number) {
+      alert('번호를 입력해주세요.');
+      return;
+    }
+    $.getJSON('../../app/json/member/smsConfirm?number=' + number, function(res) {
+      console.log(res);
+      if (res.status === "fail") {
+        alert('인증번호가 틀렸거나 60초가 지났습니다.');
+        return;
+      } 
+      $('#sms-tag').html('');
+
+      Swal.fire({
+        position: 'center',
+        type: 'success',
+        title: '인증 성공!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  })
+
 })
  
