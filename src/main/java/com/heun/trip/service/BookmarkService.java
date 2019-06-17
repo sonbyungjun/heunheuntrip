@@ -4,7 +4,7 @@ import java.util.List;
 import com.heun.trip.domain.Bookmark;
 
 public interface BookmarkService {
-  List<Bookmark> list(int pageNo, int pageSize);
+  List<Bookmark> list(int pageNo, int pageSize, int userNo);
   int add(Bookmark bookmark);
 //  Riw get(int no);
   int update(String memo, int userNo, int roomNo);   

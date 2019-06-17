@@ -159,6 +159,8 @@ $('#check-btn').on('click', function () {
 				$('#play').removeClass("is-invalid")
 					.addClass("is-valid")
 					.show();
+				$('#check-btn').hide();
+				$('#play').hide();
 
 			} else {
 				$('#play').removeClass("is-valid")
@@ -394,6 +396,7 @@ $('#fileupload').fileupload({
 			bank: $('.dropdown-toggle').html(),
 			bnk_no: $('#bnk_no').val(),
 			auth: window.auth,
+			ranNo: $('#play').val(),
 			sns_no: 0
 
 		};

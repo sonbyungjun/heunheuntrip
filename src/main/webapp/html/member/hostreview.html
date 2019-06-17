@@ -113,9 +113,9 @@
                             </div>
                             <div class="riw-btn col-6 col-md-3" data-no={{no}} data-grd={{grd}} >
                             
-                            <div id="no-reply-{{no}}" style="font-size : 16px; margin-top: 5px; color: green"><i class="far fa-comment"></i>  미답변</div>
+                            <a id="no-reply-{{no}}"  data-toggle="modal" data-reply="{{reply}}" data-userNo="{{userNo}}" data-backdrop="static" data-target="#exampleModal" class="btn btn-inverse riw-update">답변 달기</a>
 
-                            <a class="btn btn-link riw-update" href="#" data-toggle="modal" data-reply="{{reply}}" data-userNo="{{userNo}}" data-backdrop="static" data-target="#exampleModal" style="position: absolute; bottom: 0">상세보기</a>
+                            
                             
                             </div>
                           </div>
@@ -172,8 +172,8 @@
 
             <div class="my-rating"></div>
             <div class="form-group">
-              <textarea class="form-control" id="message-text"
-                style="border-radius: 10px;" readonly></textarea>
+              <span class="form-control" id="message-text"
+                style="border-radius: 10px;" ></span>
             </div>
           </form>
         </div>
@@ -183,7 +183,7 @@
 
           <button type="button" class="btn btn-secondary"
             data-dismiss="modal">취소</button>
-          <button type="button" class="btn btn-primary update-btn">변경</button>
+          <button type="button" class="btn btn-primary update-btn">댓글등록</button>
         </div>
       </div>
     </div>

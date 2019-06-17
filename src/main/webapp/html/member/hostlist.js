@@ -55,9 +55,6 @@ function Loadroomlist(pn) {
       $(pageGenerator(response)).appendTo('.pagination-menu');
       $(document.body).trigger('loaded-list');
     },
-    error: function (error) {
-      alert('시스템 오류가 발생했습니다.');
-    }
   });
 }
 
@@ -123,11 +120,18 @@ function detail(rno){
     },
     dataType: 'json',
     success: function (response) {
-      console.log(response)
+      console.log(response + "555555") 
       $('.media-heading').text(response.name)
       $('#room-location').val(response.area)
       $('#room-address').val(response.address + " " + response.detailAddress)
-      $('#room-price').val(response.price)
+      $('#room-price').val(response.price + "원")
+      $('#room-type').val(response.type)
+      $('#room-person').val(response.maxPerson + "명")
+      $('#room-bath').val(response.bath + "개")
+      $('#room-bed').val(response.bed + "개")
+      $('#room-content').val(response.content)
+      
+      
       $('.media-left').html('')
       $("<img class='media-room'>").attr('src',
           '/heunheuntrip/app/json/images/down/' + response.thumbnail)
