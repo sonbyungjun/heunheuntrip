@@ -727,6 +727,7 @@ $('body').on('loaded-list', function () {
 						type: 'GET',
 						dataType: 'json',
 						success: function (response) {
+							console.log(response)
 
 						},
 						fail: function (error) {

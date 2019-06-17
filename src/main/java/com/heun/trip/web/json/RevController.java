@@ -47,7 +47,6 @@ public class RevController {
     rev.setRevStus(revs.getRevStus());
     rev.setRevCharge(revs.getRevCharge());
 
-    System.out.println(" 결론 ------>  " + rev);
     try {
       revService.inupdate(rev);
       content.put("status", "success");
