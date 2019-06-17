@@ -11,44 +11,10 @@ $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
-
-  
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
-  
- 
-  
   loadList(1);
   loadProfile();
 })
-
-
-function loadProfile() {
-  $.getJSON('../../app/json/member/profile',
-      function(obj) {
-    
-    if (obj.member.photo != null) {
-      $("<img class='rounded-circle'>").attr('src',
-    		  '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
-          .css('width', '255px')
-          .css('height', '255px')
-          .appendTo($('#profileimg'));
-    
-      
-      } else {
-      $("<img>").attr('src',
-    		  '/heunheuntrip/images/default.jpeg')
-            .css('width', '255px')
-            .css('height', '255px')
-            .appendTo($('#profileimg'));
-      }
-
-    $('.main-name').text(obj.member.name);
-    $('.main-email').text(" E-MAIL : " + obj.member.email);
-    $('.main-tel').text(" PHONE : " + obj.member.tel);
-    no = obj.member.no;
-  }); 
-} // loadProfile()
-
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {
 	  
