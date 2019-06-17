@@ -15,11 +15,11 @@ function loadList() {
         .css('height', '255px')
         .appendTo($('#profileimg'));
     }
-		  $('.main-name').text(obj.member.name);
-		    $('.main-email').text(obj.member.email);
-		    $('.main-tel').text(obj.member.tel);
-		    $('.custom-file').find('label').html(obj.member.photo);
-		    no = obj.member.no;
+		  $('.name').val(obj.member.name);
+		  $('.email').val(obj.member.email);
+		  $('.tel').val(obj.member.tel);
+		  no = obj.member.no;
+		   $('.custom-file').find('label').html(obj.member.photo);
 		   
 		  //	$(--------).appendTo(-------);
 		  // 세션에서 로그인 사용자 정보를 가지고와서 뿌리자~ 
