@@ -55,9 +55,6 @@ function Loadroomlist(pn) {
       $(pageGenerator(response)).appendTo('.pagination-menu');
       $(document.body).trigger('loaded-list');
     },
-    error: function (error) {
-      alert('시스템 오류가 발생했습니다.');
-    }
   });
 }
 

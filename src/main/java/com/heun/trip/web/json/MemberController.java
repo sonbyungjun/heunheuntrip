@@ -132,6 +132,7 @@ public class MemberController {
 
     HashMap<String,Object> content = new HashMap<>();
     int checkNo = (int)session.getAttribute("ranNo");
+    System.out.println(ranNo);
     Member count = memberService.get(member.getEmail());
 
     try { 
