@@ -74,6 +74,8 @@ function loadBmark (pn) {
   $.getJSON('../../app/json/bookmark/list',
       function(obj) {
     
+    console.log(obj)
+    
     if(obj.list == undefined){
       bookmarks.html('');
       

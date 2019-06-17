@@ -17,11 +17,12 @@ public class BookmarkServiceImpl implements BookmarkService {
   }
 
   @Override
-  public List<Bookmark> list(int pageNo, int pageSize) {
+  public List<Bookmark> list(int pageNo, int pageSize, int userNo) {
 
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("userNo", userNo);
 
     return bookmarkDao.findAll(params);
   }
