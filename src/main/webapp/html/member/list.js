@@ -51,6 +51,8 @@ function loadList(pn) {
   $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
     
     console.log(obj);
+    
+    if(obj.status === 'success'){
 
     form.html('');
 
@@ -99,6 +101,9 @@ function loadList(pn) {
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
 
+    } else {
+    }
+    
     $(document.body).trigger('loaded-list');
 
   }); 

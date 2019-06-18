@@ -168,23 +168,23 @@ public class RevController {
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
 
-    int userNo = member.getNo();
-
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
-
-    int rowCount = revService.size(userNo);
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-
     try {
+
+      int userNo = member.getNo();
+
+      if (pageSize < 1 || pageSize > 6) 
+        pageSize = 5;
+
+      int rowCount = revService.size(userNo);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+
       List<Rev> reservation = revService.list(pageNo, pageSize, userNo);
 
       for(Rev r : reservation) {
@@ -201,12 +201,13 @@ public class RevController {
         }
       }
 
+      content.put("status", "success");
       content.put("list", reservation);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     } catch (Exception e) {
-      content.put("fail", "예약 목록이 없습니다.");
+      content.put("status", "fail");
     }
 
     return content;
@@ -359,26 +360,26 @@ public class RevController {
     }
     return content;
   }
-  
+
   @SuppressWarnings("unchecked")
   @PostMapping("complete")
   public Object complete(String imp_uid, HttpSession session) {
-    
+
     Map<String,Object> info = (Map<String,Object>) session.getAttribute("buyInfo");
     info.put("imp_uid", imp_uid);
-    
+
     Map<String,Object> content = new HashMap<>();
-    
+
     Rev rev = (Rev) info.get("rev");
     rev.setStusNo(1);
     rev.setImpUid(imp_uid);
-    
+
     boolean isbuyCheck = paymentsService.buyCheck(info);
     boolean isAdd = false;
     if (isbuyCheck) {
       isAdd = revService.add(rev);
     } 
-    
+
     if (isbuyCheck && isAdd) {
       content.put("status", "success");
     } else {
@@ -395,16 +396,16 @@ public class RevController {
     HashMap<String, Object> content = new HashMap<>();
     Room room = roomService.get(rev.getRmsNo());
     Member member = (Member)session.getAttribute("loginUser");
-    
+
     int price = room.getPrice();
     int sum = 0;
 
     try {
-      
+
       if (member == null) {
         throw new Exception("로그인 해주세요.");
       }
-      
+
       Date beginDate = rev.getCheckIn();
       Date endDate = rev.getCheckOut();
 
@@ -415,13 +416,13 @@ public class RevController {
       System.out.println("날짜차이=" + diffDays);
 
       sum = (int) ((price * (int) diffDays) * 1.1);
-      
+
       String merchantUid = UUID.randomUUID().toString();
-      
+
       rev.setMerchantUid(merchantUid);
       rev.setRevCharge(sum);
       rev.setUserNo(member.getNo());
-      
+
       content.put("name", room.getName() + " " + diffDays + "박");
       content.put("amount", sum);
       content.put("merchant_uid", merchantUid);
@@ -429,7 +430,7 @@ public class RevController {
       content.put("buyer_name", member.getName());
       content.put("buyer_tel", member.getTel());
       content.put("rev", rev);
-      
+
       session.setAttribute("buyInfo", content);
 
     } catch (Exception e) {
