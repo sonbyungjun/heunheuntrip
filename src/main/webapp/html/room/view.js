@@ -122,7 +122,7 @@ $('body').on('loaded-list', function () {
 							},
 							dataType: 'json',
 							success: function (response) {
-								alert('등록 성공!!');
+							
 								roomreview(1);
 
 							},
@@ -157,6 +157,8 @@ $('body').on('loaded-list', function () {
 
 					if ($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
+					} else {
+						$('#cont-' + a).hide();						
 					}
 
 					if ($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
@@ -182,7 +184,7 @@ $('body').on('loaded-list', function () {
 					        },
 					        dataType: 'json',
 					        success: function(response) {
-					         alert('삭제 성공!!');
+					      
 					         roomreview(1);
 					         
 					        },
@@ -208,7 +210,7 @@ $('body').on('loaded-list', function () {
 						        },
 						        dataType: 'json',
 						        success: function(response) {
-						         alert('삭제 성공!!');
+						       
 						         roomreview(1);
 						         
 						        },

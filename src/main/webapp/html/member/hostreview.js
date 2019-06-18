@@ -81,10 +81,12 @@ $(document.body).bind('loaded-list', (e) => {
      // modal.find('.modal-title').text('Review');
       modal.find('.modal-body input').val(recipient);
       modal.find('#user-text').html(name + "님의 후기");
-      if(grd >= 3){
-   	  modal.find('.grdic').attr('class','far fa-smile-beam grdic');
+      if(grd <= 2){
+   	  modal.find('.grdic').attr('class','fas fa-angry');
+      } else if(grd == 3) {
+      modal.find('.grdic').attr('fas fa-grin-beam');
       } else {
-      modal.find('.grdic').attr('class','far fa-angry grdic');
+      modal.find('.grdic').attr('class','fas fa-grin-hearts');  
       }
       modal.find('#message-text').html(content);
       modal.find('#remessage-text').val(reply);
