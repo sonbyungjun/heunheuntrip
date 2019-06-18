@@ -8,6 +8,7 @@ import com.heun.trip.domain.Roomcheckout;
 
 public interface BlogDao {
   List<Blog> findAll(Map<String,Object> params);
+  List<Blog> findAllIndex();
   int countAll(); 
   Blog findByNo(int no);
   int checkRev(int no);
