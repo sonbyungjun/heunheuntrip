@@ -1,3 +1,21 @@
+(function($) {
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/authCheck',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+
+      if(response.auth == "호스트"){
+    	  
+      } else {
+
+      }
+    },
+    error: function (error) {
+    }
+  })
+})(jQuery);
+
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
@@ -17,12 +35,15 @@ function loadList(pn) {
     function (obj) {
       tbody.html('');
       $(trGenerator(obj)).appendTo(tbody);
+      
+      
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
       $(document.body).trigger('loaded-list');
       $(document.body).trigger('loaded-add');
       $('.faq-list').find('div').css('display', 'none');
       $('.faq-view').find('div').css('display', 'none');
-      $('.faq-add').find('div').css('display', 'none')
+      $('.faq-add').find('div').css('display', 'none')      
+      
     }); // Bitcamp.getJSON()
 } // loadList()
 
@@ -109,7 +130,11 @@ $('#add-btn').on('click', function () {
     },
     dataType: 'json',
     success: function (response) {
+    	if (response.status == "success"){
       location.href = 'index.html';
+    	} else {
+    		alert("잘못된 요청입니다.")
+    	}
     },
     fail: function (error) {
       alert('등록 실패!!');
@@ -121,54 +146,6 @@ loadList(1);
 $('.btn-qna').on('click', function () {
   location.href = '../qna/index.html';
 })
-
-//if($(e.target).closest('div').find('div').css('display') == 'none'){
-// 		$('.aa').find('div').css('display', 'none');
-// 		$('.aa').find('div').css('display', '');
-// 		$('.faq-add').find('div').css('display', 'none')
-// 		console.log('보ㅓ임') 
-// 	} else {
-// 		$(this).find('div').css('display', 'none');
-// 		$(e.target).off();
-// 		console.log('안보 ㅓ임')
-// }
-
-//$('.faq-detail > div').remove();
-//$(this).off(); 
-// var no = $(this).find('.title').attr('data-no');
-// var appendTag = $(this);
-// $.getJSON('../../app/json/faq/detail?no=' + no, function(obj) {
-// 	console.log(obj);
-// 	$(detailGenerator(obj)).appendTo(appendTag);
-//			tbody.html('');appendTag
-//			$(detailGenerator(obj)).appendTo(tbody);
-//				      
-//	      // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
-//	      $(document.body).trigger('loaded-list');
-
-
-
-//페이지를 출력한 후 1페이지 목록을 로딩한다.
-//})
-//$('#update-btn').on('click',function(){
-//console.log($('#no').val());
-//$.ajax({
-//url: '../../app/json/qna/update,
-//type: 'POST',
-//data: {
-//no: $('#no').val(),      
-//content: $('#content').val()
-//},
-//dataType: 'json',
-//success: function(response) {
-//location.href = 'index.html';
-//},
-//fail: function(error) {
-//alert('변경 실패!!');
-//}
-//});
-//}
-//)
 
 
 
