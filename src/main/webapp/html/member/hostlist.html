@@ -173,57 +173,36 @@
         <div class="media">
           <div class="media-left"></div>
           <div class="media-body">
-            <h4 class="media-heading"></h4>
-            </div>
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label>지역명</label>
-            <input id="room-location"type="text" class="form-control" readonly>
-          </div>
-          <div class="form-group">
-            <label>주소</label>
-            <input id="room-address"type="text" class="form-control" readonly>
-          </div>
-          <div class="form-group">
-            <label>숙소 금액</label>
-            <input id="room-price" type="text" class="form-control" readonly>
-          </div>
           
-           <div class="form-group row">
-           
-           <div class="col">
-            <label>객실 종류</label>
-            <input id="room-type" type="text" class="form-control" readonly>
-            </div>
-            
-            <div class="col">
-            <label>숙박 최대 인원</label>
-            <input id="room-person" type="text" class="form-control" readonly>
-            </div>
-            
-          </div>
-          
-            <div class="form-group row">
-           <div class="col">
-            <label>욕실</label>
-            <input id="room-bath" type="text" class="form-control" readonly>
-            </div>
-            
-            <div class="col">
-            <label>침대</label>
-            <input id="room-bed" type="text" class="form-control" readonly>
-            </div>
-          </div>
-          
+            <div class="row no-gutters">
+            <img class="col-5 col-md-3 media-object room-photo" src="" width="225" height="225" alt=""
+               style="margin: 10px; border-radius: 7px;">
+            <div class="col-11 col-sm-5 col-md-7" style="margin-left: 10px">
+             <h5 class="room-name" style="font-weight:bold; color: #4682b4" ></h5>
+             <p class="room-area"></p>
+             <p class="room-address"></p>
+             <p class="room-price"></p>
+               <span class="room-type"></span>
+               <span class="room-maxperson"></span>
+               <span class="room-bed"></span>
+               <span class="room-bath"></span>
           <div class="form-group">
             <label>숙소 설명</label>
             <textarea id='room-content'rows="4" class="form-control" placeholder="" readonly></textarea>
           </div>
-        </form>
+            <p class="room-details"></p>
+            <p class="room-reservation"></p>
+            <p class="room-welcome"></p>
+            <p class="room-traffic"></p>
+          
+          
+            </div> 
+         </div>
+         </div>
+         
+         
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
@@ -231,6 +210,7 @@
     </div>
   </div>
 </div>
+
   
   
    <script src='common_profile.js'></script>
