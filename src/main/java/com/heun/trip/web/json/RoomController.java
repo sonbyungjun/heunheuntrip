@@ -212,7 +212,7 @@ public class RoomController {
     Member loginUser = (Member)session.getAttribute("loginUser");
 
     
-    System.out.println(a+"----------------------------------------------------");
+   
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
 
