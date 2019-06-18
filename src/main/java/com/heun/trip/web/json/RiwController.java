@@ -137,7 +137,8 @@ public class RiwController {
     if (pageSize < 1 || pageSize > 6) 
       pageSize = 5;
 
-    int rowCount = riwService.size(userNo);
+    int rowCount = riwService.countAllHost(userNo);
+    System.out.println(rowCount + "--------------------------------------------------------------------------------");
     int totalPage = rowCount / pageSize;
     if (rowCount % pageSize > 0)
       totalPage++;
