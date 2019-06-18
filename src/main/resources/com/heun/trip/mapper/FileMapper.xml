@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.heun.trip.dao.FileDao">
+  
+  <select id="findAll" parameterType="list">
+    SELECT
+      main_photo photo
+    FROM
+      board
+    UNION
+    SELECT
+      photo
+    FROM
+      photoboard
+    UNION
+    SELECT
+      rm_photo
+    FROM
+      rm_photo
+    UNION
+    SELECT
+      thum
+    FROM
+      rms
+    UNION
+    SELECT
+      usr_photo
+    FROM
+      usr;
+  </select>
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+

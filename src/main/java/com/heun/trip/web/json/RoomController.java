@@ -178,6 +178,7 @@ public class RoomController {
         // 메인사진이 아니면 그냥 저장한다.
         try {
           fileService.uploadImage(f.getInputStream(), f.getSize(), filename);
+          fileService.uploadImageThumbnail(f.getInputStream(), 580, 386, filename + "_veiwthum");
         } catch(Exception e) {
           e.printStackTrace();
         }

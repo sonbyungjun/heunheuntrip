@@ -160,10 +160,10 @@ function detail(rno){
       $('.room-bed').html("<i class=' fa fa-bed'></i> "+response.bed + "개")
       
       
-      $('#room-details').html("숙소   "+response.details)
-      $('#room-reservation').html("예약가능 여부   " + response.reservation)
-      $('#room-welcome').html("숙소 주변 볼거리 먹거리   " + response.welcome)
-      $('#room-traffic').html("교통편   " + response.traffic)
+      $('#room-details').html(response.details)
+      $('#room-reservation').html(response.reservation)
+      $('#room-welcome').html(response.welcome)
+      $('#room-traffic').html(response.traffic)
       $('#room-content').html(response.content)
       
       

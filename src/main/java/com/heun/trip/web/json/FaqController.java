@@ -2,12 +2,14 @@ package com.heun.trip.web.json;
 
 import java.util.HashMap;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Faq;
+import com.heun.trip.domain.Member;
 import com.heun.trip.service.FaqService;
 
 
@@ -22,13 +24,20 @@ public class FaqController {
   }
 
    @PostMapping("add")
-   public Object add(Faq faq) {
+   public Object add(Faq faq,
+       HttpSession session) {
    HashMap<String,Object> content = new HashMap<>();
-   try {
+   Member loginUser = (Member) session.getAttribute("loginUser");
+    System.out.println(loginUser.toString());
+   if(loginUser.getAuth().equals("일반회원") || loginUser.getAuth().equals("호스트")) {
+     content.put("status", "fail");
+     
+   }else {
      faqService.add(faq);
-   content.put("status", "success");
+     content.put("status", "success");
+   }
+   try {
    } catch (Exception e) {
-   content.put("status", "fail");
    content.put("message", e.getMessage());
    }
    return content;

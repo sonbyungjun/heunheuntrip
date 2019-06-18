@@ -5,6 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -60,10 +62,12 @@ public class PaymentsServiceImpl implements PaymentsService {
     RestTemplate restTemplate = new RestTemplate();
     MultiValueMap<String, String> values = new LinkedMultiValueMap<>();
     values.add("imp_uid", (String) params.get("imp_uid"));
-    values.add("_token", (String) getAccessToken());
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("Authorization", getAccessToken());
+    HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(values, headers);
     Map response = restTemplate.postForObject(
         "https://api.iamport.kr/payments/cancel", 
-        values,
+        request,
         Map.class);
 //    Map res = (Map) response.get("response");
     return true;
