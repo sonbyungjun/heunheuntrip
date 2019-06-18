@@ -56,6 +56,9 @@ h4 {
 textarea {
 	resize: none;
 }
+textarea :focus{
+  outline: 1px;
+}
 textarea::-webkit-scrollbar {
   width: 12px;
   background-color: #F5F5F5; 

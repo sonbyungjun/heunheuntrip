@@ -1,3 +1,31 @@
+$.holdReady(true);
+(function($) {
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/authCheck',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      
+      if(response.auth == "일반회원"){
+        $.holdReady(false);
+      } else {
+        $('#main').html('');
+        Swal.fire({
+          type: 'error',
+          title: "잘못된 접근입니다!",
+          allowOutsideClick: false
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html'
+          }
+        })
+      }
+    },
+    error: function (error) {
+    }
+  })
+})(jQuery);
+
 var param = location.href.split('?')[1];
 
 $(document).ready(function () {

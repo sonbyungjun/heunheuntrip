@@ -15,12 +15,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableAsync
 @Configuration
 @PropertySource("classpath:/com/heun/trip/conf/sec.properties")
-@EnableTransactionManagement
 public class Gmail {
   
   @Autowired 
