@@ -43,7 +43,6 @@ public class FileServiceImpl implements FileService {
   
   @Override
   public int downloadImage(String filename, OutputStream out) {
-    System.out.println(filename);
     Region region = Region.AP_NORTHEAST_2;
     S3Client s3 = S3Client.builder().region(region).build();
 
@@ -55,7 +54,6 @@ public class FileServiceImpl implements FileService {
       System.out.println("파일이 없습니다.");
       return 0;
     }
-    System.out.println("버킷의 파일 다운로드 완료!");
     return 1;
   }
   
@@ -73,7 +71,6 @@ public class FileServiceImpl implements FileService {
       System.out.println("그런 파일이 없습니다.");
       return 0;
     }
-
     System.out.println("버킷의 파일 삭제!");
     return 1;
   }
@@ -81,7 +78,6 @@ public class FileServiceImpl implements FileService {
 
   @Override
   public int uploadImageThumbnail(InputStream in, int width, int height, String filename) {
-    
     BufferedImage image = null;
     try {
       image = Thumbnails.of(in).crop(Positions.CENTER).size(width, height).outputFormat("jpeg")

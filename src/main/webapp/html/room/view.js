@@ -122,7 +122,7 @@ $('body').on('loaded-list', function () {
 							},
 							dataType: 'json',
 							success: function (response) {
-								alert('등록 성공!!');
+							
 								roomreview(1);
 
 							},
@@ -157,6 +157,8 @@ $('body').on('loaded-list', function () {
 
 					if ($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
+					} else {
+						$('#cont-' + a).hide();						
 					}
 
 					if ($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
@@ -182,7 +184,7 @@ $('body').on('loaded-list', function () {
 					        },
 					        dataType: 'json',
 					        success: function(response) {
-					         alert('삭제 성공!!');
+					      
 					         roomreview(1);
 					         
 					        },
@@ -208,7 +210,7 @@ $('body').on('loaded-list', function () {
 						        },
 						        dataType: 'json',
 						        success: function(response) {
-						         alert('삭제 성공!!');
+						       
 						         roomreview(1);
 						         
 						        },
@@ -736,7 +738,7 @@ $('body').on('loaded-list', function () {
 								revPerson: $('#input-m').data('p')
 							},
 							success: function (res) {
-								buyPay(res.name, res.amount, res.buyer_email, res.buyer_name, res.buyer_tel);
+								buyPay(res.name, res.amount, res.buyer_email, res.buyer_name, res.buyer_tel, res.merchant_uid);
 							},
 							fail: function (error) {
 								alert('시스템 오류가 발생했습니다.');
@@ -774,68 +776,63 @@ $('body').on('loaded-list', function () {
 
 	})
 
-	function buyPay(name, amount, buyer_email, buyer_name, buyer_tel) {
+	function buyPay(name, amount, buyer_email, buyer_name, buyer_tel, merchant_uid) {
 		IMP.request_pay({
 			pg: 'html5_inicis', // version 1.1.0부터 지원.
 			pay_method: $('input[name=type]:checked').val(),
-			merchant_uid: 'merchant_' + new Date().getTime(),
+			merchant_uid: merchant_uid,
 			name: name,
 			amount: amount,
 			buyer_email: buyer_email,
 			buyer_name: buyer_name,
 			buyer_tel: buyer_tel
 		},  function(rsp) {
-			if ( rsp.success ) {
+			var isVaild = true;
+			var msg;
+			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
+				$.ajax({
 					url: "../../app/json/rev/complete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 					type: 'POST',
 					dataType: 'json',
 					data: {
 						imp_uid : rsp.imp_uid
 						//기타 필요한 데이터가 있으면 추가 전달
+					},
+					beforeSend: function() {      // ajax 요청하기전에 실행되는 함수
+						Swal.showLoading();
 					}
 				}).done(function(data) {
-					console.log(data)
 					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-					if ( everythings_fine ) {
-						var isrsp = true;
-						var msg = '결제가 완료되었습니다.';
-						msg += '\n고유ID : ' + rsp.imp_uid;
-						msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-						msg += '\결제 금액 : ' + rsp.paid_amount;
-						msg += '카드 승인번호 : ' + rsp.apply_num;
-	
-						Swal.fire({
-							type: isrsp ? 'success' : 'error',
-							title: msg
-						}).then((result) => {
-							if (result.value) {
-								location.href = '/heunheuntrip/html/member/hostReservation.html';
-								return;
-							}
-						})
+					if (data.status === "success") {
+						isVaild = true;
+						msg = '결제가 완료되었습니다.';
 					} else {
 						//[3] 아직 제대로 결제가 되지 않았습니다.
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+						isVaild = false;
+						msg = '이미 예약된 방이거나 결제가 이뤄지지 않았습니다.';
 					}
-				});
-			} else {
-					var isrsp = false;
-					var msg = '결제에 실패하였습니다.';
-					msg += '\n에러내용 : ' + rsp.error_msg;
-	
+				}).always(function() {
 					Swal.fire({
-						type: isrsp ? 'success' : 'error',
+						type: isVaild ? 'success' : 'error',
 						title: msg
 					}).then((result) => {
 						if (result.value) {
-							location.href = '/heunheuntrip/html/member/hostReservation.html';
+							location.href =  isVaild ? '/heunheuntrip/html/member/list.html' : '';
 							return;
 						}
 					})
+				});
+
+
+			} else {
+					var isVaild = false;
+					var msg = '결제에 실패하였습니다.';
+					msg += '\n에러내용 : ' + rsp.error_msg;
 			}
-	})}
+	})
+}
 
 
 	function getUser(cb) {

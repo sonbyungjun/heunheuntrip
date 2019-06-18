@@ -4,23 +4,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
-import org.json.simple.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Rev;
 import com.heun.trip.domain.Room;
 import com.heun.trip.service.MemberService;
+import com.heun.trip.service.PaymentsService;
 import com.heun.trip.service.RevService;
 import com.heun.trip.service.RoomService;
 
@@ -32,13 +28,15 @@ public class RevController {
   RevService revService;
   MemberService memberService;
   RoomService roomService;
+  PaymentsService paymentsService;
   Sms sms;
 
-  public RevController(RevService revService, MemberService memberService, RoomService roomService, Sms sms) {
+  public RevController(RevService revService, MemberService memberService, RoomService roomService, Sms sms, PaymentsService paymentsService) {
     this.revService = revService;
     this.memberService = memberService;
     this.roomService = roomService;
     this.sms = sms;
+    this.paymentsService = paymentsService;
   }
 
   @PostMapping("update")
@@ -362,22 +360,33 @@ public class RevController {
     return content;
   }
   
+  @SuppressWarnings("unchecked")
   @PostMapping("complete")
   public Object complete(String imp_uid, HttpSession session) {
     
-    Map<String,Object> content = (Map) session.getAttribute("buyInfo");
+    Map<String,Object> info = (Map<String,Object>) session.getAttribute("buyInfo");
+    info.put("imp_uid", imp_uid);
     
-    RestTemplate restTemplate = new RestTemplate();
-    HttpHeaders headers = new HttpHeaders();
-    headers.add("imp_key", "1371174847164199");
-    headers.add("imp_secret", "Aplum86xuSHGBcv5YHLpOGjA8p4bN7eowATTI0qdT8Uulqzk7lJV23vatAmhHBGebA8UAz7tH2X2sxmz");
-    headers.setContentType(MediaType.APPLICATION_JSON); 
-    HttpEntity<?> requestEntity =  new HttpEntity<>(headers);
+    Map<String,Object> content = new HashMap<>();
     
-    restTemplate.exchange("https://api.iamport.kr/users/getToken", HttpMethod.POST, requestEntity, Map.class);
+    Rev rev = (Rev) info.get("rev");
+    rev.setStusNo(1);
+    rev.setImpUid(imp_uid);
     
+    boolean isbuyCheck = paymentsService.buyCheck(info);
+    boolean isAdd = false;
+    if (isbuyCheck) {
+      isAdd = revService.add(rev);
+    } 
+    
+    if (isbuyCheck && isAdd) {
+      content.put("status", "success");
+    } else {
+      paymentsService.buyCancel(info);
+      content.put("status", "fail");
+    }
 
-    return null;
+    return content;
   }
 
   @PostMapping("getbuyinfo")
@@ -407,12 +416,19 @@ public class RevController {
 
       sum = (int) ((price * (int) diffDays) * 1.1);
       
+      String merchantUid = UUID.randomUUID().toString();
+      
+      rev.setMerchantUid(merchantUid);
+      rev.setRevCharge(sum);
+      rev.setUserNo(member.getNo());
+      
       content.put("name", room.getName() + " " + diffDays + "박");
       content.put("amount", sum);
+      content.put("merchant_uid", merchantUid);
       content.put("buyer_email", member.getEmail());
       content.put("buyer_name", member.getName());
       content.put("buyer_tel", member.getTel());
-      content.put("revPerson", rev.getRevPerson());
+      content.put("rev", rev);
       
       session.setAttribute("buyInfo", content);
 

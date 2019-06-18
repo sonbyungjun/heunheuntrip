@@ -17,4 +17,5 @@ public interface RevService {
   int deleteInHostpage(int no);
   int change(int no);
   List<String> reservationHistory(int no);
+  boolean add(Rev rev);
 } 

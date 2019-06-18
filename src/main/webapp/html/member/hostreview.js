@@ -1,3 +1,31 @@
+$.holdReady(true);
+(function($) {
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/authCheck',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      
+      if(response.auth == "호스트"){
+        $.holdReady(false);
+      } else {
+        $('#main').html('');
+        Swal.fire({
+          type: 'error',
+          title: "잘못된 접근입니다!",
+          allowOutsideClick: false
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html'
+          }
+        })
+      }
+    },
+    error: function (error) {
+    }
+  })
+})(jQuery);
+
 var form = $('.card-list'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
@@ -81,10 +109,12 @@ $(document.body).bind('loaded-list', (e) => {
      // modal.find('.modal-title').text('Review');
       modal.find('.modal-body input').val(recipient);
       modal.find('#user-text').html(name + "님의 후기");
-      if(grd >= 3){
-   	  modal.find('.grdic').attr('class','far fa-smile-beam grdic');
+      if(grd <= 2){
+   	  modal.find('.grdic').attr('class','fas fa-angry');
+      } else if(grd == 3) {
+      modal.find('.grdic').attr('fas fa-grin-beam');
       } else {
-      modal.find('.grdic').attr('class','far fa-angry grdic');
+      modal.find('.grdic').attr('class','fas fa-grin-hearts');  
       }
       modal.find('#message-text').html(content);
       modal.find('#remessage-text').val(reply);

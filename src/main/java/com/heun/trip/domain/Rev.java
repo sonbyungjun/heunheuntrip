@@ -28,11 +28,25 @@ public class Rev {
   private String address;
   private String thumbnail;
   private String status;
+  private String merchantUid;
+  private String impUid;
   
   private boolean count;
   
   
   
+  public String getMerchantUid() {
+    return merchantUid;
+  }
+  public void setMerchantUid(String merchantUid) {
+    this.merchantUid = merchantUid;
+  }
+  public String getImpUid() {
+    return impUid;
+  }
+  public void setImpUid(String impUid) {
+    this.impUid = impUid;
+  }
   public String getGuestName() {
     return guestName;
   }
@@ -154,7 +168,8 @@ public class Rev {
         + ", revStus=" + revStus + ", revPerson=" + revPerson + ", revUpdate=" + revUpdate
         + ", revReason=" + revReason + ", revCharge=" + revCharge + ", revDelete=" + revDelete
         + ", guestName=" + guestName + ", rmsName=" + rmsName + ", address=" + address
-        + ", thumbnail=" + thumbnail + ", status=" + status + ", count=" + count + "]";
+        + ", thumbnail=" + thumbnail + ", status=" + status + ", merchantUid=" + merchantUid
+        + ", impUid=" + impUid + ", count=" + count + "]";
   }
 
 }
