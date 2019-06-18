@@ -18,6 +18,7 @@ public interface RevDao {
   int deleteInHostpage(int no); 
   int changeRev(int no); 
   List<Rev> findByRoomReservationHistory(int no);
+  int add(Rev rev);
 }
  
 

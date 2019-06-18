@@ -27,6 +27,8 @@
     <result column="stus" property="status"/>
     
     <result column="name" property="guestName"/>
+    <result column="merchant_uid" property="merchantUid"/>
+    <result column="impUid_uid" property="impUid"/>
   </resultMap>
   
   <resultMap type="riw" id="riwMap">
@@ -246,7 +248,9 @@
       rms_id,
       cck_in, 
       cck_out,
-      rev_cdt
+      rev_cdt,
+      merchant_uid,
+      imp_uid
     from 
       rev e 
     where 
@@ -258,6 +262,29 @@
           where 
             rev_updt is not null) and rms_id = #{no}
   </select>
+  
+  <insert id="add" parameterType="Rev">
+    insert into rev(
+      usr_id,
+      stus_id,
+      rms_id,
+      cck_in,
+      cck_out,
+      rev_persn,
+      rev_char,
+      merchant_uid,
+      imp_uid)
+    values (
+      #{userNo},
+      #{stusNo},
+      #{rmsNo},
+      #{checkIn},
+      #{checkOut},
+      #{revPerson},
+      #{revCharge},
+      #{merchantUid},
+      #{impUid})
+  </insert>
   
 </mapper>
 
