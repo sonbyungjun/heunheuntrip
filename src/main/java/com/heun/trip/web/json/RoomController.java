@@ -203,6 +203,7 @@ public class RoomController {
   public Object list(
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
+      String a,
       String lati,
       HttpSession session,
       String longi
@@ -210,6 +211,8 @@ public class RoomController {
 
     Member loginUser = (Member)session.getAttribute("loginUser");
 
+    
+    System.out.println(a+"----------------------------------------------------");
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
 

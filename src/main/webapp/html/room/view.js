@@ -235,9 +235,9 @@ $('body').on('loaded-list', function () {
 					        dataType: 'json',
 					        success: function(response) {
 					        	Swal.fire(
-					        			 'error',
-					        		     '리뷰가 삭제되었습니다.',
-					        		     '삭제내용을 확인해주세요.'
+					        			  '삭제!',
+					        	          '글이 삭제되었습니다!',
+					        	          'success'
 					        								        			
 					                  ).then(() => {
 					                	  roomreview(1);

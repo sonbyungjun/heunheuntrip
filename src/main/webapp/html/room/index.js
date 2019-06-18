@@ -11,7 +11,8 @@ img = {},
 points = [],
 overlays = [],
 memo = undefined,
-selector = "";
+selector = "",
+a=0;
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -81,38 +82,24 @@ $(document.body).bind('loaded-list', (e) => {
 	    console.log($(this).val())
 	    window.selector = $(this).val();
 	    
+	    if(selector == "최신순") {
+	    	window.a = 1;
+	    	loadList(1);
+	    } else if (selector == "높은 가격순") {
+	    	window.a = 2;
+	    	loadList(1);
+	    } else if (selector == "낮은 가격순") {
+	    	window.a = 3;
+	    	loadList(1);
+	    } else {
+	    	window.a = 4;
+	    	loadList(1);
+	    }
 	    
 	    
 	  });
 	
-$(".button").on('click', function(e){
-	
-	console.log($(".ui-select option:selected").val()) // 최신순 , 가격순 등등 문자열을 가지고온다. 
-	console.log($('.selectric-scroll').children().children().attr("data-index"))
-//          $.ajax({
-//            url: '../../app/json/bookmark/add',
-//            type: 'POST',
-//            data: {
-//              roomNo: no,
-//              memo: window.memo
-//            },
-//            dataType: 'json',
-//            success: function(response) {
-//              
-//              $(e.target).parent().parent().children(".bM-full").children().addClass('fa fa-star animated flash');
-//              
-//              $(e.target).parent().parent().children(".bM-full").css("display","");
-//              $(e.target).parent().parent().children(".bM-empty").css("display","none");
-//              
-//              loadBmark(1);
-//              
-//            },
-//            fail: function(error) {
-//              alert('등록 실패!!');
-//            }
-//          });
-	
-}) // save-item function
+
 
 });
 
@@ -157,6 +144,9 @@ function loadList(pn) {
     url: url,
     type: 'GET',
     dataType: 'json',
+    data: {
+        a: window.a
+      },
     success: function (response) {
       
       // 북마크 여부
