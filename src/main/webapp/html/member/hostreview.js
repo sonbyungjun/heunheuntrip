@@ -34,7 +34,7 @@ function loadList(pn) {
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
     
-    
+    console.log(obj)
     //핸들바스에서 reply가 빈문자열이 아닌 놈을 찾아서 버튼을 없앰
     for(var i = 0; i < obj.list.length; i++) {
 //    console.log(obj.list[i].no);
@@ -65,17 +65,27 @@ $(document.body).bind('loaded-list', (e) => {
     
     var no = $(this).parent().data('no');
     var reply = $(this).attr('data-reply');
+    var grd = $(this).attr('data-grd');
     var userNo = $(this).attr('data-userNo');
+    var name = $(this).attr('data-name');
     var content = $(this).parent().prev().children().html();
 
+    console.log(grd)
+    
     var pn = $(e.target).parent().parent().parent().parent().parent().children('.riw-page').attr('data-page');
     
     $('#exampleModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget) 
       var recipient = button.data('whatever') 
       var modal = $(this)
-      modal.find('.modal-title').text('Review')
-      modal.find('.modal-body input').val(recipient)
+     // modal.find('.modal-title').text('Review');
+      modal.find('.modal-body input').val(recipient);
+      modal.find('#user-text').html(name + "님의 후기");
+      if(grd >= 3){
+   	  modal.find('.grdic').attr('class','far fa-smile-beam grdic');
+      } else {
+      modal.find('.grdic').attr('class','far fa-angry grdic');
+      }
       modal.find('#message-text').html(content);
       modal.find('#remessage-text').val(reply);
     });
