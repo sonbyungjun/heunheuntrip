@@ -79,6 +79,7 @@ public class MemberServiceImpl implements MemberService {
     Member loginUser = memberDao.findByNo(member.getNo());
 
     params.put("no", member.getNo());
+    params.put("photo",member.getPhoto());
 
     if (member.getName().length() > 0 && !member.getName().equals(loginUser.getName())) {
       params.put("name", member.getName());
@@ -97,7 +98,6 @@ public class MemberServiceImpl implements MemberService {
   public int pwdupdate(Member member) {
     HashMap<String,Object> params = new HashMap<>();
 
-    Member loginUser = memberDao.findByNo(member.getNo());
 
     params.put("no", member.getNo());
     

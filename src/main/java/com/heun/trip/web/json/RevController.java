@@ -1,16 +1,25 @@
 package com.heun.trip.web.json;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.json.simple.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import com.heun.trip.conf.Sms;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Rev;
+import com.heun.trip.domain.Room;
 import com.heun.trip.service.MemberService;
 import com.heun.trip.service.RevService;
 import com.heun.trip.service.RoomService;
@@ -47,7 +56,6 @@ public class RevController {
     rev.setRevStus(revs.getRevStus());
     rev.setRevCharge(revs.getRevCharge());
 
-    System.out.println(" 결론 ------>  " + rev);
     try {
       revService.inupdate(rev);
       content.put("status", "success");
@@ -77,8 +85,8 @@ public class RevController {
 
     return content;
   }
-   
-  
+
+
   // 예약 변경 완료시 게스트에게 날라 갈 문자
   @GetMapping("updateCompleteSms")
   public Object addCompleteSms(int no) {
@@ -86,15 +94,15 @@ public class RevController {
     Rev rev = revService.detail(no);
     int rmsNo = rev.getRmsNo();
     int userNo = rev.getUserNo();
-    
+
     Member member = memberService.get(userNo);
-    
+
     String guestName = member.getName();
     String tel = member.getTel();
     String roomName = roomService.getRoom(rmsNo);
 
     String messageText = roomName + "의 " + guestName + "님의 예약 변경이 완료되었습니다.\n";
-    
+
     try {
       sms.smsSend(tel, messageText);
     } catch (Exception e) {
@@ -105,7 +113,7 @@ public class RevController {
 
     return content;
   }
-  
+
   // 예약 변경 거절시 게스트에게 날라 갈 문자
   @GetMapping("updateCancelSms")
   public Object addCancelSms(int no) {
@@ -113,15 +121,15 @@ public class RevController {
     Rev rev = revService.detail(no);
     int rmsNo = rev.getRmsNo();
     int userNo = rev.getUserNo();
-    
+
     Member member = memberService.get(userNo);
-    
+
     String guestName = member.getName();
     String tel = member.getTel();
     String roomName = roomService.getRoom(rmsNo);
 
     String messageText = roomName + "의 " + guestName + "님의 예약 변경이 거절되었습니다.\n";
-    
+
     try {
       sms.smsSend(tel, messageText);
     } catch (Exception e) {
@@ -235,7 +243,6 @@ public class RevController {
     try {
       List<Rev> reservation = revService.listInHostPage(pageNo, pageSize, userNo);
 
-
       content.put("list", reservation);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
@@ -339,7 +346,7 @@ public class RevController {
     }
     return content;
   }
-  
+
   // 예약을 변경한다.
   @PostMapping("change")
   public Object change(int no) {
@@ -352,6 +359,67 @@ public class RevController {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
+    return content;
+  }
+  
+  @PostMapping("complete")
+  public Object complete(String imp_uid, HttpSession session) {
+    
+    Map<String,Object> content = (Map) session.getAttribute("buyInfo");
+    
+    RestTemplate restTemplate = new RestTemplate();
+    HttpHeaders headers = new HttpHeaders();
+    headers.add("imp_key", "1371174847164199");
+    headers.add("imp_secret", "Aplum86xuSHGBcv5YHLpOGjA8p4bN7eowATTI0qdT8Uulqzk7lJV23vatAmhHBGebA8UAz7tH2X2sxmz");
+    headers.setContentType(MediaType.APPLICATION_JSON); 
+    HttpEntity<?> requestEntity =  new HttpEntity<>(headers);
+    
+    restTemplate.exchange("https://api.iamport.kr/users/getToken", HttpMethod.POST, requestEntity, Map.class);
+    
+
+    return null;
+  }
+
+  @PostMapping("getbuyinfo")
+  public Object getBuyInfo(Rev rev, HttpSession session) {
+
+    HashMap<String, Object> content = new HashMap<>();
+    Room room = roomService.get(rev.getRmsNo());
+    Member member = (Member)session.getAttribute("loginUser");
+    
+    int price = room.getPrice();
+    int sum = 0;
+
+    try {
+      
+      if (member == null) {
+        throw new Exception("로그인 해주세요.");
+      }
+      
+      Date beginDate = rev.getCheckIn();
+      Date endDate = rev.getCheckOut();
+
+      // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
+      long diff = endDate.getTime() - beginDate.getTime();
+      long diffDays = diff / (24 * 60 * 60 * 1000);
+
+      System.out.println("날짜차이=" + diffDays);
+
+      sum = (int) ((price * (int) diffDays) * 1.1);
+      
+      content.put("name", room.getName() + " " + diffDays + "박");
+      content.put("amount", sum);
+      content.put("buyer_email", member.getEmail());
+      content.put("buyer_name", member.getName());
+      content.put("buyer_tel", member.getTel());
+      content.put("revPerson", rev.getRevPerson());
+      
+      session.setAttribute("buyInfo", content);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     return content;
   }
 
