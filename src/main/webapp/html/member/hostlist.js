@@ -126,9 +126,9 @@ function detail(rno){
       $('.room-area').html("<i class='fas fa-subway'></i>  " + response.area)
       $('.room-address').html("<i class='fas fa-map-marker-alt'></i>  "+response.address + " " + response.detailAddress)
       $('.room-price').html("<i class='fas fa-won-sign'></i>  "+response.price + "원")
-      $('.room-type').html("<i class='fas fa-home'></i>  " +response.type)
-      $('.room-maxperson').html("<i class='fas fa-user'></i> "+response.maxPerson + "명")
-      $('.room-bath').html("<i class='fas fa-user'></i> "+ response.bath + "개")
+      $('.room-type').html("<i class='fas fa-home'></i>  " +response.type )
+      $('.room-maxperson').html("<i class='fas fa-user'></i> " + "최대" +response.maxPerson + "명")
+      $('.room-bath').html("<i class='fas fa-bath'></i> "+ response.bath + "개")
       $('.room-bed').html("<i class=' fa fa-bed'></i> "+response.bed + "개")
       
       

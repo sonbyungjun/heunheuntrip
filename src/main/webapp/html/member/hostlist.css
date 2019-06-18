@@ -42,6 +42,17 @@ h4 {
 .roomcontent{
   margin-right:5px;
 }
+.modal-p-magin > p {
+	margin-bottom: 3px;
+}
+.modal-p-magin > h5 {
+	margin-bottom: 3px;
+}
+.no-gutters > span {
+	width: 75px;
+	margin-right: 3px;
+	margin-top: 3px;
+}
 
 
 
