@@ -35,6 +35,16 @@ public class BlogServiceImpl implements BlogService {
   }
   
   @Override
+  public List<Blog> listIndex() {
+    
+//    HashMap<String,Object> params = new HashMap<>();
+//    params.put("size", pageSize);
+//    params.put("rowNo", (pageNo - 1) * pageSize);
+    
+    return blogDao.findAllIndex();
+  }
+  
+  @Override
   public List<Blog> order(int pageNo, int pageSize) {
   
     HashMap<String,Object> params = new HashMap<>();

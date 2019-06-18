@@ -87,6 +87,30 @@
     </if> 
   </select>
   
+  <select id="findAllIndex" resultMap="blogMap">
+    select
+      b.board_id,
+      b.title,
+      b.conts,
+      b.cdt,
+      b.main_photo,
+      u.usr_id,
+      u.name,
+      r.rms_id,
+      r.grd,
+      r.rm_name,
+      r.addr
+    from
+      board b
+    left outer join
+      usr u on b.usr_id=u.usr_id
+    left outer join
+      rms r on b.rms_id=r.rms_id
+    order by
+      rand()
+
+  </select>
+  
   <insert id="insert" parameterType="blog" useGeneratedKeys="true" keyColumn="board_id" keyProperty="no">
     insert into board(
       title,

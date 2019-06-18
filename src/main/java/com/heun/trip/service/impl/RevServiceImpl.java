@@ -21,7 +21,6 @@ public class RevServiceImpl implements RevService {
     this.revDao = revDao;
   }
 
-
   @Override
   public int inupdate(Rev rev) {
     return revDao.inupdate(rev);
@@ -98,27 +97,19 @@ public class RevServiceImpl implements RevService {
 
   @Override
   public List<String> reservationHistory(int no) {
-
     List<Rev> history = revDao.findByRoomReservationHistory(no);
-
     final String DATE_PATTERN = "yyyy-MM-dd";
-
     SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
-
     Date startDate = null;
     Date endDate = null;
-
     ArrayList<String> dates = new ArrayList<String>();
     Calendar c = Calendar.getInstance();
-
     for (Rev r : history) {
       startDate = r.getCheckIn();
-      
       // 체크아웃 날짜는 예약날짜에 포함이 되지 않으므로 -1일
       c.setTime(r.getCheckOut());
       c.add(Calendar.DAY_OF_MONTH, -1);
       endDate = c.getTime();
-
       Date currentDate = startDate;
       while (currentDate.compareTo(endDate) <= 0) {
         dates.add(sdf.format(currentDate));
@@ -127,11 +118,19 @@ public class RevServiceImpl implements RevService {
         currentDate = c.getTime();
       }
     }
-    
-    for (String date : dates) {
-      System.out.println(date);
-    }
     return dates;
+  }
+  
+  @Override
+  synchronized public boolean add(Rev rev) {
+    List<String> history = reservationHistory(rev.getNo());
+    for (String h : history) {
+      if (rev.getCheckIn().toString().equals(h)) {
+        return false;
+      }
+    }
+    revDao.add(rev);
+    return true;
   }
 
 }
