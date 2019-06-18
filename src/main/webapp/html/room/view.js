@@ -787,16 +787,18 @@ $('body').on('loaded-list', function () {
 		},  function(rsp) {
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
+				$.ajax({
 					url: "../../app/json/rev/complete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 					type: 'POST',
 					dataType: 'json',
 					data: {
 						imp_uid : rsp.imp_uid
 						//기타 필요한 데이터가 있으면 추가 전달
+					},
+					beforeSend: function() {      // ajax 요청하기전에 실행되는 함수
+						Swal.showLoading();
 					}
 				}).done(function(data) {
-					console.log(data)
 					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 					if (data.status === "success") {
 						var msg = '결제가 완료되었습니다.';
@@ -806,7 +808,7 @@ $('body').on('loaded-list', function () {
 							title: msg
 						}).then((result) => {
 							if (result.value) {
-								location.href = '/heunheuntrip/html/member/hostReservation.html';
+								location.href = '/heunheuntrip/html/member/list.html';
 								return;
 							}
 						})
