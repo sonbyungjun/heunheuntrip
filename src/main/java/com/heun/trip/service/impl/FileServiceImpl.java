@@ -6,6 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,10 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.paginators.ListObjectsV2Iterable;
 
 @Service
 @EnableAsync
@@ -111,6 +116,22 @@ public class FileServiceImpl implements FileService {
     System.out.println("버킷에 파일 섬네일 업로드 완료!");
     
     return 1;
+  }
+  
+  @Override
+  public List<String> fileList() {
+    Region region = Region.AP_NORTHEAST_2;
+    S3Client s3 = S3Client.builder().region(region).build();
+    ListObjectsV2Request listReq = ListObjectsV2Request.builder()
+        .bucket("b1.sbj.kr")
+        .maxKeys(1)
+        .build();
+    ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
+    List<String> list = new ArrayList<>();
+    for (S3Object content : listRes.contents()) {
+      list.add(content.key());
+    }
+    return list;
   }
   
 }

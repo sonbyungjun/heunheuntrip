@@ -824,8 +824,6 @@ $('body').on('loaded-list', function () {
 						}
 					})
 				});
-
-
 			} else {
 					var isVaild = false;
 					var msg = '결제에 실패하였습니다.';
