@@ -6,9 +6,9 @@
   
 <mapper namespace="com.heun.trip.dao.FileDao">
   
-  <select id="findAll" parameterType="list">
+  <select id="findAll" resultType="String">
     SELECT
-      main_photo photo
+      main_photo filename
     FROM
       board
     UNION
@@ -16,21 +16,29 @@
       photo
     FROM
       photoboard
+    where
+     photo is not null
     UNION
     SELECT
       rm_photo
     FROM
       rm_photo
+    where
+      rm_photo is not null
     UNION
     SELECT
       thum
     FROM
       rms
+    where
+      thum is not null
     UNION
     SELECT
       usr_photo
     FROM
-      usr;
+      usr
+    where
+     usr_photo is not null
   </select>
  
 </mapper>

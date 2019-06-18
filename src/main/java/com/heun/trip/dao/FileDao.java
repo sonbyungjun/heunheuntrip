@@ -1,9 +1,9 @@
 package com.heun.trip.dao;
 
-import java.util.List;
+import java.util.Set;
 
 public interface FileDao {
-  List<String> findAll();
+  Set<String> findAll();
 }
 
 

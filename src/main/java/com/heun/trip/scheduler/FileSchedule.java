@@ -1,8 +1,7 @@
 package com.heun.trip.scheduler;
 
-import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import com.heun.trip.dao.FileDao;
 import com.heun.trip.service.FileService;
@@ -17,12 +16,19 @@ public class FileSchedule {
   
 //  @Scheduled(cron="0 * * * * *")
   public void fileSync() {
-    List<String> awsList = fileService.fileList();
-    System.out.println(awsList.size());
-    for (String name : awsList) {
+    
+    Set<String> dbList = fileDao.findAll();
+    Set<String> awsList = fileService.fileList();
+    
+    int count = 0;
+    for (String s : dbList) {
+      for (String a : awsList) {
+        if (!a.contains(s)) {
+          continue;
+        }
+        count++;
+      }
     }
-    List<String> dbList = fileDao.findAll();
-    System.out.println(dbList.size());
   }
   
 }
