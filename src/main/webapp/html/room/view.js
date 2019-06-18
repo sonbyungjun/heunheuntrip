@@ -9,10 +9,10 @@ $('body').on('loaded-list', function () {
 		hostProfileGenerator = Handlebars.compile(templateSrcs),
 		hprofile = $('.host-profile'),
 		rating = 0,
-		paginateSrc = $('#page-template').html();
+		paginateSrc = $('#page-template').html(),
+		aaaaa=4;
 
-
-
+	 
 
 	Handlebars.registerHelper('paginate', paginate);
 	var pageGenerator = Handlebars.compile(paginateSrc);
@@ -81,6 +81,7 @@ $('body').on('loaded-list', function () {
 
 				//$(reviewGenerator(response)).appendTo(reviewlist);
 
+				console.log(response)
 
 				response.pagination = {
 					page: response.pageNo,
@@ -91,6 +92,7 @@ $('body').on('loaded-list', function () {
 				$('.pagination-menu').html('');
 				$(pageGenerator(response)).appendTo('.pagination-menu');
 
+				
 
 
 				$('.comment-input-box').hide();
@@ -111,7 +113,18 @@ $('body').on('loaded-list', function () {
 
 
 					$('.reply-submit').off('click').on('click', function (e) {
+						Swal.fire({
+						    title: '잠깐!',
+						    text: "등록하시겠어요?",
+						    type: 'question',
+						    showCancelButton: true,
+						    confirmButtonColor: '#3085d6',
+						    cancelButtonColor: '#d33',
+						    confirmButtonText: '네, 등록하겠습니다!',
+						    cancelButtonText: '아뇨, 다시 한번 볼게요!'
+						  }).then((result) => {
 
+					    if (result.value) {
 						$.ajax({
 							url: '../../app/json/riw/reply',
 							type: 'POST',
@@ -122,7 +135,14 @@ $('body').on('loaded-list', function () {
 							},
 							dataType: 'json',
 							success: function (response) {
-								alert('등록 성공!!');
+								Swal.fire(
+					                    'Success!',
+					                    '성공적으로 등록됐어요.',
+					                    'success'
+					                  ).then(() => {
+					                	  roomreview(1);
+					                   
+					                  })
 								roomreview(1);
 
 							},
@@ -130,6 +150,8 @@ $('body').on('loaded-list', function () {
 								alert('등록 실패!!');
 							}
 						});
+					    }
+				     })
 
 					});
 				});
@@ -154,9 +176,27 @@ $('body').on('loaded-list', function () {
 
 					var a = response.list[i].no;
 					var delete1 = response.list[i].name;
+					var starcount = response.list[i].grd;
+					
+					//console.log($(".review-rating").attr("data-crd"))
 
+					$('#star-'+ a).starRating({
+						totalStars: 5,
+						starShape: 'rounded',
+						emptyColor: 'lightgray',
+						strokeWidth: 0,
+						disableAfterRate: false,
+						readOnly: true,
+						initialRating: starcount,
+						starSize:20
+					});
+					
+					
+					
 					if ($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
+					} else {
+						$('#cont-' + a).hide();						
 					}
 
 					if ($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
@@ -168,9 +208,21 @@ $('body').on('loaded-list', function () {
 				
 				$('.delete1').on('click', function(e) {
 					e.preventDefault();
+					
+					Swal.fire({
+					    title: '잠깐!',
+					    text: "삭제하시겠어요?",
+					    type: 'question',
+					    showCancelButton: true,
+					    confirmButtonColor: '#3085d6',
+					    cancelButtonColor: '#d33',
+					    confirmButtonText: '네, 삭제하겠습니다!',
+					    cancelButtonText: '아뇨, 다시 한번 볼게요!'
+					  }).then((result) => {
 
-
-
+				    if (result.value) {
+				    	
+				    
 					var no = $(this).attr('data-no');    //예약번호
 												
 								      
@@ -182,14 +234,23 @@ $('body').on('loaded-list', function () {
 					        },
 					        dataType: 'json',
 					        success: function(response) {
-					         alert('삭제 성공!!');
-					         roomreview(1);
+					        	Swal.fire(
+					        			  '삭제!',
+					        	          '글이 삭제되었습니다!',
+					        	          'success'
+					        								        			
+					                  ).then(() => {
+					                	  roomreview(1);
+					                   
+					                  })
 					         
 					        },
 					        fail: function(error) {
 					          alert('삭제 실패!!');
 					        }
 					      });
+				         }
+					  })
 					      
 					  
 			    	});
@@ -198,6 +259,18 @@ $('body').on('loaded-list', function () {
 					$('.delete2').on('click', function(e) {
 						e.preventDefault();
 						
+						Swal.fire({
+						    title: '잠깐!',
+						    text: "삭제하시겠어요?",
+						    type: 'question',
+						    showCancelButton: true,
+						    confirmButtonColor: '#3085d6',
+						    cancelButtonColor: '#d33',
+						    confirmButtonText: '네, 삭제하겠습니다!',
+						    cancelButtonText: '아뇨, 다시 한번 볼게요!'
+						  }).then((result) => {
+
+					    if (result.value) {
 						var no = $(this).attr('data-no');    //예약번호
 									      
 						      $.ajax({
@@ -208,15 +281,22 @@ $('body').on('loaded-list', function () {
 						        },
 						        dataType: 'json',
 						        success: function(response) {
-						         alert('삭제 성공!!');
-						         roomreview(1);
+						        	Swal.fire(
+						        	          '삭제!',
+						        	          '글이 삭제되었습니다!',
+						        	          'success'
+						                  ).then(() => {
+						                	  roomreview(1);
+						                   
+						                  })
 						         
 						        },
 						        fail: function(error) {
 						          alert('삭제 실패!!');
 						        }
 						      });
-						      
+					         }
+						  })
 						  
 				    	});
 					
@@ -281,8 +361,13 @@ $('body').on('loaded-list', function () {
 				},
 				dataType: 'json',
 				success: function(response) {
-					alert('등록 성공!!');
-					location.href='view.html?no=' + window.param.split('=')[1];
+					Swal.fire(
+				              'Success!',
+				              '성공적으로 등록됐어요.',
+				              'success'
+				            ).then(() => {
+				          	location.href='view.html?no=' + window.param.split('=')[1];
+				                        })
 					//roomreview(1);
 
 					//  $('#exampleModal').modal("hide");
@@ -785,57 +870,50 @@ $('body').on('loaded-list', function () {
 			buyer_name: buyer_name,
 			buyer_tel: buyer_tel
 		},  function(rsp) {
+			var isVaild = true;
+			var msg;
 			if (rsp.success) {
 				//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-				jQuery.ajax({
+				$.ajax({
 					url: "../../app/json/rev/complete", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
 					type: 'POST',
 					dataType: 'json',
 					data: {
 						imp_uid : rsp.imp_uid
 						//기타 필요한 데이터가 있으면 추가 전달
+					},
+					beforeSend: function() {      // ajax 요청하기전에 실행되는 함수
+						Swal.showLoading();
 					}
 				}).done(function(data) {
-					console.log(data)
 					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 					if (data.status === "success") {
-						var msg = '결제가 완료되었습니다.';
-	
-						Swal.fire({
-							type: 'success',
-							title: msg
-						}).then((result) => {
-							if (result.value) {
-								location.href = '/heunheuntrip/html/member/hostReservation.html';
-								return;
-							}
-						})
+						isVaild = true;
+						msg = '결제가 완료되었습니다.';
 					} else {
 						//[3] 아직 제대로 결제가 되지 않았습니다.
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-						Swal.fire({
-							type: 'error',
-							title: '이미 예약된 방이거나 결제가 이뤄지지 않았습니다.'
-						}).then((result) => {
-							if (result.value) {
-								return;
-							}
-						})
+						isVaild = false;
+						msg = '이미 예약된 방이거나 결제가 이뤄지지 않았습니다.';
 					}
-				});
-			} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '\n에러내용 : ' + rsp.error_msg;
+				}).always(function() {
 					Swal.fire({
-						type: 'error',
+						type: isVaild ? 'success' : 'error',
 						title: msg
 					}).then((result) => {
 						if (result.value) {
+							location.href =  isVaild ? '/heunheuntrip/html/member/list.html' : '';
 							return;
 						}
 					})
+				});
+			} else {
+					var isVaild = false;
+					var msg = '결제에 실패하였습니다.';
+					msg += '\n에러내용 : ' + rsp.error_msg;
 			}
-	})}
+	})
+}
 
 
 	function getUser(cb) {

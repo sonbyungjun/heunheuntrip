@@ -1,39 +1,16 @@
-$.holdReady(true);
-(function($) {
-  $.ajax({
-    url: '/heunheuntrip/app/json/auth/authCheck',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-      
-      if(response.auth == "호스트"){
-        $.holdReady(false);
-      } else {
-        $('#main').html('');
-        Swal.fire({
-          type: 'error',
-          title: "잘못된 접근입니다!",
-          allowOutsideClick: false
-        }).then((result) => {
-          if (result.value) {
-            location.href = '/heunheuntrip/html'
-          }
-        })
-      }
-    },
-    error: function (error) {
-    }
-  })
-})(jQuery);
-
 var form = $('.card-list'),
-    templateSrc = $('#tr-template').html(),
-    trGenerator = Handlebars.compile(templateSrc),
-    paginateSrc = $('#page-template').html(),
-    rating = 0;
- 
+templateSrc = $('#tr-template').html(),
+trGenerator = Handlebars.compile(templateSrc),
+paginateSrc = $('#page-template').html(),
+rating = 0;
+
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
+
+
+
+
+ 
 
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
@@ -42,6 +19,7 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");  
   
   loadProfile();
+  loadList(1);
 })
 
 // 내 숙소에 회원이 등록한 리뷰를 가지고옴
@@ -51,6 +29,8 @@ function loadList(pn) {
     pageNo = obj.pageNo;
     
     form.html('');
+    
+    console.log(obj)
     
     obj.pagination = {
         page: obj.pageNo,
@@ -82,7 +62,7 @@ function loadList(pn) {
 
 
 
-loadList(1);
+
 
 $(document.body).bind('loaded-list', (e) => {
   
@@ -109,14 +89,28 @@ $(document.body).bind('loaded-list', (e) => {
      // modal.find('.modal-title').text('Review');
       modal.find('.modal-body input').val(recipient);
       modal.find('#user-text').html(name + "님의 후기");
-      if(grd >= 3){
-   	  modal.find('.grdic').attr('class','far fa-smile-beam grdic');
+      if(grd < 3){
+   	  modal.find('.grdic').attr('class','fas fa-angry');
+      } else if(grd == 3) {
+      modal.find('.grdic').attr('class','fas fa-grin-beam');
       } else {
-      modal.find('.grdic').attr('class','far fa-angry grdic');
+      modal.find('.grdic').attr('class','fas fa-grin-hearts');  
       }
       modal.find('#message-text').html(content);
       modal.find('#remessage-text').val(reply);
     });
+    
+    $('.review-rating').starRating({
+		totalStars: 5,
+		starShape: 'rounded',
+		emptyColor: 'lightgray',
+		strokeWidth: 0,
+		disableAfterRate: false,
+		readOnly: true,
+		initialRating:grd,
+		starSize:20
+	});
+	
     
 
     $('.update-btn').off('click').on('click', function(e){
@@ -146,4 +140,31 @@ $(document.body).bind('loaded-list', (e) => {
   
 });
 
+$.holdReady(true);
+(function($) {
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/authCheck',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      
+      if(response.auth == "호스트"){
+        $.holdReady(false);
+      } else {
+        $('#main').html('');
+        Swal.fire({
+          type: 'error',
+          title: "잘못된 접근입니다!",
+          allowOutsideClick: false
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html'
+          }
+        })
+      }
+    },
+    error: function (error) {
+    }
+  })
+})(jQuery);
 

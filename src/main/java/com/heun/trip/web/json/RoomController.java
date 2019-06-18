@@ -178,6 +178,7 @@ public class RoomController {
         // 메인사진이 아니면 그냥 저장한다.
         try {
           fileService.uploadImage(f.getInputStream(), f.getSize(), filename);
+          fileService.uploadImageThumbnail(f.getInputStream(), 580, 386, filename + "_veiwthum");
         } catch(Exception e) {
           e.printStackTrace();
         }
@@ -202,6 +203,7 @@ public class RoomController {
   public Object list(
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
+      String a,
       String lati,
       HttpSession session,
       String longi
@@ -209,6 +211,8 @@ public class RoomController {
 
     Member loginUser = (Member)session.getAttribute("loginUser");
 
+    
+   
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
 

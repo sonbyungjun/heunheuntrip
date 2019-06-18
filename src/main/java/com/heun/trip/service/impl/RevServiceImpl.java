@@ -123,7 +123,7 @@ public class RevServiceImpl implements RevService {
   
   @Override
   synchronized public boolean add(Rev rev) {
-    List<String> history = reservationHistory(rev.getNo());
+    List<String> history = reservationHistory(rev.getRmsNo());
     for (String h : history) {
       if (rev.getCheckIn().toString().equals(h)) {
         return false;

@@ -10,7 +10,9 @@ markers = [],
 img = {},
 points = [],
 overlays = [],
-memo = undefined;
+memo = undefined,
+selector = "",
+a=0;
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -67,8 +69,39 @@ $(document).ready(function () {
 
     }, 300)
   })
+  console.log($(".sorting"))
+  console.log($(".selectric-scroll").children().children().find("li"))  //li태그자채를 찾음
+  $(document.body).trigger('loaded-list');
 });
 
+
+
+$(document.body).bind('loaded-list', (e) => { 
+	
+	$(".ui-select:visible").on('change', function() {   //이벤트가 발생한다. 
+	    console.log($(this).val())
+	    window.selector = $(this).val();
+	    
+	    if(selector == "최신순") {
+	    	window.a = 1;
+	    	loadList(1);
+	    } else if (selector == "높은 가격순") {
+	    	window.a = 2;
+	    	loadList(1);
+	    } else if (selector == "낮은 가격순") {
+	    	window.a = 3;
+	    	loadList(1);
+	    } else {
+	    	window.a = 4;
+	    	loadList(1);
+	    }
+	    
+	    
+	  });
+	
+
+
+});
 
 function loadBmark (pn) {
   $.getJSON('../../app/json/bookmark/list',
@@ -111,6 +144,9 @@ function loadList(pn) {
     url: url,
     type: 'GET',
     dataType: 'json',
+    data: {
+        a: window.a
+      },
     success: function (response) {
       
       // 북마크 여부

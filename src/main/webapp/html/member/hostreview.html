@@ -37,7 +37,10 @@
 <script src="../../star/jquery.star-rating-svg.js"></script>
 
 
+
  <style>
+     
+   
      
       h6 {
         text-align: center;
@@ -185,14 +188,14 @@
 
 
             <div class="my-rating"></div>
-            <div class="form-group" style="width: 450px;">
-              <span class="form-control" id="user-text" style="border-style:none;" ></span>
-              <i class="far fa-angry grdic"></i>  <i class="far fa-angry grdic"></i>  <i class="far fa-angry grdic"></i>
-              <span class="form-control" id="message-text" style="border-style:none; margin-bottom:30px; margin-top:0px" ></span>
+            <div class="form-group" style="width: 450px; padding-left:2px;">
+              <i class="far fa-angry grdic" style="margin:0px; float:left; padding-left:3px; padding-top:10px" ></i>
+              <span class="form-control" id="user-text" style="border-style:none; margin-left:10px; padding-bottom:0px" ></span>
+              <div id="star-{{no}}" class="review-rating" data-grd="{{grd}}" ></div>
+              <span class="form-control" id="message-text" style="border-style:none; padding-left:4px;margin-bottom:30px; margin-top:0px" ></span>
             </div>
-              <i class="far fa-edit" ></i>
               <textarea class="form-control" id="remessage-text"
-                        style="border-radius: 10px; width: 450px;" placeholder="리뷰에 답글을 남겨주세요!"></textarea>
+                        style="border-radius: 10px; width: 420px; magin:20px; border-left-width: 5px;" placeholder="리뷰에 답글을 남겨주세요!"></textarea>
           </form>
         </div>
         <div class="modal-footer">
