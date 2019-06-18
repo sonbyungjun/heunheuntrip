@@ -8,6 +8,7 @@ import com.heun.trip.domain.Roomcheckout;
 
 public interface BlogService {
   List<Blog> list(int pageNo, int pageSize);
+  List<Blog> listIndex();
   int size();
   Blog get(int no);
   int checkRev(int no);

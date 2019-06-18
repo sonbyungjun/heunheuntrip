@@ -1,3 +1,31 @@
+$.holdReady(true);
+(function($) {
+  $.ajax({
+    url: '/heunheuntrip/app/json/auth/authCheck',
+    type: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      
+      if(response.auth == "호스트"){
+        $.holdReady(false);
+      } else {
+        $('#main').html('');
+        Swal.fire({
+          type: 'error',
+          title: "잘못된 접근입니다!",
+          allowOutsideClick: false
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html'
+          }
+        })
+      }
+    },
+    error: function (error) {
+    }
+  })
+})(jQuery);
+
 var form = $('.item-listing'),
 templateSrc = $('#tr-template').html(),
 trGenerator = Handlebars.compile(templateSrc),
@@ -120,24 +148,31 @@ function detail(rno){
     },
     dataType: 'json',
     success: function (response) {
-      console.log(response + "555555") 
-      $('.media-heading').text(response.name)
-      $('#room-location').val(response.area)
-      $('#room-address').val(response.address + " " + response.detailAddress)
-      $('#room-price').val(response.price + "원")
-      $('#room-type').val(response.type)
-      $('#room-person').val(response.maxPerson + "명")
-      $('#room-bath').val(response.bath + "개")
-      $('#room-bed').val(response.bed + "개")
-      $('#room-content').val(response.content)
+      //$('.media-heading').text(response.name)
+      $('.room-photo').attr('src', "/heunheuntrip/app/json/images/down/" + response.thumbnail);
+      $('.room-name').html(response.name)
+      $('.room-area').html("<i class='fas fa-subway'></i>  " + response.area)
+      $('.room-address').html("<i class='fas fa-map-marker-alt'></i>  "+response.address + " " + response.detailAddress)
+      $('.room-price').html("<i class='fas fa-won-sign'></i>  "+response.price + "원")
+      $('.room-type').html("<i class='fas fa-home'></i>  " +response.type )
+      $('.room-maxperson').html("<i class='fas fa-user'></i> " + "최대" +response.maxPerson + "명")
+      $('.room-bath').html("<i class='fas fa-bath'></i> "+ response.bath + "개")
+      $('.room-bed').html("<i class=' fa fa-bed'></i> "+response.bed + "개")
       
       
-      $('.media-left').html('')
-      $("<img class='media-room'>").attr('src',
-          '/heunheuntrip/app/json/images/down/' + response.thumbnail)
-          .css('width', '50px')
-          .css('height', '50px')
-          .appendTo($('.media-left'));
+      $('#room-details').html("숙소   "+response.details)
+      $('#room-reservation').html("예약가능 여부   " + response.reservation)
+      $('#room-welcome').html("숙소 주변 볼거리 먹거리   " + response.welcome)
+      $('#room-traffic').html("교통편   " + response.traffic)
+      $('#room-content').html(response.content)
+      
+      
+//      $('.media-left').html('')
+//      $("<img class='media-room'>").attr('src',
+//          '/heunheuntrip/app/json/images/down/' + response.thumbnail)
+//          .css('width', '50px')
+//          .css('height', '50px')
+//          .appendTo($('.media-left'));
       
       
     },

@@ -166,74 +166,64 @@
     </nav>
   </script>
   <!-- Lead Form Modal -->
-<div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="media">
-          <div class="media-left"></div>
-          <div class="media-body">
-            <h4 class="media-heading"></h4>
+  <div class="modal fade  item-badge-rightm" id="leadform" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="media">
+            <div class="media-left"></div>
+            <div class="media-body">
+
+              <div class="row no-gutters">
+                <div class='col'>
+                  <img class="media-object room-photo" src="" width="120" height="120" alt=""
+                    style="margin-top: 10px; border-radius: 7px;">
+                </div>
+                <div class="col-10 col-sm-5 col-md-7 modal-p-magin" style="margin-left: 10px">
+                  <h5 class="room-name" style="font-weight: bold; color: #4682b4"></h5>
+                  <p class="room-area"></p>
+                  <p class="room-address"></p>
+                  <p class="room-price" style="margin-top: 3px; margin-right: 0px; width: 100px;"></p>
+                </div>
+                <span class="room-type"></span> 
+                <span class="room-maxperson"></span>
+                <span class="room-bed"></span>
+                <span class="room-bath"></span>
+                <div class="form-group green-border-focus">
+                  <h5 style="font-weight: bold; color: #4682b4">숙소 설명</h5>
+                  <textarea id='room-content' rows="4" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 style="font-weight: bold; color: #4682b4">숙소예약가능여부</h5>
+                  <textarea id='room-reservation' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 style="font-weight: bold; color: #4682b4">여부숙소</h5>
+                  <textarea id='room-details' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 style="font-weight: bold; color: #4682b4">주변 볼거리,먹거리</h5>
+                  <textarea id='room-welcome' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
+                </div>
+                <div class="form-group green-border-focus">
+                  <h5 style="font-weight: bold; color: #4682b4">교통편</h5>
+                  <textarea id='room-traffic' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
+                </div>
+              </div>
             </div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label>지역명</label>
-            <input id="room-location"type="text" class="form-control" readonly>
-          </div>
-          <div class="form-group">
-            <label>주소</label>
-            <input id="room-address"type="text" class="form-control" readonly>
-          </div>
-          <div class="form-group">
-            <label>숙소 금액</label>
-            <input id="room-price" type="text" class="form-control" readonly>
-          </div>
-          
-           <div class="form-group row">
-           
-           <div class="col">
-            <label>객실 종류</label>
-            <input id="room-type" type="text" class="form-control" readonly>
-            </div>
-            
-            <div class="col">
-            <label>숙박 최대 인원</label>
-            <input id="room-person" type="text" class="form-control" readonly>
-            </div>
-            
-          </div>
-          
-            <div class="form-group row">
-           <div class="col">
-            <label>욕실</label>
-            <input id="room-bath" type="text" class="form-control" readonly>
-            </div>
-            
-            <div class="col">
-            <label>침대</label>
-            <input id="room-bed" type="text" class="form-control" readonly>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label>숙소 설명</label>
-            <textarea id='room-content'rows="4" class="form-control" placeholder="" readonly></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-  
-  
-   <script src='common_profile.js'></script>
+
+  <script src='common_profile.js'></script>
   <script src='hostlist.js'></script>
   
 </body>
