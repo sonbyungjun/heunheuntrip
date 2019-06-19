@@ -132,6 +132,20 @@ public class RoomServiceImpl implements RoomService {
     
     return 1;
   }
+
+  @Override
+  public int cecoRoomsize(int no) {
+    return roomDao.cecoRoomCountAll(no);
+  }
+
+  @Override
+  public List<Room> cecoRoomlist(int pageNo, int pageSize,int no) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("no", no);
+    params.put("size",pageSize );
+    params.put("rowNo",(pageNo -1) * pageSize );
+    return roomDao.findByCecoRoomList(params);
+  }
   
   
 }

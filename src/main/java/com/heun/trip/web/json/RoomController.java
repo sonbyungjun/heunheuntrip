@@ -278,6 +278,32 @@ public class RoomController {
     return contents;
   }
   
+  @GetMapping("managerroom")
+  public Object managerRoom(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="4") int pageSize,
+      int no) {
+    HashMap<String, Object> contents = new HashMap<>();
+    if (pageSize < 1 || pageSize > 5) 
+      pageSize = 4;
+
+      int rowCount = roomSerive.cecoRoomsize(no);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Room> list = roomSerive.cecoRoomlist(pageNo, pageSize,no);
+      contents.put("list", list);
+      contents.put("pageNo", pageNo);
+      contents.put("pageSize", pageSize);
+      contents.put("totalPage", totalPage);
+    
+    return contents;
+  }
+  
   
   
   @GetMapping("delete")

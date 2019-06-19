@@ -18,10 +18,12 @@ public interface RoomDao {
   List<Room> findAll(Map<String,Object> paramMap);
   Room findByNo(int no);
   List<Room> findByHostRoomList(Map<String,Object> paramMap);
+  List<Room> findByCecoRoomList(Map<String,Object> paramMap);
 //  Member findByEmailPassword(Map<String,Object> paramMap);
 //  int update(Member member);
 //  int delete(int no);
   int countAll(Map<String,Object> paramMap); 
   int hostcountAll(int no); 
+  int cecoRoomCountAll(int no);
   String getRoomName(int no);
 } 
