@@ -46,6 +46,7 @@ $(document).ready(function () {
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {
 	  
+    if(obj.status === "success"){
     pageNo = obj.pageNo;
     
     form.html('');
@@ -68,7 +69,18 @@ function loadList(pn) {
     		$('#no-reply-' + a).hide();
     	}
     }
-    
+    } else if (obj.status === "fail"){
+      
+      form.html("<div class='row justify-content-md-center'>" +
+          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+               "<h5 class='main-title centered'><span>리뷰 목록이 없습니다.</span></h5>" +
+                   "<div class='main-title-description'> 다녀간 숙소에 리뷰를 남겨보세요! </div>" +
+                 "</div>" +
+               "</div>" +
+             "</div>");
+      
+    }
     $(document.body).trigger('loaded-list');
     
   }); 

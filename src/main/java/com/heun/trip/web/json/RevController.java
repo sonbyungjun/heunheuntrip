@@ -222,7 +222,7 @@ public class RevController {
       ) { 
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
-
+    try {
     int userNo = member.getNo();
 
     if (pageSize < 1 || pageSize > 6) 
@@ -238,16 +238,15 @@ public class RevController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
 
-
-    try {
       List<Rev> reservation = revService.listInHostPage(pageNo, pageSize, userNo);
 
       content.put("list", reservation);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
     } catch (Exception e) {
-      content.put("fail", "예약 목록이 없습니다.");
+      content.put("status", "fail");
     }
 
     return content;
@@ -284,23 +283,23 @@ public class RevController {
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
 
-    int userNo = member.getNo();
-
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
-
-    int rowCount = revService.size(userNo);
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-
     try {
+
+      int userNo = member.getNo();
+
+      if (pageSize < 1 || pageSize > 6) 
+        pageSize = 5;
+
+      int rowCount = revService.size(userNo);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+
       List<Rev> reservation = revService.getupdtData(pageNo, pageSize, userNo);
 
       System.out.println(reservation);
@@ -320,11 +319,12 @@ public class RevController {
       }
 
       content.put("list", reservation);
+      content.put("status", "success");
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     } catch (Exception e) {
-      content.put("fail", "예약 목록이 없습니다.");
+      content.put("status", "fail");
     }
 
     return content;

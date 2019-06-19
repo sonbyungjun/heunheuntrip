@@ -53,35 +53,45 @@ function loadList(pn) {
   
   $.getJSON('../../app/json/rev/listInHostPage?pageNo=' + pn, function(obj) {
     
-    
-    for(l of obj.list){
-      if(l.revDelete === 1){
-        l.revDelete = true;
-      } else {
-        l.revDelete = false;
+    if(obj.status === "success"){
+      for(l of obj.list){
+        if(l.revDelete === 1){
+          l.revDelete = true;
+        } else {
+          l.revDelete = false;
+        }
+        
+        if(l.revUpdate !== 0){
+          l.update = true;
+        } else {
+          l.update = false;
+        }
       }
+      console.log(obj.list);
       
-      if(l.revUpdate !== 0){
-        l.update = true;
-      } else {
-        l.update = false;
-      }
+      pageNo = obj.pageNo;
+      
+      form.html('');
+      
+      obj.pagination = {
+          page: obj.pageNo,
+          pageCount: obj.totalPage
+      };
+      
+      $(trGenerator(obj)).appendTo(form);
+      
+      $('.pagination-menu').html('');
+      $(pageGenerator(obj)).appendTo('.pagination-menu');
+    } else if (obj.status === "fail"){
+      
+      form.html("<div class='row justify-content-md-center'>" +
+          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+               "<h5 class='main-title centered'><span>예약된 목록이 없습니다.</span></h5>" +
+                 "</div>" +
+               "</div>" +
+             "</div>");
     }
-    console.log(obj.list);
-    
-    pageNo = obj.pageNo;
-    
-    form.html('');
-    
-    obj.pagination = {
-        page: obj.pageNo,
-        pageCount: obj.totalPage
-    };
-    
-    $(trGenerator(obj)).appendTo(form);
-    
-    $('.pagination-menu').html('');
-    $(pageGenerator(obj)).appendTo('.pagination-menu');
   
     $(document.body).trigger('loaded-list');
  
