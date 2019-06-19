@@ -299,9 +299,6 @@ public class RoomController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="2") int pageSize,
       HttpSession session, int no) {
-    System.out.println(pageNo);
-    System.out.println(pageSize);
-    System.out.println(no + "------------------------------");
     
     HashMap<String,Object> content = new HashMap<>();
 
@@ -319,11 +316,9 @@ public class RoomController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
    
     Member member = (Member)session.getAttribute("loginUser");
     String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
-   
    
     List<Riw> list = riwService.roomreview(no, pageNo, pageSize);
     System.out.println(list);
@@ -345,12 +340,8 @@ public class RoomController {
   @PostMapping("addriw")
   public Object update(Riw riw, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
-
     Member member = (Member)session.getAttribute("loginUser");
-    
     riw.setUserNo(member.getNo());
-    
-    
     try {
       if (riwService.addriw(riw) == 0) 
         throw new RuntimeException("해당 번호의 게시물이 없습니다.");

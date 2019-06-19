@@ -286,6 +286,24 @@
       #{impUid})
   </insert>
   
+  <update id="checkin" parameterType="string">
+    update
+      rev
+    set
+      stus_id = 2
+    where
+      cck_in = #{value}
+  </update>
+  
+  <update id="checkout" parameterType="string">
+    update
+      rev
+    set
+      stus_id = 3
+    where
+      cck_out = #{value}
+  </update>
+  
 </mapper>
 
 
