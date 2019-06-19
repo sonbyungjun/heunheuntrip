@@ -281,6 +281,7 @@ public class RoomController {
       @RequestParam(defaultValue="4") int pageSize,
       int no) {
     HashMap<String, Object> contents = new HashMap<>();
+    
     if (pageSize < 1 || pageSize > 5) 
       pageSize = 4;
 
@@ -292,13 +293,65 @@ public class RoomController {
         pageNo = 1;
       else if (pageNo > totalPage)
         pageNo = totalPage;
+      
+      
       List<Room> list = roomSerive.hostroomlist(pageNo, pageSize,no);
+
+      if(list.size() != 0) {
+        
+        contents.put("list", list);
+        contents.put("pageNo", pageNo);
+        contents.put("pageSize", pageSize);
+        contents.put("totalPage", totalPage);
+        contents.put("status", "success");
+        
+      } else {
+        contents.put("status", "fail");
+      }
+      
+    
+    return contents;
+  }
+  
+  @GetMapping("managerroom")
+  public Object managerRoom(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="4") int pageSize,
+      int no) {
+    HashMap<String, Object> contents = new HashMap<>();
+    if (pageSize < 1 || pageSize > 5) 
+      pageSize = 4;
+
+      int rowCount = roomSerive.cecoRoomsize(no);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Room> list = roomSerive.cecoRoomlist(pageNo, pageSize,no);
       contents.put("list", list);
       contents.put("pageNo", pageNo);
       contents.put("pageSize", pageSize);
       contents.put("totalPage", totalPage);
     
     return contents;
+  }
+  
+  @PostMapping("cecoupdate")
+  public Object cecoUpdate(int no, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    try {
+        roomSerive.cecoRoomUpdate(no);
+        content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
   
   
@@ -322,9 +375,6 @@ public class RoomController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="2") int pageSize,
       HttpSession session, int no) {
-    System.out.println(pageNo);
-    System.out.println(pageSize);
-    System.out.println(no + "------------------------------");
     
     HashMap<String,Object> content = new HashMap<>();
 
@@ -342,11 +392,9 @@ public class RoomController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
    
     Member member = (Member)session.getAttribute("loginUser");
     String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
-   
    
     List<Riw> list = riwService.roomreview(no, pageNo, pageSize);
     System.out.println(list);
@@ -368,12 +416,8 @@ public class RoomController {
   @PostMapping("addriw")
   public Object update(Riw riw, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
-
     Member member = (Member)session.getAttribute("loginUser");
-    
     riw.setUserNo(member.getNo());
-    
-    
     try {
       if (riwService.addriw(riw) == 0) 
         throw new RuntimeException("해당 번호의 게시물이 없습니다.");

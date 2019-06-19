@@ -86,9 +86,10 @@ public class RiwController {
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
 
     } catch (Exception e) {
-
+      content.put("status", "fail");
     }
 
     return content;
@@ -103,32 +104,33 @@ public class RiwController {
 
     Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
-    
+
     try {
       int userNo = member.getNo();
-      
+
       if (pageSize < 1 || pageSize > 6) 
         pageSize = 5;
-      
+
       int rowCount = riwService.size(userNo);
       int totalPage = rowCount / pageSize;
       if (rowCount % pageSize > 0)
         totalPage++;
-      
+
       if (pageNo < 1) 
         pageNo = 1;
       else if (pageNo > totalPage)
         pageNo = totalPage;
-      
+
       List<Riw> list = riwService.listMypage(pageNo, pageSize, userNo);
 
       content.put("list", list);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
-      
+      content.put("status", "success");
+
     } catch (Exception e) {
-      
+      content.put("status", "fail");
     }
 
     return content;
@@ -142,33 +144,40 @@ public class RiwController {
       ) { // localhost:8080/heunheuntrip/app/json/riw/listhostMypage
 
     Member member = (Member)session.getAttribute("loginUser");
-    int userNo = member.getNo();
-    String uname = member.getName();
-
-    // 유저 번호로 방번호를 알아온다.     
-
-    if (pageSize < 1 || pageSize > 6) 
-      pageSize = 5;
-
-    int rowCount = riwService.countAllHost(userNo);
-    System.out.println(rowCount + "--------------------------------------------------------------------------------");
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-    List<Riw> list = riwService.hostlistMypage(pageNo, pageSize, userNo);
-
     HashMap<String,Object> content = new HashMap<>();
-    content.put("list", list);
-    content.put("uname", uname);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
+
+    try {
+      int userNo = member.getNo();
+      String uname = member.getName();
+
+      // 유저 번호로 방번호를 알아온다.     
+
+      if (pageSize < 1 || pageSize > 6) 
+        pageSize = 5;
+
+      int rowCount = riwService.countAllHost(userNo);
+      System.out.println(rowCount + "--------------------------------------------------------------------------------");
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+
+      List<Riw> list = riwService.hostlistMypage(pageNo, pageSize, userNo);
+
+      content.put("list", list);
+      content.put("uname", uname);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+      content.put("status", "success");
+
+    } catch (Exception e) {
+      content.put("status", "fail");
+    }
 
     return content;
   }
@@ -186,8 +195,8 @@ public class RiwController {
     }
     return content;
   }
-  
-  
+
+
   @PostMapping("replydelete")
   public Object replydelete(int no) {
     HashMap<String,Object> content = new HashMap<>();
@@ -200,7 +209,7 @@ public class RiwController {
     }
     return content;
   }
-  
+
 
   @GetMapping("detail")
   public Object detail(int no) {
@@ -248,16 +257,16 @@ public class RiwController {
     }
     return content;
   }
-  
-  
+
+
   @PostMapping("countAllHost")
   public Object countAllHost(int no) {
     HashMap<String,Object> content = new HashMap<>();
 
     try {
-      
+
       int riwNo = riwService.countAllHost(no);
-      
+
       System.out.println("리뷰수=----->" + riwNo);
 
       content.put("riwNo", riwNo);

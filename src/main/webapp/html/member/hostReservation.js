@@ -53,35 +53,45 @@ function loadList(pn) {
   
   $.getJSON('../../app/json/rev/listInHostPage?pageNo=' + pn, function(obj) {
     
-    
-    for(l of obj.list){
-      if(l.revDelete === 1){
-        l.revDelete = true;
-      } else {
-        l.revDelete = false;
+    if(obj.status === "success"){
+      for(l of obj.list){
+        if(l.revDelete === 1){
+          l.revDelete = true;
+        } else {
+          l.revDelete = false;
+        }
+        
+        if(l.revUpdate !== 0){
+          l.update = true;
+        } else {
+          l.update = false;
+        }
       }
+      console.log(obj.list);
       
-      if(l.revUpdate !== 0){
-        l.update = true;
-      } else {
-        l.update = false;
-      }
+      pageNo = obj.pageNo;
+      
+      form.html('');
+      
+      obj.pagination = {
+          page: obj.pageNo,
+          pageCount: obj.totalPage
+      };
+      
+      $(trGenerator(obj)).appendTo(form);
+      
+      $('.pagination-menu').html('');
+      $(pageGenerator(obj)).appendTo('.pagination-menu');
+    } else if (obj.status === "fail"){
+      
+      form.html("<div class='row justify-content-md-center'>" +
+          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+               "<h5 class='main-title centered'><span>예약된 목록이 없습니다.</span></h5>" +
+                 "</div>" +
+               "</div>" +
+             "</div>");
     }
-    console.log(obj.list);
-    
-    pageNo = obj.pageNo;
-    
-    form.html('');
-    
-    obj.pagination = {
-        page: obj.pageNo,
-        pageCount: obj.totalPage
-    };
-    
-    $(trGenerator(obj)).appendTo(form);
-    
-    $('.pagination-menu').html('');
-    $(pageGenerator(obj)).appendTo('.pagination-menu');
   
     $(document.body).trigger('loaded-list');
  
@@ -93,26 +103,37 @@ $(document.body).bind('loaded-list', (e) => {
   
   $('.modal-close').on('hidden', function() { $(this).empty(); });
   
+
   var now = moment().format('YYYY-MM-DD');
 
-  $('#main-calendar').dateRangePicker({
+  $('#main-data').dateRangePicker({
     format: 'YYYY-MM-DD',
+    autoClose: true,
     inline: true,
-    startDate: now,
-    container: '#main-calendar',
-    alwaysOpen: true,
-    separator: ' ~ ',
+    startDate : now,
+    container: '#main-calendar', 
     language: 'ko',
+    separator : ' ~ ',
     selectForward: true,
+    showShortcuts: true,
     customShortcuts: [
       {
         name: '날짜 지우기',
         dates : function() {
         }
       }
-      ]
+      ],
+      getValue: function() {
+        if ($('.heun-h1').val() && $('.heun-h2').val()) 
+          return $('.heun-h1').val() + ' ~ ' + $('.heun-h2').val();
+        else 
+          return '';
+      },
+      setValue: function(s, s1, s2) {
+        $('.heun-h1').val(s1);
+        $('.heun-h2').val(s2);
+      }
   }).bind('datepicker-change',function(event,obj) {
-    
   });
   
   function AddComma(data_value) {
@@ -131,12 +152,11 @@ $(document.body).bind('loaded-list', (e) => {
       $('.heun-modal-roomName').html(obj.rev.rmsName);
       $('.heun-modal-addr').html("<i class='fas fa-map-marker-alt'></i>      " + obj.rev.address);
       $('.heun-modal-charge').html("<i class='fas fa-won-sign'></i>      " + AddComma(obj.rev.revCharge));
-      $('.heun-modal-checkin').text("      " + obj.rev.checkIn);
-      $('.heun-modal-checkout').text(obj.rev.checkOut);
+      $('.heun-h1').val(obj.rev.checkIn);
+      $('.heun-h2').val(obj.rev.checkOut);
       $('.heun-modal-person').text("    게스트 " + obj.rev.revPerson + "명");
       $('.heun-modal-name').text(obj.rev.guestName + "님의 예약");
       
-      $('#main-calendar').data('dateRangePicker').setDateRange($('.heun-modal-checkin').text(), $('.heun-modal-checkout').text());
     }); 
     
   })

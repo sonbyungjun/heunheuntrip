@@ -125,6 +125,16 @@
       rms_id=#{no}
   </update>
   
+  <update id="cecoUpdate" parameterType='map'>
+    update rms
+      <set>
+        activation = #{acti}
+      </set>
+    where
+      rms_id = #{no}
+        
+  </update>
+  
   <insert id="insertConvenience" parameterType="list">
     INSERT INTO rms_amn(
       amn_id, 
@@ -383,8 +393,30 @@
     </if>
   </select>
   
+    <select id="findByCecoRoomList" resultMap="roomMap" parameterType="map">
+    select
+      usr_id,
+      rms_id,
+      area,
+      cont,
+      thum,
+      rm_chge,
+      rm_name,
+      max_ple
+    from
+      rms
+    where
+      activation=#{no}
+      <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
   <select id="hostcountAll" resultType="int" parameterType="int">
     select count(*) from rms where usr_id=#{no}
+  </select>
+  <select id="cecoRoomCountAll" resultType="int" parameterType="int">
+    select count(*) from rms where activation=#{no}
   </select>
   
   

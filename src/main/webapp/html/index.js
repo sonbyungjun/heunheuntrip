@@ -53,10 +53,10 @@ $(document.body).bind('loaded-list', () => {
       el: '.swiper-pagination',
       clickable: true,
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+//    navigation: {
+//      nextEl: '.swiper-button-next',
+//      prevEl: '.swiper-button-prev',
+//    },
   });
   
   $('.blog-detail').off('click').on('click', function(e){

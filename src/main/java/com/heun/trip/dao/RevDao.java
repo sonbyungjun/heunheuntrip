@@ -19,6 +19,8 @@ public interface RevDao {
   int changeRev(int no); 
   List<Rev> findByRoomReservationHistory(int no);
   int add(Rev rev);
+  int checkin(String date);
+  int checkout(String date);
 }
  
 
