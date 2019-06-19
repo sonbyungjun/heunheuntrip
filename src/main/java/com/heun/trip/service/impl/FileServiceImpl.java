@@ -6,8 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.imageio.ImageIO;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
@@ -119,7 +119,7 @@ public class FileServiceImpl implements FileService {
   }
   
   @Override
-  public List<String> fileList() {
+  public Set<String> fileList() {
     Region region = Region.AP_NORTHEAST_2;
     S3Client s3 = S3Client.builder().region(region).build();
     ListObjectsV2Request listReq = ListObjectsV2Request.builder()
@@ -127,7 +127,7 @@ public class FileServiceImpl implements FileService {
         .maxKeys(1)
         .build();
     ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
-    List<String> list = new ArrayList<>();
+    Set<String> list = new HashSet<>();
     for (S3Object content : listRes.contents()) {
       list.add(content.key());
     }
