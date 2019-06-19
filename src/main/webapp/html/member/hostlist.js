@@ -52,6 +52,7 @@ $(document).on('load',function() {
 })
 "use strict"
 function Loadroomlist(pn) {
+  
   $.ajax({
     url: '../../app/json/room/hostroom?pageNo=' + pn,
     type: 'GET',
@@ -60,27 +61,45 @@ function Loadroomlist(pn) {
     },
     dataType: 'json',
     success: function (response) {
-      pageNo = response.pageNo;
-      form.html('');
-      for (l of response.list) {
 
-        if (l.state === "0") {
-          l.state = true;
-        } else if (l.state === "1") {
-          l.state = false;
-        } else {
-          l.state = false;
-          l.restate = true;
+      console.log(response.status)
+      
+      if(response.status === "success"){
+        
+        pageNo = response.pageNo;
+        form.html('');
+        for (l of response.list) {
+          
+          if (l.state === "0") {
+            l.state = true;
+          } else if (l.state === "1") {
+            l.state = false;
+          } else {
+            l.state = false;
+            l.restate = true;
+          }
         }
+        
+        response.pagination = {
+            page: response.pageNo,
+            pageCount: response.totalPage
+        };
+        $(trGenerator(response)).appendTo(form);
+        $('.pagination-menu').html('');
+        $(pageGenerator(response)).appendTo('.pagination-menu');
+        
+      } else if (response.status === "fail"){
+        
+        form.html("<div class='row justify-content-md-center'>" +
+            "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+               "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+                 "<h5 class='main-title centered'><span>등록한 숙소가 없습니다.</span></h5>" +
+                     "<div class='main-title-description'> 흔흔여행에 숙소를 등록해보세요! </div>" +
+                   "</div>" +
+                 "</div>" +
+               "</div>");
       }
-
-      response.pagination = {
-          page: response.pageNo,
-          pageCount: response.totalPage
-      };
-      $(trGenerator(response)).appendTo(form);
-      $('.pagination-menu').html('');
-      $(pageGenerator(response)).appendTo('.pagination-menu');
+      
       $(document.body).trigger('loaded-list');
     },
   });

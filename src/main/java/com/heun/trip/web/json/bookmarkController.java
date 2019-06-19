@@ -54,11 +54,12 @@ public class bookmarkController {
       List<Bookmark> list = bookmarkService.list(pageNo, pageSize, userNo);
 
       content.put("list", list);
+      content.put("status", "success");
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     } catch (Exception e) {
-      content.put("fail", "찜 목록이 없습니다.");
+      content.put("status", "fail");
     }
     return content;
   }

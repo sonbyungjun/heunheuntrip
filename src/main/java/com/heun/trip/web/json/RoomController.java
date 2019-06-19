@@ -258,6 +258,7 @@ public class RoomController {
       @RequestParam(defaultValue="4") int pageSize,
       int no) {
     HashMap<String, Object> contents = new HashMap<>();
+    
     if (pageSize < 1 || pageSize > 5) 
       pageSize = 4;
 
@@ -269,11 +270,22 @@ public class RoomController {
         pageNo = 1;
       else if (pageNo > totalPage)
         pageNo = totalPage;
+      
+      
       List<Room> list = roomSerive.hostroomlist(pageNo, pageSize,no);
-      contents.put("list", list);
-      contents.put("pageNo", pageNo);
-      contents.put("pageSize", pageSize);
-      contents.put("totalPage", totalPage);
+
+      if(list.size() != 0) {
+        
+        contents.put("list", list);
+        contents.put("pageNo", pageNo);
+        contents.put("pageSize", pageSize);
+        contents.put("totalPage", totalPage);
+        contents.put("status", "success");
+        
+      } else {
+        contents.put("status", "fail");
+      }
+      
     
     return contents;
   }

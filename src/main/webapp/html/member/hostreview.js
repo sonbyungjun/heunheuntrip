@@ -6,10 +6,6 @@ rating = 0;
 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
-
-
-
-
  
 
 $(document).ready(function () {
@@ -26,34 +22,47 @@ $(document).ready(function () {
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listhostMypage?pageNo=' + pn, function(obj) {
     
-    pageNo = obj.pageNo;
-    
-    form.html('');
-    
-    console.log(obj)
-    
-    obj.pagination = {
+    if(obj.status === "success"){
+      pageNo = obj.pageNo;
+      
+      form.html('');
+      
+      console.log(obj)
+      
+      obj.pagination = {
         page: obj.pageNo,
         pageCount: obj.totalPage
-    };
-    
-    $(trGenerator(obj)).appendTo(form);
-    
-    $('.pagination-menu').html('');
-    $(pageGenerator(obj)).appendTo('.pagination-menu');
-    
-    console.log(obj)
-    //핸들바스에서 reply가 빈문자열이 아닌 놈을 찾아서 버튼을 없앰
-    for(var i = 0; i < obj.list.length; i++) {
+      };
+      
+      $(trGenerator(obj)).appendTo(form);
+      
+      $('.pagination-menu').html('');
+      $(pageGenerator(obj)).appendTo('.pagination-menu');
+      
+      console.log(obj)
+      //핸들바스에서 reply가 빈문자열이 아닌 놈을 찾아서 버튼을 없앰
+      for(var i = 0; i < obj.list.length; i++) {
 //    console.log(obj.list[i].no);
-    
-    var a = obj.list[i].no;
-    	
-
-    	if($('#aaa-' + a).attr('data-reply') != '') {
-    		$('#no-reply-' + a).hide();
-    	}
+        
+        var a = obj.list[i].no;
+        
+        
+        if($('#aaa-' + a).attr('data-reply') != '') {
+          $('#no-reply-' + a).hide();
+        }
+      }
+    } else if (obj.status === "fail"){
+      
+      form.html("<div class='row justify-content-md-center'>" +
+          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+               "<h5 class='main-title centered'><span> 작성한 리뷰가 없습니다.</span></h5>" +
+                 "<div class='main-title-description'> 게스트의 리뷰에 답글을 달아보세요! </div>" +
+                 "</div>" +
+               "</div>" +
+             "</div>");
     }
+    
   
     $(document.body).trigger('loaded-list');
  
@@ -88,13 +97,13 @@ $(document.body).bind('loaded-list', (e) => {
       var modal = $(this)
      // modal.find('.modal-title').text('Review');
       modal.find('.modal-body input').val(recipient);
-      modal.find('#user-text').html(name + "님의 후기");
+      modal.find('#user-text').text(name + "님의 후기");
       if(grd < 3){
-   	  modal.find('.grdic').attr('class','fas fa-angry');
+   	  modal.find('.grdic').attr('class','fa fa-angry fa-lg');
       } else if(grd == 3) {
-      modal.find('.grdic').attr('class','fas fa-grin-beam');
+      modal.find('.grdic').attr('class','fa fa-grin-beam fa-lg');
       } else {
-      modal.find('.grdic').attr('class','fas fa-grin-hearts');  
+      modal.find('.grdic').attr('class','fa fa-grin-hearts fa-lg');  
       }
       modal.find('#message-text').html(content);
       modal.find('#remessage-text').val(reply);
@@ -134,6 +143,32 @@ $(document.body).bind('loaded-list', (e) => {
       });
       
     });
+    
+      $( "#remessage-text" ).keydown(function(key){
+        
+        if(key.keyCode == 13) {
+          
+          $.ajax({
+            url: '../../app/json/riw/reply',
+            type: 'POST',
+            data: {
+              no: no,
+              userNo : userNo,
+              reply: $('#remessage-text').val()
+            },
+            dataType: 'json',
+            success: function(response) {
+              loadList(pn);
+              $('#exampleModal').modal("hide");
+            },
+            fail: function(error) {
+              alert('등록 실패!!');
+            }
+          });
+          
+        }
+        
+      });
     
     
   })
