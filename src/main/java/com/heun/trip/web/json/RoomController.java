@@ -317,12 +317,13 @@ public class RoomController {
   }
   
   @PostMapping("cecoupdate")
-  public Object cecoUpdate(int no, HttpSession session) {
+  public Object cecoUpdate(int no,
+      @RequestParam(defaultValue="") String msg,
+      HttpSession session) {
 
     HashMap<String,Object> content = new HashMap<>();
-
     try {
-        roomSerive.cecoRoomUpdate(no);
+        roomSerive.cecoRoomUpdate(no, msg);
         content.put("status", "success");
     }catch (Exception e){
       content.put("status", "fail");
