@@ -1,7 +1,7 @@
 var form = $('.swiper-wrapper'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc);
-
+ 
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function() {
     $(".heun-search-form").hide();

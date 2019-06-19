@@ -5,7 +5,7 @@ $.holdReady(true);
     type: 'GET',
     dataType: 'json',
     success: function (response) {
-      
+       
       if(response.auth == "호스트"){
         $.holdReady(false);
       } else {
@@ -45,6 +45,8 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
   $(document.body).trigger('loaded-list');
   loadProfile();
+ 
+  
 }) 
 
 $(document).on('load',function() {
@@ -148,6 +150,13 @@ $(document.body).bind('loaded-list', () => {
 
   })
 });
+
+$(document.body).bind('loaded-list', (e) => {
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+})
+
 $(document.body).bind('loaded-list', (e) => {
   $('.roomcontent').on('click', function () {
 

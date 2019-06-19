@@ -18,7 +18,6 @@ import com.heun.trip.service.FaqService;
 public class FaqController {
 
   FaqService faqService;
-
   public FaqController(FaqService faqService) {
     this.faqService = faqService;
   }
@@ -27,17 +26,16 @@ public class FaqController {
    public Object add(Faq faq,
        HttpSession session) {
    HashMap<String,Object> content = new HashMap<>();
-   Member loginUser = (Member) session.getAttribute("loginUser");
-    System.out.println(loginUser.toString());
-   if(loginUser.getAuth().equals("일반회원") || loginUser.getAuth().equals("호스트")) {
-     content.put("status", "fail");
+  // Member loginUser = (Member) session.getAttribute("loginUser");
+//   if(loginUser.getAuth().equals("일반회원") || loginUser.getAuth().equals("호스트")) {
      
-   }else {
+//   }else {
+//   }
+   try {
      faqService.add(faq);
      content.put("status", "success");
-   }
-   try {
    } catch (Exception e) {
+     content.put("status", "fail");
    content.put("message", e.getMessage());
    }
    return content;
@@ -45,8 +43,8 @@ public class FaqController {
 
   @GetMapping("list")
   public Object list(@RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "10") int pageSize) { // localhost:8080/heunheuntrip/app/json/qna/list
-
+      @RequestParam(defaultValue = "10") int pageSize,HttpSession session) { // localhost:8080/heunheuntrip/app/json/qna/list
+    Member loginUser = (Member) session.getAttribute("loginUser");
     if (pageSize < 7 || pageSize > 8)
       pageSize = 7;
 
@@ -67,6 +65,7 @@ public class FaqController {
     List<Faq> allqnas = faqService.list(pageNo, pageSize);
 
     HashMap<String, Object> content = new HashMap<>();
+    content.put("member", loginUser);
     content.put("list", allqnas);
     content.put("pageNo", pageNo);
     content.put("pageSize", pageSize);
@@ -76,9 +75,15 @@ public class FaqController {
   }
   
   @GetMapping("delete")
-  public Object delete(int no) {
+  public Object delete(int no,HttpSession session) {
+    
+    Member loginUser = (Member) session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
     try {
+      if(loginUser == null || !loginUser.getAuth().equals("관리자")) {
+        throw new Exception("로그인이 되지 않았거나 관리자가 아닙니다.");
+       }
+    
       faqService.delete(no);
      content.put("status", "success");
     }catch (Exception e){
