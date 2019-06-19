@@ -75,6 +75,7 @@
   
   </resultMap>
   
+  
   <insert id="insert" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
     INSERT INTO rms(
       usr_id, area, type, bed, bath, cont, dets, reva, come, 
@@ -84,6 +85,19 @@
       #{welcome}, #{traffic}, #{name}, #{price}, #{maxPerson}, #{postcode}, #{address}, #{detailAddress}, #{latitude}, 
       #{longitude}, #{grade}, #{thumbnail})
   </insert>
+  
+  
+    <update id="grdinsert" parameterType="map">
+    update rms
+    <set>
+ 
+    <if test="grade != ''">grd =  #{grade},</if>
+  
+      </set>
+      where
+      rms_id=#{roomNo}
+  </update>
+  
    <update id="update" parameterType="room" useGeneratedKeys="true" keyColumn="rms_id" keyProperty="no">
     update rms
     <set>
@@ -143,7 +157,7 @@
     </foreach>
   </insert>
   
-  <select id="findAll" resultMap="roomMap" parameterType="map">
+ <select id="findAll" resultMap="roomMap" parameterType="map">
     select
       rms_id,
       rm_name,
@@ -178,6 +192,121 @@
       limit #{rowNo}, #{size}
     </if>
   </select>
+  
+  
+  
+  <select id="findhpriceAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+        HAVING distance <= 10
+        ORDER BY rm_chge desc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+        order by
+          rm_chge desc
+      </when>
+    </choose>
+   
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findrpriceAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+        HAVING distance <= 10
+        ORDER BY rm_chge asc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+        order by
+          rm_chge asc
+      </when>
+    </choose>
+   
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="findhotAll" resultMap="roomMap" parameterType="map">
+    select
+      rms_id,
+      rm_name,
+      rm_chge,
+      area,
+      bed,
+      bath,
+      thum,
+      lati,
+      longi
+    <choose>
+      <when test="lati != null and longi != null">
+      <![CDATA[
+          ,(6371*acos(cos(radians(#{lati}))
+          *cos(radians(lati))
+          *cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
+          AS distance
+        from
+          rms
+        HAVING distance <= 10
+        ORDER BY 
+          grd desc 
+      ]]>
+      </when>
+      <when test="lati == null and longi == null">
+        from
+          rms
+        order by
+          grd desc
+      </when>
+    </choose>
+   
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
   
   <select id="countAll" resultType="int" parameterType="map">
   <choose>

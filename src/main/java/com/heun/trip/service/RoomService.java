@@ -5,6 +5,9 @@ import com.heun.trip.domain.Room;
 
 public interface RoomService {
   List<Room> list(int pageNo, int pageSize, String lati, String longi);
+  List<Room> hpricelist(int pageNo, int pageSize, String lati, String longi);
+  List<Room> rpricelist(int pageNo, int pageSize, String lati, String longi);
+  List<Room> hotlist(int pageNo, int pageSize, String lati, String longi);
   int size(String lati, String longi);
   int delete(int no); 
   int hostsize(int no);
@@ -16,5 +19,6 @@ public interface RoomService {
   int update(Room room);
   int cecoRoomUpdate(int no, String msg);
   String getRoom(int no);
+  int grdupdate(int roomgrd, int roomNo);  
 }
  
