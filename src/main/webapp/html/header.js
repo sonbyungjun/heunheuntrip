@@ -60,8 +60,6 @@ function search(val) {
 }
 
 function loadLoginUser() {
-  var logoutState = $('#logout-btn'),
-  LoginState = $('#login-btn');
   $.ajax({
     url: '/heunheuntrip/app/json/member/profile',
     type: 'GET',

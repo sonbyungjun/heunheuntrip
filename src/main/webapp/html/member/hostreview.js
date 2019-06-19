@@ -123,7 +123,18 @@ $(document.body).bind('loaded-list', (e) => {
     
 
     $('.update-btn').off('click').on('click', function(e){
-      
+    	Swal.fire({
+			title: '잠깐!',
+			text: "등록하시겠어요?",
+			type: 'question',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '네, 등록하겠습니다!',
+			cancelButtonText: '아뇨, 다시 한번 볼게요!'
+		}).then((result) => {
+			
+		
       $.ajax({
         url: '../../app/json/riw/reply',
         type: 'POST',
@@ -134,14 +145,21 @@ $(document.body).bind('loaded-list', (e) => {
         },
         dataType: 'json',
         success: function(response) {
-          loadList(pn);
-          $('#exampleModal').modal("hide");
-        },
+        	Swal.fire(
+					'Success!',
+					'성공적으로 등록됐어요.',
+					'success'
+				).then(() => {
+					 loadList(pn);
+			          $('#exampleModal').modal("hide");
+				})
+         },
         fail: function(error) {
           alert('등록 실패!!');
         }
       });
-      
+	
+		})
     });
     
       $( "#remessage-text" ).keydown(function(key){

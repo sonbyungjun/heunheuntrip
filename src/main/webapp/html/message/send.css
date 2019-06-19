@@ -40,4 +40,51 @@
 
 .btn-primary, .btn-primary:focus, .btn-primary:hover, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
     background-color: #869e9e;
-    border-color: #869e9e;
+		border-color: #869e9e;
+}
+
+.my-arrow {
+	font-size: 15px;
+	color: white;
+	position: relative;
+	background: #357EC7;
+	border-radius: 10px;
+	font-weight: bold;
+}
+.my-arrow:after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(21, 105, 199, 0);
+	border-left-color: #357EC7;
+	border-width: 15px;
+	margin-top: -15px;
+}
+
+.your-arrow {
+	font-size: 15px;
+	position: relative;
+	background: #E5E4E2;
+	border-radius: 10px;
+	font-weight: bold;
+}
+.your-arrow:after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(209, 208, 206, 0);
+	border-right-color: #E5E4E2;
+	border-width: 15px;
+	margin-top: -15px;
+}
+		

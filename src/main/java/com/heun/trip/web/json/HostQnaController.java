@@ -1,14 +1,20 @@
-package com.heun.trip.web.json;
 
+package com.heun.trip.web.json;
 import java.util.HashMap;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.HostQna;
+import com.heun.trip.domain.Member;
+import com.heun.trip.domain.Rev;
+import com.heun.trip.domain.Room;
 import com.heun.trip.service.HostQnaService;
+import com.heun.trip.service.MemberService;
+import com.heun.trip.service.RevService;
+import com.heun.trip.service.RoomService;
 
 
 @RestController("json/HostQnaController")
@@ -16,102 +22,89 @@ import com.heun.trip.service.HostQnaService;
 public class HostQnaController {
 
   HostQnaService hostQnaService;
+  RevService revService;
+  RoomService roomService;
+  MemberService memberService;
 
-  public HostQnaController(HostQnaService hostQnaService) {
+  public HostQnaController(HostQnaService hostQnaService, RevService revService, RoomService roomService, MemberService memberService) {
     this.hostQnaService = hostQnaService;
+    this.revService = revService;
+    this.roomService = roomService;
+    this.memberService = memberService;
   }
 
-   @PostMapping("add")
-   public Object add(HostQna hostqna) {
-   HashMap<String,Object> content = new HashMap<>();
-   try {
-     hostQnaService.add(hostqna);
-   content.put("status", "success");
-   } catch (Exception e) {
-   content.put("status", "fail");
-   content.put("message", e.getMessage());
-   }
-   return content;
-   }
+  @PostMapping("add")
+  public Object add(HostQna hostQna, HttpSession session) {
 
-  @GetMapping("list")
-  public Object list(@RequestParam(defaultValue = "1") int pageNo,
-      @RequestParam(defaultValue = "10") int pageSize) { // localhost:8080/heunheuntrip/app/json/qna/list
-
-    if (pageSize < 7 || pageSize > 8)
-      pageSize = 7;
-
-    int rowCount = hostQnaService.size();
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
-
-    if (pageNo < 1)
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
-
-    // 테스트 코드입니다 아래
-    pageNo = 1;
-    pageSize = 100;
-
-    List<HostQna> allqnas = hostQnaService.list(pageNo, pageSize);
-
-    HashMap<String, Object> content = new HashMap<>();
-    content.put("list", allqnas);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
-
-    return content;
-  }
-  
-  @GetMapping("delete")
-  public Object delete(int no) {
     HashMap<String,Object> content = new HashMap<>();
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    
+    System.out.println(hostQna);
+
     try {
-      hostQnaService.delete(no);
-     content.put("status", "success");
-    }catch (Exception e){
+      
+      int userNo = loginUser.getNo();
+      hostQna.setUserNo(userNo);
+      hostQnaService.add(hostQna);
+      content.put("status", "success");
+    } catch (Exception e) {
       content.put("status", "fail");
       content.put("message", e.getMessage());
     }
     return content;
   }
 
-//   @GetMapping("detail")
-//   public Object detail(int no) {
-//   Faq faq = hostQnaService.get(no);
-//   HashMap<String,Object> content = new HashMap<>();
-//   content.put("faq", faq);
-//   return content;
-//   }
-  //
-  // @GetMapping("relist")
-  // public Object reList(int parent, int step) {
-  // List<Qna> qna = qnaService.reList(parent, step);
-  // HashMap<String,Object> content = new HashMap<>();
-  // content.put("list", qna);
-  // return content;
-  // }
+  @GetMapping("hostqnalist")
+  public Object hostQnaList(int no, HttpSession session) { // localhost:8080/heunheuntrip/app/json/qna/list
 
-  
-//   @PostMapping("update")
-//   public Object update(Faq faq) {
-//   HashMap<String,Object> content = new HashMap<>();
-//   try {
-//   if (faqService.update(faq) == 0)
-//   throw new RuntimeException("해당 번호의 게시물이 없습니다.");
-//   
-//   content.put("status", "success");
-//  
-//   } catch (Exception e) {
-//   content.put("status", "fail");
-//   content.put("message", e.getMessage());
-//   }
-//   return content;
-//   }
-  //
+    List<HostQna> hostQnaList = hostQnaService.HostList(no);
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    HashMap<String, Object> content = new HashMap<>();
 
+    
+    if (loginUser != null) {
+      content.put("loginUserNo", loginUser.getNo());
+      
+      if (loginUser.getAuth() == "일반회원") {
+        
+        Rev rev = revService.detail(no);
+        int rmsNo = rev.getRmsNo();
+        Room room = roomService.get(rmsNo);
+        int hostNo = room.getHostNo();
+        Member member = memberService.get(hostNo);
+        String hostPhoto = member.getPhoto();
+        
+        System.out.println("호스트유저 사진 들어감");
+        content.put("hostPhoto", hostPhoto);
+        
+      } else if (loginUser.getAuth() == "호스트") {
+        
+        Rev rev = revService.detail(no);
+        int userNo = rev.getUserNo();
+        Member member = memberService.get(userNo);
+        String userPhoto = member.getPhoto();
+        
+        System.out.println("게스트유저 사진 들어감");
+        content.put("userPhoto", userPhoto);
+      }
+    }
+    
+    content.put("list", hostQnaList);
+    
+    return content;
+  }
+
+  @GetMapping("delete")
+  public Object delete(int no) {
+    HashMap<String,Object> content = new HashMap<>();
+    try {
+      hostQnaService.delete(no);
+      content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
 
 }
