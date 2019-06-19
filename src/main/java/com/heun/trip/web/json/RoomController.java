@@ -203,7 +203,7 @@ public class RoomController {
   public Object list(
       @RequestParam(defaultValue="0") int pageNo,
       @RequestParam(defaultValue="12") int pageSize,
-      String a,
+      int a,
       String lati,
       HttpSession session,
       String longi
@@ -227,19 +227,42 @@ public class RoomController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
 
-    List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
-    
+   
     HashMap<String,Object> content = new HashMap<>();
+    
     
     if(loginUser != null) {
       content.put("loginNo", loginUser.getNo());
     }
     
-    content.put("list", rooms);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
-
+    if(a == 2) {
+      List<Room> rooms = roomSerive.hpricelist(pageNo, pageSize, lati, longi);
+      content.put("list", rooms);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } if (a == 3) {
+      List<Room> rooms = roomSerive.rpricelist(pageNo, pageSize, lati, longi);
+      content.put("list", rooms);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } if (a == 4) {
+      List<Room> rooms = roomSerive.hotlist(pageNo, pageSize, lati, longi);
+      content.put("list", rooms);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } if (a == 1 || a == 0) {
+      List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
+      content.put("list", rooms);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } 
+    
+    
+   
     return content;
   }
 
@@ -290,6 +313,47 @@ public class RoomController {
     return contents;
   }
   
+  @GetMapping("managerroom")
+  public Object managerRoom(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="4") int pageSize,
+      int no) {
+    HashMap<String, Object> contents = new HashMap<>();
+    if (pageSize < 1 || pageSize > 5) 
+      pageSize = 4;
+
+      int rowCount = roomSerive.cecoRoomsize(no);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Room> list = roomSerive.cecoRoomlist(pageNo, pageSize,no);
+      contents.put("list", list);
+      contents.put("pageNo", pageNo);
+      contents.put("pageSize", pageSize);
+      contents.put("totalPage", totalPage);
+    
+    return contents;
+  }
+  
+  @PostMapping("cecoupdate")
+  public Object cecoUpdate(int no, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    try {
+        roomSerive.cecoRoomUpdate(no);
+        content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
   
   
   @GetMapping("delete")
@@ -311,9 +375,6 @@ public class RoomController {
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="2") int pageSize,
       HttpSession session, int no) {
-    System.out.println(pageNo);
-    System.out.println(pageSize);
-    System.out.println(no + "------------------------------");
     
     HashMap<String,Object> content = new HashMap<>();
 
@@ -331,11 +392,9 @@ public class RoomController {
       pageNo = 1;
     else if (pageNo > totalPage)
       pageNo = totalPage;
-    
    
     Member member = (Member)session.getAttribute("loginUser");
     String hostname = member.getName(); // 나중에 쓸겁니다. 호스트인지 일반인지 구별할때
-   
    
     List<Riw> list = riwService.roomreview(no, pageNo, pageSize);
     System.out.println(list);
@@ -357,12 +416,8 @@ public class RoomController {
   @PostMapping("addriw")
   public Object update(Riw riw, HttpSession session) {
     HashMap<String,Object> content = new HashMap<>();
-
     Member member = (Member)session.getAttribute("loginUser");
-    
     riw.setUserNo(member.getNo());
-    
-    
     try {
       if (riwService.addriw(riw) == 0) 
         throw new RuntimeException("해당 번호의 게시물이 없습니다.");

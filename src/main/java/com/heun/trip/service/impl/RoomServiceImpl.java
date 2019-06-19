@@ -56,12 +56,46 @@ public class RoomServiceImpl implements RoomService {
   
   @Override
   public List<Room> list(int pageNo, int pageSize, String lati, String longi) {
+    System.out.println("최신순 실행");
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
     params.put("lati", lati);
     params.put("longi", longi);
     List<Room> rooms = roomDao.findAll(params);
+    return rooms;
+  }
+  @Override
+  public List<Room> hpricelist(int pageNo, int pageSize, String lati, String longi) {
+    System.out.println("높은가격순 실행");
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("lati", lati);
+    params.put("longi", longi);
+    List<Room> rooms = roomDao.findhpriceAll(params);
+    return rooms;
+  }
+  @Override
+  public List<Room> rpricelist(int pageNo, int pageSize, String lati, String longi) {
+    System.out.println("낮은가격순 실행");
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("lati", lati);
+    params.put("longi", longi);
+    List<Room> rooms = roomDao.findrpriceAll(params);
+    return rooms;
+  }
+  @Override
+  public List<Room> hotlist(int pageNo, int pageSize, String lati, String longi) {
+    System.out.println("높은가격순 실행");
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("lati", lati);
+    params.put("longi", longi);
+    List<Room> rooms = roomDao.findhotAll(params);
     return rooms;
   }
   
@@ -131,6 +165,39 @@ public class RoomServiceImpl implements RoomService {
     roomFileDao.insert(files);
     
     return 1;
+  }
+
+  @Override
+  public int cecoRoomsize(int no) {
+    return roomDao.cecoRoomCountAll(no);
+  }
+
+  @Override
+  public List<Room> cecoRoomlist(int pageNo, int pageSize,int no) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("no", no);
+    params.put("size",pageSize );
+    params.put("rowNo",(pageNo -1) * pageSize );
+    return roomDao.findByCecoRoomList(params);
+  }
+
+  @Override
+  public int cecoRoomUpdate(int no) {
+    HashMap<String,Object> params = new HashMap<>();
+    int acti = 1;
+    params.put("no", no);
+    params.put("acti", acti);
+    return roomDao.cecoUpdate(params);
+  }
+  
+  @Override
+  public int grdupdate(int roomgrd, int roomNo) {
+    
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("grade", roomgrd);
+    params.put("roomNo", roomNo );
+    
+    return roomDao.grdinsert(params);
   }
   
   
