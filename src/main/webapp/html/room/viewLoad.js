@@ -8,12 +8,14 @@ var param = location.href.split('?')[1],
   map,
   jmt,
   myung,
-  revHistory = [];
+  revHistory = [],
+  paramNo;
 
 IMP.init('imp74040300');
 
 if (param) {
-  pageload(param.split('=')[1]);
+  paramNo = param.split('=')[1]
+  pageload(paramNo);
 }
 
 $(document).ready(function () {
