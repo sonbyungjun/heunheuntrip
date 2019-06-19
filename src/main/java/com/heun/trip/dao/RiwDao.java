@@ -6,6 +6,8 @@ import com.heun.trip.domain.Riw;
 
 public interface RiwDao {
   int insert(Riw riw);
+  int sumroomgrd(int roomNo);
+  int grdpeople(Riw riw);
   int riwinsert(Riw riw);
   List<Riw> findAll(Map<String,Object> params);
   List<Riw> findAllMypage(Map<String,Object> params);

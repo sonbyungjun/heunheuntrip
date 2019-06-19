@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.Member;
 import com.heun.trip.domain.Riw;
 import com.heun.trip.service.RiwService;
+import com.heun.trip.service.RoomService;
 
 
 @RestController("json/RiwController")
@@ -18,9 +19,11 @@ import com.heun.trip.service.RiwService;
 public class RiwController {
 
   RiwService riwService;
-
-  public RiwController(RiwService riwService) {
+  RoomService roomSerive;
+  
+  public RiwController(RiwService riwService, RoomService roomSerive) {
     this.riwService = riwService;
+    this.roomSerive = roomSerive;
   }
 
   @PostMapping("add")
@@ -32,10 +35,20 @@ public class RiwController {
 
     int no = member.getNo();
     riw.setUserNo(no);
+    
+    
 
     try {
-      riwService.add(riw);
-
+      riwService.add(riw);  //원글을 먼저 입력한다. 
+      int sum = riwService.sumroomgrd(riw.getRoomNo()); //원글을 포함하여 그숙소에 관한 평점의 합계를 구한다.
+      int usergrd = riwService.grdpeople(riw);         //그숙소의 평점을 날린 사람 수를 구한다.
+      
+      int roomgrd = (sum / usergrd);
+      System.out.println(roomgrd);
+      
+      roomSerive.grdupdate(roomgrd, riw.getRoomNo());
+      
+      
       content.put("status", "success");
     } catch (Exception e) {
       content.put("status", "fail");

@@ -5,3 +5,9 @@ $(document).ready(function () {
     $("#heun-footer").load("/heunheuntrip/html/footer.html");
     
   })
+  
+  $('#send-message').off('click').on('click', function(e){
+    
+    location.href="send.html";
+    
+  })
