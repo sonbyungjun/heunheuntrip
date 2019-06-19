@@ -52,10 +52,8 @@ $('body').on('loaded-list', function () {
 	
 	  if(auth == "일반회원" || auth == "호스트"){
 			$('#addview-btn').hide();
-			console.log("새글버튼 숨기기")
 			$('.delete-btn').hide();
 			$('.update-btn').hide();
-			console.log("변경 삭제 버튼")
 		  }else{
 				$('#addview-btn').show();
 				$('.btn').show();
@@ -75,7 +73,9 @@ $('body').on('loaded-list', function () {
   })
   
   $('.heun-content').on('click', function() {
-	  $(this).replaceWith(' <textarea class="con heun-content" id="content-' + $(this).data('no') + '" data-no=' + $(this).data('no') + '>' + $(this).text() + '</textarea>')
+	  if(auth == "관리자"){
+		  $(this).replaceWith(' <textarea class="con heun-content" id="content-' + $(this).data('no') + '" data-no=' + $(this).data('no') + '>' + $(this).text() + '</textarea>')
+	  }
   })
   
 })
@@ -116,6 +116,7 @@ $('body').on('loaded-list', function () {
 	  
 	  var tag = $(this).parents('.faq-pa').find('.faq-view').find('div');
 	  
+	  
     if (tag.css('display') == 'none') {
       //$(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none')
       $('.faq-view').find('div').css('display', 'none');
@@ -124,11 +125,16 @@ $('body').on('loaded-list', function () {
       
       $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'blue')
       $('#addview-btn').hide();
-    } else {
-    	
+    } else if(auth == "일반회원" || auth == "호스트"){
 	   $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
       $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+      $('#addview-btn').hide();
       $(this).val('');
+    }else if(auth=="관리자"){
+    	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
+         $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+         $('#addview-btn').show();
+         $(this).val('');
     }
   }); // Bitcamp.getJSON()
 })
