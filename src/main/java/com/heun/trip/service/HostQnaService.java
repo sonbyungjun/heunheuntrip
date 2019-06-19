@@ -8,4 +8,6 @@ public interface HostQnaService {
   int delete(int no);
   int size();
   List<HostQna> HostList(int no);
+  List<HostQna> NewHostList(int no); 
+  List<HostQna> NewGuestList(int no); 
 }

@@ -359,6 +359,13 @@ $(document.body).bind('loaded-list', (e) => {
       
     }) // 예약 변경 거절 end
   })
+
+  // 메세지 보내기
+  $('.send-message').off('click').on('click', function(e){
+     var revNo = $(e.target).attr('data-no');
+     location.href="/heunheuntrip/html/message/send.html?no=" + revNo;
+  });
+
 });
 
 

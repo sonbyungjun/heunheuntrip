@@ -34,6 +34,16 @@ public class HostQnaServiceImpl implements HostQnaService {
   public List<HostQna> HostList(int no) {
     return hostqnaDao.findByHostqnaList(no);
   }
+  
+  @Override
+  public List<HostQna> NewGuestList(int no) {
+    return hostqnaDao.findNewGuestqna(no);
+  }
+  
+  @Override
+  public List<HostQna> NewHostList(int no) {
+    return hostqnaDao.findNewHostqna(no);
+  }
 
 }
 

@@ -42,6 +42,33 @@
       h.cdt desc
   </select>
   
+  <select id="findNewGuestqna" resultMap="hostQnaMap" parameterType="int">
+   select
+    t1.rev_id,
+    t1.conts,
+    t1.cdt
+   from 
+    hst_qna as t1,
+    (select rev_id, max(cdt) as max_cdt
+      from hst_qna group by rev_id) as t2
+   where 
+    t1.cdt = t2.max_cdt and t1.rev_id = t2.rev_id and t1.rev_id in (select rev_id from rev where usr_id = #{value});
+  </select>
+  
+  <select id="findNewHostqna" resultMap="hostQnaMap" parameterType="int">
+    select
+     t1.rev_id,
+     t1.conts,
+     t1.cdt
+    from 
+     hst_qna as t1,
+     (select rev_id, max(cdt) as max_cdt
+       from hst_qna group by rev_id) as t2
+    where 
+     t1.cdt = t2.max_cdt and t1.rev_id = t2.rev_id and t1.rev_id in 
+     (select rev_id from rev where rms_id in (select rms_id from rms where usr_id=#{value}));  
+  </select>
+  
   <delete id="delete" parameterType="int">
     delete from hst_qna 
     where hst_qna_id = #{no}

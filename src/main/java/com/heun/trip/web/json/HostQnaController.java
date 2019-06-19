@@ -74,7 +74,6 @@ public class HostQnaController {
         Member member = memberService.get(hostNo);
         String hostPhoto = member.getPhoto();
         
-        System.out.println("호스트유저 사진 들어감");
         content.put("hostPhoto", hostPhoto);
         
       } else if (auth.equals("호스트")) {
@@ -84,13 +83,38 @@ public class HostQnaController {
         Member member = memberService.get(userNo);
         String userPhoto = member.getPhoto();
         
-        System.out.println("게스트유저 사진 들어감");
         content.put("userPhoto", userPhoto);
       }
     }
     
     content.put("list", hostQnaList);
     
+    return content;
+  }
+  
+  @GetMapping("indexlist")
+  public Object indexList(HttpSession session) { 
+
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    HashMap<String, Object> content = new HashMap<>();
+    
+    if (loginUser != null) {
+      content.put("loginUserNo", loginUser.getNo());
+      String auth = loginUser.getAuth();
+      
+      if (auth.equals("일반회원")) {
+        
+        List<HostQna> indexList = hostQnaService.NewGuestList(loginUser.getNo());
+        
+        content.put("list", indexList);
+        
+      } else if (auth.equals("호스트")) {
+        
+        List<HostQna> indexList = hostQnaService.NewHostList(loginUser.getNo());
+        
+        content.put("list", indexList);
+      }
+    }
     return content;
   }
 
