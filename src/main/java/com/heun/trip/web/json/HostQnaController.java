@@ -60,12 +60,12 @@ public class HostQnaController {
     List<HostQna> hostQnaList = hostQnaService.HostList(no);
     Member loginUser = (Member) session.getAttribute("loginUser");
     HashMap<String, Object> content = new HashMap<>();
-
     
     if (loginUser != null) {
       content.put("loginUserNo", loginUser.getNo());
+      String auth = loginUser.getAuth();
       
-      if (loginUser.getAuth() == "일반회원") {
+      if (auth.equals("일반회원")) {
         
         Rev rev = revService.detail(no);
         int rmsNo = rev.getRmsNo();
@@ -77,7 +77,7 @@ public class HostQnaController {
         System.out.println("호스트유저 사진 들어감");
         content.put("hostPhoto", hostPhoto);
         
-      } else if (loginUser.getAuth() == "호스트") {
+      } else if (auth.equals("호스트")) {
         
         Rev rev = revService.detail(no);
         int userNo = rev.getUserNo();
