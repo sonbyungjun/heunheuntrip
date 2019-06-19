@@ -8,9 +8,9 @@ public class HostQna implements Cloneable, Serializable {
 
   private int no;
   private int userNo;
-  private int roomNo;
+  private int revNo;
   private String content;
-  @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd")
+  @JsonFormat(shape=JsonFormat.Shape.STRING,pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
   private Date createdDate;
   private String photo;
   private String name;
@@ -19,11 +19,17 @@ public class HostQna implements Cloneable, Serializable {
   
   @Override
   public String toString() {
-    return "HostQna [no=" + no + ", userNo=" + userNo + ", roomNo=" + roomNo + ", content="
-        + content + ", createdDate=" + createdDate + ", photo=" + photo + ", name=" + name
-        + ", authNo=" + authNo + ", auth=" + auth + "]";
+    return "HostQna [no=" + no + ", userNo=" + userNo + ", revNo=" + revNo + ", content=" + content
+        + ", createdDate=" + createdDate + ", photo=" + photo + ", name=" + name + ", authNo="
+        + authNo + ", auth=" + auth + "]";
   }
   
+  public int getRevNo() {
+    return revNo;
+  }
+  public void setRevNo(int revNo) {
+    this.revNo = revNo;
+  }
   public int getNo() {
     return no;
   }
@@ -35,12 +41,6 @@ public class HostQna implements Cloneable, Serializable {
   }
   public void setUserNo(int userNo) {
     this.userNo = userNo;
-  }
-  public int getRoomNo() {
-    return roomNo;
-  }
-  public void setRoomNo(int roomNo) {
-    this.roomNo = roomNo;
   }
   public String getContent() {
     return content;
