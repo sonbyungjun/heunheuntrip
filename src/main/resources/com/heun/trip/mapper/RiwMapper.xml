@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -254,6 +254,23 @@
     select count(riw_id) from riw where rms_id IN (select rms_id from rms where usr_id=#{no})
   </select>
   
+  <select id="sumroomgrd" parameterType="int" resultType="int">
+    select 
+     sum(grd) 
+    from 
+     riw 
+    where 
+     rms_id=#{roomNo}
+  </select>
+  
+  <select id="grdpeople" parameterType="riw" resultType="int">
+    select 
+     count(grd) 
+    from 
+     riw 
+    where 
+     rms_id=#{roomNo}
+  </select>
 </mapper>
 
 

@@ -1,5 +1,5 @@
 package com.heun.trip.service.impl;
-
+ 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +79,18 @@ public class RiwServiceImpl implements RiwService {
   @Override
   public int addriw(Riw riw) {
     int count = riwDao.riwinsert(riw);
+    return count;
+  }
+  
+  @Override
+  public int sumroomgrd(int roomNo) {
+    int count = riwDao.sumroomgrd(roomNo);
+    return count;
+  }
+  
+  @Override
+  public int grdpeople(Riw riw) {
+    int count = riwDao.grdpeople(riw);
     return count;
   }
   

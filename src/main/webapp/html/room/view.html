@@ -55,6 +55,7 @@
 <script src="../../star/jquery.star-rating-svg.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
+
 <style>
 .customoverlay {
 	position: relative;
@@ -254,7 +255,7 @@
                       </ul>
                     
                       <h3 class="headline">후기</h3>
-                      <a class="btn btn-link riw-update" href="#" data-toggle="modal"  data-backdrop="static" data-target="#exampleModal">후기 작성</a>
+                   
                       <div id="review"></div>
                       <div class="pagination-menu"></div>
                       
@@ -464,11 +465,12 @@
          <div class="media-left"> </div>
          <div class="media-body">
             <a id="cont-{{no}}" href="#" class="btn-reply heun-reply" data-no="{{no}}" data-userNo ="{{userNo}}" data-reply ="{{reply}}"><i class="fa fa-reply "></i> 답글</a>
-            <h5 class="media-heading author">{{name}}  
+            <h5 class="media-heading author" style="margin-bottom:0px">{{name}}  
             <a id="delete1-{{no}}" style="float:right" href="#" data-name="{{name}}" data-no="{{no}}" class="btn-delete delete1" ><i class="fas fa-trash-alt"></i> 삭제</a>
             </h5>
-            <div class="date">{{createdDate}}</div>
-            <div class="comment">{{contents}}</div>
+            <div id="star-{{no}}" class="review-rating" data-grd="{{grd}}"></div>
+            <div class="date" style="padding-left: 2px;">{{createdDate}}</div>
+            <div class="comment" style="padding-left: 2px;">{{contents}}</div>
 
 
             <div  class="comment-input-box cont-{{no}}" id="post-comment">
@@ -484,11 +486,11 @@
           <div class="media"   id="no-reply-{{no}}">
               <div class="media-left"></div>
               <div class="media-body">
-                <h5 class="media-heading author"  id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}
+                <h5 class="media-heading author" style="margin-bottom:0px" id="aaa-{{no}}" data-reply="{{reply}}">{{hostname}}
                 <a id="delete2-{{no}}" href="#" style="float:right" class="btn-delete delete2" data-no={{no}}><i class="fas fa-trash-alt"></i> 삭제</a>
                 </h5>
-                <div class="date">{{replyDate}}</div>
-                <div class="comment">{{reply}}</div></div>
+                <div class="date" style="padding-left: 2px;">{{replyDate}}</div>
+                <div class="comment" style="padding-left: 2px;">{{reply}}</div></div>
                 
              </div>
 
@@ -522,30 +524,56 @@
 
 
   <script id="page-template" type="text/x-handlebars-template">
-    <nav>
-      <ul class="pagination pagination-centered">
-        {{#paginate pagination type="first"}}
-          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&laquo;&laquo;</a></li>
-        {{/paginate}}
-    
-        {{#paginate pagination type="previous"}}
-          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&laquo;</a></li>
-        {{/paginate}}
-    
-        {{#paginate pagination type="middle" limit="5"}}
-          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="roomreview({{n}})">{{n}}</a></li>
-        {{/paginate}}
-    
-        {{#paginate pagination type="next"}}
-          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link"  onclick="roomreview({{n}})">&raquo;</a></li>
-        {{/paginate}}
-    
-        {{#paginate pagination type="last"}}
-          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="roomreview({{n}})">&raquo;&raquo;</a></li>
-        {{/paginate}}
+ <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      {{#paginate pagination type="first"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&laquo;&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="previous"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&laquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="middle" limit="3"}}
+        <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' onclick="roomreview({{n}})">{{n}}</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&raquo;</a></li>
+      {{/paginate}}
+
+      {{#paginate pagination type="next"}}
+        <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="roomreview({{n}})">&raquo;&raquo;</a></li>
+      {{/paginate}}
     </ul>
-    </nav>
+  </nav>
     </script>
+    
+    
+    
+    <script type="text/javascript">
+     jQuery.jQueryAlert = function (msg) {
+         var $messageBox = $.parseHTML('<div id="alertBox"></div>');
+         $("body").append($messageBox);
+ 
+         $($messageBox).dialog({
+             open: $($messageBox).append(msg),
+             title: "경고창",
+             autoOpen: true,
+             modal: true,
+             buttons: {
+                 OK: function () {
+                     $("#alertBox").dialog("close");
+                 }
+             }
+         });
+     };
+ 
+    
+</script>
+
+
+
 
 		<button class="btn btn-primary btn-circle" id="to-top">
 			<i class="fa fa-angle-up"></i>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
- 
+  
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -83,8 +83,8 @@
             <div class="swiper-container testimonials">
               <div class="swiper-wrapper">
               </div>
-             <div class="swiper-button-next"></div>
-             <div class="swiper-button-prev"></div>
+<!--              <div class="swiper-button-next"></div>
+             <div class="swiper-button-prev"></div> -->
           </div>
         </div>
       </div>
@@ -97,9 +97,10 @@
   
   <script id="tr-template" type="text/x-handlebars-template">
 <div class="swiper-slide">
-  <div class="item content-box grid row">
+  <div class="content-box">
+    <div class="row">
     {{#each list1}}
-      <div class="col-4 grid"> 
+      <div class="col-6 col-md-4 grid"> 
        <figure class="effect-lily">
         <img src="/heunheuntrip/app/json/images/down/{{mainPhoto}}" alt="thumbnail"/>
          <figcaption>
@@ -110,14 +111,17 @@
           <a href="#" class="blog-detail" data-no={{no}}>View more</a>
          </figcaption>     
        </figure>
-     </div>
+      </div>
     {{/each}}
+     </div>
   </div>
 </div>
+</div>
 <div class="swiper-slide">
-  <div class="item content-box centered row">
+  <div class="content-box">
+    <div class="row">
     {{#each list2}}
-      <div class="col-4 grid"> 
+      <div class="col-6 col-md-4 grid"> 
        <figure class="effect-lily">
         <img src="/heunheuntrip/app/json/images/down/{{mainPhoto}}" alt="thumbnail"/>
          <figcaption>
@@ -130,12 +134,14 @@
        </figure>
      </div>
     {{/each}}
+    </div>
   </div>
 </div>
 <div class="swiper-slide">
-  <div class="item content-box centered row">
+  <div class="content-box">
+    <div class="row">
     {{#each list3}}
-      <div class="col-4 grid"> 
+      <div class="col-6 col-md-4 grid"> 
        <figure class="effect-lily">
         <img src="/heunheuntrip/app/json/images/down/{{mainPhoto}}" alt="thumbnail"/>
          <figcaption>
@@ -148,6 +154,7 @@
        </figure>
      </div>
     {{/each}}
+    </div>
   </div>
 </div>
   </script>

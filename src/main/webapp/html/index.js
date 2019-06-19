@@ -1,7 +1,7 @@
 var form = $('.swiper-wrapper'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc);
-
+ 
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function() {
     $(".heun-search-form").hide();
@@ -53,10 +53,10 @@ $(document.body).bind('loaded-list', () => {
       el: '.swiper-pagination',
       clickable: true,
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+//    navigation: {
+//      nextEl: '.swiper-button-next',
+//      prevEl: '.swiper-button-prev',
+//    },
   });
   
   $('.blog-detail').off('click').on('click', function(e){

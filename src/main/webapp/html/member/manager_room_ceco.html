@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
 <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
 <link href="../../css/style.css" rel="stylesheet">
 <link href="../../css/colors/blue.css" rel="stylesheet">
-<link rel="stylesheet" href="hostlist.css">
+<link rel="stylesheet" href="manager_room_ceco.css">
 <link rel="stylesheet" href="../../star/star-rating-svg.css">
 
 <script src="../../lib/jquery-3.2.1.min.js"></script>
@@ -33,21 +33,6 @@
   <script src="../js/handlebars-paginate.js"></script>
 <script src="../../star/jquery.star-rating-svg.js"></script>
 
-<style>
-  .mb50 {
-    margin-bottom: 10px !important;
-  }
-  
-  .text-success {
-      color: #d3d3d3 !important;
-  }
-  
-  .main-title {
-    margin-bottom: 15px;
-    line-height: 34px;
-    color: #777777;
-}
-</style>
 </head>
 
 <body>
@@ -69,13 +54,13 @@
                     </div>
                    </div>
                     <div class="list-group no-border list-unstyled">
-                      <a href="host_profile.html" class="list-group-item"> <i
-                        class="far fa-id-card"></i> 호스트 프로필
-                      </a> <a href="host_password.html" class="list-group-item "> <i
+                      <a href="manager_profile.html" class="list-group-item"> <i
+                        class="far fa-id-card"></i> 관리자 프로필
+                      </a> <a href="manager_password.html" class="list-group-item "> <i
                         class="fas fa-unlock-alt"></i> 비밀번호 변경
-                      </a> <a href="hostlist.html" class="list-group-item active"> <i class="fas fa-h-square"></i> 등록한 숙소</a> 
-                      <a href="hostReservation.html" class="list-group-item"> <i class="far fa-bell"></i> 예약 관리</a>
-                      <a href="hostreview.html" class="list-group-item"> <i class="fas fa-sliders-h"></i> 리뷰 관리</a>
+                      </a> <a href="manager_room_ceco.html" class="list-group-item active"> <i class="fas fa-h-square"></i> 숙소 승인</a> 
+                      <a href="managerReservation.html" class="list-group-item"> <i class="far fa-bell"></i> 회원 관리</a>
+                      <a href="managerreview.html" class="list-group-item"> <i class="fas fa-sliders-h"></i> 리뷰 관리</a>
                       
                     </div>
                   </div>
@@ -84,7 +69,7 @@
               <div class="col-md-7 col-lg-8 col-xl-8">
                 <div class="page-header bordered">
                   <h1>
-                    내 숙소<small>My room</small>
+                    승인 요청한 숙소
                   </h1>
                   <div class="clearfix"></div>
                   
@@ -132,19 +117,10 @@
                         <li>숙소명<span>{{name}}</span></li> 
                         <li>숙소 가격<span>{{price}}</span></li>
                         <li>숙소 최대 인원<span>{{maxPerson}}</span></li>
-                        {{#if state}}
-                        <li>승인 여부<span>미승인</span></li>
-                           {{else if restate}}
-                        <li data-toggle="modal" data-target="#cecoform">승인 여부<span data-toggle="tooltip" data-placement="top" title="승인 거절 이유를 확인하실려면 클릭해주세요" class="cece-no-msg"  data-msg="{{rjmo}}" style="color: red;">
-                                    <i class="fas fa-ban"  style=" margin-right: 3px;"></i>
-                                    승인 거절</span></li>
-                            {{else}}
-                                <li>승인 여부<span>승인</span></li>
-                        {{/if}}
                       </ul>
                        
-                    <button type="button" class="btn btn-sm btn-secondary riw-write" onclick="location.href='../room/updateform.html?no={{no}}'">수정</button>
-                    <button type="button" class="btn btn-sm btn-secondary riw-write del" data-no="{{no}}">삭제</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write ceco-no" data-toggle="modal" data-target="#cecoform" data-name="{{name}}" data-no="{{no}}">거절</button>
+                    <button type="button" class="btn btn-sm btn-secondary riw-write ceco" data-no="{{no}}">승인</button>
                     <button type="button" class="btn btn-sm btn-secondary riw-write roomcontent" data-toggle="modal" data-target="#leadform" data-no="{{no}}">상세 보기</button>
  
                           
@@ -209,24 +185,24 @@
                 <div class="form-group green-border-focus">
                   <h5 class='mar'style="font-weight: bold; color: #4682b4;">숙소 설명</h5>
                   <div class='a'>
-                  <textarea id='room-content' rows="4" class="form-control" style="border: 0px; width:320px; background-color: white;" readonly></textarea>
+                  <textarea id='room-content' rows="4" class="form-control" style="border: 0px; background-color: white;" readonly></textarea>
                     </div>
                 </div>
                 <div class="form-group green-border-focus">
                   <h5 class='mar'style="font-weight: bold; color: #4682b4;">숙소예약가능여부</h5>
-                  <textarea id='room-reservation' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                  <textarea id='room-reservation' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
                 </div>
                 <div class="form-group green-border-focus">
                   <h5 class='mar'style="font-weight: bold; color: #4682b4;">여부숙소</h5>
-                  <textarea id='room-details' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                  <textarea id='room-details' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
                 </div>
-                <div class="form-group green-border-focus" style="margin-bottom: -10px;">
+                <div class="form-group green-border-focus">
                   <h5 class='mar'style="font-weight: bold; color: #4682b4;">주변 볼거리,먹거리</h5>
-                  <textarea id='room-welcome' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                  <textarea id='room-welcome' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
                 </div>
                 <div class="form-group green-border-focus">
                   <h5 class='mar'style="font-weight: bold; color: #4682b4;">교통편</h5>
-                  <textarea id='room-traffic' rows="2" class="form-control" style="border: 0px; width:320px; background-color: white" readonly></textarea>
+                  <textarea id='room-traffic' rows="2" class="form-control" style="border: 0px; background-color: white" readonly></textarea>
                 </div>
               </div>
             </div>
@@ -245,6 +221,12 @@
   <div class="modal fade" id="cecoform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="ceco-name" class='mar' style="font-weight: bold; color: #4682b4;"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
@@ -254,14 +236,15 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <button id ="ceco-no-btn"type="button" class="btn btn-primary">거절</button>
       </div>
     </div>
   </div>
 </div>
 
   <script src='common_profile.js'></script>
-  <script src='hostlist.js'></script>
+  <script src='manager_room_ceco.js'></script>
   
 </body>
 

@@ -1,21 +1,263 @@
-$('body').on('loaded-list', function () {
-
-	var menuHeight = $('#menu').outerHeight(),
-		param = location.href.split('?')[1].split('=')[1],
-		templateSrc = $('#review-template').html(),
-		reviewGenerator = Handlebars.compile(templateSrc),
-		reviewlist = $('#review'),
-		templateSrcs = $('#hostProfile-template').html(),
-		hostProfileGenerator = Handlebars.compile(templateSrcs),
-		hprofile = $('.host-profile'),
-		rating = 0,
-		paginateSrc = $('#page-template').html();
+var menuHeight = $('#menu').outerHeight(),
+	templateSrc = $('#review-template').html(),
+	reviewGenerator = Handlebars.compile(templateSrc),
+	templateSrcs = $('#hostProfile-template').html(),
+	hostProfileGenerator = Handlebars.compile(templateSrcs),
+	hprofile = $('.host-profile'),
+	rating = 0,
+	paginateSrc = $('#page-template').html();
 
 
-
+function roomreview(pn) {
 
 	Handlebars.registerHelper('paginate', paginate);
 	var pageGenerator = Handlebars.compile(paginateSrc);
+
+	console.log(pn)
+	$.ajax({
+		url: '../../app/json/room/review?pageNo=' + pn,
+		type: 'GET',
+		data: {
+			no: paramNo
+		},
+		dataType: 'json',
+		success: function (response) {
+
+			pageNo = response.pageNo;
+
+			//$(reviewGenerator(response)).appendTo(reviewlist);
+
+			console.log(response)
+
+			response.pagination = {
+				page: response.pageNo,
+				pageCount: response.totalPage
+			};
+			
+			$('#review').html('');
+			$(reviewGenerator(response)).appendTo($('#review'));
+
+			$('.pagination-menu').html('');
+			$(pageGenerator(response)).appendTo('.pagination-menu');
+
+
+			$('.comment-input-box').hide();
+
+			$('.heun-reply').on('click', function (e) {
+				e.preventDefault();
+
+				var no = $(this).attr('data-no');    //예약번호
+				var userNo = $(this).attr('data-userNo'); // 회원번호
+				var reply = $('.reply-' + no);        // reply데이터
+
+				//원하는 핸들바스 부분만 여는 코드
+				if ($('.cont-' + no).css('display') == 'none') {
+					$('.cont-' + no).show();
+				} else {
+					$('.cont-' + no).hide();
+				}
+
+
+				$('.reply-submit').off('click').on('click', function (e) {
+					Swal.fire({
+						title: '잠깐!',
+						text: "등록하시겠어요?",
+						type: 'question',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: '네, 등록하겠습니다!',
+						cancelButtonText: '아뇨, 다시 한번 볼게요!'
+					}).then((result) => {
+
+						if (result.value) {
+							$.ajax({
+								url: '../../app/json/riw/reply',
+								type: 'POST',
+								data: {
+									no: no,
+									userNo: userNo,
+									reply: reply.val()
+								},
+								dataType: 'json',
+								success: function (response) {
+									Swal.fire(
+										'Success!',
+										'성공적으로 등록됐어요.',
+										'success'
+									).then(() => {
+										roomreview(1);
+
+									})
+									roomreview(1);
+
+								},
+								fail: function (error) {
+									alert('등록 실패!!');
+								}
+							});
+						}
+					})
+
+				});
+			});
+
+			$('.delete1').hide();
+			$('.delete2').hide();
+
+			if (response.list) {
+
+				if (response.list[0].hostname != response.hostname) {
+					$('.btn-reply').hide();
+
+					//그숙소 회원이 아니면 
+				} else {
+					$('.riw-update').hide();
+					$('.delete2').show();
+
+				}
+
+
+				for (var i = 0; i < response.list.length; i++) {
+
+					var a = response.list[i].no;
+					var delete1 = response.list[i].name;
+					var starcount = response.list[i].grd;
+
+					//console.log($(".review-rating").attr("data-crd"))
+
+					$('#star-' + a).starRating({
+						totalStars: 5,
+						starShape: 'rounded',
+						emptyColor: 'lightgray',
+						strokeWidth: 0,
+						disableAfterRate: false,
+						readOnly: true,
+						initialRating: starcount,
+						starSize: 20
+					});
+
+
+
+					if ($('#aaa-' + a).attr('data-reply') == '') {
+						$('#no-reply-' + a).hide();
+					} else {
+						$('#cont-' + a).hide();
+					}
+
+					if ($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
+						$('#delete1-' + a).show();
+					}
+				}
+
+
+
+				$('.delete1').on('click', function (e) {
+					e.preventDefault();
+
+					Swal.fire({
+						title: '잠깐!',
+						text: "삭제하시겠어요?",
+						type: 'question',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: '네, 삭제하겠습니다!',
+						cancelButtonText: '아뇨, 다시 한번 볼게요!'
+					}).then((result) => {
+
+						if (result.value) {
+
+
+							var no = $(this).attr('data-no');    //예약번호
+
+
+							$.ajax({
+								url: '../../app/json/riw/delete',
+								type: 'POST',
+								data: {
+									no: no
+								},
+								dataType: 'json',
+								success: function (response) {
+									Swal.fire(
+										'삭제!',
+										'글이 삭제되었습니다!',
+										'success'
+
+									).then(() => {
+										roomreview(1);
+
+									})
+
+								},
+								fail: function (error) {
+									alert('삭제 실패!!');
+								}
+							});
+						}
+					})
+
+
+				});
+
+
+				$('.delete2').on('click', function (e) {
+					e.preventDefault();
+
+					Swal.fire({
+						title: '잠깐!',
+						text: "삭제하시겠어요?",
+						type: 'question',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: '네, 삭제하겠습니다!',
+						cancelButtonText: '아뇨, 다시 한번 볼게요!'
+					}).then((result) => {
+
+						if (result.value) {
+							var no = $(this).attr('data-no');    //예약번호
+
+							$.ajax({
+								url: '../../app/json/riw/replydelete',
+								type: 'POST',
+								data: {
+									no: no
+								},
+								dataType: 'json',
+								success: function (response) {
+									Swal.fire(
+										'삭제!',
+										'글이 삭제되었습니다!',
+										'success'
+									).then(() => {
+										roomreview(1);
+
+									})
+
+								},
+								fail: function (error) {
+									alert('삭제 실패!!');
+								}
+							});
+						}
+					})
+
+				});
+
+			}
+
+
+		},
+		fail: function (error) {
+			alert('ㅠㅠ!!');
+		}
+	});
+
+}
+
+$('body').on('loaded-list', function () {
 
 	roomreview(1);
 	roomProfile();
@@ -62,193 +304,22 @@ $('body').on('loaded-list', function () {
 
 	}
 
-	function roomreview(pn) {
-
-		$.ajax({
-			url: '../../app/json/room/review?pageNo=' + pn,
-			type: 'GET',
-			data: {
-				no: param
-			},
-			dataType: 'json',
-			success: function (response) {
-
-
-
-				pageNo = response.pageNo;
-
-				reviewlist.html('');
-
-				//$(reviewGenerator(response)).appendTo(reviewlist);
-
-
-				response.pagination = {
-					page: response.pageNo,
-					pageCount: response.totalPage
-				};
-
-				$(reviewGenerator(response)).appendTo(reviewlist);
-				$('.pagination-menu').html('');
-				$(pageGenerator(response)).appendTo('.pagination-menu');
-
-
-
-				$('.comment-input-box').hide();
-
-				$('.heun-reply').on('click', function (e) {
-					e.preventDefault();
-
-					var no = $(this).attr('data-no');    //예약번호
-					var userNo = $(this).attr('data-userNo'); // 회원번호
-					var reply = $('.reply-' + no);        // reply데이터
-
-					//원하는 핸들바스 부분만 여는 코드
-					if ($('.cont-' + no).css('display') == 'none') {
-						$('.cont-' + no).show();
-					} else {
-						$('.cont-' + no).hide();
-					}
-
-
-					$('.reply-submit').off('click').on('click', function (e) {
-
-						$.ajax({
-							url: '../../app/json/riw/reply',
-							type: 'POST',
-							data: {
-								no: no,
-								userNo: userNo,
-								reply: reply.val()
-							},
-							dataType: 'json',
-							success: function (response) {
-							
-								roomreview(1);
-
-							},
-							fail: function (error) {
-								alert('등록 실패!!');
-							}
-						});
-
-					});
-				});
-
-				$('.delete1').hide(); 
-				$('.delete2').hide();  
-				
-				if(response.list) { 
-				
-				if(response.list[0].hostname != response.hostname) {
-					$('.btn-reply').hide();  
-				
-					  //그숙소 회원이 아니면 
-				} else {
-					$('.riw-update').hide();
-					$('.delete2').show();
-
-				}
-
-
-				for (var i = 0; i < response.list.length; i++) {
-
-					var a = response.list[i].no;
-					var delete1 = response.list[i].name;
-
-					if ($('#aaa-' + a).attr('data-reply') == '') {
-						$('#no-reply-' + a).hide();
-					} else {
-						$('#cont-' + a).hide();						
-					}
-
-					if ($('#delete1-' + a).attr('data-name') == response.hostname) {  //일반회원중 글쓴회원판별
-						$('#delete1-' + a).show();
-					}
-				}
-							
-				
-				
-				$('.delete1').on('click', function(e) {
-					e.preventDefault();
-
-
-
-					var no = $(this).attr('data-no');    //예약번호
-												
-								      
-					      $.ajax({
-					        url: '../../app/json/riw/delete',
-					        type: 'POST',
-					        data: {
-					          no: no						          
-					        },
-					        dataType: 'json',
-					        success: function(response) {
-					      
-					         roomreview(1);
-					         
-					        },
-					        fail: function(error) {
-					          alert('삭제 실패!!');
-					        }
-					      });
-					      
-					  
-			    	});
-				
-					
-					$('.delete2').on('click', function(e) {
-						e.preventDefault();
-						
-						var no = $(this).attr('data-no');    //예약번호
-									      
-						      $.ajax({
-						        url: '../../app/json/riw/replydelete',
-						        type: 'POST',
-						        data: {
-						          no: no						          
-						        },
-						        dataType: 'json',
-						        success: function(response) {
-						       
-						         roomreview(1);
-						         
-						        },
-						        fail: function(error) {
-						          alert('삭제 실패!!');
-						        }
-						      });
-						      
-						  
-				    	});
-					
-				}
-					
- 
-			},
-			fail: function (error) {
-				alert('ㅠㅠ!!');
-			}
-		});
-		
-    	
-	}
 
 
 	$('.riw-update').off('click').on('click', function (e) {
 
 		//$('#message-text').val('');
-//		var no = $(this).parent().data('no');
-//		var grd = $(this).parent().data('grd');
-//		var content = $(this).parent().prev().children().html();
-		
+		//		var no = $(this).parent().data('no');
+		//		var grd = $(this).parent().data('grd');
+		//		var content = $(this).parent().prev().children().html();
+
 		//modal.find('#message-text').val("");
-		
+
 		window.rating = 0;
 
 		$('#exampleModal').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) 
-			var recipient = button.data('whatever') 
+			var button = $(event.relatedTarget)
+			var recipient = button.data('whatever')
 			var modal = $(this)
 			modal.find('.modal-title').text('Review')
 			modal.find('.modal-body input').val(recipient)
@@ -271,30 +342,35 @@ $('body').on('loaded-list', function () {
 			}
 		});
 
-		$('.add-btn').off('click').on('click', function (e) {
-
-			$.ajax({
-				url: '../../app/json/room/addriw',
-				type: 'POST',
-				data: {
-					roomNo: window.param.split('=')[1],
-					grd: window.rating,
-					contents: $('#message-text').val()
-				},
-				dataType: 'json',
-				success: function(response) {
-					alert('등록 성공!!');
-					location.href='view.html?no=' + window.param.split('=')[1];
-					//roomreview(1);
-
-					//  $('#exampleModal').modal("hide");
-				},
-				fail: function (error) {
-					alert('등록 실패!!');
-				}
-			});
-
-		});
+		//		$('.add-btn').off('click').on('click', function (e) {
+		//
+		//			$.ajax({
+		//				url: '../../app/json/room/addriw',
+		//				type: 'POST',
+		//				data: {
+		//					roomNo: window.param.split('=')[1],
+		//					grd: window.rating,
+		//					contents: $('#message-text').val()
+		//				},
+		//				dataType: 'json',
+		//				success: function(response) {
+		//					Swal.fire(
+		//				              'Success!',
+		//				              '성공적으로 등록됐어요.',
+		//				              'success'
+		//				            ).then(() => {
+		//				          	location.href='view.html?no=' + window.param.split('=')[1];
+		//				                        })
+		//					//roomreview(1);
+		//
+		//					//  $('#exampleModal').modal("hide");
+		//				},
+		//				fail: function (error) {
+		//					alert('등록 실패!!');
+		//				}
+		//			});
+		//
+		//		});
 
 
 	})
@@ -786,7 +862,7 @@ $('body').on('loaded-list', function () {
 			buyer_email: buyer_email,
 			buyer_name: buyer_name,
 			buyer_tel: buyer_tel
-		},  function(rsp) {
+		}, function (rsp) {
 			var isVaild = true;
 			var msg;
 			if (rsp.success) {
@@ -796,13 +872,13 @@ $('body').on('loaded-list', function () {
 					type: 'POST',
 					dataType: 'json',
 					data: {
-						imp_uid : rsp.imp_uid
+						imp_uid: rsp.imp_uid
 						//기타 필요한 데이터가 있으면 추가 전달
 					},
-					beforeSend: function() {      // ajax 요청하기전에 실행되는 함수
+					beforeSend: function () {      // ajax 요청하기전에 실행되는 함수
 						Swal.showLoading();
 					}
-				}).done(function(data) {
+				}).done(function (data) {
 					//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
 					if (data.status === "success") {
 						isVaild = true;
@@ -813,26 +889,24 @@ $('body').on('loaded-list', function () {
 						isVaild = false;
 						msg = '이미 예약된 방이거나 결제가 이뤄지지 않았습니다.';
 					}
-				}).always(function() {
+				}).always(function () {
 					Swal.fire({
 						type: isVaild ? 'success' : 'error',
 						title: msg
 					}).then((result) => {
 						if (result.value) {
-							location.href =  isVaild ? '/heunheuntrip/html/member/list.html' : '';
+							location.href = isVaild ? '/heunheuntrip/html/member/list.html' : '';
 							return;
 						}
 					})
 				});
-
-
 			} else {
-					var isVaild = false;
-					var msg = '결제에 실패하였습니다.';
-					msg += '\n에러내용 : ' + rsp.error_msg;
+				var isVaild = false;
+				var msg = '결제에 실패하였습니다.';
+				msg += '\n에러내용 : ' + rsp.error_msg;
 			}
-	})
-}
+		})
+	}
 
 
 	function getUser(cb) {
@@ -855,7 +929,7 @@ $('body').on('loaded-list', function () {
 	});
 
 	function showDay() {
-		return function(t) {
+		return function (t) {
 			var valid = true;
 			for (var r of revHistory) {
 				if (moment(t).format('YYYY-MM-DD') === r) {
@@ -865,7 +939,7 @@ $('body').on('loaded-list', function () {
 			}
 			var _class = '';
 			var _tooltip = valid ? '' : '예약완료';
-			return [valid,_class,_tooltip];
+			return [valid, _class, _tooltip];
 		}
 	}
 

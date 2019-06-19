@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+   
   $('#logout-btn').on('click', function(e){
     $.ajax({
       url: '/heunheuntrip/app/json/auth/logout',
@@ -46,15 +46,17 @@ $('#heun-header-search').submit(function() {
   return false;
 });
 
-
-
 function search(val) {
-  var places = new daum.maps.services.Places();
-  places.keywordSearch(val, function(result, status) {
-    if (status === daum.maps.services.Status.OK) {
-      location.href = '/heunheuntrip/html/room/index.html?lati=' + result[0].y + '&longi=' + result[0].x;
-    }
-  });
+  if (val === '') {
+    location.href = '/heunheuntrip/html/room/index.html';
+  } else {
+    var places = new daum.maps.services.Places();
+    places.keywordSearch(val, function(result, status) {
+      if (status === daum.maps.services.Status.OK) {
+        location.href = '/heunheuntrip/html/room/index.html?lati=' + result[0].y + '&longi=' + result[0].x;
+      }
+    });
+  }
 }
 
 function loadLoginUser() {

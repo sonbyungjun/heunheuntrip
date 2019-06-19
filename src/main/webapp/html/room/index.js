@@ -11,7 +11,8 @@ img = {},
 points = [],
 overlays = [],
 memo = undefined,
-selector = "";
+selector = "",
+a=0;
 
 //handlebars에 paginate 함수를 추가한다.
 Handlebars.registerHelper('paginate', paginate);
@@ -33,9 +34,13 @@ $(document).ready(function () {
   })
   $('#heun-footer').load('../footer.html')
 
-  loadList(0);
   
-  loadBmark(1);
+  // 페이지가 교체되면서 중복 발생을 차단한것
+  if(a == 0) {
+	  loadList(0);
+	  
+	  loadBmark(1);
+  }
   
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
@@ -68,53 +73,30 @@ $(document).ready(function () {
 
     }, 300)
   })
-  console.log($(".sorting"))
-  console.log($(".selectric-scroll").children().children().find("li"))  //li태그자채를 찾음
-  $(document.body).trigger('loaded-list');
+ 
+
 });
 
 
-
-$(document.body).bind('loaded-list', (e) => { 
-	
 	$(".ui-select:visible").on('change', function() {   //이벤트가 발생한다. 
 	    console.log($(this).val())
 	    window.selector = $(this).val();
 	    
-	    
-	    
-	  });
+	    if(selector == "최신순") {
+	    	window.a = 1;
+	    	loadList(0);
+	    } else if (selector == "높은 가격순") {
+	    	window.a = 2;
+	    	loadList(0);
+	    } else if (selector == "낮은 가격순") {
+	    	window.a = 3;
+	    	loadList(0);
+	    } else {
+	    	window.a = 4;
+	    	loadList(0);
+	    }
+    });
 	
-$(".button").on('click', function(e){
-	
-	console.log($(".ui-select option:selected").val()) // 최신순 , 가격순 등등 문자열을 가지고온다. 
-	console.log($('.selectric-scroll').children().children().attr("data-index"))
-//          $.ajax({
-//            url: '../../app/json/bookmark/add',
-//            type: 'POST',
-//            data: {
-//              roomNo: no,
-//              memo: window.memo
-//            },
-//            dataType: 'json',
-//            success: function(response) {
-//              
-//              $(e.target).parent().parent().children(".bM-full").children().addClass('fa fa-star animated flash');
-//              
-//              $(e.target).parent().parent().children(".bM-full").css("display","");
-//              $(e.target).parent().parent().children(".bM-empty").css("display","none");
-//              
-//              loadBmark(1);
-//              
-//            },
-//            fail: function(error) {
-//              alert('등록 실패!!');
-//            }
-//          });
-	
-}) // save-item function
-
-});
 
 function loadBmark (pn) {
   $.getJSON('../../app/json/bookmark/list',
@@ -157,6 +139,9 @@ function loadList(pn) {
     url: url,
     type: 'GET',
     dataType: 'json',
+    data: {
+        a: window.a
+      },
     success: function (response) {
       
       // 북마크 여부
@@ -295,6 +280,7 @@ $('body').on('loaded-list', function () {
     panTo(latitude, longitude);
   })
 
+  
   $('.heun-room').click(function() {
     var no = $(this).data('no');
     location.href = '/heunheuntrip/html/room/view.html?no=' + no;

@@ -5,8 +5,8 @@ $.holdReady(true);
     type: 'GET',
     dataType: 'json',
     success: function (response) {
-       
-      if(response.auth == "호스트"){
+      
+      if(response.auth == "관리자"){
         $.holdReady(false);
       } else {
         $('#main').html('');
@@ -30,7 +30,6 @@ var form = $('.item-listing'),
 templateSrc = $('#tr-template').html(),
 trGenerator = Handlebars.compile(templateSrc),
 rating = 0,
-no = 0,
 paginateSrc = $('#page-template').html();
 
 Handlebars.registerHelper('paginate', paginate);
@@ -45,8 +44,6 @@ $(document).ready(function () {
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
   $(document.body).trigger('loaded-list');
   loadProfile();
- 
-  
 }) 
 
 $(document).on('load',function() {
@@ -54,78 +51,49 @@ $(document).on('load',function() {
 })
 "use strict"
 function Loadroomlist(pn) {
-  
   $.ajax({
-    url: '../../app/json/room/hostroom?pageNo=' + pn,
+    url: '../../app/json/room/managerroom?pageNo=' + pn,
     type: 'GET',
     data: {
-      no: window.no
+      no: 0
     },
     dataType: 'json',
     success: function (response) {
+      console.log(response);
+      pageNo = response.pageNo;
+      form.html('');
 
-      console.log(response.status)
-      
-      if(response.status === "success"){
-        
-        pageNo = response.pageNo;
-        form.html('');
-        for (l of response.list) {
-          
-          if (l.state === "0") {
-            l.state = true;
-          } else if (l.state === "1") {
-            l.state = false;
-          } else {
-            l.state = false;
-            l.restate = true;
-          }
-        }
-        
-        response.pagination = {
-            page: response.pageNo,
-            pageCount: response.totalPage
-        };
-        $(trGenerator(response)).appendTo(form);
-        $('.pagination-menu').html('');
-        $(pageGenerator(response)).appendTo('.pagination-menu');
-        
-      } else if (response.status === "fail"){
-        
-        form.html("<div class='row justify-content-md-center'>" +
-            "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
-               "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
-                 "<h5 class='main-title centered'><span>등록한 숙소가 없습니다.</span></h5>" +
-                     "<div class='main-title-description'> 흔흔여행에 숙소를 등록해보세요! </div>" +
-                   "</div>" +
-                 "</div>" +
-               "</div>");
-      }
-      
+      response.pagination = {
+          page: response.pageNo,
+          pageCount: response.totalPage
+      };
+      $(trGenerator(response)).appendTo(form);
+      $('.pagination-menu').html('');
+      $(pageGenerator(response)).appendTo('.pagination-menu');
       $(document.body).trigger('loaded-list');
     },
   });
 }
 
 $(document.body).bind('loaded-list', () => {
-  $('.del').on('click', function () {
+  $('.ceco').on('click', function () {
+    
     var no = $(this).data('no')
-
     Swal.fire({
       title: '잠깐!',
-      text: "정말로 삭제 하시겠습니까?",
+      text: "확실하게 정보를 확인했습니까?",
       type: 'question',
       allowOutsideClick: false,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '삭제',
+      confirmButtonText: '확인',
       cancelButtonText: '취소'
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: '../../app/json/room/delete',
-          type: 'GET',
+          url: '../../app/json/room/cecoupdate',
+          type: 'POST',
           data: {
             no: no
           },
@@ -133,10 +101,10 @@ $(document.body).bind('loaded-list', () => {
           success: function (response) {
             Swal.fire({
               type: 'success',
-              title: "정상적으로 삭제 되었습니다!"
+              title: "정상적으로 승인 되었습니다!"
             }).then((result) => {
               if (result.value) {
-                location.href = 'hostlist.html'
+                location.href = 'manager_room_ceco.html'
               }
             })
           },
@@ -150,12 +118,56 @@ $(document.body).bind('loaded-list', () => {
 
   })
 });
-
 $(document.body).bind('loaded-list', (e) => {
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+  $('.roomcontent').on('click', function () {
+
+    var rno = $(this).attr('data-no')
+    detail(rno)
   })
 })
+
+
+$(document.body).bind('loaded-list', () => {
+  $('.ceco-no').on('click', function () {
+    var no = $(this).attr('data-no')
+    var name = $(this).attr('data-name');
+    console.log(no)
+    $('#ceco-name').text("숙소명 :" + " " + name)
+    $('#message-text').val('')
+    $('#ceco-no-btn').attr('data-no', no)
+    
+  })
+});
+
+$(document.body).bind('loaded-list', () => {
+  $('#ceco-no-btn').on('click', function () {
+    var no = $(this).attr('data-no')
+    var cont = $('#message-text').val()
+    $.ajax({
+      url: '../../app/json/room/cecoupdate',
+      type: 'POST',
+      data: {
+        no: no,
+        msg: cont
+      },
+      dataType: 'json',
+      success: function (response) {
+        Swal.fire({
+          type: 'success',
+          title: "정상적으로 거절 되었습니다!"
+        }).then((result) => {
+          if (result.value) {
+            location.href = 'manager_room_ceco.html'
+          }
+        })
+      },
+      error: function (error) {
+        alert('시스템 오류가 발생했습니다.');
+      }
+    });
+  })
+});
+
 
 $(document.body).bind('loaded-list', (e) => {
   $('.roomcontent').on('click', function () {
@@ -165,13 +177,6 @@ $(document.body).bind('loaded-list', (e) => {
   })
 })
 
-$(document.body).bind('loaded-list', (e) => {
-  $('.cece-no-msg').on('click', function () {
-
-    var msg = $(this).attr('data-msg')
-    $('#message-text').text(msg)
-  })
-})
 
 
 function detail(rno){

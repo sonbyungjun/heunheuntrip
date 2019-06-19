@@ -1,5 +1,5 @@
 package com.heun.trip.dao;
-
+ 
 import java.util.List;
 import java.util.Map;
 import com.heun.trip.domain.Rev;
@@ -19,6 +19,8 @@ public interface RevDao {
   int changeRev(int no); 
   List<Rev> findByRoomReservationHistory(int no);
   int add(Rev rev);
+  int checkin(String date);
+  int checkout(String date);
 }
  
 

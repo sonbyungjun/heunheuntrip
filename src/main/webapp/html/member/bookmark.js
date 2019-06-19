@@ -2,7 +2,7 @@ var form = $('.card-list'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html();
-
+ 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 
@@ -17,6 +17,8 @@ $(document).ready(function () {
 function loadList(pn) {
   $.getJSON('../../app/json/bookmark/list?pageNo=' + pn, function(obj) {
     
+    if(obj.status === "success"){
+    
     pageNo = obj.pageNo;
     
     form.html('');
@@ -30,7 +32,18 @@ function loadList(pn) {
     
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
-    
+    } else if (obj.status === "fail") {
+      
+      form.html("<div class='row justify-content-md-center'>" +
+          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+               "<h5 class='main-title centered'><span>찜 목록이 없습니다.</span></h5>" +
+                   "<div class='main-title-description'> 원하는 숙소를 찜 해보세요! </div>" +
+                 "</div>" +
+               "</div>" +
+             "</div>");
+      
+    }
     $(document.body).trigger('loaded-list');
     
   }); 

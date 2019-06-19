@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- 
+  
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,7 +80,19 @@ p {
     font-style: normal;
     white-space: normal;
 }
-
+  .mb50 {
+    margin-bottom: 10px !important;
+  }
+  
+  .text-success {
+      color: #d3d3d3 !important;
+  }
+  
+  .main-title {
+    margin-bottom: 15px;
+    line-height: 34px;
+    color: #777777;
+}
 </style>
 
 </head>
@@ -251,14 +263,19 @@ p {
              <p class="heun-modal-charge"></p>
             </div> 
          </div>
-          <div id="main-calendar"></div>
+              <div class="input-group" id="main-data">
+                <input type="text" class="form-control heun-h1 heun-datein" placeholder="체크인">
+                <div class="input-group-text" style="background-color: white;">
+                  <svg style="height: 24px; width: 24px; display: block; fill: currentcolor;">
+                    <path
+                      d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <input type="text" class="form-control heun-h2 heun-datein" placeholder="체크아웃">
+              </div>
+              <div id="main-calendar"></div>
           
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item" style="padding: 10px;">
-            <p><i class="fas fa-calendar-week"></i><span class="heun-modal-checkin"></span> ~ <span class="heun-modal-checkout"></span></p>
-            <p><i class="fas fa-user"></i><span class="heun-modal-person"></span></p>
-            </li>
-          </ul>
        </div>
        <div class="modal-footer">
          <button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">닫기</button>
