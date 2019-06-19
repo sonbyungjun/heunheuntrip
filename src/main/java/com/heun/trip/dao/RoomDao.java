@@ -14,8 +14,10 @@ public interface RoomDao {
   int delete(int no);
   int amnDelete(int no);
   int safetyDelete(int no);
-  
   List<Room> findAll(Map<String,Object> paramMap);
+  List<Room> findhpriceAll(Map<String,Object> paramMap);
+  List<Room> findrpriceAll(Map<String,Object> paramMap);
+  List<Room> findhotAll(Map<String,Object> paramMap);
   Room findByNo(int no);
   List<Room> findByHostRoomList(Map<String,Object> paramMap);
 //  Member findByEmailPassword(Map<String,Object> paramMap);
@@ -24,4 +26,5 @@ public interface RoomDao {
   int countAll(Map<String,Object> paramMap); 
   int hostcountAll(int no); 
   String getRoomName(int no);
+  int grdinsert(Map<String,Object> paramMap);
 } 

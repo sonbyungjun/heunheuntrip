@@ -9,6 +9,8 @@ public interface RiwService {
   List<Riw> listMypage(int pageNo, int pageSize, int userNo);
   List<Riw> hostlistMypage(int pageNo, int pageSize, int userNo);
   int add(Riw riw);
+  int sumroomgrd(int roomNo);
+  int grdpeople(Riw riw);
   int addriw(Riw riw);
   Riw get(int no);
   int update(Riw riw);   

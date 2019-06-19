@@ -83,6 +83,18 @@ public class RiwServiceImpl implements RiwService {
   }
   
   @Override
+  public int sumroomgrd(int roomNo) {
+    int count = riwDao.sumroomgrd(roomNo);
+    return count;
+  }
+  
+  @Override
+  public int grdpeople(Riw riw) {
+    int count = riwDao.grdpeople(riw);
+    return count;
+  }
+  
+  @Override
   public Riw get(int no) {
     return riwDao.findByNo(no);
   }

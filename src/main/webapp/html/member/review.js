@@ -43,6 +43,8 @@ $(document).ready(function () {
   loadList(1);
   loadProfile();
 })
+
+
 function loadList(pn) {
   $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {
 	  
