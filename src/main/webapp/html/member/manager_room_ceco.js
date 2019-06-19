@@ -76,24 +76,24 @@ function Loadroomlist(pn) {
 }
 
 $(document.body).bind('loaded-list', () => {
-  $('.del').on('click', function () {
+  $('.ceco').on('click', function () {
+    
     var no = $(this).data('no')
-
     Swal.fire({
       title: '잠깐!',
-      text: "정말로 삭제 하시겠습니까?",
+      text: "확실하게 정보를 확인했습니까?",
       type: 'question',
       allowOutsideClick: false,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '삭제',
+      confirmButtonText: '확인',
       cancelButtonText: '취소'
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: '../../app/json/room/delete',
-          type: 'GET',
+          url: '../../app/json/room/cecoupdate',
+          type: 'POST',
           data: {
             no: no
           },
@@ -101,10 +101,10 @@ $(document.body).bind('loaded-list', () => {
           success: function (response) {
             Swal.fire({
               type: 'success',
-              title: "정상적으로 삭제 되었습니다!"
+              title: "정상적으로 승인 되었습니다!"
             }).then((result) => {
               if (result.value) {
-                location.href = 'hostlist.html'
+                location.href = 'manager_room_ceco.html'
               }
             })
           },

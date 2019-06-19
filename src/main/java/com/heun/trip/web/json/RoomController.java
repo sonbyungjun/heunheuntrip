@@ -316,6 +316,21 @@ public class RoomController {
     return contents;
   }
   
+  @PostMapping("cecoupdate")
+  public Object cecoUpdate(int no, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    try {
+        roomSerive.cecoRoomUpdate(no);
+        content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
+  }
+  
   
   
   @GetMapping("delete")

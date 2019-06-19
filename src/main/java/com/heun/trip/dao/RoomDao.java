@@ -9,6 +9,7 @@ import com.heun.trip.domain.Safety;
 public interface RoomDao {
   int insert(Room room);
   int update(Room room);
+  int cecoUpdate(Map<String,Object> paramMap);
   int insertConvenience(List<Convenience> Conveniences);
   int insertSafety(List<Safety> safeties);
   int delete(int no);

@@ -14,6 +14,7 @@ public interface RoomService {
   List<Room> cecoRoomlist(int pageNo, int pageSize,int no);
   int add(Room room);
   int update(Room room);
+  int cecoRoomUpdate(int no);
   String getRoom(int no);
 }
  

@@ -111,6 +111,16 @@
       rms_id=#{no}
   </update>
   
+  <update id="cecoUpdate" parameterType='map'>
+    update rms
+      <set>
+        activation = #{acti}
+      </set>
+    where
+      rms_id = #{no}
+        
+  </update>
+  
   <insert id="insertConvenience" parameterType="list">
     INSERT INTO rms_amn(
       amn_id, 

@@ -146,6 +146,15 @@ public class RoomServiceImpl implements RoomService {
     params.put("rowNo",(pageNo -1) * pageSize );
     return roomDao.findByCecoRoomList(params);
   }
+
+  @Override
+  public int cecoRoomUpdate(int no) {
+    HashMap<String,Object> params = new HashMap<>();
+    int acti = 1;
+    params.put("no", no);
+    params.put("acti", acti);
+    return roomDao.cecoUpdate(params);
+  }
   
   
 }
