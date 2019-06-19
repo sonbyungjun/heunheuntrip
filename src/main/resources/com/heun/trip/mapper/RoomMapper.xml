@@ -30,6 +30,7 @@
     <result column="usr_id" property="hostNo"/>
     <result column="grd" property="grade"/>
      <result column="activation" property="state"/>
+     <result column="reject_memo" property="rjmo"/>
   </resultMap>
  
   <resultMap type="room" id="roomPhotoMap">
@@ -128,7 +129,8 @@
   <update id="cecoUpdate" parameterType='map'>
     update rms
       <set>
-        activation = #{acti}
+        <if test="acti != null">activation =  #{acti},</if>
+        <if test="msg != null">reject_memo =  #{msg}</if>
       </set>
     where
       rms_id = #{no}
@@ -381,7 +383,8 @@
       rm_chge,
       rm_name,
       max_ple,
-      activation
+      activation,
+      reject_memo
       
       
     from

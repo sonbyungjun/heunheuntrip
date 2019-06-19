@@ -156,6 +156,14 @@ $(document.body).bind('loaded-list', (e) => {
   })
 })
 
+$(document.body).bind('loaded-list', (e) => {
+  $('.cece-no-msg').on('click', function () {
+
+    var msg = $(this).attr('data-msg')
+    $('#message-text').text(msg)
+  })
+})
+
 
 function detail(rno){
 

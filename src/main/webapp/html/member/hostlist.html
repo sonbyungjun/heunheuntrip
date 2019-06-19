@@ -135,7 +135,7 @@
                         {{#if state}}
                         <li>승인 여부<span>미승인</span></li>
                            {{else if restate}}
-                        <li>승인 여부<span>승인 거절</span></li>
+                        <li>승인 여부<span class="cece-no-msg" data-toggle="modal" data-target="#cecoform" data-msg="{{rjmo}}">승인 거절</span></li>
 {{else}}
 <li>승인 여부<span>승인</span></li>
                         {{/if}}
@@ -239,6 +239,24 @@
       </div>
     </div>
   </div>
+  
+  <div class="modal fade" id="cecoform" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <h5 class='mar' style="color: #4682b4">승인 거절 이유:</h5>
+            <textarea class="form-control" id="message-text" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script src='common_profile.js'></script>
   <script src='hostlist.js'></script>

@@ -182,10 +182,16 @@ public class RoomServiceImpl implements RoomService {
   }
 
   @Override
-  public int cecoRoomUpdate(int no) {
+  public int cecoRoomUpdate(int no, String msg) {
+    int acti = 0;
     HashMap<String,Object> params = new HashMap<>();
-    int acti = 1;
+    if (msg.equals("")) {
+      acti = 1;
+    } else {
+      acti = 2;
+    }
     params.put("no", no);
+    params.put("msg", msg);
     params.put("acti", acti);
     return roomDao.cecoUpdate(params);
   }
