@@ -2,7 +2,7 @@ var form = $('.card-list'),
     templateSrc = $('#tr-template').html(),
     trGenerator = Handlebars.compile(templateSrc),
     paginateSrc = $('#page-template').html();
-
+ 
 Handlebars.registerHelper('paginate', paginate);
 var pageGenerator = Handlebars.compile(paginateSrc);
 

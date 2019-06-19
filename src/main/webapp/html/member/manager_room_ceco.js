@@ -127,6 +127,58 @@ $(document.body).bind('loaded-list', (e) => {
 })
 
 
+$(document.body).bind('loaded-list', () => {
+  $('.ceco-no').on('click', function () {
+    var no = $(this).attr('data-no')
+    var name = $(this).attr('data-name');
+    console.log(no)
+    $('#ceco-name').text("숙소명 :" + " " + name)
+    $('#message-text').val('')
+    $('#ceco-no-btn').attr('data-no', no)
+    
+  })
+});
+
+$(document.body).bind('loaded-list', () => {
+  $('#ceco-no-btn').on('click', function () {
+    var no = $(this).attr('data-no')
+    var cont = $('#message-text').val()
+    $.ajax({
+      url: '../../app/json/room/cecoupdate',
+      type: 'POST',
+      data: {
+        no: no,
+        msg: cont
+      },
+      dataType: 'json',
+      success: function (response) {
+        Swal.fire({
+          type: 'success',
+          title: "정상적으로 거절 되었습니다!"
+        }).then((result) => {
+          if (result.value) {
+            location.href = 'manager_room_ceco.html'
+          }
+        })
+      },
+      error: function (error) {
+        alert('시스템 오류가 발생했습니다.');
+      }
+    });
+  })
+});
+
+
+$(document.body).bind('loaded-list', (e) => {
+  $('.roomcontent').on('click', function () {
+
+    var rno = $(this).attr('data-no')
+    detail(rno)
+  })
+})
+
+
+
 function detail(rno){
 
   $.ajax({

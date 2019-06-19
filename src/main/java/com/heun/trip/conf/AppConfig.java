@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
+ 
 @ComponentScan(basePackages="com.heun.trip", excludeFilters= @Filter(type = FilterType.REGEX, pattern="com.heun.trip.web"))
 @ImportResource("classpath:/com/heun/trip/conf/tx-context.xml")
 @EnableScheduling

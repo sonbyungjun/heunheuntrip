@@ -174,9 +174,10 @@ $('#check-btn').on('click', function () {
 		}
 	});
 })
-
 // 인증 번호 보내기
 $('#add-btn').on('click', function () {
+	var isVaild = true;
+	var msg;
 	// 먼저 서버에 사용자가 입력한 이메일을 서버에 보내서 인증번호를 받아옴
 	$.ajax({
 		url: '../../app/json/member/email',
@@ -185,28 +186,45 @@ $('#add-btn').on('click', function () {
 			email: $("#email").val()
 		},
 		dataType: 'json',
-		success: function (response) {
-
-			// 요청이 성공하면 먼저 엘럿창을 띄움
+		beforeSend:function(){
 			Swal.fire({
-				type: 'success',
-				title: "이메일을 확인해주세요."
-			})
-
-			// 인증번호 입력창의 readonly를 해제
-			$('#play').attr("readonly", false);
-			$('#play').val('');
-			$('#check-btn').show();
-
-			// 기존 성공상태를 실패상태로 바꿈
-			$('#play').removeClass("is-valid")
-				.addClass("is-invalid")
-				.show();
-			$('#check-btn').removeAttr("disabled");
-		},
-		fail: function (error) {
-			alert('등록 실패!!');
+				  title: '인증번호 요청중',
+				  html: '서버에 요청중 입니다.... ',
+				  allowOutsideClick: false,
+				  onBeforeOpen: () => {
+				    Swal.showLoading()
+				    }
+				  })
+				}
+	}).done(function(data) {
+		//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+		if (data.status === "success") {
+			isVaild = true;
+			msg = '이메일을 확인해주세요';
+		} else {
+			//[3] 아직 제대로 결제가 되지 않았습니다.
+			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+			isVaild = false;
+			msg = '이메일 인증번호 요청 실패';
 		}
+	}).always(function() {
+		Swal.fire({
+			type: isVaild ? 'success' : 'error',
+			title:msg
+		}).then((result) => {
+			if(result.value){
+				$('#play').attr("readonly", false);
+				$('#play').val('');
+				$('#check-btn').show();
+
+				// 기존 성공상태를 실패상태로 바꿈
+				$('#play').removeClass("is-valid")
+					.addClass("is-invalid")
+					.show();
+				$('#check-btn').removeAttr("disabled");
+			}
+		})
+
 	});
 })
 

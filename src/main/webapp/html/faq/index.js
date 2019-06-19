@@ -1,20 +1,21 @@
-(function($) {
-  $.ajax({
-    url: '/heunheuntrip/app/json/auth/authCheck',
-    type: 'GET',
-    dataType: 'json',
-    success: function (response) {
-
-      if(response.auth == "호스트"){
-    	  
-      } else {
-
-      }
-    },
-    error: function (error) {
-    }
-  })
-})(jQuery);
+//(function($) {
+//  $.ajax({
+//    url: '/heunheuntrip/app/json/auth/authCheck',
+//    type: 'GET',
+//    dataType: 'json',
+//    success: function (response) {
+//
+//      if(response.auth == "호스트"){
+//    	  
+//      } else {
+//
+//      }
+//    },
+//    error: function (error) {
+//    }
+//  })
+//})(jQuery);
+var auth;
 
 $(document).ready(function () {
   $("#heun-header").load("/heunheuntrip/html/header.html", function () {
@@ -33,9 +34,9 @@ var tbody = $('.faq-form'),
 function loadList(pn) {
   $.getJSON('../../app/json/faq/list',
     function (obj) {
+	  auth = obj.member.auth;
       tbody.html('');
       $(trGenerator(obj)).appendTo(tbody);
-      
       
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
       $(document.body).trigger('loaded-list');
@@ -48,9 +49,20 @@ function loadList(pn) {
 } // loadList()
 
 $('body').on('loaded-list', function () {
+	
+	  if(auth == "일반회원" || auth == "호스트"){
+			$('#addview-btn').hide();
+			console.log("새글버튼 숨기기")
+			$('.delete-btn').hide();
+			$('.update-btn').hide();
+			console.log("변경 삭제 버튼")
+		  }else{
+				$('#addview-btn').show();
+				$('.btn').show();
+		  }
+	
   $('.delete-btn').on('click', function (e) {
     var no = $(e.target).attr('data-no')
-    console.log(no);
     $.getJSON({
       url: '../../app/json/faq/delete?no=' + no,
       success: function (response) {
@@ -61,6 +73,11 @@ $('body').on('loaded-list', function () {
       }
     });
   })
+  
+  $('.heun-content').on('click', function() {
+	  $(this).replaceWith(' <textarea class="con heun-content" id="content-' + $(this).data('no') + '" data-no=' + $(this).data('no') + '>' + $(this).text() + '</textarea>')
+  })
+  
 })
 
 $('body').on('loaded-list', function () {
@@ -88,7 +105,6 @@ $('body').on('loaded-list', function () {
 	  $('.faq-list').each(function(i, e) {
 		  $(e).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black');
 	  })
-
 	  
     //1) ".faq-detail > div" 없으면 서버에서 가져온다..
     //2) ".faq-detail > div" 를 모두 감춘다.
@@ -97,30 +113,35 @@ $('body').on('loaded-list', function () {
     //      $('.aa').find('div').css('display', '');
     // }else{
     // }
-    if ($(this).parents('.faq-pa').find('.faq-view').find('div').css('display') == 'none') {
+	  
+	  var tag = $(this).parents('.faq-pa').find('.faq-view').find('div');
+	  
+    if (tag.css('display') == 'none') {
       //$(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none')
       $('.faq-view').find('div').css('display', 'none');
-      $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', '')
-       $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'blue')
       
+      tag.css('display', '');
       
+      $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'blue')
+      $('#addview-btn').hide();
     } else {
-    	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
-        $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
-        $(this).val('');
+    	
+	   $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
+      $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+      $(this).val('');
     }
   }); // Bitcamp.getJSON()
 })
 
 $('body').on('loaded-add', function () {
   $('#addview-btn').on('click', function () {
-    $('.faq-view').find('div').css('display', 'none');
     $('.faq-add').find('div').css('display', '');
   })
 })
 $('#add-btn').on('click', function () {
   var text = $('textarea#content').val();
-  console.log(text);
+console.log('실행');
+
   $.ajax({
     url: '../../app/json/faq/add',
     type: 'POST',
@@ -142,10 +163,11 @@ $('#add-btn').on('click', function () {
   });
 })
 loadList(1);
+	  $('#add-canbtn').on('click', function () {
+	    $('.faq-add').find('div').css('display', 'none');
+	  })
 
-$('.btn-qna').on('click', function () {
-  location.href = '../qna/index.html';
-})
+
 
 
 

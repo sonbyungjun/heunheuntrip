@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+   
   $('#logout-btn').on('click', function(e){
     $.ajax({
       url: '/heunheuntrip/app/json/auth/logout',

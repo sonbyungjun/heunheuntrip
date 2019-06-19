@@ -1,5 +1,5 @@
 package com.heun.trip.service;
- 
+  
 import java.util.List;
 import com.heun.trip.domain.Room;
 
@@ -17,7 +17,7 @@ public interface RoomService {
   List<Room> cecoRoomlist(int pageNo, int pageSize,int no);
   int add(Room room);
   int update(Room room);
-  int cecoRoomUpdate(int no);
+  int cecoRoomUpdate(int no, String msg);
   String getRoom(int no);
   int grdupdate(int roomgrd, int roomNo);  
 }
