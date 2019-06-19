@@ -258,6 +258,7 @@ public class RoomController {
       @RequestParam(defaultValue="4") int pageSize,
       int no) {
     HashMap<String, Object> contents = new HashMap<>();
+    
     if (pageSize < 1 || pageSize > 5) 
       pageSize = 4;
 
@@ -269,13 +270,65 @@ public class RoomController {
         pageNo = 1;
       else if (pageNo > totalPage)
         pageNo = totalPage;
+      
+      
       List<Room> list = roomSerive.hostroomlist(pageNo, pageSize,no);
+
+      if(list.size() != 0) {
+        
+        contents.put("list", list);
+        contents.put("pageNo", pageNo);
+        contents.put("pageSize", pageSize);
+        contents.put("totalPage", totalPage);
+        contents.put("status", "success");
+        
+      } else {
+        contents.put("status", "fail");
+      }
+      
+    
+    return contents;
+  }
+  
+  @GetMapping("managerroom")
+  public Object managerRoom(
+      @RequestParam(defaultValue="1") int pageNo,
+      @RequestParam(defaultValue="4") int pageSize,
+      int no) {
+    HashMap<String, Object> contents = new HashMap<>();
+    if (pageSize < 1 || pageSize > 5) 
+      pageSize = 4;
+
+      int rowCount = roomSerive.cecoRoomsize(no);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Room> list = roomSerive.cecoRoomlist(pageNo, pageSize,no);
       contents.put("list", list);
       contents.put("pageNo", pageNo);
       contents.put("pageSize", pageSize);
       contents.put("totalPage", totalPage);
     
     return contents;
+  }
+  
+  @PostMapping("cecoupdate")
+  public Object cecoUpdate(int no, HttpSession session) {
+
+    HashMap<String,Object> content = new HashMap<>();
+
+    try {
+        roomSerive.cecoRoomUpdate(no);
+        content.put("status", "success");
+    }catch (Exception e){
+      content.put("status", "fail");
+      content.put("message", e.getMessage());
+    }
+    return content;
   }
   
   

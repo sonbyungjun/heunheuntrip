@@ -101,7 +101,17 @@ function loadList(pn) {
     $('.pagination-menu').html('');
     $(pageGenerator(obj)).appendTo('.pagination-menu');
 
-    } else {
+    } else if(obj.status === "fail"){
+      
+      form.html("<div class='row justify-content-md-center'>" +
+                   "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+                      "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
+                        "<h5 class='main-title centered'><span>예약 목록이 없습니다.</span></h5>" +
+                            "<div class='main-title-description'> 원하는 숙소를 예약해보세요! </div>" +
+                          "</div>" +
+                        "</div>" +
+                      "</div>");
+      
     }
     
     $(document.body).trigger('loaded-list');

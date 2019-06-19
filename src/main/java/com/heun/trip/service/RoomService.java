@@ -8,10 +8,13 @@ public interface RoomService {
   int size(String lati, String longi);
   int delete(int no); 
   int hostsize(int no);
+  int cecoRoomsize(int no);
   Room get(int no);
   List<Room> hostroomlist(int pageNo, int pageSize,int hostNo);
+  List<Room> cecoRoomlist(int pageNo, int pageSize,int no);
   int add(Room room);
   int update(Room room);
+  int cecoRoomUpdate(int no);
   String getRoom(int no);
 }
  
