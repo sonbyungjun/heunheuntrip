@@ -13,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-@EnableAsync
+
 @Configuration
 @PropertySource("classpath:/com/heun/trip/conf/sec.properties")
 public class Gmail {
@@ -24,7 +22,7 @@ public class Gmail {
   @Autowired 
   Environment env;
   
-  @Async
+  
   public String gmailSend(String email ,String title, String Text) {
     String user = env.getProperty("gmail.id"); // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
     String password = env.getProperty("gmail.password"); // 패스워드
