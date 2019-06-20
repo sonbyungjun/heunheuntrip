@@ -9,6 +9,7 @@ public interface MemberDao {
   int insert(Member member);
   int bankinsert(Map<String,Object> paramMap);
   int snsinsert(Member member);
+  int fbinsert(Member member);
   List<Member> findAll(Map<String,Object> paramMap);
   Member findByNo(int no);
   Member findByEmailPassword(Map<String,Object> paramMap);

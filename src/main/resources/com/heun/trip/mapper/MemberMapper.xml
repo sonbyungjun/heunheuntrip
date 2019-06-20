@@ -11,6 +11,7 @@
     <result column="email"   property="email"/>
     <result column="pwd"  property="password"/>
     <result column="auth"    property="auth"/>
+    <result column="auth_id"    property="authNo"/>
     <result column="name"    property="name"/>
     <result column="tel"    property="tel"/>
     <result column="sns_no"    property="sns_no"/>
@@ -138,6 +139,26 @@
       #{auth})
   </insert>
   
+     <insert id="fbinsert" parameterType="member" useGeneratedKeys="true" keyColumn="member_id" keyProperty="no">
+    insert into usr(
+      email,
+      name,
+      pwd,
+      tel,
+      sns_no,
+      usr_photo,
+      auth_id)
+      
+    values(
+      #{email},
+      #{name},
+      password(#{password}),
+      #{tel},
+      #{sns_no},
+      #{photo},
+      #{authNo})
+  </insert>
+  
   <update id="update" parameterType="map">
     update usr
     <set>
@@ -206,9 +227,14 @@
       name,
       tel,
       usr_photo,
-      cdt
+      cdt,
+      auth
     from
-    usr
+    usr u
+    left outer join
+      auth a
+    on
+      u.auth_id=a.auth_id
     where
     email = #{value}
    
