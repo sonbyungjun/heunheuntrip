@@ -157,8 +157,9 @@ public class BlogController {
       @RequestParam(value="deorder") int deorder
       ) { // localhost:8080/heunheuntrip/app/json/blog/list
 
+    HashMap<String,Object> content = new HashMap<>();
     //System.out.println(order);
-
+  try {
     if (pageSize < 1 || pageSize > 8) 
       pageSize = 7;
 
@@ -173,7 +174,6 @@ public class BlogController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
 
-    HashMap<String,Object> content = new HashMap<>();
 
     //여기서 리스트를 뿌려주는 형식이 정해짐
     if(order == 1) {
@@ -182,26 +182,33 @@ public class BlogController {
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
     } else if(blike == 1) {
       List<Blog> blogs = blogService.likebylist(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
     } else if (deorder == 1) {
       List<Blog> blogs = blogService.deorder(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
     } else {      
       List<Blog> blogs = blogService.list(pageNo, pageSize);
       content.put("list", blogs);
       content.put("pageNo", pageNo);
       content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
+      content.put("status", "success");
     }
-
+  } catch (Exception e) {
+    
+    content.put("status", "fail");
+  }
     return content;
   }
 
