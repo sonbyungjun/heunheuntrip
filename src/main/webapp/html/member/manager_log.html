@@ -15,7 +15,7 @@
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
-  <link rel="stylesheet" href="manager.css">
+  <link rel="stylesheet" href="manager_log.css">
   <link rel="stylesheet" href="../../star/star-rating-svg.css">
   <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic"
     rel="stylesheet">
@@ -75,7 +75,7 @@
                     <div class="list-group no-border list-unstyled">
                       <a href="manager_room_ceco.html" class="list-group-item"> <i class="fas fa-h-square"></i> 숙소 승인</a>
                       <a href="manager.html" class="list-group-item"> <i class="far fa-bell "></i> 회원 관리</a>
-                      <a href="manager_log.html" class="list-group-item"> <i class="far fa-bell "></i> 로그인 로그</a>
+                      <a href="manager_log.html" class="list-group-item active"> <i class="far fa-bell "></i> 로그인 로그</a>
                     </div>
                   </div>
                 </div>
@@ -84,36 +84,19 @@
                 <div class="page-header bordered">
                   <div class="row">
                     <div class="col-3">
-                      <h2>회원 목록</h2>
-                    </div>
-                    <div class="col-9 main-search" style='text-align: right;padding-top: 15px;'>
-                      <div class="btn-group search-choose" style='height: 30px;'>
-                        <button type="button" class="btn btn-sm btn-secondary  dropdown-toggle searchselect dd"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          검색조건
-                        </button>
-                        <div class="dropdown-menu heun-search">
-                          <a class="dropdown-item droptitle" name="title" data-no="title">이름</a>
-                          <a class="dropdown-item dropname" name="name" data-no="name">이메일</a>
-                          <a class="dropdown-item droptitle" name="titlename" data-no="titlename">권한</a>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                          <input type="text" class="form-control search-box" id="inputSearch" placeholder="검색어를 입력하시오"
-                            style='width: 200px;height: 30px;'>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-sm mb-2 search-btn" value=""
-                          style='width: 55px; height: 30px;'>검색</button>
-                      </div>
+                      <h2>Login Log</h2>
                     </div>
                   </div>
-                  <table class="table table-hover product_comparison">
+                  <table class="table table-hover product_comparison table-sm">
                     <thead>
                       <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">이름</th>
+                        <th scope="col">요청URL</th>
+                        <th scope="col">걸린시간</th>
+                        <th scope="col">아이피주소</th>
                         <th scope="col">이메일</th>
-                        <th scope="col">등록일</th>
-                        <th scope="col">권한</th>
+                        <th scope="col">성공/실패</th>
+                        <th scope="col">생성일</th>
                       </tr>
                     </thead>
                     <tbody></tbody>
@@ -140,10 +123,12 @@
     {{#each list}}
     <tr>
       <th scope='row'>{{no}}</th>
-      <td>{{name}}</td>
-      <td>{{email}}</td>
-      <td>{{createdDate}}</td>
-      <td>{{auth}}</td>
+      <td scope='row'>{{url}}</td>
+      <td scope='row'>{{sumTime}}</td>
+      <td scope='row'>{{ip}}</td>
+      <td scope='row'>{{email}}</td>
+      <td scope='row'>{{state}}</td>
+      <td scope='row'>{{createdDate}}</td>
     </tr>
     {{/each}}
     </script>
@@ -152,30 +137,30 @@
     <nav>
       <ul class="pagination pagination-centered">
         {{#paginate pagination type="first"}}
-          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadmemberlist({{n}})">&laquo;&laquo;</a></li>
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="Loadlist({{n}})">&laquo;&laquo;</a></li>
         {{/paginate}}
     
         {{#paginate pagination type="previous"}}
-          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadmemberlist({{n}})">&laquo;</a></li>
+          <li id="prevPage" class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="Loadlist({{n}})">&laquo;</a></li>
         {{/paginate}}
     
         {{#paginate pagination type="middle" limit="4"}}
-          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' href="#" onclick="Loadmemberlist({{n}})">{{n}}</a></li>
+          <li class="page-item {{#if active}}active{{/if}}"><a class="page-link" data-no='{{n}}' onclick="Loadlist({{n}})">{{n}}</a></li>
         {{/paginate}}
     
         {{#paginate pagination type="next"}}
-          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" href="#" onclick="Loadmemberlist({{n}})">&raquo;</a></li>
+          <li id="nextPage" class="page-item {{#if disabled}}disabled{{/if}}"><a  class="page-link" onclick="Loadlist({{n}})">&raquo;</a></li>
         {{/paginate}}
     
         {{#paginate pagination type="last"}}
-          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" href="#" onclick="Loadmemberlist({{n}})">&raquo;&raquo;</a></li>
+          <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="Loadlist({{n}})">&raquo;&raquo;</a></li>
         {{/paginate}}
     </ul>
     </nav>
   </script>
 
   <script src='common_profile.js'></script>
-  <script src='manager.js'></script>
+  <script src='manager_log.js'></script>
 
 </body>
 
