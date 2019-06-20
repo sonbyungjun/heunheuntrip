@@ -360,9 +360,7 @@ $('.heun-push').click(function () {
     $('body').on('xy', function () {
     	
       var price = $('#heun-price').val();
-       console.log(price)
-      var reprice = price.replace(',', '');
-       console.log(price)
+      var reprice = price.replace(/,/gi, '');
        
       var allData = {
         type: $('#type').val(),
@@ -389,8 +387,8 @@ $('.heun-push').click(function () {
         no:roomdetailno
       }
 
-      console.log(allData)
-
+      var isVaild = true;
+      var msg = '';
       $.ajax({
         url: '../../app/json/room/update',
         type: 'POST',
@@ -398,16 +396,26 @@ $('.heun-push').click(function () {
         dataType: 'json',
         success: function (response) {
           if (response.status == 'success') {
-        	  console.log("성공이다")
-            location.href = 'index.html';
+        	  isVaild = true;
+            msg = '숙소 변경 성공!';
           } else {
-            console.log("실패")
-            location.href = 'index.html';
+            isVaild = false;
+            msg = '숙소 변경 실패!';
           }
         },
         fail: function (error) {
           alert('시스템 오류가 발생했습니다.');
         }
+      }).always(function() {
+        Swal.fire({
+          type: isVaild ? 'success' : 'error',
+          title: msg
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html/member/hostlist.html';
+            return;
+          }
+        })
       });
 
       var result = '';

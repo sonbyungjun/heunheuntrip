@@ -8,7 +8,7 @@ public class Room {
   
   private int no;
   private String name;
-  private int price;
+  private String price;
   private int bed;
   private int bath;
   private int maxPerson;
@@ -28,7 +28,6 @@ public class Room {
   private String state;
   private String rjmo;
   
-  
   private String thumbnail;
   
   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
@@ -41,6 +40,12 @@ public class Room {
   private List<RoomFile> photos;
   private List<String> reservationHistory;
   
+  public String getPrice() {
+    return price;
+  }
+  public void setPrice(String price) {
+    this.price = price;
+  }
   public int getNo() {
     return no;
   }
@@ -52,12 +57,6 @@ public class Room {
   }
   public void setName(String name) {
     this.name = name;
-  }
-  public int getPrice() {
-    return price;
-  }
-  public void setPrice(int price) {
-    this.price = price;
   }
   public int getBed() {
     return bed;
