@@ -225,9 +225,7 @@ public class RoomController {
     else if (pageNo > totalPage)
       pageNo = totalPage;
 
-   
     HashMap<String,Object> content = new HashMap<>();
-    
     
     if(loginUser != null) {
       content.put("loginNo", loginUser.getNo());
@@ -236,30 +234,24 @@ public class RoomController {
     if(a == 2) {
       List<Room> rooms = roomSerive.hpricelist(pageNo, pageSize, lati, longi);
       content.put("list", rooms);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
+      
     } if (a == 3) {
       List<Room> rooms = roomSerive.rpricelist(pageNo, pageSize, lati, longi);
       content.put("list", rooms);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
+
     } if (a == 4) {
       List<Room> rooms = roomSerive.hotlist(pageNo, pageSize, lati, longi);
       content.put("list", rooms);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
+
     } if (a == 1 || a == 0) {
       List<Room> rooms = roomSerive.list(pageNo, pageSize, lati, longi);
       content.put("list", rooms);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
-      content.put("totalPage", totalPage);
+
     } 
     
-    
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
+    content.put("totalPage", totalPage);
    
     return content;
   }

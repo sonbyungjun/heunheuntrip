@@ -10,4 +10,6 @@ public interface HostQnaService {
   List<HostQna> HostList(int no);
   List<HostQna> NewHostList(int no); 
   List<HostQna> NewGuestList(int no); 
+  String getHostPhoto(int no);
+  String getUserPhoto(int no);
 }

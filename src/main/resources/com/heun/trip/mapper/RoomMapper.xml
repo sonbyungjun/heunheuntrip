@@ -177,6 +177,8 @@
           AS distance
         from
           rms
+        where
+          activation = 1
         HAVING distance <= 10
         ORDER BY distance 
       ]]>
@@ -184,6 +186,8 @@
       <when test="lati == null and longi == null">
         from
           rms
+        where
+          activation = 1
         order by
           rms_id desc
       </when>
@@ -192,8 +196,6 @@
       limit #{rowNo}, #{size}
     </if>
   </select>
-  
-  
   
   <select id="findhpriceAll" resultMap="roomMap" parameterType="map">
     select
@@ -226,7 +228,6 @@
           rm_chge desc
       </when>
     </choose>
-   
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>
@@ -263,7 +264,6 @@
           rm_chge asc
       </when>
     </choose>
-   
     <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>

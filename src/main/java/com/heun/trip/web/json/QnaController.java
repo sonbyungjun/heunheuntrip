@@ -85,8 +85,7 @@ public class QnaController {
         pageNo = totalPage;
       List<Qna> list = qnaService.list(pageNo, pageSize, selector, val);
       content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
+ 
       content.put("totalPage", totalPage);
 
     }
@@ -101,8 +100,7 @@ public class QnaController {
         pageNo = totalPage;
       List<Qna> list = qnaService.namelist(pageNo, pageSize, selector, val);
       content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
+ 
       content.put("totalPage", totalPage); 
     }
     if(selector == 3) {// 제목
@@ -116,8 +114,7 @@ public class QnaController {
         pageNo = totalPage;
       List<Qna> list = qnaService.titlelist(pageNo, pageSize, selector, val);
       content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
+ 
       content.put("totalPage", totalPage);
     }
     if(selector == 4) {// 작성자 + 제목
@@ -131,11 +128,11 @@ public class QnaController {
         pageNo = totalPage;
       List<Qna> list = qnaService.titlenamelist(pageNo, pageSize, selector, val);
       content.put("list", list);
-      content.put("pageNo", pageNo);
-      content.put("pageSize", pageSize);
       content.put("totalPage", totalPage);
     }
     
+    content.put("pageNo", pageNo);
+    content.put("pageSize", pageSize);
     
 
     return content;
