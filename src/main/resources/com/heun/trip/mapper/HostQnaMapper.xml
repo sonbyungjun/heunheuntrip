@@ -9,7 +9,7 @@
   <resultMap type="hostQna" id="hostQnaMap">
     <id column="hst_qna_id" property="no"/>
     <result column="usr_id" property="userNo"/>
-    <result column="rms_id" property="roomNo"/>
+    <result column="rev_id" property="revNo"/>
     <result column="conts" property="content"/>
     <result column="cdt" property="createdDate"/>
     <result column="usr_photo" property="photo"/>
@@ -19,28 +19,54 @@
   </resultMap>
     
     
-  <select id="findAll" resultMap="hostQnaMap" parameterType="map">
+  <select id="findByHostqnaList" resultMap="hostQnaMap" parameterType="int">
     select
-     h.hst_qna_id,
-     h.usr_id,
-     h.rms_id,
-     h.conts,
-     h.cdt,
-     u.usr_photo,
-     u.name,
-     u.auth_id,
-     a.auth
+      h.hst_qna_id,
+      h.usr_id,
+      h.rev_id,
+      h.conts,
+      h.cdt,
+      u.usr_photo,
+      u.name,
+      u.auth_id,
+      a.auth
     from
       hst_qna h
     left outer join
       usr u on h.usr_id=u.usr_id
     left outer join
       auth a on u.auth_id=a.auth_id
-    order by 
-      hst_qna_id asc
-    <if test="size != null and rowNo != null">
-      limit #{rowNo}, #{size}
-    </if>
+    where
+      h.rev_id = #{value}
+    order by
+      h.cdt desc
+  </select>
+  
+  <select id="findNewGuestqna" resultMap="hostQnaMap" parameterType="int">
+   select
+    t1.rev_id,
+    t1.conts,
+    t1.cdt
+   from 
+    hst_qna as t1,
+    (select rev_id, max(cdt) as max_cdt
+      from hst_qna group by rev_id) as t2
+   where 
+    t1.cdt = t2.max_cdt and t1.rev_id = t2.rev_id and t1.rev_id in (select rev_id from rev where usr_id = #{value});
+  </select>
+  
+  <select id="findNewHostqna" resultMap="hostQnaMap" parameterType="int">
+    select
+     t1.rev_id,
+     t1.conts,
+     t1.cdt
+    from 
+     hst_qna as t1,
+     (select rev_id, max(cdt) as max_cdt
+       from hst_qna group by rev_id) as t2
+    where 
+     t1.cdt = t2.max_cdt and t1.rev_id = t2.rev_id and t1.rev_id in 
+     (select rev_id from rev where rms_id in (select rms_id from rms where usr_id=#{value}));  
   </select>
   
   <delete id="delete" parameterType="int">
@@ -51,83 +77,13 @@
     <insert id="insert" parameterType="map">
     insert into hst_qna(
      usr_id,
-     rms_id,
-      conts) 
+     rev_id,
+     conts) 
     values(
       #{userNo},
-      #{roomNo},
+      #{revNo},
       #{content})
   </insert>
-  
-  
-  
-  
-  
-  <!-- 
-  <update id="update" parameterType="map">
-    update 
-    faq 
-    set 
-     faq_an = #{content} 
-    where 
-    faq_id = #{no}
-  </update>
-  
-  <select id="findByNo" resultMap="faqMap" parameterType="int">
-    select
-      faq_id,
-      faq,
-      faq_an
-    from 
-      faq
-    where 
-      faq_id=#{value}
-  </select>
-  
-  <select id="findByReList" resultMap="qnaMap" parameterType="map">
-    select
-      q.qna_id,
-      u.name,
-      q.parent,
-      q.ordr,
-      q.step,
-      c.cate,
-      q.title,
-      q.content,
-      q.cdt,
-      q.vw_cnt
-    from
-      qna q
-    left outer join
-      usr u on q.usr_id=u.usr_id
-    left outer join
-      qna_cate c on q.qna_cate_id=c.qna_cate_id
-    where
-      q.parent=#{parent} and q.step<![CDATA[<]]>#{step}
-    order by 
-      parent asc
-  </select>
-  
-  
-   <select id="findByNo" resultMap="qnaMap" parameterType="int">
-    select * 
-    from qna
-    where 
-      rms_id = #{value}
-  </select>
-  
-  <update id="increaseCount" parameterType="int">
-    update qna 
-    set 
-      vw_cnt = vw_cnt + 1 
-    where qna_id = #{value}
-  </update>
-  
-  
-  
-
-  
-  -->
   
  
   <select id="countAll" resultType="int">
