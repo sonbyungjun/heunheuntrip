@@ -242,6 +242,9 @@ function roomreview(pn) {
 
 				});
 
+			} else {
+				$('#review').html("<div style='text-align: center; font-size: 16px'> 작성된 리뷰가 없습니다. </div>");
+				$('.pagination-menu').html('');
 			}
 
 

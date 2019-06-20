@@ -42,6 +42,32 @@ public class HostQnaServiceImpl implements HostQnaService {
   public int add(HostQna hostqna) {
     return hostqnaDao.insert(hostqna);
   }
+  
+  // 게스트일때 호스트 사진을 구한다.
+  @Override
+  public String getHostPhoto(int no) {
+    
+    Rev rev = revDao.findByNo(no);
+    int rmsNo = rev.getRmsNo();
+    Room room = roomDao.findByNo(rmsNo);
+    int hostNo = room.getHostNo();
+    Member member = memberDao.findByNo(hostNo);
+    String hostPhoto = member.getPhoto();
+    
+    return hostPhoto;
+  }
+  
+  // 호스트일때 게스트 사진을 구한다.
+  @Override
+  public String getUserPhoto(int no) {
+    
+    Rev rev = revDao.findByNo(no);
+    int userNo = rev.getUserNo();
+    Member member = memberDao.findByNo(userNo);
+    String userPhoto = member.getPhoto();
+    
+    return userPhoto;
+  }
 
   @Override
   public List<HostQna> HostList(int no) {

@@ -34,7 +34,7 @@ function loadData(no) {
     $('#cont').html(data.blog.content);
     $('.tooltip').attr('title', data.blog.rmsAddr + " " + data.blog.rmsDetailAddr);
     $('#createdDate').html("작성일 : " + data.blog.createdDate);
-    $('#rmsName').html("방문했던 게스트하우스 : " + data.blog.rmsName);
+    $('#rmsName').html("방문했던 숙소 : " + data.blog.rmsName);
     $('#grade').html("평점 : " + data.blog.grade);
     var sp = '\u00A0\u00A0';
     $('.likecount').html("좋아요" + sp + data.count);

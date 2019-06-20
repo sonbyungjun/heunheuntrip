@@ -9,12 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.heun.trip.domain.HostQna;
 import com.heun.trip.domain.Member;
-import com.heun.trip.domain.Rev;
-import com.heun.trip.domain.Room;
 import com.heun.trip.service.HostQnaService;
-import com.heun.trip.service.MemberService;
-import com.heun.trip.service.RevService;
-import com.heun.trip.service.RoomService;
 
 
 @RestController("json/HostQnaController")
@@ -22,15 +17,9 @@ import com.heun.trip.service.RoomService;
 public class HostQnaController {
 
   HostQnaService hostQnaService;
-  RevService revService;
-  RoomService roomService;
-  MemberService memberService;
 
-  public HostQnaController(HostQnaService hostQnaService, RevService revService, RoomService roomService, MemberService memberService) {
+  public HostQnaController(HostQnaService hostQnaService) {
     this.hostQnaService = hostQnaService;
-    this.revService = revService;
-    this.roomService = roomService;
-    this.memberService = memberService;
   }
 
   @PostMapping("add")
@@ -67,21 +56,15 @@ public class HostQnaController {
       
       if (auth.equals("일반회원")) {
         
-        Rev rev = revService.detail(no);
-        int rmsNo = rev.getRmsNo();
-        Room room = roomService.get(rmsNo);
-        int hostNo = room.getHostNo();
-        Member member = memberService.get(hostNo);
-        String hostPhoto = member.getPhoto();
+        // 일반회원일 때 상대방(호스트) 사진을 구한다.
+        String hostPhoto = hostQnaService.getHostPhoto(no);
         
         content.put("hostPhoto", hostPhoto);
         
       } else if (auth.equals("호스트")) {
         
-        Rev rev = revService.detail(no);
-        int userNo = rev.getUserNo();
-        Member member = memberService.get(userNo);
-        String userPhoto = member.getPhoto();
+        // 호스트일 때 상대방(게스트) 사진을 구한다.
+        String userPhoto = hostQnaService.getUserPhoto(no);
         
         content.put("userPhoto", userPhoto);
       }

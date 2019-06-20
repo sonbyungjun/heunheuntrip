@@ -34,10 +34,15 @@ h4 {
 	margin-right:5px;
 }
 .dd{
-  margin-left:870px;
-  font-size:20px;
-  padding:5px;
-  
+    font-size: 17px;
+    padding: 5px;
+    height: 40px;
+    width: 120px;
+}
+.btn-inverse, .btn-inverse:focus, .btn-inverse:hover, .btn-inverse:active, .btn-inverse:active:hover, .btn-inverse:active:focus {
+    background-color: #869e9e;
+    border-color: #f9f9f9;
+    color: #f9f9f9;
 }
 .roomcontent{
   margin-right:5px;

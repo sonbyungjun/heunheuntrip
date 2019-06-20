@@ -30,11 +30,14 @@ function loadList(pn, order, blike, dedorder) {
 		console.log(obj)
 		
 		if (obj.status === "fail") {
+		  
+		   form.attr('class', 'item-listing blog-form-list')
+		  
 			 form.html("<div class='row justify-content-md-center'>" +
 			          "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
 			             "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
-			               "<h5 class='main-title centered'><span>블로그  목록이 없습니다.</span></h5>" +
-			                   "<div class='main-title-description'> 블로그를 직접 만들어 보세요!! </div>" +
+			               "<h5 class='main-title centered'><span>블로그 목록이 없습니다.</span></h5>" +
+			                   "<div class='main-title-description'> 블로그를 직접 작성해보세요! </div>" +
 			                 "</div>" +
 			               "</div>" +
 			             "</div>");
