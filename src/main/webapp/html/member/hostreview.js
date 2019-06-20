@@ -62,24 +62,16 @@ function loadList(pn) {
                "</div>" +
              "</div>");
     }
-    
-  
+ 
     $(document.body).trigger('loaded-list');
  
   }); 
 }
 
-
-
-
-
 $(document.body).bind('loaded-list', (e) => {
-  
-
-  
+ 
   $('.riw-update').off('click').on('click', function(e){
   
-    
     var no = $(this).parent().data('no');
     var reply = $(this).attr('data-reply');
     var grd = $(this).attr('data-grd');
@@ -120,8 +112,6 @@ $(document.body).bind('loaded-list', (e) => {
 		starSize:20
 	});
 	
-    
-
     $('.update-btn').off('click').on('click', function(e){
     	Swal.fire({
 			title: '잠깐!',
