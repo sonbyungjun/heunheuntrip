@@ -397,7 +397,7 @@ public class RevController {
     Room room = roomService.get(rev.getRmsNo());
     Member member = (Member)session.getAttribute("loginUser");
 
-    int price = room.getPrice();
+    int price = Integer.parseInt(room.getPrice());
     int sum = 0;
 
     try {
