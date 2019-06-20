@@ -18,20 +18,35 @@ $(document).ready(function () {
     $.getJSON('../../app/json/hostqna/indexlist',
       function (obj) {
   
-        console.log(obj)
-        console.log(obj.userAuth)
+        console.log(obj.list.length)
         
-        for(var l of obj.list){
-          if(obj.userAuth === "일반회원"){
+        if(obj.list.length !== 0) {
+          
+          for(var l of obj.list){
+            if(obj.userAuth === "일반회원"){
               l.usrA = true;
-
-          } else if(obj.userAuth === "호스트") {
-            l.usrA = false;
+              
+            } else if(obj.userAuth === "호스트") {
+              l.usrA = false;
+            }
           }
+          
+          form.html('');
+          $(indexGenerator(obj)).appendTo(form);
+          
+        } else if(obj.list.length === 0) {
+          
+          form.html("<div class='row justify-content-md-center'>" +
+              "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
+              "<div class='error-template text-center'> <i class='far fa-envelope-open fa-5x text-success mb50 animated zoomIn'></i>" +
+                "<h5 class='main-title centered'><span>메세지 목록이 없습니다.</span></h5>" +
+                    "<div class='main-title-description'> 마이페이지 -> 예약에서 메세지를 보내보세요! </div>" +
+                  "</div>" +
+                "</div>" +
+              "</div>")
+          
         }
-  
-        form.html('');
-        $(indexGenerator(obj)).appendTo(form);
+        
         $(document.body).trigger('loaded-list');
       });
   }

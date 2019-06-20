@@ -18,6 +18,7 @@ function loadProfile() {
 		  $('.name').val(obj.member.name);
 		  $('.email').val(obj.member.email);
 		  $('#tel').val(obj.member.tel);
+		  $('#tel').attr("data-tel", obj.member.tel);
 		  no = obj.member.no;
 		  $(document).trigger('load');
 	  }); 

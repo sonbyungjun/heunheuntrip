@@ -76,6 +76,10 @@ $('#fileupload').fileupload({
 
     $('#file-btn1').click(function () {
       // 파일버튼을 클릭했을때 필수값들의 다 들어오면 submit을 호출한다.
+      data.formData = {
+          name: $('.name').val(),
+          tel: $('#tel').val()
+      };
       data.submit();
     });
   },
@@ -91,13 +95,6 @@ $('#fileupload').fileupload({
         location.href = 'host_profile.html'
       }
     })
-  },
-  submit: function (e, data) { // submit 이벤트가 발생했을 때 호출됨. 서버에 전송하기 전에 호출됨.
-    // data 객체의 formData 프로퍼티에 일반 파라미터 값을 설정한다.
-    data.formData = {
-        name: $('#name').val(),
-        tel: $('#tel').val()
-    };
   }
 }); //fileupload
 
@@ -187,8 +184,8 @@ $(document).on('sms-load', function() {
 
 function update() {
   var data = {
-      name: $('#name').val(),
-      tel: $('#tel').val()
+      name: $('.name').val(),
+      tel: $('.tel').val()
     };
   
   $.ajax({
