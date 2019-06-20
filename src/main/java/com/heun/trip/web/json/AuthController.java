@@ -48,9 +48,10 @@ public class AuthController {
     if (member == null) {
       content.put("status", "fail");
       request.setAttribute("status", "fail");
-    } else {
       content.put("message", "이메일 없거나 암호가 맞지 않습니다.");
+    } else {
       session.setAttribute("loginUser", member);
+      
       content.put("status", "success");
       request.setAttribute("status", "success");
     }
@@ -154,7 +155,7 @@ public class AuthController {
       member.setEmail((String)fbLoginUser.get("email"));
       member.setName((String)fbLoginUser.get("name"));
       member.setPassword(UUID.randomUUID().toString());
-      member.setAuth("1");
+      member.setAuthNo(1);
       member.setSns_no(3);
       String deft ="default.jpeg";
       member.setPhoto(deft);
@@ -162,7 +163,6 @@ public class AuthController {
       // 소셜 사용자 정보를 DBMS에 등록한다.
       memberService.snsadd(member);
     }
-
     session.setAttribute("loginUser", member);
     request.setAttribute("email", member.getEmail());
 
@@ -180,7 +180,6 @@ public class AuthController {
     HashMap<String,Object> content = new HashMap<>();
 
     Member loginUser = (Member) session.getAttribute("loginUser");
-
     if(loginUser != null) {
       content.put("status", "success");
       content.put("auth", loginUser.getAuth());
