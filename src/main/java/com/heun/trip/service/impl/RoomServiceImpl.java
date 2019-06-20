@@ -144,6 +144,7 @@ public class RoomServiceImpl implements RoomService {
   public int update(Room room) {
     roomDao.amnDelete(room.getNo());
     roomDao.safetyDelete(room.getNo());
+    roomFileDao.delete(room.getNo());
     roomDao.update(room);
     
     List<Convenience> cons = room.getConveniences();

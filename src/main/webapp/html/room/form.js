@@ -153,11 +153,11 @@ $('.heun-form-next').click(function () {
   // 숙소사진 등록 페이지면 
   if ($(this).closest('.slide').attr('id') == 's6') {
     // 사진을 한개이상 등록하고 메인사진을 체크안했으면
-    if (fileCountCheck || fileMainCheck) {
+    if (fileCountCheck || fileMainCheck || fileCount < 2) {
       Swal.fire({
         type: 'error',
         title: '사진 등록 및 메인사진 지정!',
-        text: '숙소 사진은 반드시 한장 이상 또는 메인사진을 등록해야 합니다!!! 이미지를 선택하여 메인사진을 지정해주세요.'
+        text: '숙소 사진은 반드시 두장 이상 또는 메인사진을 등록해야 합니다!!! 이미지를 선택하여 메인사진을 지정해주세요.'
       })
       return;
     }
@@ -360,7 +360,7 @@ $('.heun-push').click(function () {
     $('body').on('xy', function () {
 
       var price = $('#heun-price').val();
-      price = price.replace(',', '');
+      price = price.replace(/,/gi, '');
 
       var allData = {
         type: $('#type').val(),
@@ -385,9 +385,9 @@ $('.heun-push').click(function () {
         thumbnail: thumbnail,
         files: photos
       }
-
-      console.log(allData)
-
+      
+      var isVaild = true;
+      var msg = '';
       $.ajax({
         url: '../../app/json/room/add',
         type: 'POST',
@@ -395,15 +395,27 @@ $('.heun-push').click(function () {
         dataType: 'json',
         success: function (response) {
           if (response.status == 'success') {
-            location.href = 'index.html';
+            isVaild = true;
+            msg = '숙소 등록 성공!';
           } else {
-            // 테스트용
-            location.href = 'index.html';
+            isVaild = false;
+            msg = '숙소 등록 실패!';
           }
         },
         fail: function (error) {
-          alert('시스템 오류가 발생했습니다.');
+          isVaild = false;
+          msg = '숙소 등록 실패!';
         }
+      }).always(function() {
+        Swal.fire({
+          type: isVaild ? 'success' : 'error',
+          title: msg
+        }).then((result) => {
+          if (result.value) {
+            location.href = '/heunheuntrip/html/member/hostlist.html';
+            return;
+          }
+        })
       });
 
       var result = '';
