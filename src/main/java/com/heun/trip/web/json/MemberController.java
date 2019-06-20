@@ -57,11 +57,11 @@ public class MemberController {
   @GetMapping("list")
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="15") int pageSize,
+      @RequestParam(defaultValue="8") int pageSize,
       String search) { 
 
     if (pageSize < 5 || pageSize > 8) 
-      pageSize = 15;
+      pageSize = 8;
 
     int rowCount = memberService.size(search);
     int totalPage = rowCount / pageSize;

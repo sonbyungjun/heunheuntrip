@@ -31,7 +31,7 @@ $('.heun-myPage').on('click', function(e){
       } else if(response.auth == "호스트"){
         location.href='/heunheuntrip/html/member/host_profile.html';
       } else if(response.auth == "관리자"){
-        location.href='/heunheuntrip/html/member/manager_profile.html';
+        location.href='/heunheuntrip/html/member/manager_room_ceco.html';
       } else if (response.status == "fail"){
         location.href='/heunheuntrip/html/auth/signin.html';
       }
@@ -71,8 +71,7 @@ function loadLoginUser() {
         $('#login-username').append(response.member.name +"님");
         if(response.member.photo==null){
         	$('#login-userphoto').css('background-image', "url('/heunheuntrip/images/default.jpeg')");
-        } else {
-        	
+        } else if(response.member.photo!=null && response.member.auth=="일반회원" || response.member.auth=="호스트"){
         	$('#login-userphoto').css('background-image', "url('/heunheuntrip/app/json/images/down/" + response.member.photo + "_header" + "')");
         }
         
