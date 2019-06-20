@@ -3,7 +3,7 @@ function loadProfile() {
 			  function(obj) {
     if (obj.member.photo != null) {
       $("<img class='rounded-circle'>").attr('src',
-        '/heunheuntrip/app/json/images/down/' + obj.member.photo)
+        '/heunheuntrip/app/json/images/down/' + obj.member.photo + "_profile")
         .css('width', '255px')
         .css('height', '255px')
         .appendTo($('#profileimg'));
