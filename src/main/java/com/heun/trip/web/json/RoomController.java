@@ -210,8 +210,6 @@ public class RoomController {
       ) { // localhost:8080/heunheuntrip/app/json/room/review
 
     Member loginUser = (Member)session.getAttribute("loginUser");
-
-    
    
     if (pageSize < 1 || pageSize > 12) 
       pageSize = 12;
