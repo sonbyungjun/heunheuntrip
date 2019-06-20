@@ -137,8 +137,6 @@ function roomreview(pn) {
 						starSize: 20
 					});
 
-
-
 					if ($('#aaa-' + a).attr('data-reply') == '') {
 						$('#no-reply-' + a).hide();
 					} else {
@@ -149,8 +147,6 @@ function roomreview(pn) {
 						$('#delete1-' + a).show();
 					}
 				}
-
-
 
 				$('.delete1').on('click', function (e) {
 					e.preventDefault();
