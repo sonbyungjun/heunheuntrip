@@ -58,7 +58,7 @@
           <div class="" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
 
             <div class="page-header bordered mt0">
-              <h1>MESSAGE <small>호스트와 메세지를 주고 받으세요.</small></h1>
+              <h1>MESSAGE <small>메세지를 주고 받으세요.</small></h1>
             </div>
 
             <div class="clearfix"></div>
@@ -76,17 +76,33 @@
   <script id="index-template" type="text/x-handlebars-template">
   {{#each list}}
   <div class="item">
+    {{#if usrA}}
       <div class="row" style="width: auto">
         <div class="col-md-3">
-          <div class="item-image"> <img src="../../img/demo/profile.jpg" style="height: 150px; width: 150px;" class="heun-mi rounded-circle" alt=""> </div>
+          <div class="item-image"> <img src="/heunheuntrip/app/json/images/down/{{roomPhoto}}" style="height: 150px; width: 150px;" class="heun-mi rounded-circle" alt=""> </div>
         </div>
-        <div class="col-md-9"> <a href="#" class="btn btn-primary float-right send-message" data-no={{revNo}}>메세지 보내기</a>
-          <h3 class="item-title"><a href="#">숙소 이름이 들어 갈 자리</a></h3>
-          <div class="item-location"><i class="fas fa-map-marker-alt" style="color: #3b8ced;"></i>   숙소 위치 </div>
-          <div class="item-description">{{content}}</div>
-          <div class="item-actions"> <a href="tel:02080226348">{{createdDate}}</a> </div>
+        <div class="col-md-9" style="margin-top: 15px;"> <a href="#" class="btn btn-primary float-right send-message" data-no={{revNo}}>메세지 보내기</a>
+          <h3 class="item-title room-title" data-no={{roomNo}}><a href="#">{{roomName}}</a></h3>
+          <div class="item-location"><i class="fas fa-map-marker-alt" style="color: #3b8ced;"></i>   {{roomAddr}} </div>
+          <div class="item-location" style="margin-bottom: 0px"><i class="far fa-calendar-alt" style="color: #3b8ced;"></i>   {{checkIn}} - {{checkOut}} </div>
+          <div class="item-description" style="margin-top: 10px; font-size: 17px"><i class="fas fa-arrow-right" style="color: #3b8ced;"></i>    {{content}}</div>
+          <div class="item-actions">{{createdDate}}</div>
         </div>
       </div>
+      {{else}}
+      <div class="row" style="width: auto">
+          <div class="col-md-3">
+            <div class="item-image"> <img src="/heunheuntrip/app/json/images/down/{{userPhoto}}" style="height: 150px; width: 150px;" class="heun-mi rounded-circle" alt=""> </div>
+          </div>
+          <div class="col-md-9" style="margin-top: 15px;"> <a href="#" class="btn btn-primary float-right send-message" data-no={{revNo}}>메세지 보내기</a>
+            <h3 class="item-title room-title" data-no={{roomNo}}><a href="#">{{roomName}}</a></h3>
+            <div class="item-location" style="margin-bottom: 0px"><i class="far fa-calendar-alt" style="color: #3b8ced;"></i>   {{checkIn}} - {{checkOut}} </div>
+            <div class="item-userName"> 예약자 명 : {{userName}}</div>
+            <div class="item-description" style="margin-top: 10px; font-size: 17px"><i class="fas fa-arrow-right" style="color: #3b8ced;"></i>    {{content}}</div>
+            <div class="item-actions">{{createdDate}}</div>
+          </div>
+        </div>
+        {{/if}}
     </div>
     {{/each}}
 </script>

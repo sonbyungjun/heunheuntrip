@@ -417,8 +417,8 @@ function pointsLoad(map) {
   var bounds = new daum.maps.LatLngBounds();
 
   // 마커 이미지의 이미지 주소입니다
-  var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-  var imageSize = new daum.maps.Size(24, 35);
+  var imageSrc = "/heunheuntrip/images/marker_place_off.png";
+  var imageSize = new daum.maps.Size(16, 22);
 
   // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
   var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
@@ -441,7 +441,7 @@ function pointsLoad(map) {
     '        <div class="body">' +
     '            <div class="img">' +
     '              <a href="/heunheuntrip/html/room/view.html?no=' + e.no + '">' +
-    '                <img src="../../upload/roomphoto/Thumbnail/' + e.thumbnail + '.jpeg" width="73" height="70">' +
+    '                <img src="/heunheuntrip/app/json/images/down/' + e.thumbnail + '" width="73" height="70">' +
     '              </a>' +
     '           </div>' +
     '            <div class="desc">' +
@@ -459,10 +459,11 @@ function pointsLoad(map) {
       position: marker.getPosition()      
     });
 
+    markers.push(marker);
     overlays.push(overlay);
 
     // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-    daum.maps.event.addListener(marker, 'click', openOverlay(overlay, map));
+    daum.maps.event.addListener(marker, 'click', openOverlay(marker, overlay, map));
 
     // LatLngBounds 객체에 좌표를 추가합니다
     bounds.extend(e.point);
@@ -475,12 +476,24 @@ function closeOverlay() {
   overlays.forEach(e => {
     e.setMap(null);
   })
+  markers.forEach(e => {
+    var imageSrc = "/heunheuntrip/images/marker_place_off.png";
+    var imageSize = new daum.maps.Size(16, 22);
+    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+    e.setImage(markerImage);
+  })
 }
 
-function openOverlay(overlay, map) {
+function openOverlay(marker, overlay, map) {
   return function() {
     closeOverlay();
-    console.log("마커클릭!")
+    var position = overlay.getPosition();
+    var moveLatLon = new daum.maps.LatLng(position.jb, position.ib);
+    var imageSrc = "/heunheuntrip/images/marker_place.png";
+    var imageSize = new daum.maps.Size(31, 44);
+    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
+    marker.setImage(markerImage);
+    map.panTo(moveLatLon);
     overlay.setMap(map);
   }
 }
