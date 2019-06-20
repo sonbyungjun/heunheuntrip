@@ -8,6 +8,8 @@ public interface HostQnaDao {
   int delete(int no);  
   int countAll();
   List<HostQna> findByHostqnaList(int no); 
+  List<HostQna> findNewHostqna(int no); 
+  List<HostQna> findNewGuestqna(int no); 
 }
 
 

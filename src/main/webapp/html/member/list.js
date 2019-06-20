@@ -391,4 +391,10 @@ $(document.body).bind('loaded-list', (e) => {
     
   })
   
+  // 호스트에게 메세지 보내기
+  $('.send-message').off('click').on('click', function(e){
+    var revNo = $(e.target).parent().attr('data-no');
+    location.href="/heunheuntrip/html/message/send.html?no=" + revNo;
+ });
+
 });

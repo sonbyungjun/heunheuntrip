@@ -5,12 +5,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Real Estate</title>
+  <title>HeunheunTrip</title>
 
-  <!-- Bootstrap -->
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
-
   <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="../../lib/animate.css" rel="stylesheet">
@@ -20,11 +17,12 @@
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link rel="stylesheet" href="faq.css">
- 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="../../lib/selectric/jquery.selectric.js"></script>
   <script src="../../lib/aos/aos.js"></script>
@@ -33,13 +31,9 @@
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../lib/lib.js"></script>
   <script src="../../node_modules/handlebars/dist/handlebars.min.js"></script>
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
 </head>
 
 
@@ -93,11 +87,11 @@
     {{#each list}}
       <div class='faq-pa'>
         <div class="faq-list">
-          <h4 class="title" style="cursor:pointer" data-no='{{no}}'><i class="fas fa-plus-circle"></i>{{title}}</h4>
+          <h4 class="title" style="cursor:pointer" data-no='{{no}}'><i class="fas fa-plus-circle"></i>     {{title}}</h4>
         </div>
         <div class='faq-view'>
           <div class="row faq-view1">
-             <div class="col-10 asd">`   
+             <div class="col-10 asd">
                <h5 class="con heun-content" id="content-{{no}}" data-no='{{no}}'><i class="fas fa-user-minus"></i>&ensp;{{content}}</h5>
              </div>
              <div class="col-2 btn"style='top:70px;margin-bottom: 40px;'>
@@ -112,7 +106,7 @@
     {{/each}}
   </script>
   <script id="detail" type="text/x-handlebars-template">
-    </script>
+  </script>
   <script src="index.js"></script>
 </body>
 

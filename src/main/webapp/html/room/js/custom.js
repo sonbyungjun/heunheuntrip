@@ -67,7 +67,6 @@ $(document).ready(function () {
 			startImageRenderer: true,
 			canvasImage: false,
 			onItemShow: function (item, listEl, parentEl, newInputEl, inputEl) {
-				console.log('onItemShow()');
 				var api = $.fileuploader.getInstance(inputEl),
 					color = api.assets.textToColor(item.format),
 					$plusInput = listEl.find('.fileuploader-input'),
@@ -82,7 +81,6 @@ $(document).ready(function () {
 			},
 			onImageLoaded: function (item, listEl, parentEl, newInputEl, inputEl) {
 				var api = $.fileuploader.getInstance(inputEl);
-				console.log('onImageLoaded()');
 				// check the image size
 				if (item.format == 'image' && item.upload && !item.imU) {
 					if (item.reader.node && (item.reader.width < 100 || item.reader.height < 100)) {
@@ -116,6 +114,7 @@ $(document).ready(function () {
 				fileCount++;
 			},
 			onItemRemove: function (html) {
+				fileCount--;
 				html.fadeOut(250);
 			},
 			popup: {
@@ -139,7 +138,7 @@ $(document).ready(function () {
 			start: false,
 			synchron: true,
 			beforeSend: function (item) {
-				console.log('beforeSend()')
+				Swal.showLoading();
 				// check the image size first (onImageLoaded)
 				if (item.format == 'image' && !item.reader.done)
 					return false;
@@ -153,7 +152,6 @@ $(document).ready(function () {
 				}
 			},
 			onSuccess: function (result, item) {
-				console.log('onSuccess()');
 				
 				if (result.thumbnail) {
 					thumbnail = result.thumbnail;
@@ -198,7 +196,6 @@ $(document).ready(function () {
 			}
 		},
 		afterRender: function (listEl, parentEl, newInputEl, inputEl) {
-			console.log('afterRender()');
 			var api = $.fileuploader.getInstance(inputEl),
 				$plusInput = listEl.find('.fileuploader-input');
 
@@ -258,7 +255,6 @@ $(document).ready(function () {
 				// if ($target.is('.gallery-action-asmain')) {
 				if ($target.is('.fileuploader-action-popup') || $target.is('.gallery-action-asmain')) {
 					e.preventDefault();
-					console.log('메인사진 지정 작업 - 섬네일 만들기작업');
 					api.getFiles().forEach(function (val) {
 						item.upload.data.isMain = false;
 						delete val.data.isMain;

@@ -49,6 +49,16 @@ function loadMessage(no) {
         }
         l.sort = true;
       }
+      
+      if(obj.userPhoto !== undefined){
+         for(var l of obj.list) {
+           l.yourphoto = obj.userPhoto;
+         }
+      } else if (obj.hostPhoto !== undefined) {
+        for(var l of obj.list){
+          l.yourphoto = obj.hostPhoto;
+        }
+      }
 
       console.log(obj);
 
@@ -61,8 +71,6 @@ function loadMessage(no) {
 $(document.body).on('loaded-list', function() {
 
   $('#sending-message').off('click').on('click', function(){
-
-    console.log('야 왜 안 돼 ?? ?? ')
 
     $.ajax({
       url: '../../app/json/hostqna/add',

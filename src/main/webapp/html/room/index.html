@@ -8,7 +8,6 @@
   <title>숙소 리스트</title>
 
   <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,200,300,400,500,700" rel="stylesheet">
-
   <link href="../../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../../lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="../../lib/animate.css" rel="stylesheet">
@@ -18,6 +17,10 @@
   <link href="../../css/style.css" rel="stylesheet">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link href="index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="/heunheuntrip/html/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
   <script src="../../lib/jquery-3.2.1.min.js"></script>
   <script src="../../lib/popper.min.js"></script>
@@ -29,8 +32,11 @@
   <script src="../../lib/sticky-sidebar/theia-sticky-sidebar.min.js"></script>
   <script src="../../lib/sidr/jquery.sidr.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <script src="../../lib/lib.js"></script>
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
+
   <style>
     .modal-full {
       min-width: 100%;
@@ -76,30 +82,6 @@
                       <div class="card mb-4">
                         <div id="map" class="container-fluid border border-primary" style="width:100%;height:300px;"></div>
                       </div>
-                      <div class="card">
-                        <div class="card-header">
-                          <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
-                              href="#p_type" aria-expanded="true" aria-controls="p_type"> 숙소유형 <i
-                                class="fa fa-caret-down float-right"></i> </a> </h4>
-                        </div>
-                        <div id="p_type" class="panel-collapse collapse show" role="tabpanel">
-                          <div class="card-body">
-                            <div class="checkbox ">
-                              <input type="checkbox" value="1" id="house">
-                              <label for="house">집전체</label>
-                            </div>
-                            <div class="checkbox ">
-                              <input type="checkbox" value="1" id="flat">
-                              <label for="flat">개인실</label>
-                            </div>
-                            <div class="checkbox ">
-                              <input type="checkbox" value="1" id="appartment">
-                              <label for="appartment">다인실</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
                       <div class="card bookmark-card">
                         <div class="card-header">
                           <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion"
@@ -127,12 +109,9 @@
                       </div>
                     </div>
                     <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                      <div class="btn-group float-left">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">지도크게보기</button>
+                      <div class="btn-group float-right" role="group">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">지도크게보기</button>
                       </div>
-                      <div class="btn-group float-right" role="group"> <a href="property_grid.html"
-                          class="btn btn-light"><i class="fa fa-th"></i></a> <a href="property_listing.html"
-                          class="btn btn-light active"><i class="fa fa-bars"></i></a> </div>
                     </div>
                   </div>
                 </div>
@@ -237,8 +216,6 @@
   </nav>
   </script>
 
-  <script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services,clusterer,drawing"></script>
   <script src="index.js"></script>
   
   <!-- Modal -->
