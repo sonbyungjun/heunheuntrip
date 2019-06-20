@@ -39,7 +39,7 @@ public class LogInterceptor implements HandlerInterceptor {
     long sec = (curDateTime - reqDateTime);
     
     LoginLog log = new LoginLog();
-    log.setUrl(request.getRequestURL().toString());
+    log.setUrl(request.getPathInfo());
     log.setStartTime(sdf.format(request.getAttribute("time1")));
     log.setEndTime(sdf.format(now));
     log.setSumTime(String.valueOf(sec));

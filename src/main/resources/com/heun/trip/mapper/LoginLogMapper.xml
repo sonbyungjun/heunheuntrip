@@ -36,6 +36,22 @@
       #{email},
       #{state})
   </insert>
+  
+  <select id="findAll" resultMap="loginLogMap" parameterType="map">
+    select
+      *
+    from
+      login_log
+    order by 
+      cdt desc
+    <if test="size != null and rowNo != null">
+      limit #{rowNo}, #{size}
+    </if>
+  </select>
+  
+  <select id="countAll" resultType="int">
+    select count(*) from login_log
+  </select>
  
 </mapper>
 
