@@ -19,6 +19,16 @@ $(document).ready(function () {
       function (obj) {
   
         console.log(obj)
+        console.log(obj.userAuth)
+        
+        for(var l of obj.list){
+          if(obj.userAuth === "일반회원"){
+              l.usrA = true;
+
+          } else if(obj.userAuth === "호스트") {
+            l.usrA = false;
+          }
+        }
   
         form.html('');
         $(indexGenerator(obj)).appendTo(form);
@@ -34,6 +44,15 @@ $(document).ready(function () {
   
       console.log(revNo);
       location.href="/heunheuntrip/html/message/send.html?no=" + revNo;
+      
+    })
+
+    $('.room-title').off('click').on('click', function(e){
+    
+      var roomNo = $(e.target).parent().attr('data-no');
+  
+      console.log(roomNo);
+      location.href="/heunheuntrip/html/room/view.html?no=" + roomNo;
       
     })
     

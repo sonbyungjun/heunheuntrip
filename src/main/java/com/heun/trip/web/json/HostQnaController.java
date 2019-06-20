@@ -105,13 +105,14 @@ public class HostQnaController {
       if (auth.equals("일반회원")) {
         
         List<HostQna> indexList = hostQnaService.NewGuestList(loginUser.getNo());
-        
+        content.put("userAuth", loginUser.getAuth());
         content.put("list", indexList);
         
       } else if (auth.equals("호스트")) {
         
         List<HostQna> indexList = hostQnaService.NewHostList(loginUser.getNo());
         
+        content.put("userAuth", loginUser.getAuth());
         content.put("list", indexList);
       }
     }
