@@ -167,7 +167,10 @@ function setMarkers(map, infoArr) {
 function hideMarkers() {
   for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
-  }            
+  }
+  overlays.forEach(e => {
+    e.setMap(null);
+  })   
 }
 
 function closeOverlay() {
