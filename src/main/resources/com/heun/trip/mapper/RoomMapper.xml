@@ -385,12 +385,12 @@
       max_ple,
       activation,
       reject_memo
-      
-      
     from
       rms
     where
       usr_id=#{no}
+    order by
+      cdt desc 
       <if test="size != null and rowNo != null">
       limit #{rowNo}, #{size}
     </if>

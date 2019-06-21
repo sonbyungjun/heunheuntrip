@@ -145,6 +145,7 @@ public class QnaController {
     Member loginUser = (Member) session.getAttribute("loginUser");
     if(loginUser != null) {
       content.put("userNo", loginUser.getNo());
+      content.put("auth", loginUser.getAuth());
     }
     content.put("qna", qna);
 
