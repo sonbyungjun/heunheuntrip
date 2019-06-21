@@ -104,14 +104,14 @@ function chkValue() {
 			$("#n-pwd").hasClass('is-valid')){
 		
 		$.ajax({
-			url: '../../app/json/auth/user',
+			url: '/heunheuntrip/app/json/auth/user',
 			type: 'GET',
 			dataType: 'json',
 			success: function(response) {
 
 				if(response.status == 'success'){
 					$.ajax({
-						url:'../../app/json/member/update',
+						url:'/heunheuntrip/app/json/member/update',
 						type:'POST',
 						data:{
 							no: response.user.no,
@@ -128,7 +128,7 @@ function chkValue() {
 								}	
 							});// alert창
 							$.ajax({
-								url:'../../app/json/auth/logout',
+								url:'/heunheuntrip/app/json/auth/logout',
 								type:'GET',
 								dataType:'json'
 							})
@@ -177,7 +177,7 @@ $('.udatepwd-btn').on('click', function(e) {
 	e.preventDefault();
 	
 	$.ajax({
-		url: '../../app/json/member/updatepwd',
+		url: '/heunheuntrip/app/json/member/updatepwd',
 		type: 'POST',
 		 data: {
 	          password: $('.pwd').val()

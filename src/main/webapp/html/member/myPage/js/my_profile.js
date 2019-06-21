@@ -54,7 +54,7 @@ $('#btn1').on('click', function(e) {
 	console.log(data);
 	
 	$.ajax({
-		url: '../../app/json/member/update',
+		url: '/heunheuntrip/app/json/member/update',
 		type: 'POST',
 		data: data,
 		dataType: 'json',
@@ -80,7 +80,7 @@ $('#btn1').on('click', function(e) {
 })
 
 $('#fileupload').fileupload({
-	url: '../../app/json/member/updateprofile',        // 서버에 요청할 URL
+	url: '/heunheuntrip/app/json/member/updateprofile',        // 서버에 요청할 URL
 	dataType: 'json',         // 서버가 보낸 응답이 JSON임을 지정하기
 	singleFileUploads: false, // 한 요청에 여러 개의 파일을 전송시키기.  
 	autoUpload: false,
@@ -168,7 +168,7 @@ $('#tel-btn').click(function() {
 		return;
 	}
 
-	$.getJSON('../../app/json/member/sms?tel=' + tel, function(res) {
+	$.getJSON('/heunheuntrip/app/json/member/sms?tel=' + tel, function(res) {
 		if (res.status === "fail") {
 
 			Swal.fire({
@@ -207,7 +207,7 @@ $(document).on('sms-load', function() {
 			alert('번호를 입력해주세요.');
 			return;
 		}
-		$.getJSON('../../app/json/member/smsConfirm?number=' + number, function(res) {
+		$.getJSON('/heunheuntrip/app/json/member/smsConfirm?number=' + number, function(res) {
 			console.log(res);
 			if (res.status === "fail") {
 				alert('인증번호가 틀렸거나 60초가 지났습니다.');

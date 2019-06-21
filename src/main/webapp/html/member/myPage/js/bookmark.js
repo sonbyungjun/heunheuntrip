@@ -15,7 +15,7 @@ $(document).ready(function () {
   loadProfile();
 })
 function loadList(pn) {
-  $.getJSON('../../app/json/bookmark/list?pageNo=' + pn, function(obj) {
+  $.getJSON('/heunheuntrip/app/json/bookmark/list?pageNo=' + pn, function(obj) {
     
     if(obj.status === "success"){
     
@@ -53,7 +53,7 @@ $(document.body).bind('loaded-list', (e) => {
   
   $('.room-bookmark').off('click').on('click', function(e){
     var roomNo = $(this).data('no');
-    location.href="../room/view.html?no=" + roomNo;
+    location.href="/heunheuntrip/html/room/view.html?no=" + roomNo;
     
   })
   
@@ -80,7 +80,7 @@ $(document.body).bind('loaded-list', (e) => {
         ).then(() => {
           
           $.ajax({
-            url: '../../app/json/bookmark/delete',
+            url: '/heunheuntrip/app/json/bookmark/delete',
             type: 'POST',
             data: {
               roomNo: no
@@ -119,7 +119,7 @@ $(document.body).bind('loaded-list', (e) => {
     $('.update-btn').off('click').on('click', function(e){
       
       $.ajax({
-        url: '../../app/json/bookmark/update',
+        url: '/heunheuntrip/app/json/bookmark/update',
         type: 'POST',
         data: {
           no: no,

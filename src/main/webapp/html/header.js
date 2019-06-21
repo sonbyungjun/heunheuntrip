@@ -27,11 +27,11 @@ $('.heun-myPage').on('click', function(e){
     success: function (response) {
       
       if(response.auth == "일반회원"){
-        location.href='/heunheuntrip/html/member/my_profile.html';
+        location.href='/heunheuntrip/html/member/myPage/my_profile.html';
       } else if(response.auth == "호스트"){
-        location.href='/heunheuntrip/html/member/host_profile.html';
+        location.href='/heunheuntrip/html/member/hostPage/host_profile.html';
       } else if(response.auth == "관리자"){
-        location.href='/heunheuntrip/html/member/manager_room_ceco.html';
+        location.href='/heunheuntrip/html/member/managerPage/manager_room_ceco.html';
       } else if (response.status == "fail"){
         location.href='/heunheuntrip/html/auth/signin.html';
       }

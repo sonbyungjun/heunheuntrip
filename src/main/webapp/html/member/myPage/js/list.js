@@ -48,7 +48,7 @@ $(document).ready(function () {
 })
 
 function loadList(pn) {
-  $.getJSON('../../app/json/rev/listup?pageNo=' + pn, function(obj) {
+  $.getJSON('/heunheuntrip/app/json/rev/listup?pageNo=' + pn, function(obj) {
     
     console.log(obj);
     
@@ -131,7 +131,7 @@ $(document.body).bind('loaded-list', (e) => {
 
     var rmsNo = $(this).attr('data-rmsNo');
 
-    location.href="../room/view.html?no=" + rmsNo;
+    location.href="/heunheuntrip/html/room/view.html?no=" + rmsNo;
 
   })
 
@@ -226,7 +226,7 @@ $(document.body).bind('loaded-list', (e) => {
     $('.insert-riw').off('click').on('click', function(e){
       
       $.ajax({
-        url: '../../app/json/riw/add',
+        url: '/heunheuntrip/app/json/riw/add',
         type: 'POST',
         data: {
           roomNo: no,
@@ -275,7 +275,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         
         $.ajax({
-          url: '../../app/json/rev/update',
+          url: '/heunheuntrip/app/json/rev/update',
           type: 'POST',
           data: {
             revUpdate: no,
@@ -288,7 +288,7 @@ $(document.body).bind('loaded-list', (e) => {
           success: function(response) {
             
             $.ajax({
-              url: '../../app/json/rev/updatesms',
+              url: '/heunheuntrip/app/json/rev/updatesms',
               type: 'GET',
               data: {
                 roomNo : roomNo
@@ -342,7 +342,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         
         $.ajax({
-          url: '../../app/json/rev/cancel',
+          url: '/heunheuntrip/app/json/rev/cancel',
           type: 'POST',
           data: {
             no: no
@@ -353,7 +353,7 @@ $(document.body).bind('loaded-list', (e) => {
             if(response.status == "success"){
 
               $.ajax({
-                url: '../../app/json/rev/cancelsms',
+                url: '/heunheuntrip/app/json/rev/cancelsms',
                 type: 'GET',
                 data: {
                   roomNo : roomNo

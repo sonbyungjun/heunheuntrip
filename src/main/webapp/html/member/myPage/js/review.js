@@ -46,7 +46,7 @@ $(document).ready(function () {
 
 
 function loadList(pn) {
-  $.getJSON('../../app/json/riw/listMypage?pageNo=' + pn, function(obj) {
+  $.getJSON('/heunheuntrip/app/json/riw/listMypage?pageNo=' + pn, function(obj) {
 	  
     if(obj.status === "success"){
     pageNo = obj.pageNo;
@@ -114,7 +114,7 @@ $(document.body).bind('loaded-list', (e) => {
         ).then(() => {
           
           $.ajax({
-            url: '../../app/json/riw/delete',
+            url: '/heunheuntrip/app/json/riw/delete',
             type: 'POST',
             data: {
               no: no
