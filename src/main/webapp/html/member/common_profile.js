@@ -1,5 +1,5 @@
 function loadProfile() {
-	$.getJSON('../../app/json/member/profile',
+	$.getJSON('/heunheuntrip/app/json/member/profile',
 			  function(obj) {
     if (obj.member.photo != null) {
       $("<img class='rounded-circle'>").attr('src',
