@@ -56,7 +56,7 @@ $(document).on('load',function() {
 function Loadroomlist(pn) {
   
   $.ajax({
-    url: '../../app/json/room/hostroom?pageNo=' + pn,
+    url: '/heunheuntrip/app/json/room/hostroom?pageNo=' + pn,
     type: 'GET',
     data: {
       no: window.no
@@ -124,7 +124,7 @@ $(document.body).bind('loaded-list', () => {
     }).then((result) => {
       if (result.value) {
         $.ajax({
-          url: '../../app/json/room/delete',
+          url: '/heunheuntrip/app/json/room/delete',
           type: 'GET',
           data: {
             no: no
@@ -177,7 +177,7 @@ $(document.body).bind('loaded-list', (e) => {
 function detail(rno){
 
   $.ajax({
-    url: '../../app/json/room/detail',
+    url: '/heunheuntrip/app/json/room/detail',
     type: 'GET',
     data: {
       no:rno

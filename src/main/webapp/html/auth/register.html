@@ -149,7 +149,7 @@ input[type=password] {
                   <span class="glyphicon glyphicon-ok form-control-feedback"></span>
                 </div>
 
-                <label class="control-label" for="photo">은행*</label>
+                <label id="bank-labal" class="control-label" for="photo" style="display:none">은행*</label>
                 <div id='host' class="input-group mb-3">
                   <div class="input-group-prepend">
                     <button class="btn btn-outline-secondary dropdown-toggle" id='nn' type="button"
@@ -165,7 +165,7 @@ input[type=password] {
                   <input id='bnk_no' type="text" class="form-control" placeholder='-없이 계좌번호를 입력해주세요'
                     aria-label="Text input with dropdown button" onkeydown="banknumber(event);">
                 </div>
-        <label>*은 필수입력사항입니다.</label>
+                <label >*은 필수입력사항입니다.</label>
                 <div id='all-btn'>
                   <button type='button' class='btn btn-primary btn-lg' id='btn1'>가입</button>
                   <button type='button' class='btn btn-primary btn-lg' id='file-btn1' style="display: none">가입</button>

@@ -72,7 +72,7 @@ function HeLogin() {
 var naverLogin = new naver.LoginWithNaverId(
     {
       clientId: "9GsCl1_fOwukSDhiTmng",
-      callbackUrl: "http://localhost:8080/heunheuntrip/html/auth/callback.html",
+      callbackUrl: "http://team5.bitcamp.co.kr:8080/heunheuntrip/html/auth/callback.html",
       isPopup: false, /* 팝업을 통한 연동처리 여부 */
       loginButton: { color: "grean", type: 3, height: 40 } /* 로그인 버튼의 타입을 지정 */
     }

@@ -55,7 +55,7 @@ $(document).on('load',function() {
 function Loadmemberlist(pn) {
   
   $.ajax({
-    url: '../../app/json/member/list?pageNo=' + pn,
+    url: '/heunheuntrip/app/json/member/list?pageNo=' + pn,
     type: 'GET',
     data: {
     	selector:window.selector,

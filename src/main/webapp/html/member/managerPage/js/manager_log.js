@@ -50,7 +50,7 @@ $(document).on('load', function () {
 
 function Loadlist(pn) {
   $.ajax({
-    url: '../../app/json/loginlog/list?pageNo=' + pn,
+    url: '/heunheuntrip/app/json/loginlog/list?pageNo=' + pn,
     type: 'GET',
     data: {
     },
