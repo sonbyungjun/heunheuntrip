@@ -110,6 +110,10 @@ $("#email").keyup(function () {
 	if (reg.test(email)) {//정규표현식을 통과 한다면
 
 		$.getJSON('../../app/json/member/list',
+		    {
+		  selector : 4,
+		      val : ""
+		    },
 			function (obj) {
 				for (emailcheck of obj.list) {
 					if (emailcheck.email != email) {
