@@ -17,11 +17,12 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public List<Member> list(int pageNo, int pageSize, String search) {
+  public List<Member> list(int pageNo, int pageSize,int selector, String val) {
     HashMap<String,Object> params = new HashMap<>();
     params.put("size", pageSize);
     params.put("rowNo", (pageNo - 1) * pageSize);
-    params.put("search", search);
+    params.put("selector", selector);
+    params.put("val", val);
     return memberDao.findAll(params);
   }
 
@@ -144,8 +145,8 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public int size(String search) {
-    return memberDao.countAll(search);
+  public int size() {
+    return memberDao.countAll();
   }
 
   @Override
@@ -164,7 +165,61 @@ public class MemberServiceImpl implements MemberService {
   public int getTel(String tel) {
     return memberDao.findByTel(tel);
   }
+  @Override
+  public int namesize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return memberDao.namecountAll(params);
+  }
+  @Override
+  public int emailsize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return memberDao.emailcountAll(params);
+  }
+  @Override
+  public int authsize(String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("val", val);
+   
+    return memberDao.authcountAll(params);
+  }
 
+  @Override
+  public List<Member> namelist(int pageNo, int pageSize, int selector, String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("selector", selector);
+    params.put("val", val);
+    return memberDao.namelist(params);
+  }
+
+  @Override
+  public List<Member> authlist(int pageNo, int pageSize, int selector, String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("selector", selector);
+    params.put("val", val);
+    return memberDao.authlist(params);
+  }
+
+  @Override
+  public List<Member> emaillist(int pageNo, int pageSize, int selector, String val) {
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("size", pageSize);
+    params.put("rowNo", (pageNo - 1) * pageSize);
+    params.put("selector", selector);
+    params.put("val", val);
+    return memberDao.emaillist(params);
+  }
+
+
+
+ 
 }
 
 

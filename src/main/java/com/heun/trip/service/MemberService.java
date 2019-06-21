@@ -4,7 +4,6 @@ import java.util.List;
 import com.heun.trip.domain.Member;
 
 public interface MemberService {
-  List<Member> list(int pageNo, int pageSize, String search);
   int add(Member member);
   int snsadd(Member member);
   Member get(int no);
@@ -13,11 +12,20 @@ public interface MemberService {
   int update(Member member);
   int Emailupdate(Member member); 
   int delete(int no); 
-  int size(String search);
+
   Member get(String email);
   int profileupdate(Member member);
   int pwdupdate(Member member);
   String getTel(int no);
   int getTel(String tel);
+  List<Member> list(int pageNo, int pageSize, int selector, String val);
+  List<Member> namelist(int pageNo, int pageSize, int selector, String val);
+  List<Member> authlist(int pageNo, int pageSize, int selector, String val);
+  List<Member> emaillist(int pageNo, int pageSize, int selector, String val);
+  
+  int size();
+  int namesize(String val);
+  int emailsize(String val);
+  int authsize(String val);
 }
 

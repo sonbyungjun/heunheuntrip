@@ -58,29 +58,80 @@ public class MemberController {
   public Object list(
       @RequestParam(defaultValue="1") int pageNo,
       @RequestParam(defaultValue="8") int pageSize,
-      String search) { 
+      String val,
+      int selector) { 
 
+    HashMap<String,Object> content = new HashMap<>();
+    
     if (pageSize < 5 || pageSize > 8) 
       pageSize = 8;
 
-    int rowCount = memberService.size(search);
-    int totalPage = rowCount / pageSize;
-    if (rowCount % pageSize > 0)
-      totalPage++;
+    if(selector == 1) {  //이름
+      int rowCount = memberService.namesize(val);
+     
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Member> list = memberService.namelist(pageNo, pageSize, selector, val);
+       System.out.println(list);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
 
-    if (pageNo < 1) 
-      pageNo = 1;
-    else if (pageNo > totalPage)
-      pageNo = totalPage;
+    }
+    if(selector == 2) {// 이메일  
+      int rowCount = memberService.emailsize(val);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Member> list = memberService.emaillist(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage); 
+    }
+    if(selector == 3) {// 권한
+      System.out.println("실행");
+      int rowCount = memberService.authsize(val);
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Member> list = memberService.authlist(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
+    } 
+    
+    if(selector == 4) {
+      int rowCount = memberService.size();
+      int totalPage = rowCount / pageSize;
+      if (rowCount % pageSize > 0)
+        totalPage++;
+      if (pageNo < 1) 
+        pageNo = 1;
+      else if (pageNo > totalPage)
+        pageNo = totalPage;
+      List<Member> list = memberService.list(pageNo, pageSize, selector, val);
+      content.put("list", list);
+      content.put("pageNo", pageNo);
+      content.put("pageSize", pageSize);
+      content.put("totalPage", totalPage);
 
-    List<Member> members = memberService.list(pageNo, pageSize, search);
-
-    HashMap<String,Object> content = new HashMap<>();
-    content.put("list", members);
-    content.put("pageNo", pageNo);
-    content.put("pageSize", pageSize);
-    content.put("totalPage", totalPage);
-
+    }
     return content;
   }
 
