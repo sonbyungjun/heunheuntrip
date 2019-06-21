@@ -45,6 +45,7 @@ public class FaqController {
   public Object list(@RequestParam(defaultValue = "1") int pageNo,
       @RequestParam(defaultValue = "10") int pageSize,HttpSession session) { // localhost:8080/heunheuntrip/app/json/qna/list
     Member loginUser = (Member) session.getAttribute("loginUser");
+  
     if (pageSize < 7 || pageSize > 8)
       pageSize = 7;
 

@@ -447,7 +447,7 @@ function errorState(sel) {
 
 $(document.body).on('bankcheck', function () {
 	$('.dropdown-menu > a').on('click', function () {
-		$('.dropdown-toggle').html($(this).html());
+		$('#nn').html($(this).html());
 	});
 })
 

@@ -63,48 +63,44 @@
     <div id="content">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col col-lg-12 col-xl-10">
-            <div class="row has-sidebar">
-              <div class="col-md-3 col-lg-3 col-xl-3 col-sidebar">
-                <div id="sidebar" class="sidebar-left">
-                  <div class="sidebar_inner">
-                    <div class="agent-detail">
-                      <div class="text-center">
-                      </div>
-                    </div>
-                    <div class="list-group no-border list-unstyled">
-                      <a href="manager_room_ceco.html" class="list-group-item"> <i class="fas fa-h-square"></i> 숙소 승인</a>
-                      <a href="manager.html" class="list-group-item"> <i class="far fa-bell "></i> 회원 관리</a>
-                      <a href="manager_log.html" class="list-group-item active"> <i class="far fa-bell "></i> 로그인 로그</a>
-                    </div>
+          <div class="col col-lg-12 col-xl-11">
+            <div class="item-navigation">
+              <ul class="nav nav-tabs v2" role="tablist">
+                <li role="presentation">
+                  <a href="#map" aria-controls="map" role="tab" data-toggle="tab" class="active">
+                    <span class="hidden-xs">Login Log</span>
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="#streetview" aria-controls="streetview" role="tab" data-toggle="tab">
+                    <span class="hidden-xs">Member Info</span>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="map">
+                  <div class="page-header bordered">
+                    <table class="table table-bordered table-hover table-sm" id="hover" style="margin-bottom: 0;">
+                      <thead>
+                        <tr>
+                          <th class="content-width">번호</th>
+                          <th>요청URL</th>
+                          <th>생성일</th>
+                          <th>아이피주소</th>
+                          <th>이메일</th>
+                          <th>여부</th>
+                          <th>time</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                    <div class="pagination-menu"></div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-9 col-lg-9 col-xl-9">
-                <div class="page-header bordered">
-                  <div class="row">
-                    <div class="col-3">
-                      <h2>Login Log</h2>
-                    </div>
-                  </div>
-                  <table class="table table-hover product_comparison table-sm">
-                    <thead>
-                      <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">요청URL</th>
-                        <th scope="col">걸린시간</th>
-                        <th scope="col">아이피주소</th>
-                        <th scope="col">이메일</th>
-                        <th scope="col">성공/실패</th>
-                        <th scope="col">생성일</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-
-                  <div class="pagination-menu"></div>
-
-
+                <div role="tabpanel" class="tab-pane" id="streetview">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m0!3m2!1sen!2s!4v1489861898447!6m8!1m7!1sGz9bS-GXSJE28jHD19m7KQ!2m2!1d52.45191646727986!2d1.451480542718656!3f0!4f0!5f0.8160813932612223"
+                    width="600" height="450" style="border:0" allowfullscreen></iframe>
                 </div>
               </div>
             </div>
@@ -122,20 +118,20 @@
   <script id="tr-template" type="text/x-handlebars-template">
     {{#each list}}
     <tr>
-      <th scope='row'>{{no}}</th>
-      <td scope='row'>{{url}}</td>
-      <td scope='row'>{{sumTime}}</td>
-      <td scope='row'>{{ip}}</td>
-      <td scope='row'>{{email}}</td>
-      <td scope='row'>{{state}}</td>
-      <td scope='row'>{{createdDate}}</td>
+      <th class="content-width">{{no}}</th>
+      <td>{{url}}</td>
+      <td>{{createdDate}}</td>
+      <td>{{ip}}</td>
+      <td>{{email}}</td>
+      <td>{{state}}</td>
+      <td>{{sumTime}}</td>
     </tr>
     {{/each}}
     </script>
 
   <script id="page-template" type="text/x-handlebars-template">
     <nav>
-      <ul class="pagination pagination-centered">
+      <ul class="pagination justify-content-center">
         {{#paginate pagination type="first"}}
           <li class="page-item {{#if disabled}}disabled{{/if}}"><a class="page-link" onclick="Loadlist({{n}})">&laquo;&laquo;</a></li>
         {{/paginate}}
