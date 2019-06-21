@@ -45,8 +45,8 @@
     <div id="content" class="property-single">
       <div class="container">
         <div class="row justify-content-md-center">
-          <div class="col col-lg-12 col-xl-8">
-            <div class="page-header v2 bordered row">
+          <div class="col col-lg-12 col-xl-10">
+            <div class="page-header v2 bordered row"style='width:910px;'>
               <div class="faq-main col-lg-6">
                 <h1>FAQ </h1>
                 <h1><I><small>무엇이 궁금한가요??</small></I></h1>
@@ -74,7 +74,7 @@
                 </div>
               </div>
             </form>
-        <button type="button" id='addview-btn' class="btn btn-sm btn-secondary riw-write update"style='float:right;margin-top:40px;'>새글</button>
+        <button type="button" id='addview-btn' class="btn btn-sm btn-secondary riw-write update"style='float:right;margin-right:22px'>새글</button>
           </div>
         </div>
       </div> <!-- container div 마지막-->
@@ -87,7 +87,7 @@
     {{#each list}}
       <div class='faq-pa'>
         <div class="faq-list">
-          <h4 class="title" style="cursor:pointer" data-no='{{no}}'><i class="fas fa-plus-circle"></i>     {{title}}</h4>
+          <h4 class="title" style="cursor:pointer;width:900px;" data-no='{{no}}'><i class="fas fa-plus-circle"></i>    {{title}}</h4>
         </div>
         <div class='faq-view'>
           <div class="row faq-view1">
@@ -95,7 +95,7 @@
                <h5 class="con heun-content" id="content-{{no}}" data-no='{{no}}'><i class="fas fa-user-minus"></i>&ensp;{{content}}</h5>
              </div>
              <div class="col-2 btn"style='top:70px;margin-bottom: 40px;'>
-               <div style='text-align:right;'>
+               <div style='text-align:right;padding-right:20px;'>
                  <button type="button" class="btn btn-sm btn-secondary riw-write delete-btn" id='delete-btn-{{no}}' data-no='{{no}}'>삭제</button>
                  <button type="button" class='btn btn-sm btn-secondary riw-write update-btn' id='update-btn-{{no}}' data-no='{{no}}'>변경</button>
                </div>
