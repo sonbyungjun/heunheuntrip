@@ -151,8 +151,11 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public int snsadd(Member member) {
-
-    return memberDao.snsinsert(member);
+    if (member.getSns_no() == 1 || member.getSns_no() == 2) {
+      return memberDao.snsinsert(member);
+    } else {
+      return memberDao.fbinsert(member);
+    }
   }
 
   @Override

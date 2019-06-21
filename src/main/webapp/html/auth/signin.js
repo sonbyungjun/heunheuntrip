@@ -3,11 +3,26 @@ $(document).ready(function () {
     $(".heun-header-nav").removeClass("navbar-over absolute-top");
   });
   $("#heun-footer").load("/heunheuntrip/html/footer.html");
+  $(document.body).trigger("facebook");
 })
 
 if (window.localStorage.getItem('email')) {
   document.querySelector('#email').value = localStorage.email;
 }
+
+$('body').on('facebook', function () {
+  $('#face-btn').on('click', function(){
+    FB.login(function(response) {
+      if (response.authResponse) {
+          access_token = response.authResponse.accessToken; //get access token
+          user_id = response.authResponse.userID; //get FB UID
+          checkLoginState();
+      }
+  }, {scope: 'email,public_profile,user_birthday',
+      return_scopes: true});
+
+  })
+})
 
 $("#password").keydown(function(key) {
   if (key.keyCode == 13) {

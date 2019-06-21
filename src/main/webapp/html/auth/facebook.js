@@ -1,5 +1,4 @@
 function autoServerLogin(accessToken) {
-  console.log(accessToken);
   $.getJSON('/heunheuntrip/app/json/auth/fblogin',{
     "accessToken": accessToken
   }, (data) => {
@@ -10,7 +9,6 @@ function autoServerLogin(accessToken) {
 function checkLoginState() {
   FB.getLoginStatus(function(response) { 
     if (response.status === 'connected') { // 로그인이 정상적으로 되었을 때,
-      console.log('왓?');
       autoServerLogin(response.authResponse.accessToken);
 
     } else { // 로그인이 되지 않았을 때,

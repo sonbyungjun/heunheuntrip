@@ -252,6 +252,7 @@ public class MemberController {
     Member loginUser = (Member) session.getAttribute("loginUser");
     HashMap<String,Object> content = new HashMap<>();
     member.setNo(loginUser.getNo());
+    
     if (photo != null) {
       String filename = UUID.randomUUID().toString();
       try {

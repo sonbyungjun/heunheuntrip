@@ -63,9 +63,7 @@ function Loadmemberlist(pn) {
     },
     dataType: 'json',
     success: function (response) {
-    	console.log(response)
-      console.log(val)
-      console.log(selector)
+
         
         pageNo = response.pageNo;
         console.log(tbody);

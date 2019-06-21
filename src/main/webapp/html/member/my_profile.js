@@ -135,7 +135,7 @@ $('#fileupload').fileupload({
 		data.formData = {
 				name: $('.name').val(),
 				email: $('.email').val(),
-				tel: $('.tel').val(),
+				tel: $('#tel').val(),
 				no: window.no
 		};
 	}

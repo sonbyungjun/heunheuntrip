@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,29 +41,39 @@ public class AuthController {
       String name,
       HttpSession session,
       int sns_no,
-      HttpServletResponse response) throws Exception {
+      HttpServletRequest request) throws Exception {
     HashMap<String,Object> content = new HashMap<>();
     Member member = memberService.get(email, password);
+    request.setAttribute("email", email);
     if (member == null) {
       content.put("status", "fail");
-    } else {
+      request.setAttribute("status", "fail");
       content.put("message", "이메일 없거나 암호가 맞지 않습니다.");
+    } else {
       session.setAttribute("loginUser", member);
+      
       content.put("status", "success");
+      request.setAttribute("status", "success");
     }
     return content;
   }
 
   @GetMapping("logout")
-  public Object logout(HttpSession session) throws Exception {
+  public Object logout(HttpSession session,
+      HttpServletRequest request) throws Exception {
 
+    Member loginUser = (Member) session.getAttribute("loginUser");
+    if (loginUser != null) {
+      request.setAttribute("email", loginUser.getEmail());
+    }
     logger.debug("세션 무효화시킴!");
-    logger.debug("loginUser: " + session.getAttribute("loginUser"));
+    logger.debug("loginUser: " + loginUser);
+    
     session.invalidate();
 
     HashMap<String,Object> content = new HashMap<>();
     content.put("status", "success");
-
+    request.setAttribute("status", "success");
     return content;
   }
 
@@ -86,13 +96,11 @@ public class AuthController {
 
   @RequestMapping(value="login", method=RequestMethod.GET)
   public String loginGET() {
-
     return "user/login";
   }
 
   @RequestMapping(value="loginPostNaver", method=RequestMethod.GET)
   public String loginPOSTNaver(HttpSession session) {
-
     return "user/loginPostNaver";
   }
 
@@ -102,21 +110,25 @@ public class AuthController {
       int sns_no,
       String token,
       HttpSession session,
-      HttpServletResponse response) {
+      HttpServletRequest request) {
     HashMap<String,Object> content = new HashMap<>();
    
     if (accessToken(token) == false && sns_no == 1) {
+      request.setAttribute("status", "fail");
       content.put("status", "accessTokenFail");
       content.put("message", "올바르지 않는 토큰입니다.");
       return content;
     } 
 
     Member member = memberService.snsget(email, sns_no);
-
+    request.setAttribute("email", email);
+    
     if (member == null) {
+      request.setAttribute("status", "fail");
       content.put("status", "fail");
       content.put("message", "이메일이 없거나 암호가 맞지 않습니다.");
     } else {
+      request.setAttribute("status", "success");
       session.setAttribute("loginUser", member);
       content.put("status", "success");
     }
@@ -129,7 +141,7 @@ public class AuthController {
   public Object fblogin(
       String accessToken,
       HttpSession session,
-      HttpServletResponse response) throws Exception {
+      HttpServletRequest request) throws Exception {
     // accessToken을 가지고 페이스북 서버에 로그인 사용자의 정보를 요청한다.
     Map fbLoginUser = facebookService.getLoginUser(accessToken);
 
@@ -143,7 +155,7 @@ public class AuthController {
       member.setEmail((String)fbLoginUser.get("email"));
       member.setName((String)fbLoginUser.get("name"));
       member.setPassword(UUID.randomUUID().toString());
-      member.setAuth("1");
+      member.setAuthNo(1);
       member.setSns_no(3);
       String deft ="default.jpeg";
       member.setPhoto(deft);
@@ -151,13 +163,13 @@ public class AuthController {
       // 소셜 사용자 정보를 DBMS에 등록한다.
       memberService.snsadd(member);
     }
-
     session.setAttribute("loginUser", member);
+    request.setAttribute("email", member.getEmail());
 
     HashMap<String, Object> content = new HashMap<>();
     content.put("status", "success");
+    request.setAttribute("status", "success");
     content.put("member", member);
-
     return content;
   }
 
@@ -168,7 +180,6 @@ public class AuthController {
     HashMap<String,Object> content = new HashMap<>();
 
     Member loginUser = (Member) session.getAttribute("loginUser");
-
     if(loginUser != null) {
       content.put("status", "success");
       content.put("auth", loginUser.getAuth());
