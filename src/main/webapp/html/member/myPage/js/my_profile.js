@@ -51,8 +51,6 @@ $('#btn1').on('click', function(e) {
 		tel: $('#tel').val()
 	};
 
-	console.log(data);
-	
 	$.ajax({
 		url: '/heunheuntrip/app/json/member/update',
 		type: 'POST',
@@ -94,7 +92,6 @@ $('#fileupload').fileupload({
 		for (var i = 0; i < data.files.length; i++) {
 			try {
 				if (data.files[i].preview.toDataURL) {
-					console.log(data.files[0].preview.toDataURL);
 					$("<img>").attr('src',
 						data.files[i].preview.toDataURL())
 						.css('width', '100px')
@@ -164,7 +161,10 @@ $('#tel-btn').click(function() {
 	var tel = $('#tel').val();
 
 	if (!tel) {
-		alert('번호를 입력하거나 로그인 해주세요.');
+		Swal.fire({
+			type: 'error',
+			title: '번호를 입력하거나 로그인 해주세요.'
+		})
 		return;
 	}
 
@@ -204,13 +204,18 @@ $(document).on('sms-load', function() {
 	$('#smstel-btn').click(function() {
 		var number = $('#sms-number').val();
 		if (!number) {
-			alert('번호를 입력해주세요.');
+			Swal.fire({
+				type: 'error',
+				title: '번호를 입력하세요.'
+			})
 			return;
 		}
 		$.getJSON('/heunheuntrip/app/json/member/smsConfirm?number=' + number, function(res) {
-			console.log(res);
 			if (res.status === "fail") {
-				alert('인증번호가 틀렸거나 60초가 지났습니다.');
+				Swal.fire({
+					type: 'error',
+					title: '인증번호가 틀렸거나 60초가 지났습니다.'
+				})
 				return;
 			} 
 			$('#sms-tag').html('');

@@ -3,17 +3,13 @@ var menuHeight = $('#menu').outerHeight(),
 	reviewGenerator = Handlebars.compile(templateSrc),
 	templateSrcs = $('#hostProfile-template').html(),
 	hostProfileGenerator = Handlebars.compile(templateSrcs),
-	hprofile = $('.host-profile'),
 	rating = 0,
 	paginateSrc = $('#page-template').html();
 
 
 function roomreview(pn) {
-
 	Handlebars.registerHelper('paginate', paginate);
 	var pageGenerator = Handlebars.compile(paginateSrc);
-
-	console.log(pn)
 	$.ajax({
 		url: '../../app/json/room/review?pageNo=' + pn,
 		type: 'GET',
@@ -22,18 +18,13 @@ function roomreview(pn) {
 		},
 		dataType: 'json',
 		success: function (response) {
-
 			pageNo = response.pageNo;
-
 			//$(reviewGenerator(response)).appendTo(reviewlist);
-
-			console.log(response)
-
 			response.pagination = {
 				page: response.pageNo,
 				pageCount: response.totalPage
 			};
-			
+
 			$('#review').html('');
 			$(reviewGenerator(response)).appendTo($('#review'));
 
@@ -56,7 +47,6 @@ function roomreview(pn) {
 				} else {
 					$('.cont-' + no).hide();
 				}
-
 
 				$('.reply-submit').off('click').on('click', function (e) {
 					Swal.fire({
@@ -256,54 +246,46 @@ function roomreview(pn) {
 
 }
 
-$('body').on('loaded-list', function () {
+function roomProfile() {
+	var hostNo = $('.host-profile').data('no');
+	$.ajax({
+		url: '/heunheuntrip/app/json/member/detail',
+		type: 'GET',
+		data: {
+			no: hostNo
+		},
+		dataType: 'json',
+		success: function (response) {
+			var reviewNo = 0;
+			$.ajax({
+				url: '/heunheuntrip/app/json/riw/countAllHost',
+				type: 'POST',
+				async: false,
+				data: {
+					no: hostNo
+				},
+				dataType: 'json',
+				success: function (response) {
+					reviewNo = response.riwNo;
+				},
+				fail: function (error) {
+				}
+			});
 
+			response.count = reviewNo;
+			$('.host-profile').html('');
+			var general = $(hostProfileGenerator(response));
+			general.appendTo($('.host-profile'));
+
+		},
+		fail: function (error) {
+		}
+	});
+}
+
+$('body').on('loaded-list', function () {
 	roomreview(1);
 	roomProfile();
-
-	function roomProfile() {
-
-		var hostNo = $('.host-profile').data('no');
-
-		$.ajax({
-			url: '../../app/json/member/detail',
-			type: 'GET',
-			data: {
-				no: hostNo
-			},
-			dataType: 'json',
-			success: function (response) {
-
-				var reviewNo = 0;
-
-				$.ajax({
-					url: '../../app/json/riw/countAllHost',
-					type: 'POST',
-					async: false,
-					data: {
-						no: hostNo
-					},
-					dataType: 'json',
-					success: function (response) {
-						reviewNo = response.riwNo;
-					},
-					fail: function (error) {
-					}
-				});
-
-				response.count = reviewNo;
-
-				hprofile.html('');
-				$(hostProfileGenerator(response)).appendTo(hprofile);
-
-			},
-			fail: function (error) {
-			}
-		});
-
-	}
-
-
 
 	$('.riw-update').off('click').on('click', function (e) {
 
@@ -941,6 +923,5 @@ $('body').on('loaded-list', function () {
 			return [valid, _class, _tooltip];
 		}
 	}
-
 
 })

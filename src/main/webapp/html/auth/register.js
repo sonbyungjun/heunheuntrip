@@ -504,6 +504,71 @@ function memberadd() {
 	});
 }
 
+$('#tel-btn').click(function() {
+
+	var tel = $('#tel').val();
+	if (!tel) {
+		Swal.fire({
+			type: 'error',
+			title: '번호를 입력 해주세요.'
+		})
+		return;
+	}
+	$.getJSON('/heunheuntrip/app/json/member/sms?tel=' + tel, function(res) {
+		if (res.status === "fail") {
+			Swal.fire({
+				type: 'error',
+				title: res.message
+			})
+		} else {
+			Swal.fire({
+				type: 'success',
+				title:"인증번호를 보냈습니다!"
+			}).then((result) =>{
+				if(result.value){
+					$('#sms-tag').html('');
+					var tag =	'<div class="row form-group has-feedback in-line">' +
+										'	<div class="col col-lg-8">' +
+										'		<input class="form-control form-control-lg required" type="text" data-name="전화번호" name="tel" id="sms-number" /> ' +
+										'	</div>' +
+										'	<div class="col col-lg-4">' +
+										'		<button type="button" class="btn btn-primary btn-lg" id="smstel-btn">인증하기</button>' +
+										'	</div>' +
+										'</div>';
+					$('#sms-tag').append(tag);
+					$(document).trigger('sms-load');
+				}	
+			});
+		}
+	})
+})
+
+$(document).on('sms-load', function() {
+	$('#smstel-btn').click(function() {
+		var number = $('#sms-number').val();
+		if (!number) {
+			alert('번호를 입력해주세요.');
+			return;
+		}
+		$.getJSON('/heunheuntrip/app/json/member/smsConfirm?number=' + number, function(res) {
+			console.log(res);
+			if (res.status === "fail") {
+				alert('인증번호가 틀렸거나 60초가 지났습니다.');
+				return;
+			} 
+			$('#sms-tag').html('');
+
+			Swal.fire({
+				position: 'center',
+				type: 'success',
+				title: '인증 성공!',
+				showConfirmButton: false,
+				timer: 1500
+			})
+		})
+	})
+
+})
 
 
 
