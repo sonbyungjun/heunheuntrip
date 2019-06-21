@@ -3,7 +3,7 @@ var token = location.href.split('#')[1].split('=')[1].split('&')[0]
 var naverLogin = new naver.LoginWithNaverId(
     {
       clientId: "9GsCl1_fOwukSDhiTmng",
-      callbackUrl: "http://localhost:8080/heunheuntrip/html/auth/callback.html",
+      callbackUrl: "http://team5.bitcamp.co.kr:8080",
       isPopup: false,
       callbackHandle: true
       /* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
