@@ -110,6 +110,10 @@ $("#email").keyup(function () {
 	if (reg.test(email)) {//정규표현식을 통과 한다면
 
 		$.getJSON('../../app/json/member/list',
+		    {
+		  selector : 4,
+		      val : ""
+		    },
 			function (obj) {
 				for (emailcheck of obj.list) {
 					if (emailcheck.email != email) {
@@ -411,7 +415,7 @@ $('#fileupload').fileupload({
 			email: $("#email").val(),
 			password: $("#pwd").val(),
 			name: $("#name").val(),
-			bank: $('.dropdown-toggle').html(),
+			bank: $('#nn').html(),
 			bnk_no: $('#bnk_no').val(),
 			auth: window.auth,
 			ranNo: $('#play').val(),
@@ -469,7 +473,7 @@ function memberadd() {
 			email: $("#email").val(),
 			password: $("#pwd").val(),
 			name: $("#name").val(),
-			bank: $('.dropdown-toggle').html(),
+			bank: $('#nn').html(),
 			bnk_no: $('#bnk_no').val(),
 			auth: window.auth,
 			ranNo: $("#play").val(),

@@ -62,7 +62,7 @@ public class RoomController {
     
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
-
+      System.out.println(loginUser.toString());
       if (loginUser != null) {
         room.setHostNo(loginUser.getNo());
       } else {
