@@ -62,12 +62,15 @@ public class RoomController {
     
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
-      System.out.println(loginUser.toString());
+      
       if (loginUser != null) {
         room.setHostNo(loginUser.getNo());
       } else {
-        // 테스트 코드
-        room.setHostNo(6);
+        throw new Exception("로그인 해주세요!");
+      }
+      
+      if (loginUser.getAuthNo() != 2) {
+        throw new Exception("호스트가 아닙니다!");
       }
 
       for (int c : convenience) {
@@ -90,7 +93,6 @@ public class RoomController {
       room.setSafeties(safes);
       room.setPhotos(roomFiles);
 
-      System.out.println(room);
       roomSerive.add(room);
       content.put("status", "success");
       
@@ -121,28 +123,26 @@ public class RoomController {
       Member loginUser = (Member) session.getAttribute("loginUser");
 
       if (loginUser != null) {
-        System.out.println("loginUser");
         room.setHostNo(loginUser.getNo());
       } else {
-        // 테스트 코드
-        System.out.println("테스트");
-        room.setHostNo(6);
+        throw new Exception("로그인 해주세요!");
+      }
+      
+      if (loginUser.getAuthNo() != 2) {
+        throw new Exception("호스트가 아닙니다!");
       }
 
       for (int c : convenience) {
-        System.out.println("convenience");
         Convenience con = new Convenience();
         con.setNo(c);
         cons.add(con);
       }
       for (int c : safety) {
-        System.out.println("safety");
         Safety safe = new Safety();
         safe.setNo(c);
         safes.add(safe);
       }
       for (String f : files) {
-        System.out.println("files");
         RoomFile file = new RoomFile();
         file.setName(f);
         roomFiles.add(file);
@@ -152,8 +152,6 @@ public class RoomController {
       room.setSafeties(safes);
       room.setPhotos(roomFiles);
 
-      System.out.println(room);
-      roomSerive.update(room);
       content.put("status", "success");
       
     } catch (Exception e) {
