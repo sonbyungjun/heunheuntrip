@@ -142,6 +142,12 @@ public class RoomServiceImpl implements RoomService {
   }
   @Override
   public int update(Room room) {
+    int acti = 0;
+    HashMap<String,Object> params = new HashMap<>();
+    params.put("no", room.getNo());
+    params.put("acti", acti);
+    roomDao.cecoUpdate(params);
+    
     roomDao.amnDelete(room.getNo());
     roomDao.safetyDelete(room.getNo());
     roomFileDao.delete(room.getNo());

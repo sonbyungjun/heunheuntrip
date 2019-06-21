@@ -31,7 +31,7 @@ $('.heun-myPage').on('click', function(e){
       } else if(response.auth == "호스트"){
         location.href='/heunheuntrip/html/member/host_profile.html';
       } else if(response.auth == "관리자"){
-        location.href='/heunheuntrip/html/member/manager_room_ceco.html';
+        location.href='/heunheuntrip/html/member/managerPage/manager_room_ceco.html';
       } else if (response.status == "fail"){
         location.href='/heunheuntrip/html/auth/signin.html';
       }
