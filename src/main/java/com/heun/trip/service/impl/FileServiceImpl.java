@@ -48,7 +48,7 @@ public class FileServiceImpl implements FileService {
   
   @Override
   public int downloadImage(String filename, OutputStream out) {
-    System.out.printf("다운로드 받을려는 이름 : %s\n" + filename);
+    System.out.printf("다운로드 받을려는 이름 : %s\n", filename);
     Region region = Region.AP_NORTHEAST_2;
     S3Client s3 = S3Client.builder().region(region).build();
 
