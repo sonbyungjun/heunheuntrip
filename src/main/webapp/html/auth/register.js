@@ -27,6 +27,7 @@ $(document).ready(function () {
 		} else {
 			window.auth = 2;
 			$('#host').show();
+			$('#bank-labal').show();
 		}
 	})
 })
