@@ -24,7 +24,6 @@ public class DatabaseConfig {
   @Autowired 
   Environment env;
   
-
   public DatabaseConfig() {
     logger.debug("DatabaseConfig 객체 생성...");
   }

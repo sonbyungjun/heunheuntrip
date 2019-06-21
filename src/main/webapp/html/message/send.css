@@ -1,7 +1,54 @@
-@font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype'); } @font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype') } @font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 300; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype'); } .nanumbarungothic * { font-family: 'NanumBarunGothic', sans-serif; }
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 400;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf')
+		format('truetype');
+}
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 700;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf')
+		format('truetype')
+}
+
+@font-face {
+	font-family: 'NanumBarunGothic';
+	font-style: normal;
+	font-weight: 300;
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+	src:
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix')
+		format('embedded-opentype'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff')
+		format('woff'),
+		url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf')
+		format('truetype');
+}
+
+.nanumbarungothic * {
+	font-family: 'NanumBarunGothic', sans-serif;
+}
 
 #heun-message {
-	font-family: 'NanumBarunGothic;
+	font-family: ' NanumBarunGothic;
 }
 
 .text-box {
@@ -17,46 +64,54 @@
 	border-color: white;
 }
 
-.message-box:focus{
-  outline: none;
+.message-box:focus {
+	outline: none;
 }
 
 .button-box {
-	margin: 10px; 
+    margin: 10px 10px 50px 10px;
 	width: 550px;
 	height: 30px;
 }
 
 .house-title {
-    color: #869e9e;
-    font-weight: bold;
+	color: #869e9e;
+	font-weight: bold;
 }
 
 .arrow {
 	background-image: url(../../img/next.svg);
-	background-position: center; 
-  background-size: 50% 50%; 
-  background-repeat: no-repeat;
+	background-position: center;
+	background-size: 50% 50%;
+	background-repeat: no-repeat;
 }
 
-.sid-row{
-	  border-top: 1px solid #ddd;
-	  padding-top: 10px;
+.sid-row {
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
 }
 
-.btn-primary, .btn-primary:focus, .btn-primary:hover, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
-    background-color: #869e9e;
-		border-color: #869e9e;
+.btn-primary, .btn-primary:focus, .btn-primary:hover, .btn-primary:active,
+	.btn-primary:active:hover, .btn-primary:active:focus {
+	background-color: #869e9e;
+	border-color: #869e9e;
 }
 
 .my-arrow {
 	font-size: 15px;
 	color: white;
 	position: relative;
-	background: rgb(17,133,254);
+	background: rgb(17, 133, 254);
 	border-radius: 10px;
 	font-weight: bold;
 }
+
+.my-arrow > textarea {
+	font-size: 15px;
+	color: white;
+	font-weight: bold;
+}
+
 .my-arrow:after {
 	left: 100%;
 	top: 50%;
@@ -67,7 +122,7 @@
 	position: absolute;
 	pointer-events: none;
 	border-color: rgba(21, 105, 199, 0);
-	border-left-color: rgb(17,133,254);
+	border-left-color: rgb(17, 133, 254);
 	border-width: 15px;
 	margin-top: -15px;
 }
@@ -79,6 +134,7 @@
 	border-radius: 10px;
 	font-weight: bold;
 }
+
 .your-arrow:after {
 	right: 100%;
 	top: 50%;
@@ -93,4 +149,15 @@
 	border-width: 15px;
 	margin-top: -15px;
 }
-		
+
+textarea {
+	width: 359px;
+	height: 60px;
+	border: none;
+	background: 0px center;
+	resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
