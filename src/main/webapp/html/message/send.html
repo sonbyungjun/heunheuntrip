@@ -113,14 +113,15 @@
   <script id="message-template" type="text/x-handlebars-template">
     {{#each list}}
       {{#if sort}}
-      <div style="text-align: right">
-        <div style="width: 400px; height: 100px; margin: 20px; padding: 30px; display: inline-block; text-align: left" class="my-arrow">{{content}}<br>
-          <small class="font-size: 14px">{{createdDate}}</small></div>
+      <div style="text-align: right; margin:0px 30px 30px 30px;">
+        <div style="width: 400px; height: 105px; margin: 0px 20px; padding: 10px 20px; display: inline-block; text-align: left" class="my-arrow">
+            <textarea rows=2 spellcheck="false">{{content}}</textarea><small class="font-size: 14px">{{createdDate}}</small></div>
       </div>
       {{else}}
       <div>
-        <img src="/heunheuntrip/app/json/images/down/{{yourphoto}}" width="100px" height="100px" class="rounded-circle" style="display: inline-block; margin-bottom: 20px;">
-        <div style="width: 400px; height: 100px; margin: 20px; padding: 30px; display: inline-block" class="your-arrow">{{content}}<br><small class="font-size: 14px">{{createdDate}}</small></div>
+        <img src="/heunheuntrip/app/json/images/down/{{yourphoto}}" width="100px" height="100px" class="rounded-circle" style="display: inline-block; margin-bottom: 20px; margin-top: -40px;">
+        <div style="width: 400px; height: 105px; margin: 0px 20px; padding: 10px 20px; display: inline-block" class="your-arrow">
+            <textarea rows=2 spellcheck="false">{{content}}</textarea><small class="font-size: 14px">{{createdDate}}</small></div>
       </div>
       {{/if}}
     {{/each}}
