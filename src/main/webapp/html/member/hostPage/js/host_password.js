@@ -100,7 +100,7 @@ function chkValue() {
       $("#n-pwd").hasClass('is-valid')){
     
     $.ajax({
-      url: '../../app/json/auth/user',
+      url: '/heunheuntrip/app/json/auth/user',
       type: 'GET',
       dataType: 'json',
       success: function(response) {
@@ -143,7 +143,7 @@ function errorState(sel) {
 
 function updatepwd() {
   $.ajax({
-    url:'../../app/json/member/updatepwd',
+    url:'/heunheuntrip/app/json/member/updatepwd',
     type:'POST',
     data:{
       password: $("#n-pwd").val()
@@ -156,7 +156,7 @@ function updatepwd() {
       }).then((result) =>{
         if(result.value){
           $.ajax({
-            url:'../../app/json/auth/logout',
+            url:'/heunheuntrip/app/json/auth/logout',
             type:'GET',
             dataType:'json'
           })

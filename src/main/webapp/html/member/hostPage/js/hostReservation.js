@@ -51,7 +51,7 @@ function loadList(pn) {
   
   window.pageNo = $('#pageNo').data('no');
   
-  $.getJSON('../../app/json/rev/listInHostPage?pageNo=' + pn, function(obj) {
+  $.getJSON('/heunheuntrip/app/json/rev/listInHostPage?pageNo=' + pn, function(obj) {
     
     if(obj.status === "success"){
       for(l of obj.list){
@@ -146,7 +146,7 @@ $(document.body).bind('loaded-list', (e) => {
     
     var revNo = $(e.target).data('no');
     
-    $.getJSON('../../app/json/rev/detail?no=' + revNo, function(obj) {
+    $.getJSON('/heunheuntrip/app/json/rev/detail?no=' + revNo, function(obj) {
       
       $('.heun-modal-photo').attr('src', "/heunheuntrip/app/json/images/down/" + obj.rev.thumbnail);
       $('.heun-modal-roomName').html(obj.rev.rmsName);
@@ -180,7 +180,7 @@ $(document.body).bind('loaded-list', (e) => {
       if (result.value) {
         
         $.ajax({
-          url: '../../app/json/rev/deleteInHostpage',
+          url: '/heunheuntrip/app/json/rev/deleteInHostpage',
           type: 'POST',
           data: {
             no : revNo
@@ -219,7 +219,7 @@ $(document.body).bind('loaded-list', (e) => {
     var revReason = $(e.target).attr('data-reas');
     
     // 이전 데이터를 가져온다.
-    $.getJSON('../../app/json/rev/detail?no=' + revUpdateNo, function(obj) {
+    $.getJSON('/heunheuntrip/app/json/rev/detail?no=' + revUpdateNo, function(obj) {
       
       console.log(obj);
       
@@ -250,7 +250,7 @@ $(document.body).bind('loaded-list', (e) => {
         if (result.value) {
           
           $.ajax({
-            url: '../../app/json/rev/change',
+            url: '/heunheuntrip/app/json/rev/change',
             type: 'POST',
             data: {
               no : revNo
@@ -322,7 +322,7 @@ $(document.body).bind('loaded-list', (e) => {
         if (result.value) {
           
           $.ajax({
-            url: '../../app/json/rev/deleteInHostpage',
+            url: '/heunheuntrip/app/json/rev/deleteInHostpage',
             type: 'POST',
             data: {
               no : revNo
@@ -331,7 +331,7 @@ $(document.body).bind('loaded-list', (e) => {
             success: function(response) {
               
               $.ajax({
-                url: '../../app/json/rev/updateCancelSms',
+                url: '/heunheuntrip/app/json/rev/updateCancelSms',
                 type: 'GET',
                 data: {
                   no : revUpdateNo

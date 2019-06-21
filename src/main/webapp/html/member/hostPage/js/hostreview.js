@@ -20,7 +20,7 @@ $(document).ready(function () {
 
 // 내 숙소에 회원이 등록한 리뷰를 가지고옴
 function loadList(pn) {
-  $.getJSON('../../app/json/riw/listhostMypage?pageNo=' + pn, function(obj) {
+  $.getJSON('/heunheuntrip/app/json/riw/listhostMypage?pageNo=' + pn, function(obj) {
     
     if(obj.status === "success"){
       pageNo = obj.pageNo;
@@ -126,7 +126,7 @@ $(document.body).bind('loaded-list', (e) => {
 			
 		
       $.ajax({
-        url: '../../app/json/riw/reply',
+        url: '/heunheuntrip/app/json/riw/reply',
         type: 'POST',
         data: {
           no: no,
@@ -157,7 +157,7 @@ $(document.body).bind('loaded-list', (e) => {
         if(key.keyCode == 13) {
           
           $.ajax({
-            url: '../../app/json/riw/reply',
+            url: '/heunheuntrip/app/json/riw/reply',
             type: 'POST',
             data: {
               no: no,
