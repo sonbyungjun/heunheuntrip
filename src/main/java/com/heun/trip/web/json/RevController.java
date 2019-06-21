@@ -256,7 +256,18 @@ public class RevController {
   public Object deleteInHostPage(int no) {
     HashMap<String,Object> content = new HashMap<>();
     try {
+      Rev rev = revService.detail(no);
+      String impUid = rev.getImpUid();
+      
+      System.out.println(impUid);
+      
+      Map<String, Object> params = new HashMap<>();
+      
+      params.put("imp_uid", impUid);
+      
+      paymentsService.buyCancel(params);
       revService.deleteInHostpage(no);
+      
       content.put("status", "success");
     } catch (Exception e) {
       content.put("fail", "삭제 실패!");

@@ -794,7 +794,7 @@ $('body').on('loaded-list', function () {
 						title: '전화번호를 등록해주세요!'
 					}).then((result) => {
 						if (result.value) {
-							location.href = '/heunheuntrip/html/member/my_profile.html';
+							location.href = '/heunheuntrip/html/member/myPage/my_profile.html';
 							return;
 						}
 					})

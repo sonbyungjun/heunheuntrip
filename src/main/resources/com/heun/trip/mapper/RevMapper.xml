@@ -28,13 +28,13 @@
     
     <result column="name" property="guestName"/>
     <result column="merchant_uid" property="merchantUid"/>
-    <result column="impUid_uid" property="impUid"/>
+    <result column="imp_uid" property="impUid"/>
   </resultMap>
   
   <resultMap type="riw" id="riwMap">
     <id column="riw_id" property="no"/>
     <result column="usr_id" property="userNo"/>
-    <result column="rms_id" property="roomNo"/>
+    <result column="rms_id" property="roomNo"/> 
   </resultMap>
   
   
@@ -108,7 +108,8 @@
      e.rev_updt,
      e.rev_delet,
      s.stus,
-     u.name
+     u.name,
+     e.imp_uid
     from rev e
      left outer join rms r on e.rms_id = r.rms_id
      left outer join usr u on e.usr_id = u.usr_id 
