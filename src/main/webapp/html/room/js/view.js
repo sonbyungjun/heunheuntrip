@@ -807,7 +807,7 @@ $('body').on('loaded-list', function () {
 							type: 'POST',
 							dataType: 'json',
 							data: {
-								rmsNo: param,
+								rmsNo: paramNo,
 								checkIn: $('.heun-h1').val(),
 								checkOut: $('.heun-h2').val(),
 								revPerson: $('#input-m').data('p')

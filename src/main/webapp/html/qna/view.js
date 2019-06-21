@@ -64,7 +64,7 @@ function loadData(no) {
       $('#update-btn').hide();
     }
     
-    if($('#auth').val() != "관리자"){
+    if($('#auth').val() !== "관리자"){
       $('#re-btn').hide();
     }
   });
