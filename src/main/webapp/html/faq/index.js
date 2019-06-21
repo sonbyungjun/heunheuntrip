@@ -1,20 +1,4 @@
-//(function($) {
-//  $.ajax({
-//    url: '/heunheuntrip/app/json/auth/authCheck',
-//    type: 'GET',
-//    dataType: 'json',
-//    success: function (response) {
-//
-//      if(response.auth == "호스트"){
-//    	  
-//      } else {
-//
-//      }
-//    },
-//    error: function (error) {
-//    }
-//  })
-//})(jQuery);
+
 var auth;
 
 $(document).ready(function () {
@@ -34,9 +18,15 @@ var tbody = $('.faq-form'),
 function loadList(pn) {
   $.getJSON('../../app/json/faq/list',
     function (obj) {
-	  auth = obj.member.auth;
+	  if(obj.member == null) {
+		  auth = "비회원";
+	  } else {
+		  auth = obj.member.auth;
+	  }
       tbody.html('');
       $(trGenerator(obj)).appendTo(tbody);
+     
+      
       
       // 데이터 로딩이 완료되면 body 태그에 이벤트를 전송한다.
       $(document.body).trigger('loaded-list');
@@ -49,15 +39,22 @@ function loadList(pn) {
 } // loadList()
 
 $('body').on('loaded-list', function () {
+
 	
-	  if(auth == "일반회원" || auth == "호스트"){
+	
+	  if(auth == "일반회원" || auth == "호스트" ){
 			$('#addview-btn').hide();
 			$('.delete-btn').hide();
 			$('.update-btn').hide();
-		  }else{
+		  } else if (auth =="관리자"){
 				$('#addview-btn').show();
 				$('.btn').show();
+		  }else if(auth=="비회원"){
+				$('#addview-btn').hide();
+				$('.delete-btn').hide();
+				$('.update-btn').hide();
 		  }
+	  
 	
   $('.delete-btn').on('click', function (e) {
     var no = $(e.target).attr('data-no')
@@ -134,6 +131,11 @@ $('body').on('loaded-list', function () {
     	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
          $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
          $('#addview-btn').show();
+         $(this).val('');
+    }else if(auth == "비회원"){
+    	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
+         $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+         $('#addview-btn').hide();
          $(this).val('');
     }
   }); // Bitcamp.getJSON()

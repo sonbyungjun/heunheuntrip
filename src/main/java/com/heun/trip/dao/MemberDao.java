@@ -10,7 +10,11 @@ public interface MemberDao {
   int bankinsert(Map<String,Object> paramMap);
   int snsinsert(Member member);
   int fbinsert(Member member);
-  List<Member> findAll(Map<String,Object> paramMap);
+  List<Member> findAll(Map<String,Object> params);
+  List<Member> namelist(Map<String,Object> params);
+  List<Member> authlist(Map<String,Object> params);
+  List<Member> emaillist(Map<String,Object> params);
+  
   Member findByNo(int no);
   Member findByEmailPassword(Map<String,Object> paramMap);
   Member findByEmailName(Map<String,Object> paramMap);
@@ -20,7 +24,11 @@ public interface MemberDao {
   int profileupdate(Map<String,Object> paramMap);
   int Emailupdate(Member member); 
   int delete(int no);
-  int countAll(String search);
+
   String extractHostTel(int no);
   int findByTel(String tel);
+  int namecountAll(Map<String, Object> params);
+  int emailcountAll(Map<String, Object> params); 
+  int authcountAll(Map<String, Object> params); 
+  int countAll(); 
 }
