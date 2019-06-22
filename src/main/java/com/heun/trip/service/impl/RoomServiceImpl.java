@@ -146,6 +146,7 @@ public class RoomServiceImpl implements RoomService {
     HashMap<String,Object> params = new HashMap<>();
     params.put("no", room.getNo());
     params.put("acti", acti);
+    params.put("msg", "");
     roomDao.cecoUpdate(params);
     
     roomDao.amnDelete(room.getNo());
@@ -192,7 +193,7 @@ public class RoomServiceImpl implements RoomService {
   public int cecoRoomUpdate(int no, String msg) {
     int acti = 0;
     HashMap<String,Object> params = new HashMap<>();
-    if (msg.equals("")) {
+    if (msg.length() < 0) {
       acti = 1;
     } else {
       acti = 2;
