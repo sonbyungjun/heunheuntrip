@@ -876,7 +876,7 @@ $('body').on('loaded-list', function () {
 						title: msg
 					}).then((result) => {
 						if (result.value) {
-							location.href = isVaild ? '/heunheuntrip/html/member/list.html' : '';
+							location.href = isVaild ? '/heunheuntrip/html/member/myPage/list.html' : '';
 							return;
 						}
 					})
