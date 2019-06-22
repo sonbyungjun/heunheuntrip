@@ -143,28 +143,36 @@ $(document.body).bind('loaded-list', () => {
   $('#ceco-no-btn').on('click', function () {
     var no = $(this).attr('data-no')
     var cont = $('#message-text').val()
-    $.ajax({
-      url: '/heunheuntrip/app/json/room/cecoupdate',
-      type: 'POST',
-      data: {
-        no: no,
-        msg: cont
-      },
-      dataType: 'json',
-      success: function (response) {
-        Swal.fire({
-          type: 'success',
-          title: "정상적으로 거절 되었습니다!"
-        }).then((result) => {
-          if (result.value) {
-            location.href = '../manager_room_ceco.html'
-          }
-        })
-      },
-      error: function (error) {
-        alert('시스템 오류가 발생했습니다.');
-      }
-    });
+    var reg = /^[가-힣]{1,30}$/;
+    if (reg.test(cont)) {
+      $.ajax({
+        url: '/heunheuntrip/app/json/room/cecoupdate',
+        type: 'POST',
+        data: {
+          no: no,
+          msg: cont
+        },
+        dataType: 'json',
+        success: function (response) {
+          Swal.fire({
+            type: 'success',
+            title: "정상적으로 거절 되었습니다!"
+          }).then((result) => {
+            if (result.value) {
+              location.href = '../manager_room_ceco.html'
+            }
+          })
+        },
+        error: function (error) {
+          alert('시스템 오류가 발생했습니다.');
+        }
+      });
+    } else {
+      Swal.fire({
+        type: 'error',
+        title: "거절 메세지를 입력해주세요!"
+      })
+    }
   })
 });
 

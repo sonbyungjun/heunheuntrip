@@ -71,10 +71,9 @@ function Loadroomlist(pn) {
         pageNo = response.pageNo;
         form.html('');
         for (l of response.list) {
-          
-          if (l.state === "0") {
+          if (l.state == "0") {
             l.state = true;
-          } else if (l.state === "1") {
+          } else if (l.state == "1") {
             l.state = false;
           } else {
             l.state = false;
