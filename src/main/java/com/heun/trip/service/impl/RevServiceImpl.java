@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
+import com.heun.trip.dao.HostQnaDao;
 import com.heun.trip.dao.RevDao;
 import com.heun.trip.domain.Rev;
 import com.heun.trip.service.RevService;
@@ -16,9 +17,11 @@ import com.heun.trip.service.RevService;
 public class RevServiceImpl implements RevService {
 
   RevDao revDao;
+  HostQnaDao hostQnaDao;
 
-  public RevServiceImpl(RevDao revDao) {
+  public RevServiceImpl(RevDao revDao, HostQnaDao hostQnaDao) {
     this.revDao = revDao;
+    this.hostQnaDao = hostQnaDao;
   }
 
   @Override
@@ -87,6 +90,8 @@ public class RevServiceImpl implements RevService {
 
   @Override
   public int deleteInHostpage(int no) {
+    
+    hostQnaDao.delete(no);
     
     return revDao.deleteInHostpage(no);
   }

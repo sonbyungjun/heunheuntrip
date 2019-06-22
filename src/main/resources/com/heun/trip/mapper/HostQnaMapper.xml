@@ -71,7 +71,7 @@
   
   <delete id="delete" parameterType="int">
     delete from hst_qna 
-    where hst_qna_id = #{no}
+    where rev_id = #{no}
   </delete>
   
     <insert id="insert" parameterType="map">
