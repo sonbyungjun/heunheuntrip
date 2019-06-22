@@ -46,6 +46,7 @@ public class RoomController {
     this.revService = revService;
   }
 
+  @SuppressWarnings("unused")
   @PostMapping("add")
   public Object add(
       Room room, BindingResult result,
@@ -62,6 +63,8 @@ public class RoomController {
     
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
+      System.out.println(loginUser);
+      System.out.println(loginUser.getAuthNo());
       
       if (loginUser != null) {
         room.setHostNo(loginUser.getNo());
@@ -151,7 +154,7 @@ public class RoomController {
       room.setConveniences(cons);
       room.setSafeties(safes);
       room.setPhotos(roomFiles);
-
+      roomSerive.update(room);
       content.put("status", "success");
       
     } catch (Exception e) {
