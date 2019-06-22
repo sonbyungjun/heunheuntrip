@@ -217,6 +217,7 @@
           AS distance
         from
           rms
+          where activation = 1
         HAVING distance <= 10
         ORDER BY rm_chge desc 
       ]]>
@@ -224,6 +225,7 @@
       <when test="lati == null and longi == null">
         from
           rms
+          where activation = 1
         order by
           rm_chge desc
       </when>
@@ -253,6 +255,7 @@
           AS distance
         from
           rms
+          where activation = 1
         HAVING distance <= 10
         ORDER BY rm_chge asc 
       ]]>
@@ -260,6 +263,7 @@
       <when test="lati == null and longi == null">
         from
           rms
+          where activation = 1
         order by
           rm_chge asc
       </when>
@@ -289,6 +293,7 @@
           AS distance
         from
           rms
+          where activation = 1
         HAVING distance <= 10
         ORDER BY 
           grd desc 
@@ -297,6 +302,7 @@
       <when test="lati == null and longi == null">
         from
           rms
+          where activation = 1
         order by
           grd desc
       </when>
@@ -318,11 +324,13 @@
             *cos(radians(lati))*cos(radians(longi)-radians(#{longi}))+sin(radians(#{lati}))*sin(radians(lati))))
           AS distance
         from rms
+        where
+          activation = 1
         HAVING distance <= 10) as a
       ]]>
       </when>
       <when test="lati == null and longi == null">
-        select count(*) from rms
+        select count(*) from rms where activation = 1
       </when>
     </choose>
   </select>
@@ -370,7 +378,7 @@
     left outer join
       rm_photo p on r.rms_id=p.rms_id
     where
-      r.rms_id=#{value}
+      r.rms_id=#{value} and activation = 1
   </select>
   
   <select id="findByHostRoomList" resultMap="roomMap" parameterType="map">
