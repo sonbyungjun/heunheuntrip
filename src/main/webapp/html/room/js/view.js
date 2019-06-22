@@ -867,12 +867,10 @@ $('body').on('loaded-list', function () {
 					} else {
 						//[3] 아직 제대로 결제가 되지 않았습니다.
 						//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-						console.log(rsp)
 						isVaild = false;
 						msg = '이미 예약된 방이거나 서버 오류 입니다!\n관리자에게 문의하세요!';
 					}
 				}).always(function () {
-					console.log(msg)
 					Swal.fire({
 						type: isVaild ? 'success' : 'error',
 						title: msg
