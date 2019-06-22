@@ -69,7 +69,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         "https://api.iamport.kr/payments/cancel", 
         request,
         Map.class);
-//    Map res = (Map) response.get("response");
     return true;
   }
+ 
 }
