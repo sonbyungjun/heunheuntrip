@@ -154,7 +154,7 @@ public class RoomController {
       room.setConveniences(cons);
       room.setSafeties(safes);
       room.setPhotos(roomFiles);
-
+      roomSerive.update(room);
       content.put("status", "success");
       
     } catch (Exception e) {
