@@ -412,7 +412,7 @@ $('.heun-push').click(function () {
           title: msg
         }).then((result) => {
           if (result.value) {
-            location.href = '/heunheuntrip/html/member/hostlist.html';
+            location.href = '/heunheuntrip/html/member/hostPage/hostlist.html';
             return;
           }
         })
