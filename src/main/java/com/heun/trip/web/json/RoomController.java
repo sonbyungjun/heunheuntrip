@@ -46,6 +46,7 @@ public class RoomController {
     this.revService = revService;
   }
 
+  @SuppressWarnings("unused")
   @PostMapping("add")
   public Object add(
       Room room, BindingResult result,
@@ -62,6 +63,8 @@ public class RoomController {
     
     try {
       Member loginUser = (Member) session.getAttribute("loginUser");
+      System.out.println(loginUser);
+      System.out.println(loginUser.getAuthNo());
       
       if (loginUser != null) {
         room.setHostNo(loginUser.getNo());

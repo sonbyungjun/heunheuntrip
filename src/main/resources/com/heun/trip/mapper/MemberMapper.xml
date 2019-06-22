@@ -161,13 +161,14 @@
   
   <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
     select 
-      usr_id,
-      email,
-      name,
-      tel,
-      auth,
-      usr_photo,
-      cdt
+      u.usr_id,
+      u.email,
+      u.name,
+      u.tel,
+      a.auth,
+      u.auth_id,
+      u.usr_photo,
+      u.cdt
     from 
       usr u
     left outer join
@@ -175,8 +176,8 @@
     on
       u.auth_id=a.auth_id
     where 
-      email = #{email}
-      and pwd = password(#{password})
+      u.email = #{email}
+      and u.pwd = password(#{password})
   </select>
   
   <select id="findByEmail" resultMap="memberMap" parameterType="string">
