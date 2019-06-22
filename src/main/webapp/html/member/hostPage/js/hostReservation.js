@@ -151,10 +151,10 @@ $(document.body).bind('loaded-list', (e) => {
       $('.heun-modal-photo').attr('src', "/heunheuntrip/app/json/images/down/" + obj.rev.thumbnail);
       $('.heun-modal-roomName').html(obj.rev.rmsName);
       $('.heun-modal-addr').html("<i class='fas fa-map-marker-alt'></i>      " + obj.rev.address);
-      $('.heun-modal-charge').html("<i class='fas fa-won-sign'></i>      " + AddComma(obj.rev.revCharge));
+      $('.heun-modal-charge').html("<i class='fas fa-won-sign'></i>      " + AddComma(obj.rev.revCharge) + "원");
       $('.heun-h1').val(obj.rev.checkIn);
       $('.heun-h2').val(obj.rev.checkOut);
-      $('.heun-modal-person').text("    게스트 " + obj.rev.revPerson + "명");
+      $('.heun-modal-person').html("<i class='fas fa-user'></i>    게스트 " + obj.rev.revPerson + "명");
       $('.heun-modal-name').text(obj.rev.guestName + "님의 예약");
       
     }); 

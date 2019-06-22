@@ -384,18 +384,23 @@ public class RevController {
     Rev rev = (Rev) info.get("rev");
     rev.setStusNo(1);
     rev.setImpUid(imp_uid);
-
-    boolean isbuyCheck = paymentsService.buyCheck(info);
-    boolean isAdd = false;
-    if (isbuyCheck) {
-      isAdd = revService.add(rev);
-    } 
-
-    if (isbuyCheck && isAdd) {
-      content.put("status", "success");
-    } else {
-      paymentsService.buyCancel(info);
+    
+    try {
+      boolean isbuyCheck = paymentsService.buyCheck(info);
+      boolean isAdd = false;
+      if (isbuyCheck) {
+        isAdd = revService.add(rev);
+      } 
+      if (isbuyCheck && isAdd) {
+        content.put("status", "success");
+      } else {
+        paymentsService.buyCancel(info);
+        throw new Exception();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
       content.put("status", "fail");
+      content.put("message", e.getMessage());
     }
 
     return content;
