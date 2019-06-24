@@ -198,7 +198,7 @@ public class RoomServiceImpl implements RoomService {
   public int cecoRoomUpdate(int no, String msg) {
     int acti = 0;
     HashMap<String,Object> params = new HashMap<>();
-    if (msg.length() < 0) {
+    if (msg.equals("")) {
       acti = 1;
     } else {
       acti = 2;

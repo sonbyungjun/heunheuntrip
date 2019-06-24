@@ -143,7 +143,7 @@ $(document.body).bind('loaded-list', () => {
   $('#ceco-no-btn').on('click', function () {
     var no = $(this).attr('data-no')
     var cont = $('#message-text').val()
-    var reg = /^[가-힣]{1,30}$/;
+    var reg = /^[가-힣]{3,30}$/;
     if (reg.test(cont)) {
       $.ajax({
         url: '/heunheuntrip/app/json/room/cecoupdate',
@@ -170,7 +170,8 @@ $(document.body).bind('loaded-list', () => {
     } else {
       Swal.fire({
         type: 'error',
-        title: "거절 메세지를 입력해주세요!"
+        title: "거절 메세지를 입력해주세요!",
+        text: "거절메세지는 1~30글자사이로 입력해주세요"
       })
     }
   })
@@ -190,7 +191,7 @@ $(document.body).bind('loaded-list', (e) => {
 function detail(rno){
 
   $.ajax({
-    url: '/heunheuntrip/app/json/room/detail',
+    url: '/heunheuntrip/app/json/room/hostroomdetail',
     type: 'GET',
     data: {
       no:rno
