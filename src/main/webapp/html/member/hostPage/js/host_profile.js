@@ -92,7 +92,7 @@ $('#fileupload').fileupload({
       title: " 변경  !"
     }).then((result) => {
       if (result.value) {
-        location.href = '../host_profile.html'
+        location.href = '../hostPage/host_profile.html'
       }
     })
   }
@@ -195,7 +195,7 @@ function update() {
     dataType: 'json',
     success: function (response) {
       if (response.status == 'success') {
-        location.href = '../host_profile.html';
+        location.href = '../hostPage/host_profile.html';
       } else {
         Swal.fire({
           type: 'error',
