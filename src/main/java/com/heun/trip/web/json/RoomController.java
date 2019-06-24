@@ -187,6 +187,7 @@ public class RoomController {
         if (isMain) {
           try {
             fileService.uploadImageThumbnail(f.getInputStream(), 530, 375, filename + "_thum");
+            fileService.uploadImageThumbnail(f.getInputStream(), 580, 386, filename + "_veiwthum");
             content.put("thumbnail", filename + "_thum");
           } catch(Exception e) {
             e.printStackTrace();
