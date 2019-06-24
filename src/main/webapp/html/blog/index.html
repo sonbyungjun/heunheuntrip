@@ -15,6 +15,7 @@
   <link href="../../lib/aos/aos.css" rel="stylesheet">
   <link href="../../lib/Magnific-Popup/magnific-popup.css" rel="stylesheet">
   <link href="../../css/style.css" rel="stylesheet">
+  <link href="../../css/hover.css" rel="stylesheet" media="all">
   <link href="../../css/colors/blue.css" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
   <link href="https://fonts.googleapis.com/css?family=Pacifico|ZCOOL+XiaoWei&display=swap&subset=cyrillic" rel="stylesheet">
@@ -37,6 +38,9 @@
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d91f3d18bd10e8cd72b2f2827dea9f7c&libraries=services"></script>
     
   <style>
+  @import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+  @import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css); .jejumyeongjo * { font-family: 'Jeju Myeongjo', serif; }
+  
  .mb50 {
     margin-bottom: 10px !important;
   }
@@ -63,7 +67,7 @@
     <div id="content-blog">
       <div class="container">
         <div class="heun-btitle">
-        <h1>H2EUN TRIP BLOG</h1>
+        <h1 style="font-family: 'Pacifico', cursive;">Heun's Trip Blog</h1>
         <span>흔하지만 흔하지않은 여행 블로그</span>
         </div>
         <div class='row main-btn justify-content-between'>
@@ -80,7 +84,7 @@
          </div>
 
           <div class="col-auto">
-            <a href='view.html' class="btn btn-primary btn check-btn">새 포스트</a>
+            <a href='view.html' class="btn btn-new btn check-btn hvr-fade">새 포스트</a>
           </div>
 
         </div>
@@ -109,7 +113,7 @@
           </a>
         </div>
         <div class='blog-list-info'>
-          <h3 class='item-title'>{{title}}</h3>
+          <h3 class='item-title' style="font-family: 'Jeju Myeongjo', serif; color: #545454">{{title}}</h3>
 
           <div class='item-meta-info'>
           <span class='date'>{{createdDate}}</span><br>
