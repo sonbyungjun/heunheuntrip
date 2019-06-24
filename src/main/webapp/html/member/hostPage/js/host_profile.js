@@ -185,7 +185,7 @@ $(document).on('sms-load', function() {
 function update() {
   var data = {
       name: $('.name').val(),
-      tel: $('.tel').val()
+      tel: $('#tel').val()
     };
   
   $.ajax({
