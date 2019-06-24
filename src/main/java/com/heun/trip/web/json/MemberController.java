@@ -225,11 +225,11 @@ public class MemberController {
     member.setNo(loginUser.getNo());
 
     HashMap<String,Object> content = new HashMap<>();
-    System.out.println(session.getAttribute("pass"));
-
     try {
-      if (member.getTel().length() > 0 && !(boolean) session.getAttribute("pass") || session.getAttribute("pass") == null) {
-        throw new Exception("인증이 되지 않았습니다.");
+      if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
+        if (!(boolean) session.getAttribute("pass") || session.getAttribute("pass") == null) {
+          throw new Exception("인증이 되지 않았습니다.");
+        }
       }
       if (memberService.update(member) > 0) {
         member = memberService.get(loginUser.getNo());

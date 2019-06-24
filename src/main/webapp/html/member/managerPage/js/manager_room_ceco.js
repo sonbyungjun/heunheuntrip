@@ -59,10 +59,8 @@ function Loadroomlist(pn) {
     },
     dataType: 'json',
     success: function (response) {
-      console.log(response)
       pageNo = response.pageNo;
       form.html('');
-      console.log(response)
       if(response.status === "success"){
         response.pagination = {
             page: response.pageNo,
@@ -77,8 +75,7 @@ function Loadroomlist(pn) {
         form.html("<div class='row justify-content-md-center'>" +
             "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
                "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
-                 "<h5 class='main-title centered'><span>등록한 숙소가 없습니다.</span></h5>" +
-                   "</div>" +
+                 "<h5 class='main-title centered'><span>승인 요청한 숙소가 없습니다.</span></h5>" +
                  "</div>" +
                "</div>");
       }
@@ -115,7 +112,7 @@ $(document.body).bind('loaded-list', () => {
               title: "정상적으로 승인 되었습니다!"
             }).then((result) => {
               if (result.value) {
-                location.href = '../manager_room_ceco.html'
+                location.href = '../managerPage/manager_room_ceco.html'
               }
             })
           },
@@ -142,7 +139,6 @@ $(document.body).bind('loaded-list', () => {
   $('.ceco-no').on('click', function () {
     var no = $(this).attr('data-no')
     var name = $(this).attr('data-name');
-    console.log(no)
     $('#ceco-name').text("숙소명 :" + " " + name)
     $('#message-text').val('')
     $('#ceco-no-btn').attr('data-no', no)
@@ -155,7 +151,7 @@ $(document.body).bind('loaded-list', () => {
     var no = $(this).attr('data-no')
     var cont = $('#message-text').val()
     var reg = /^[가-힣]{3,30}$/;
-    if (reg.test(cont)) {
+    if (reg.test(cont) || cont != "") {
       $.ajax({
         url: '/heunheuntrip/app/json/room/cecoupdate',
         type: 'POST',
@@ -170,7 +166,7 @@ $(document.body).bind('loaded-list', () => {
             title: "정상적으로 거절 되었습니다!"
           }).then((result) => {
             if (result.value) {
-              location.href = '../manager_room_ceco.html'
+              location.href = '../managerPage/manager_room_ceco.html'
             }
           })
         },

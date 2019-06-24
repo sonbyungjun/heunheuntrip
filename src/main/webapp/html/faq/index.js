@@ -120,7 +120,7 @@ $('body').on('loaded-list', function () {
       
       tag.css('display', '');
       
-      $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'blue')
+      $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', '#3b8ced')
       $('#addview-btn').hide();
     } else if(auth == "일반회원" || auth == "호스트"){
 	   $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
@@ -134,7 +134,7 @@ $('body').on('loaded-list', function () {
          $(this).val('');
     }else if(auth == "비회원"){
     	 $(this).parents('.faq-pa').find('.faq-view').find('div').css('display', 'none');
-         $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')
+         $(this).parents('.faq-pa').find('.faq-list').find('.title').css('color', 'black')  
          $('#addview-btn').hide();
          $(this).val('');
     }
