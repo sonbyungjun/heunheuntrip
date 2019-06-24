@@ -113,6 +113,11 @@ public class RoomServiceImpl implements RoomService {
   }
   
   @Override
+  public Room roomGet(int no) {
+    return roomDao.findByRoom(no);
+  }
+  
+  @Override
   public List<Room> hostroomlist(int pageNo, int pageSize,int hostNo) {
     HashMap<String,Object> params = new HashMap<>();
     params.put("no", hostNo);

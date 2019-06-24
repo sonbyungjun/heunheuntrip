@@ -20,6 +20,7 @@ public interface RoomDao {
   List<Room> findrpriceAll(Map<String,Object> paramMap);
   List<Room> findhotAll(Map<String,Object> paramMap);
   Room findByNo(int no);
+  Room findByRoom(int no);
   List<Room> findByHostRoomList(Map<String,Object> paramMap);
   List<Room> findByCecoRoomList(Map<String,Object> paramMap);
 //  Member findByEmailPassword(Map<String,Object> paramMap);

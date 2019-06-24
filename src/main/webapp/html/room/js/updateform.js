@@ -476,7 +476,7 @@ function comma(x) {
 function detail(rno){
 
 	$.ajax({
-		url: '../../app/json/room/detail',
+		url: '../../app/json/room/hostroomdetail',
 		type: 'GET',
 		data: {
 			no:rno

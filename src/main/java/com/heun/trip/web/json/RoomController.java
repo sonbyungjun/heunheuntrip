@@ -265,6 +265,13 @@ public class RoomController {
     return room;
   }
   
+  @GetMapping("hostroomdetail")
+  public Object hostroomdetail(int no) {
+    Room room = roomSerive.roomGet(no);
+    System.out.println(room);
+    return room;
+  }
+  
 
   @GetMapping("hostroom")
   public Object hostroom(

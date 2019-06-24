@@ -13,6 +13,7 @@ public interface RoomService {
   int hostsize(int no);
   int cecoRoomsize(int no);
   Room get(int no);
+  Room roomGet(int no);
   List<Room> hostroomlist(int pageNo, int pageSize,int hostNo);
   List<Room> cecoRoomlist(int pageNo, int pageSize,int no);
   int add(Room room);

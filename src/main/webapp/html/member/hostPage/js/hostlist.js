@@ -176,7 +176,7 @@ $(document.body).bind('loaded-list', (e) => {
 function detail(rno){
 
   $.ajax({
-    url: '/heunheuntrip/app/json/room/detail',
+    url: '/heunheuntrip/app/json/room/hostroomdetail',
     type: 'GET',
     data: {
       no:rno
