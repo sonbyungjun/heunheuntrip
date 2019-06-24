@@ -115,7 +115,7 @@ $(document.body).bind('loaded-list', () => {
               title: "정상적으로 승인 되었습니다!"
             }).then((result) => {
               if (result.value) {
-                location.href = '../manager_room_ceco.html'
+                location.href = '../managerPage/manager_room_ceco.html'
               }
             })
           },
@@ -170,7 +170,7 @@ $(document.body).bind('loaded-list', () => {
             title: "정상적으로 거절 되었습니다!"
           }).then((result) => {
             if (result.value) {
-              location.href = '../manager_room_ceco.html'
+              location.href = '../managerPage/manager_room_ceco.html'
             }
           })
         },
