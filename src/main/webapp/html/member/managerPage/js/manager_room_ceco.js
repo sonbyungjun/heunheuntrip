@@ -77,8 +77,7 @@ function Loadroomlist(pn) {
         form.html("<div class='row justify-content-md-center'>" +
             "<div class='col col-lg-8' style='margin-top: 20px; color: #777777'>" +
                "<div class='error-template text-center'> <i class='fas fa-exclamation-triangle fa-5x text-success mb50 animated zoomIn'></i>" +
-                 "<h5 class='main-title centered'><span>등록한 숙소가 없습니다.</span></h5>" +
-                   "</div>" +
+                 "<h5 class='main-title centered'><span>승인 요청한 숙소가 없습니다.</span></h5>" +
                  "</div>" +
                "</div>");
       }
