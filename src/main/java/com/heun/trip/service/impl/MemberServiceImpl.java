@@ -61,9 +61,11 @@ public class MemberServiceImpl implements MemberService {
 
     if (member.getName().length() > 0 && !member.getName().equals(loginUser.getName())) {
       params.put("name", member.getName());
+      return memberDao.update(params);
     }
     if (member.getTel().length() > 0 && !member.getTel().equals(loginUser.getTel())) {
       params.put("tel", member.getTel());
+      return memberDao.update(params);
     } 
     if (member.getName().length() <= 0 && member.getName().equals(loginUser.getName()) &&
         member.getTel().length() <= 0 && member.getTel().equals(loginUser.getTel())) {
