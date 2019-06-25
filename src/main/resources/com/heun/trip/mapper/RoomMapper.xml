@@ -179,7 +179,7 @@
           rms
         where
           activation = 1
-        HAVING distance <= 10
+        HAVING distance <= 5
         ORDER BY distance 
       ]]>
       </when>
@@ -218,7 +218,7 @@
         from
           rms
           where activation = 1
-        HAVING distance <= 10
+        HAVING distance <= 5
         ORDER BY rm_chge desc 
       ]]>
       </when>
@@ -256,7 +256,7 @@
         from
           rms
           where activation = 1
-        HAVING distance <= 10
+        HAVING distance <= 5
         ORDER BY rm_chge asc 
       ]]>
       </when>
@@ -294,7 +294,7 @@
         from
           rms
           where activation = 1
-        HAVING distance <= 10
+        HAVING distance <= 5
         ORDER BY 
           grd desc 
       ]]>
@@ -326,7 +326,7 @@
         from rms
         where
           activation = 1
-        HAVING distance <= 10) as a
+        HAVING distance <= 5) as a
       ]]>
       </when>
       <when test="lati == null and longi == null">
