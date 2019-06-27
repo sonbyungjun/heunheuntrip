@@ -487,13 +487,14 @@ function closeOverlay() {
 function openOverlay(marker, overlay, map) {
   return function() {
     closeOverlay();
-    var position = overlay.getPosition();
-    var moveLatLon = new daum.maps.LatLng(position.jb, position.ib);
+    // var position = overlay.getPosition();
+    // console.log(position.jb, position.ib);
+    // var moveLatLon = new daum.maps.LatLng(position.jb, position.ib);
     var imageSrc = "/heunheuntrip/images/marker_place.png";
     var imageSize = new daum.maps.Size(31, 44);
     var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
     marker.setImage(markerImage);
-    map.panTo(moveLatLon);
+    // map.panTo(moveLatLon);
     overlay.setMap(map);
   }
 }

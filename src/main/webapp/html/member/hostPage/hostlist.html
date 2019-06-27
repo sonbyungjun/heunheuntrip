@@ -149,9 +149,9 @@
                         {{#if state}}
                         <li>승인 여부<span>미승인</span></li>
                            {{else if restate}}
-                        <li data-toggle="modal" data-target="#cecoform">승인 여부<span data-toggle="tooltip" data-placement="top" title="승인 거절 이유를 확인하실려면 클릭해주세요" class="cece-no-msg"  data-msg="{{rjmo}}" style="color: red;">
-                                    <i class="fas fa-ban"  style=" margin-right: 3px;"></i>
-                                    승인 거절</span></li>
+                        <li data-toggle="modal" data-target="#cecoform">승인 여부<span data-toggle="tooltip" data-placement="top" title="승인 거절 이유를 확인하실려면 클릭해주세요" class="cece-no-msg"  data-msg="{{rjmo}}"  style="color: red;">
+                                    <i class="fas fa-ban"  style="margin-right: 3px;"></i>
+                                    <a href="#" style="color: red;">승인 거절</a></span></li>
                             {{else}}
                                 <li>승인 여부<span>승인</span></li>
                         {{/if}}
