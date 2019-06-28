@@ -486,7 +486,7 @@ function closeOverlay() {
 
 function openOverlay(marker, overlay, map) {
   return function() {
-    closeOverlay();
+    closeOverlay(); 
     // var position = overlay.getPosition();
     // console.log(position.jb, position.ib);
     // var moveLatLon = new daum.maps.LatLng(position.jb, position.ib);
