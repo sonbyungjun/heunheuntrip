@@ -16,7 +16,7 @@ public class RiwServiceImpl implements RiwService {
   public RiwServiceImpl(RiwDao riwDao ) {
     this.riwDao = riwDao;
   }
-
+ 
   @Override
   public List<Riw> roomreview(int no, int pageNo, int pageSize) {
     HashMap<String,Object> params = new HashMap<>();
