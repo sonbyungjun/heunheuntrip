@@ -188,10 +188,13 @@ function closeOverlay() {
 function openOverlay(marker, overlay, map) {
   return function () {
     closeOverlay();
+    var position = overlay.getPosition();
+    var moveLatLon = new daum.maps.LatLng(position.Ga, position.Fa);
     var imageSrc = "/heunheuntrip/images/marker_place.png";
     var imageSize = new daum.maps.Size(31, 44);
     var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize);
     marker.setImage(markerImage);
+    map.panTo(moveLatLon);
 
     overlay.setMap(map);
   }
