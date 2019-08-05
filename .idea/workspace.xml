@@ -6,7 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c20eb05e-4424-424a-941a-fb9d63d4b052" name="Default Changelist" comment="" />
+    <list default="true" id="c20eb05e-4424-424a-941a-fb9d63d4b052" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/heun/trip/dao/BlogDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/heun/trip/dao/BlogDao.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +264,7 @@
       <option name="presentableId" value="Default" />
       <updated>1562771076474</updated>
       <workItem from="1562771077962" duration="670000" />
-      <workItem from="1564674085139" duration="294000" />
+      <workItem from="1564674085139" duration="552000" />
     </task>
     <servers />
   </component>
